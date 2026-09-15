@@ -1,0 +1,329 @@
+.pagina-editar-perfil {
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  padding: 48px;
+  background: #232323;
+  color: #000;
+}
+
+.cartao-editar-perfil {
+  display: grid;
+  width: min(1210px, 100%);
+  min-height: 782px;
+  grid-template-columns: minmax(0, 571px) minmax(320px, 380px);
+  align-items: center;
+  gap: 111px;
+  padding: 25px 29px 17px;
+  transform: translate(-6px, -2px);
+  border-radius: 29px;
+  background: #fff;
+}
+
+.foto-editar-perfil {
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  max-height: 740px;
+  aspect-ratio: 571 / 740;
+}
+
+.foto-editar-perfil_recorte {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #edf4f3;
+}
+
+.foto-editar-perfil_recorte img {
+  position: absolute;
+  top: -19.32%;
+  left: -24.17%;
+  width: 252.19%;
+  max-width: none;
+  height: auto;
+}
+
+.botao-editar-foto {
+  position: absolute;
+  right: -12px;
+  bottom: -6px;
+  z-index: 1;
+  display: grid;
+  width: 59px;
+  height: 60px;
+  place-items: center;
+  border-radius: 11px;
+  background-image: url("../assets/referencia-editar-perfil.png");
+  background-position: -662px -829px;
+  background-size: 1440px 1024px;
+  cursor: pointer;
+}
+
+.botao-editar-foto:hover {
+  filter: brightness(0.95);
+}
+
+.botao-editar-foto:focus-within {
+  outline: 3px solid rgba(75, 184, 203, 0.35);
+  outline-offset: 3px;
+}
+
+.entrada-foto-perfil,
+.texto-acessivel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.formulario-editar-perfil {
+  width: 380px;
+}
+
+.formulario-editar-perfil h1 {
+  margin: 0 0 34px;
+  transform: translateY(-4px);
+  font-size: 2.5rem;
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.campo-editar-perfil {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.campo-editar-perfil label {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.campo-editar-perfil input {
+  width: 100%;
+  height: 39px;
+  border: 1px solid #d3d3d3;
+  border-radius: 10px;
+  padding: 0 15px;
+  outline: none;
+  background: #fff;
+  color: #858585;
+  font: inherit;
+  font-size: 1rem;
+}
+
+.campo-editar-perfil input:focus {
+  border-color: #4bb8cb;
+  box-shadow: 0 0 0 3px rgba(75, 184, 203, 0.16);
+}
+
+.botao-concluir-edicao {
+  width: 100%;
+  height: 39px;
+  margin-top: 37px;
+  border: 0;
+  border-radius: 9px;
+  background: #4bb5c8;
+  box-shadow: 0 8px 19px rgba(63, 178, 199, 0.28);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.95rem;
+}
+
+.botao-concluir-edicao:hover {
+  background: #3caabd;
+}
+
+.fundo-modal-edicao {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #232323;
+}
+
+.modal-edicao {
+  position: relative;
+  display: flex;
+  width: min(434px, 100%);
+  height: 279px;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(35px);
+  border-radius: 20px;
+  background: #fff;
+  text-align: center;
+}
+
+.modal-edicao h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.18;
+}
+
+.modal-edicao p {
+  margin: 14px 0 0;
+  color: #aaa;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.modal-edicao_sucesso h2,
+.modal-edicao_saida h2 {
+  margin-top: 80px;
+}
+
+.modal-edicao_confirmacao h2 {
+  margin-top: 69px;
+}
+
+.modal-edicao_confirmacao p {
+  margin-top: 4px;
+}
+
+.modal-edicao_icone {
+  position: absolute;
+  display: block;
+  background-repeat: no-repeat;
+}
+
+.modal-edicao_icone-sucesso {
+  top: -63px;
+  left: 147px;
+  width: 140px;
+  height: 140px;
+  background-image: url("../assets/referencia-popup-sucesso.png");
+  background-position: -650px -345px;
+  background-size: 1440px 1024px;
+}
+
+.modal-edicao_icone-confirmacao,
+.modal-edicao_icone-saida {
+  top: -48px;
+  left: 157px;
+  width: 120px;
+  height: 120px;
+  background-image: url("../assets/referencia-popup-confirmacao.png");
+  background-position: -660px -360px;
+  background-size: 1440px 1024px;
+}
+
+.botao-modal {
+  height: 44px;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 7px 18px rgba(54, 184, 207, 0.25);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.95rem;
+}
+
+.botao-modal_concluir {
+  width: 285px;
+  margin-top: 32px;
+  background: #4bb5c8;
+}
+
+.acoes-modal-edicao {
+  display: grid;
+  width: 279px;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 30px;
+}
+
+.botao-modal_sim {
+  background: #ed2f35;
+  box-shadow: 0 7px 18px rgba(237, 47, 53, 0.24);
+}
+
+.botao-modal_nao {
+  background: #4bb5c8;
+}
+
+.modal-edicao_saida .acoes-modal-edicao {
+  margin-top: 32px;
+}
+
+.botao-modal_concluir:hover,
+.botao-modal_nao:hover {
+  background: #3caabd;
+}
+
+.botao-modal_sim:hover {
+  background: #d9272d;
+}
+
+@media (max-width: 1120px) {
+  .cartao-editar-perfil {
+    gap: clamp(50px, 7vw, 90px);
+  }
+}
+
+@media (max-width: 880px) {
+  .pagina-editar-perfil {
+    padding: 32px 20px;
+  }
+
+  .cartao-editar-perfil {
+    grid-template-columns: minmax(0, 460px);
+    justify-content: center;
+    gap: 54px;
+    padding: 28px 28px 54px;
+    transform: none;
+  }
+
+  .foto-editar-perfil {
+    justify-self: center;
+  }
+
+  .formulario-editar-perfil {
+    width: 100%;
+    transform: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .pagina-editar-perfil {
+    padding: 0;
+    background: #fff;
+  }
+
+  .cartao-editar-perfil {
+    min-height: 100svh;
+    gap: 40px;
+    padding: 20px 20px 48px;
+    border-radius: 0;
+  }
+
+  .foto-editar-perfil {
+    width: calc(100% - 12px);
+  }
+
+  .formulario-editar-perfil h1 {
+    transform: none;
+    font-size: 2rem;
+  }
+
+  .modal-edicao {
+    height: 270px;
+    transform: none;
+  }
+
+  .modal-edicao_icone-sucesso,
+  .modal-edicao_icone-confirmacao {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
