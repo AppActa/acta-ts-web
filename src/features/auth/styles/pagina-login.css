@@ -1,0 +1,386 @@
+.pagina-login {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 32px 39px 26px;
+  background: #fff;
+  color: #050505;
+}
+
+.layout-login {
+  display: grid;
+  width: 100%;
+  min-height: calc(100vh - 58px);
+  grid-template-columns: 1fr 1fr;
+}
+
+.painel-marca {
+  display: flex;
+  min-height: 640px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 35px 37px 39px;
+  border-radius: 29px;
+  background:
+    radial-gradient(circle at 8% 94%, rgba(223, 250, 250, 0.95), transparent 43%),
+    linear-gradient(145deg, #87e3e7 0%, #55c7d3 49%, #a9d8e3 100%);
+}
+
+.painel-marca_logo {
+  width: 60px;
+  height: 60px;
+}
+
+.painel-marca_mensagem {
+  display: grid;
+  max-width: 440px;
+  gap: 5px;
+  margin: 0;
+  font-size: clamp(2rem, 2.5vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+.painel-marca_mensagem span {
+  font-weight: 400;
+}
+
+.painel-marca_mensagem strong {
+  max-width: 390px;
+  font-weight: 700;
+}
+
+.conteudo-login {
+  align-self: center;
+  justify-self: center;
+  width: min(100%, 380px);
+  margin-left: 12px;
+}
+
+.cabecalho-login h1 {
+  margin: 0 0 21px;
+  font-size: 2.5rem;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.cabecalho-login p {
+  margin: 0;
+  color: #999;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+}
+
+.cabecalho-login_erro {
+  margin: 10px 0 3px !important;
+  color: #ed6259 !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  text-align: center;
+}
+
+.formulario-login {
+  display: grid;
+  gap: 0;
+}
+
+.formulario-login label {
+  margin-bottom: 8px;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.formulario-login input {
+  width: 100%;
+  height: 39px;
+  padding: 0 12px;
+  border: 1px solid #d5d5d5;
+  border-radius: 9px;
+  outline: none;
+  background: #fff;
+  color: #111;
+  font: inherit;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.formulario-login input:focus {
+  border-color: #48b3c6;
+  box-shadow: 0 0 0 3px rgba(72, 179, 198, 0.18);
+}
+
+.formulario-login input + label {
+  margin-top: 27px;
+}
+
+.formulario-login_botao {
+  height: 39px;
+  margin-top: 24px;
+  border: 0;
+  border-radius: 9px;
+  background: #48b3c6;
+  box-shadow: 0 8px 18px rgba(72, 179, 198, 0.28);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 500;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.formulario-login_botao:hover {
+  background: #329fb3;
+}
+
+.formulario-login_botao:active {
+  transform: translateY(1px);
+}
+
+.divisor-login {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 268px;
+  margin: 32px auto 27px;
+  color: #9b9b9b;
+  font-size: 0.875rem;
+}
+
+.divisor-login::before,
+.divisor-login::after {
+  height: 1px;
+  flex: 1;
+  background: #929292;
+  content: "";
+}
+
+.botao-login-google {
+  display: flex;
+  width: 100%;
+  height: 39px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #d5d5d5;
+  border-radius: 9px;
+  background: #fff;
+  color: #9a9a9a;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+.botao-login-google:hover {
+  border-color: #aaa;
+  background: #fafafa;
+}
+
+.botao-login-google img {
+  width: 21px;
+  height: 21px;
+}
+
+.esqueci-senha {
+  display: block;
+  width: fit-content;
+  margin: 34px auto 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #999;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  font: inherit;
+  text-underline-offset: 2px;
+}
+
+.modal-recuperar_overlay {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(8px);
+}
+
+.modal-recuperar {
+  position: relative;
+  width: min(100%, 582px);
+  min-height: 526px;
+  padding: 133px 101px 127px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.24);
+}
+
+.modal-recuperar_fechar {
+  display: none;
+}
+
+.modal-recuperar h2 {
+  margin: 0 0 12px;
+  font-size: 2.25rem;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+.modal-recuperar_descricao {
+  margin: 0 0 34px;
+  color: #999;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.modal-recuperar_formulario {
+  display: grid;
+}
+
+.modal-recuperar_formulario label {
+  margin-bottom: 8px;
+  font-size: 1.125rem;
+}
+
+.modal-recuperar_erro {
+  margin: 0 0 7px;
+  color: #ed6259;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+}
+
+.modal-recuperar_formulario input {
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid #d5d5d5;
+  border-radius: 19px;
+  outline: none;
+  font: inherit;
+}
+
+.modal-recuperar_formulario input:focus {
+  border-color: #48b3c6;
+  box-shadow: 0 0 0 3px rgba(72, 179, 198, 0.18);
+}
+
+.modal-recuperar_formulario .formulario-login_botao {
+  height: 38px;
+  margin-top: 31px;
+  border-radius: 19px;
+  font-size: 0.875rem;
+}
+
+.formulario-login_botao:focus-visible,
+.botao-login-google:focus-visible,
+.esqueci-senha:focus-visible {
+  outline: 3px solid rgba(72, 179, 198, 0.45);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1100px) {
+  .layout-login {
+    width: min(94%, 980px);
+    grid-template-columns: minmax(350px, 1fr) minmax(390px, 1fr);
+  }
+
+  .painel-marca {
+    padding-inline: 30px;
+  }
+
+  .conteudo-login {
+    width: min(86%, 380px);
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .pagina-login {
+    padding: 16px;
+  }
+
+  .layout-login {
+    width: min(100%, 460px);
+    min-height: auto;
+    grid-template-columns: 1fr;
+    padding: 14px;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(29, 48, 52, 0.14);
+  }
+
+  .painel-marca {
+    min-height: 184px;
+    padding: 22px 24px;
+    border-radius: 20px;
+  }
+
+  .painel-marca_logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .painel-marca_mensagem {
+    gap: 2px;
+    font-size: clamp(1.45rem, 7vw, 1.9rem);
+  }
+
+  .painel-marca_mensagem strong {
+    max-width: 330px;
+  }
+
+  .conteudo-login {
+    width: 100%;
+    padding: 36px 18px 28px;
+  }
+
+  .cabecalho-login h1 {
+    font-size: 2.25rem;
+  }
+
+  .cabecalho-login_quebra-desktop {
+    display: none;
+  }
+
+  .modal-recuperar {
+    min-height: 390px;
+    padding: 82px 32px 52px;
+  }
+
+  .modal-recuperar h2 {
+    font-size: 1.8rem;
+    white-space: normal;
+  }
+
+  .modal-recuperar_erro {
+    margin: 0 0 7px;
+  }
+}
+
+@media (max-height: 780px) and (min-width: 761px) {
+  .pagina-login {
+    padding-block: 24px;
+  }
+
+  .layout-login {
+    min-height: 672px;
+  }
+
+  .painel-marca {
+    min-height: 632px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .formulario-login input,
+  .formulario-login_botao,
+  .botao-login-google {
+    transition: none;
+  }
+}
