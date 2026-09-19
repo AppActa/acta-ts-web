@@ -1,0 +1,30 @@
+name: validacao
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: baixar codigo
+        uses: actions/checkout@v4
+
+      - name: configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: instalar dependencias
+        run: npm ci
+
+      - name: compilar aplicacao
+        run: npm run build
