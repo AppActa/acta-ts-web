@@ -60,7 +60,7 @@ export function PaginaEditarPerfil() {
         </div>
 
         <div>
-          <FormularioEditarPerfil aoConcluir={concluirEdicao} />
+          <FormularioEditarPerfil aoConcluir={concluirEdicao} aoVoltar={() => navegar("/perfil")} />
         </div>
       </section>
 
