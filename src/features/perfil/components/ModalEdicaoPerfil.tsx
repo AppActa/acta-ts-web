@@ -1,14 +1,11 @@
-type TipoModalEdicao = "confirmacao" | "saida" | "sucesso";
-
-type PropriedadesModalEdicaoPerfil = {
-  aoCancelar?: () => void;
-  aoConfirmar: () => void;
-  tipo: TipoModalEdicao;
-};
+type PropriedadesModalEdicaoPerfil =
+  | { tipo: "sucesso"; aoConfirmar: () => void; aoCancelar?: never }
+  | { tipo: "confirmacao" | "saida"; aoConfirmar: () => void; aoCancelar: () => void };
 
 export function ModalEdicaoPerfil({ aoCancelar, aoConfirmar, tipo }: PropriedadesModalEdicaoPerfil) {
   const sucesso = tipo === "sucesso";
   const saida = tipo === "saida";
+  const aoFechar = sucesso ? aoConfirmar : aoCancelar;
 
   return (
     <div className="fundo-modal-edicao" role="presentation">
@@ -19,6 +16,9 @@ export function ModalEdicaoPerfil({ aoCancelar, aoConfirmar, tipo }: Propriedade
         aria-labelledby={`titulo-modal-${tipo}`}
         aria-describedby={`descricao-modal-${tipo}`}
       >
+        <button className="modal-edicao_fechar" type="button" aria-label="Fechar" onClick={aoFechar}>
+          ×
+        </button>
         <span className={`modal-edicao_icone modal-edicao_icone-${tipo}`} aria-hidden="true" />
 
         <h2 id={`titulo-modal-${tipo}`}>

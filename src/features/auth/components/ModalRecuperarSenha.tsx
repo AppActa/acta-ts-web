@@ -21,7 +21,7 @@ export function ModalRecuperarSenha({
         <button
           className="modal-recuperar_fechar"
           type="button"
-          aria-label="Fechar recuperação de senha"
+          aria-label="Fechar"
           onClick={aoFechar}
         >
           ×
