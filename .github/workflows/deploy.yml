@@ -1,0 +1,14 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # chama o deploy hook do render
+      - name: render
+        run: curl --fail --request POST "${{ secrets.RENDER_DEPLOY_URL }}"
