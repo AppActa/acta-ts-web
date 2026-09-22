@@ -85,6 +85,31 @@
   width: 380px;
 }
 
+.botao-voltar-edicao {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  border: 0;
+  border-radius: 8px;
+  padding: 7px 9px;
+  background: transparent;
+  color: #267f8e;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.botao-voltar-edicao:hover {
+  background: #eaf7f9;
+}
+
+.botao-voltar-edicao:focus-visible {
+  outline: 3px solid #4bb5c8;
+  outline-offset: 2px;
+}
+
 .formulario-editar-perfil h1 {
   margin: 0 0 34px;
   transform: translateY(-4px);
@@ -162,6 +187,35 @@
   border-radius: 20px;
   background: #fff;
   text-align: center;
+}
+
+.modal-edicao_fechar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #4b6970;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.modal-edicao_fechar:hover {
+  background: #eaf7f9;
+  color: #267f8e;
+}
+
+.modal-edicao_fechar:focus-visible {
+  outline: 3px solid #4bb5c8;
+  outline-offset: 2px;
 }
 
 .modal-edicao h2 {
