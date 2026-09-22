@@ -6,6 +6,7 @@ import iconeLua from "../assets/icone-lua.svg";
 import iconeNotificacoes from "../assets/icone-notificacoes.png";
 import iconeSol from "../assets/icone-sol.svg";
 import iconeVolume from "../assets/icone-volume.svg";
+import referenciaPerfil from "../assets/referencia-perfil.png";
 import { Alternador } from "../components/Alternador";
 import { BarraLateral } from "../components/BarraLateral";
 import { CabecalhoPerfil } from "../components/CabecalhoPerfil";
@@ -70,6 +71,9 @@ export function PaginaPerfil() {
           </section>
         </div>
 
+        <span className="recorte-foto recorte-foto_assistente">
+          <img src={referenciaPerfil} alt="Assistente de acessibilidade" />
+        </span>
       </section>
 
       {confirmandoSaida && (
