@@ -118,19 +118,6 @@
   left: -30px;
 }
 
-.recorte-foto_assistente {
-  position: absolute;
-  right: 17px;
-  bottom: 11px;
-  width: 102px;
-  height: 102px;
-}
-
-.recorte-foto_assistente img {
-  top: -883px;
-  left: -1296px;
-}
-
 .cabecalho-perfil_identidade {
   position: absolute;
   top: 211px;
@@ -345,9 +332,6 @@
     grid-template-columns: 1fr;
   }
 
-  .recorte-foto_assistente {
-    display: none;
-  }
 }
 
 @media (max-height: 900px) and (min-width: 901px) {
