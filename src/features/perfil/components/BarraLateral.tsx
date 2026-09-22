@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import iconeAct from "../assets/icone-act.png";
 import iconeCheck from "../assets/icone-check.png";
 import iconeDo from "../assets/icone-do.png";
@@ -16,10 +17,10 @@ export function BarraLateral() {
   return (
     <aside className="barra-lateral" aria-label="Navegação principal">
       <nav className="barra-lateral_navegacao">
-        <button className="barra-lateral_item" type="button">
+        <NavLink className="barra-lateral_item" to="/" end>
           <img className="barra-lateral_icone barra-lateral_logo" src={iconeHome} alt="" />
           <span>Home</span>
-        </button>
+        </NavLink>
 
         {itens.map((item) => (
           <button className="barra-lateral_item" type="button" key={item.rotulo}>
@@ -29,12 +30,12 @@ export function BarraLateral() {
         ))}
       </nav>
 
-      <button className="barra-lateral_item barra-lateral_perfil" type="button" aria-current="page">
+      <NavLink className="barra-lateral_item barra-lateral_perfil" to="/perfil">
         <span className="recorte-foto recorte-foto_pequeno">
           <img src={referenciaPerfil} alt="Catarina Cândido" />
         </span>
         <span>Profile</span>
-      </button>
+      </NavLink>
     </aside>
   );
 }

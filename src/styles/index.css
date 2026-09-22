@@ -48,3 +48,37 @@ body {
   font-weight: 700;
   letter-spacing: 0.18em;
 }
+
+.page-shell_navegacao {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.page-shell_navegacao a {
+  color: #315efb;
+  font-weight: 600;
+  text-underline-offset: 3px;
+}
+
+.page-shell_botao {
+  justify-self: center;
+  margin-top: 1rem;
+  border: 0;
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  background: #315efb;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+
+.page-shell_botao:focus-visible,
+.page-shell_navegacao a:focus-visible,
+.barra-lateral_item:focus-visible {
+  outline: 3px solid #71cbd4;
+  outline-offset: 4px;
+}

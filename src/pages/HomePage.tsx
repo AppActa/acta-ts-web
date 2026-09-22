@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function HomePage() {
   return (
     <main className="page-shell">
@@ -8,6 +10,10 @@ export function HomePage() {
         documentos, relatórios e dashboard serão implementadas nas próximas
         etapas.
       </p>
+      <nav className="page-shell_navegacao" aria-label="Acesso às páginas disponíveis">
+        <Link to="/login">Ir para login</Link>
+        <Link to="/perfil">Ver perfil</Link>
+      </nav>
     </main>
   );
 }
