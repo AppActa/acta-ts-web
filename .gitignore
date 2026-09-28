@@ -1,4 +1,3 @@
-
 node_modules/
 dist/
 .env
@@ -6,3 +5,5 @@ dist/
 !.env.example
 coverage/
 .DS_Store
+.vercel
+.env*
