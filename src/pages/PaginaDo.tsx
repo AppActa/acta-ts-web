@@ -101,12 +101,12 @@ export function PaginaDo() {
                 </div>
               </div>
               <div className={`do-ciclos_lista${mostrarTodos ? " do-ciclos_lista-expandida" : ""}`}>
-                {ciclos.map((ciclo) => (
-                  <article className="do-ciclo" key={ciclo.titulo}>
+                {ciclos.map((ciclo, indice) => (
+                  <Link className="do-ciclo" key={ciclo.titulo} to={`/do/ciclo/${indice + 1}`} aria-label={`Abrir ciclo ${ciclo.titulo}`}>
                     <div className={`do-ciclo_icone do-ciclo_icone-${ciclo.cor}`}><IconeCiclo tipo={ciclo.icone} /></div>
                     <h3>{ciclo.titulo}</h3>
                     <div className="do-ciclo_rodape"><div className="do-progresso" role="progressbar" aria-label={`Progresso de ${ciclo.titulo}`} aria-valuenow={ciclo.progresso} aria-valuemin={0} aria-valuemax={100}><span style={{ width: `${ciclo.progresso}%` }} /></div><span>{ciclo.progresso}%</span></div>
-                  </article>
+                  </Link>
                 ))}
               </div>
             </section>

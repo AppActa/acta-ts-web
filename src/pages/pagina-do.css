@@ -365,8 +365,12 @@
   border-radius: 18px;
   padding: 11px 12px 15px;
   background: #f6f6f6;
+  color: inherit;
   text-align: center;
+  text-decoration: none;
 }
+
+.do-ciclo:focus-visible { outline: 3px solid #006398; outline-offset: 3px; }
 
 .do-ciclo_icone {
   display: grid;
