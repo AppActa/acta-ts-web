@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { PainelCicloPlanDo } from "../features/ciclo/components/PainelCicloPlanDo";
 import progressoPlan from "../features/ciclo/assets/progresso-plan.svg";
 import "../features/perfil/styles/pagina-perfil.css";
@@ -25,7 +25,9 @@ export function PaginaCicloPlan() {
               <h2>{indicador.titulo}</h2>
               <span className="plan-indicador_estado">{indicador.estado}</span>
               <p>{indicador.descricao}</p>
-              <span className="plan-indicador_detalhes">Ver detalhes →</span>
+              {indicador.titulo === "Coleta de dados"
+                ? <Link className="plan-indicador_detalhes" to={`/do/ciclo/${cicloId}/plan/coleta`}>Ver detalhes →</Link>
+                : <span className="plan-indicador_detalhes">Ver detalhes →</span>}
             </article>
           ))}
           <article className="plan-progresso">

@@ -1,0 +1,29 @@
+.pagina-plan-coleta .painel-ciclo-plan-do_abas { margin-bottom: 36px; }
+.plan-coleta-conteudo { padding: 0 41px 40px; }
+.plan-coleta_titulo-linha { display: flex; align-items: center; gap: 13px; margin-bottom: 53px; }
+.plan-coleta_titulo-linha h2 { margin: 0; color: #141c29; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 24px; font-weight: 700; }
+.plan-coleta_voltar { display: grid; width: 46px; height: 46px; place-items: center; border-radius: 50%; background: #26393d; color: #fff; font-size: 37px; line-height: 1; text-decoration: none; }
+.plan-coleta_voltar:focus-visible, .plan-coleta_reenviar:focus-visible { outline: 3px solid #025a8a; outline-offset: 3px; }
+.plan-coleta_cartoes { display: grid; width: 380px; gap: 30px; margin-left: 1px; }
+.plan-coleta_cartao { border-radius: 18px; background: #fff; padding: 20px 30px; }
+.plan-coleta_participantes { min-height: 102px; }
+.plan-coleta_cartao-cabecalho { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.plan-coleta_cartao h3 { margin: 0; color: #141c29; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 14px; font-weight: 700; }
+.plan-coleta_cartao-cabecalho span { flex: 0 0 auto; border-radius: 13px; padding: 6px 10px; background: #fff3e2; color: #9b6500; font-size: 10px; }
+.plan-coleta_cartao p, .plan-coleta_respostas li { color: #66707a; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 11px; }
+.plan-coleta_participantes > p { margin: 7px 0 0; }
+.plan-coleta_respostas { min-height: 263px; padding-top: 22px; }
+.plan-coleta_respostas ul { display: grid; gap: 16px; margin: 16px 0 20px; padding: 0; list-style: none; }
+.plan-coleta_respostas li { line-height: 18px; }
+.plan-coleta_reenviar { width: 274px; min-height: 38px; margin: 0 auto; border: 0; border-radius: 10px; background: #48b3c6; box-shadow: 0 0 25px #48b3c680; color: #fff; font: inherit; font-size: 12px; cursor: pointer; }
+.plan-coleta_privacidade { margin: 16px 0 0; text-align: center; font-size: 10px !important; }
+@media (max-width: 760px) {
+  .pagina-plan-coleta .painel-ciclo-plan-do_abas { margin-bottom: 22px; }
+  .plan-coleta-conteudo { padding: 0 16px 28px; }
+  .plan-coleta_titulo-linha { margin-bottom: 28px; }
+  .plan-coleta_titulo-linha h2 { font-size: 20px; }
+  .plan-coleta_cartoes { width: 100%; }
+  .plan-coleta_cartao { padding-right: 18px; padding-left: 18px; }
+  .plan-coleta_cartao-cabecalho { align-items: flex-start; flex-direction: column; }
+  .plan-coleta_reenviar { width: 100%; }
+}
