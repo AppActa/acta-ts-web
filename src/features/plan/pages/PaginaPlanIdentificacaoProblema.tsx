@@ -34,7 +34,7 @@ export function PaginaPlanIdentificacaoProblema() {
 
   return (
     <main className="pagina-ciclo-plan-do pagina-ciclo-plan pagina-plan-identificacao">
-      <PainelCicloPlanDo cicloId={cicloId} etapaAtiva="plan" tituloCiclo="Nome do ciclo">
+      <PainelCicloPlanDo cicloId={cicloId} etapaAtiva="plan">
         <section className="plan-identificacao_conteudo" aria-labelledby="plan-identificacao-titulo">
           <div className="plan-identificacao_titulo-linha">
             <Link className="plan-identificacao_voltar" to={`/do/ciclo/${cicloId}/plan`} aria-label="Voltar ao resumo Plan">‹</Link>

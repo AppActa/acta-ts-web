@@ -18,7 +18,7 @@ export function PaginaCicloPlan() {
 
   return (
     <main className="pagina-ciclo-plan-do pagina-ciclo-plan">
-      <PainelCicloPlanDo cicloId={cicloId} etapaAtiva="plan" tituloCiclo="Nome do ciclo">
+      <PainelCicloPlanDo cicloId={cicloId} etapaAtiva="plan">
         <div className="plan-resumo-conteudo">
           {indicadores.map((indicador) => (
             <article className="plan-indicador" key={indicador.titulo}>

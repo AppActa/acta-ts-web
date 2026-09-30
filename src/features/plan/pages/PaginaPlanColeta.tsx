@@ -11,7 +11,7 @@ export function PaginaPlanColeta() {
 
   return (
     <main className="pagina-ciclo-plan-do pagina-ciclo-plan pagina-plan-coleta">
-      <PainelCicloPlanDo cicloId={cicloId} etapaAtiva="plan" tituloCiclo="Nome do ciclo">
+      <PainelCicloPlanDo cicloId={cicloId} etapaAtiva="plan">
         <section className="plan-coleta-conteudo" aria-labelledby="plan-coleta-titulo">
           <div className="plan-coleta_titulo-linha">
             <Link className="plan-coleta_voltar" to={`/do/ciclo/${cicloId}/plan`} aria-label="Voltar ao resumo Plan">‹</Link>

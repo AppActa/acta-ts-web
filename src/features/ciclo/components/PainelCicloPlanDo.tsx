@@ -1,18 +1,19 @@
 import { type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
+import { obterCiclo } from "../data/ciclos";
 import relogioCiclo from "../assets/relogio-ciclo.svg";
 import "../styles/painel-ciclo-plan-do.css";
 
 type PainelCicloPlanDoProps = {
   cicloId: string | undefined;
   etapaAtiva: "plan" | "do";
-  tituloCiclo: string;
   children: ReactNode;
 };
 
-export function PainelCicloPlanDo({ cicloId, etapaAtiva, tituloCiclo, children }: PainelCicloPlanDoProps) {
+export function PainelCicloPlanDo({ cicloId, etapaAtiva, children }: PainelCicloPlanDoProps) {
   const isDo = etapaAtiva === "do";
+  const ciclo = obterCiclo(cicloId);
   const etapaHref = (etapa: "plan" | "do") => etapa === "plan"
     ? `/do/ciclo/${cicloId}/plan`
     : `/do/ciclo/${cicloId}/tarefas`;
@@ -26,10 +27,10 @@ export function PainelCicloPlanDo({ cicloId, etapaAtiva, tituloCiclo, children }
             {isDo && <img src={relogioCiclo} alt="" />}
           </div>
           <div className="painel-ciclo-plan-do_identificacao">
-            <div className="painel-ciclo-plan-do_titulo-linha"><h1>{tituloCiclo}</h1><span>Status: {isDo ? "Do" : "Plan"}</span></div>
+            <div className="painel-ciclo-plan-do_titulo-linha"><h1>{ciclo.nome}</h1><span>Status: {isDo ? "Do" : "Plan"}</span></div>
             <p>Responsável pelo ciclo: <strong>Catarina Cândido</strong></p>
-            <p>Iniciado em: <strong>26/05/2026</strong></p>
-            <p>Prazo final: <strong>30/10/2026</strong></p>
+            <p>Iniciado em: <strong>{ciclo.inicio}</strong></p>
+            <p>Prazo final: <strong>{ciclo.prazo}</strong></p>
           </div>
         </header>
 

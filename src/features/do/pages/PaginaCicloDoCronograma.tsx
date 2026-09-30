@@ -16,7 +16,7 @@ export function PaginaCicloDoCronograma() {
 
   return (
     <main className="pagina-ciclo-plan-do pagina-ciclo-do-cronograma">
-      <PainelCicloPlanDo cicloId={cicloId} etapaAtiva="do" tituloCiclo="Redução do tempo de atendimento">
+      <PainelCicloPlanDo cicloId={cicloId} etapaAtiva="do">
         <div className="cronograma-conteudo">
           <div className="cronograma-titulo"><Link to={`/do/ciclo/${cicloId}/tarefas`} aria-label="Voltar às tarefas">‹</Link><h2>Cronograma</h2></div>
           <section className="cronograma-gantt" aria-labelledby="cronograma-gantt_titulo">

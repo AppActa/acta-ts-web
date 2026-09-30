@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
+import { obterCiclo } from "../../ciclo/data/ciclos";
 import iconeVisaoGeral from "../assets/ciclo-visao-geral/063c5.svg";
 import iconePlanAba from "../assets/ciclo-visao-geral/47893.svg";
 import iconeDo from "../assets/ciclo-visao-geral/d01c2.svg";
@@ -17,14 +18,6 @@ import roscaProgresso from "../assets/ciclo-visao-geral/ebea0.svg";
 import "../../perfil/styles/pagina-perfil.css";
 import "../styles/pagina-ciclo-do.css";
 
-const ciclos = [
-  { nome: "Redução do tempo de atendimento", inicio: "26/05/2026", prazo: "30/10/2026" },
-  { nome: "Organização do estoque", inicio: "18/05/2026", prazo: "30/10/2026" },
-  { nome: "Onboarding de novos colaboradores", inicio: "02/06/2026", prazo: "30/10/2026" },
-  { nome: "Proteção de dados e acessos", inicio: "12/05/2026", prazo: "30/10/2026" },
-  { nome: "Padronização de aprovações", inicio: "01/06/2026", prazo: "30/10/2026" },
-];
-
 const etapas = [
   { nome: "Plan", estado: "Concluído", percentual: 100, classe: "plan", circulo: circuloPlan, icone: iconePlan },
   { nome: "Do", estado: "Iniciado", percentual: 50, classe: "do", circulo: circuloDo, icone: iconeDo },
@@ -34,8 +27,7 @@ const etapas = [
 
 export function PaginaCicloDo() {
   const { cicloId = "1" } = useParams();
-  const indice = Number(cicloId);
-  const ciclo = ciclos[Number.isInteger(indice) && indice > 0 ? indice - 1 : 0] ?? ciclos[0];
+  const ciclo = obterCiclo(cicloId);
 
   return (
     <main className="pagina-ciclo-do">
