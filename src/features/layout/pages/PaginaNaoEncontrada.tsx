@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { LayoutSimples } from "../features/layout/components/LayoutSimples";
+import { LayoutSimples } from "../components/LayoutSimples";
 
 export function PaginaNaoEncontrada() {
   const navegar = useNavigate();

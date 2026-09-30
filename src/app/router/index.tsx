@@ -18,7 +18,7 @@ import { PaginaPlanIdentificacaoProblema } from "../../features/plan/pages/Pagin
 import { PaginaPlanAvisoColeta } from "../../features/plan/pages/PaginaPlanAvisoColeta";
 import { PaginaTodosCiclos } from "../../features/ciclos/pages/PaginaTodosCiclos";
 import { PaginaRelatorios } from "../../features/relatorios/pages/PaginaRelatorios";
-import { PaginaNaoEncontrada } from "../../pages/PaginaNaoEncontrada";
+import { PaginaNaoEncontrada } from "../../features/layout/pages/PaginaNaoEncontrada";
 
 export const router = createBrowserRouter([
   {
