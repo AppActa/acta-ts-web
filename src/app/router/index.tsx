@@ -13,7 +13,7 @@ import { PaginaSucessoLembreteDo } from "../../features/do/pages/PaginaSucessoLe
 import { PaginaCicloDoCronograma } from "../../features/do/pages/PaginaCicloDoCronograma";
 import { PaginaCicloPlan } from "../../features/plan/pages/PaginaCicloPlan";
 import { PaginaPlanColeta } from "../../features/plan/pages/PaginaPlanColeta";
-import { PaginaPlanCriarFormulario } from "../../pages/PaginaPlanCriarFormulario";
+import { PaginaPlanCriarFormulario } from "../../features/plan/pages/PaginaPlanCriarFormulario";
 import { PaginaPlanIdentificacaoProblema } from "../../pages/PaginaPlanIdentificacaoProblema";
 import { PaginaPlanAvisoColeta } from "../../pages/PaginaPlanAvisoColeta";
 import { PaginaTodosCiclos } from "../../features/ciclos/pages/PaginaTodosCiclos";

@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Link, useParams } from "react-router-dom";
-import "./pagina-plan-criar-formulario.css";
+import "../styles/pagina-plan-criar-formulario.css";
 
 export function PaginaPlanCriarFormulario() {
   const { cicloId } = useParams();
