@@ -1,0 +1,46 @@
+.pagina-ciclo-plan-do { display: grid; min-height: 100vh; grid-template-columns: 119px minmax(0, 1fr); background: #202020; color: #141c29; }
+.pagina-ciclo-plan-do > .barra-lateral { min-height: 100vh; }
+.painel-ciclo-plan-do { min-width: 0; min-height: calc(100vh - 58px); margin: 29px 27px 29px 0; overflow: hidden; border-radius: 20px; background: #f6f6f6; }
+.painel-ciclo-plan-do_cabecalho { display: flex; min-height: 196px; align-items: center; gap: 21px; padding: 25px 43px; border-radius: 0 0 20px 20px; background: #fff; }
+.painel-ciclo-plan-do_icone { position: relative; display: grid; width: 118px; height: 118px; flex: 0 0 auto; place-items: center; border-radius: 20px; background: #0ac2ca; }
+.painel-ciclo-plan-do-plan .painel-ciclo-plan-do_icone { background: #025a8a; }
+.painel-ciclo-plan-do_icone img { width: 119.375px; height: 119.375px; }
+.painel-ciclo-plan-do_identificacao { min-width: 0; }
+.painel-ciclo-plan-do_titulo-linha { display: flex; align-items: center; gap: 14px; margin-bottom: 5px; }
+.painel-ciclo-plan-do_titulo-linha h1 { overflow: hidden; margin: 0; color: #1f1f1f; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 20px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.painel-ciclo-plan-do_titulo-linha > span { border-radius: 99px; padding: 5px 18px; background: #0ac2ca; color: #fff; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.painel-ciclo-plan-do-plan .painel-ciclo-plan-do_titulo-linha > span { background: #025a8a; }
+.painel-ciclo-plan-do_identificacao p { margin: 1px 0; color: #959595; font-size: 15px; }
+.painel-ciclo-plan-do_identificacao p strong { color: #1f1f1f; font-weight: 500; }
+.painel-ciclo-plan-do_abas { display: flex; height: 55px; align-items: stretch; gap: 0; margin-top: 24px; border-bottom: 27px solid #0ac2ca; padding-left: 33px; background: #73e2e7; }
+.painel-ciclo-plan-do-plan .painel-ciclo-plan-do_abas { border-bottom-color: #025a8a; background: #6eadc4; }
+.painel-ciclo-plan-do_aba { display: inline-flex; width: 156px; height: 55px; align-items: center; justify-content: center; gap: 5px; border: 0; border-radius: 16px 16px 0 0; color: #173a44; font-size: 13px; font-weight: 600; text-decoration: none; }
+.painel-ciclo-plan-do_aba span { font-size: 19px; }
+.painel-ciclo-plan-do_aba-visao { background: #0ac2ca; color: #068e94; }
+.painel-ciclo-plan-do-plan .painel-ciclo-plan-do_aba-visao { background: #6eadc4; color: #003f61; }
+.painel-ciclo-plan-do_aba-plan { background: #056196; color: #003654; }
+.painel-ciclo-plan-do_aba-do { background: #00a89d; color: #026b66; }
+.painel-ciclo-plan-do_aba-check { background: #43ae85; color: #338162; }
+.painel-ciclo-plan-do_aba-act { background: #00a89d; color: #026b66; }
+.painel-ciclo-plan-do_aba.ativa { background: #f6f6f6; color: #141c29; }
+.painel-ciclo-plan-do-do .painel-ciclo-plan-do_aba.ativa { color: #068e94; }
+.painel-ciclo-plan-do-plan .painel-ciclo-plan-do_aba.ativa { color: #003654; }
+.painel-ciclo-plan-do_aba:disabled { cursor: default; }
+.painel-ciclo-plan-do_aba:focus-visible { outline: 3px solid #141c29; outline-offset: -4px; }
+@media (max-width: 760px) {
+  .pagina-ciclo-plan-do { display: block; padding-bottom: 72px; }
+  .pagina-ciclo-plan-do > .barra-lateral { position: fixed; z-index: 3; right: 0; bottom: 0; left: 0; width: 100%; min-height: 0; height: 72px; flex-direction: row; padding: 7px 10px; background: #202020; }
+  .pagina-ciclo-plan-do .barra-lateral_navegacao { display: flex; width: 100%; justify-content: space-around; gap: 2px; }
+  .pagina-ciclo-plan-do .barra-lateral_item { width: 58px; gap: 3px; font-size: 11px; }
+  .pagina-ciclo-plan-do .barra-lateral_icone { width: 30px; height: 30px; }
+  .pagina-ciclo-plan-do .barra-lateral_perfil { display: none; }
+  .painel-ciclo-plan-do { margin: 0; min-height: calc(100vh - 72px); border-radius: 0; }
+  .painel-ciclo-plan-do_cabecalho { min-height: 160px; gap: 12px; padding: 18px 14px; }
+  .painel-ciclo-plan-do_icone { width: 58px; height: 58px; border-radius: 14px; }
+  .painel-ciclo-plan-do_icone img { width: 59px; height: 59px; }
+  .painel-ciclo-plan-do_titulo-linha { flex-wrap: wrap; gap: 5px; }
+  .painel-ciclo-plan-do_titulo-linha h1 { font-size: 15px; }
+  .painel-ciclo-plan-do_identificacao p { font-size: 11px; }
+  .painel-ciclo-plan-do_abas { height: 52px; gap: 1px; padding-left: 4px; }
+  .painel-ciclo-plan-do_aba { width: auto; min-width: 63px; height: 35px; gap: 3px; font-size: 10px; }
+}
