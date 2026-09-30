@@ -53,7 +53,7 @@ export function PaginaDo() {
           </Link>
           <nav className="do-topo" aria-label="Acesso rápido">
             <span className="do-topo_item"><IconeTopo tipo="notificacoes" /><span>Notificações</span></span>
-            <span className="do-topo_item"><IconeTopo tipo="relatorios" /><span>Relatórios</span></span>
+            <Link className="do-topo_item" to="/relatorios"><IconeTopo tipo="relatorios" /><span>Relatórios</span></Link>
             <Link className="do-topo_item" to="/ciclos"><IconeTopo tipo="ciclos" /><span>Ciclos</span></Link>
             <span className="do-topo_item"><IconeTopo tipo="cato" /><span>Cato</span></span>
           </nav>

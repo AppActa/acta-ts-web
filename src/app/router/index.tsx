@@ -17,6 +17,7 @@ import { PaginaPlanCriarFormulario } from "../../pages/PaginaPlanCriarFormulario
 import { PaginaPlanIdentificacaoProblema } from "../../pages/PaginaPlanIdentificacaoProblema";
 import { PaginaPlanAvisoColeta } from "../../pages/PaginaPlanAvisoColeta";
 import { PaginaTodosCiclos } from "../../pages/PaginaTodosCiclos";
+import { PaginaRelatorios } from "../../pages/PaginaRelatorios";
 import { PaginaNaoEncontrada } from "../../pages/PaginaNaoEncontrada";
 
 export const router = createBrowserRouter([
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
   {
     path: "/ciclos",
     element: <PaginaTodosCiclos />,
+  },
+  {
+    path: "/relatorios",
+    element: <PaginaRelatorios />,
   },
   {
     path: "/do/ciclo/:cicloId/plan",

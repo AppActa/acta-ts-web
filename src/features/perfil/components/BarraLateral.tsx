@@ -1,4 +1,4 @@
-import { NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useLocation, useParams } from "react-router-dom";
 import iconeAct from "../assets/icone-act.png";
 import iconeCheck from "../assets/icone-check.png";
 import iconeDo from "../assets/icone-do.png";
@@ -13,15 +13,17 @@ const itens = [
 
 export function BarraLateral() {
   const { cicloId } = useParams();
+  const { pathname } = useLocation();
   const linkPlan = `/do/ciclo/${cicloId ?? "1"}/plan`;
+  const homeContext = pathname === "/" || pathname === "/do" || pathname === "/ciclos" || pathname === "/relatorios";
 
   return (
     <aside className="barra-lateral" aria-label="Navegação principal">
       <nav className="barra-lateral_navegacao">
-        <NavLink className="barra-lateral_item" to="/" end>
+        <Link className="barra-lateral_item" to="/" aria-current={homeContext ? "page" : undefined}>
           <img className="barra-lateral_icone barra-lateral_logo" src={iconeHome} alt="" />
           <span>Home</span>
-        </NavLink>
+        </Link>
 
         <NavLink className="barra-lateral_item" to={linkPlan}>
           <img className="barra-lateral_icone" src={iconePlan} alt="" />

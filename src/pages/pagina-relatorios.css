@@ -1,0 +1,47 @@
+.web-listas_topo > .selecionado { color: #6fc7cf; }
+.relatorios_conteudo { display: grid; gap: 20px; padding: 60px 50px 45px; }
+.relatorios_metricas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.relatorios_metricas article { display: grid; min-height: 116px; align-content: start; gap: 7px; border-radius: 12px; padding: 14px 18px; background: #fff; }
+.relatorios_metricas article > span { color: #89919a; font-size: 10px; }
+.relatorios_metricas article > strong { font-size: 19px; line-height: 1; }
+.relatorios_metricas .azul { color: #056196; }.relatorios_metricas .verde { color: #43ae85; }.relatorios_metricas .ciano { color: #00a7ac; }
+.relatorios_metricas article > p { margin: 0; color: #98a0a8; font-size: 10px; }
+.relatorios_filtros { display: flex; min-height: 64px; align-items: center; gap: 12px; border-radius: 12px; padding: 12px 14px; background: #fff; }
+.relatorios_filtros > label:first-child { min-width: 0; flex: 1; }
+.relatorios_filtros input, .relatorios_filtros select { height: 36px; border: 0; border-radius: 18px; padding: 0 14px; background: #f1f4f5; color: #66707a; font: inherit; font-size: 10px; }
+.relatorios_filtros input { width: 100%; background: #fff; }
+.relatorios_filtros select { min-width: 126px; text-align: center; }
+.relatorios_filtros button { min-width: 132px; height: 38px; border: 0; border-radius: 10px; background: #0ac2ca; color: #fff; font: inherit; font-size: 11px; cursor: pointer; }
+.relatorios_filtros button:focus-visible, .relatorios_item button:focus-visible { outline: 3px solid #025a8a; outline-offset: 3px; }
+.relatorios_lista { min-height: 545px; border-radius: 16px; padding: 16px 15px; background: #fff; }
+.relatorios_lista h2 { margin: 0; color: #141c29; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 14px; font-weight: 700; }
+.relatorios_lista_descricao { margin: 6px 0 0; color: #89919a; font-size: 10px; }
+.relatorios_lista_itens { margin-top: 18px; }
+.relatorios_item { display: grid; min-height: 86px; grid-template-columns: 28px minmax(0,1fr) 118px 184px; align-items: center; gap: 14px; border-bottom: 1px solid #dce2e5; padding: 12px 0; }
+.relatorios_tipo { display: grid; width: 28px; height: 28px; place-items: center; border-radius: 8px; background: #e0efff; color: #056196; font-size: 8px; }
+.relatorios_tipo.pptx { background: #d8f5f4; color: #00a0a8; }
+.relatorios_item_info { min-width: 0; }
+.relatorios_item_info h3 { overflow: hidden; margin: 0 0 6px; color: #141c29; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 13px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.relatorios_item_info p { margin: 0; color: #89919a; font-size: 10px; }
+.relatorios_item_info p span { margin: 0 4px; }
+.relatorios_disponivel { border-radius: 12px; padding: 6px 12px; background: #dff4e6; color: #27835f; font-size: 9px; text-align: center; }
+.relatorios_item button { min-height: 38px; border: 0; border-radius: 9px; background: #48b3c6; box-shadow: 0 0 25px #48b3c680; color: #fff; font: inherit; font-size: 11px; cursor: pointer; }
+.relatorios_vazio, .relatorios_aviso { color: #66707a; font-size: 11px; }
+.relatorios_aviso { margin: 12px 0 0; color: #266e5c; }
+@media (max-width: 1050px) {
+  .relatorios_conteudo { padding: 35px 24px; }
+  .relatorios_item { grid-template-columns: 28px minmax(0,1fr) 100px 120px; }
+}
+@media (max-width: 850px) {
+  .relatorios_conteudo { gap: 14px; padding: 22px 14px; }
+  .relatorios_metricas { grid-template-columns: 1fr; gap: 10px; }
+  .relatorios_metricas article { min-height: 96px; }
+  .relatorios_filtros { flex-wrap: wrap; }
+  .relatorios_filtros > label:first-child { flex-basis: 100%; }
+  .relatorios_filtros select { flex: 1; min-width: 105px; }
+  .relatorios_filtros button { flex: 1; min-width: 95px; }
+  .relatorios_lista { min-height: 400px; }
+  .relatorios_item { grid-template-columns: 28px minmax(0,1fr) 100px; gap: 9px; }
+  .relatorios_item button { grid-column: 2/-1; }
+  .relatorios_disponivel { display: none; }
+}
