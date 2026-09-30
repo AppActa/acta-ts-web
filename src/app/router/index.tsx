@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { PaginaLogin } from "../../features/auth";
 import { PaginaEditarPerfil, PaginaPerfil } from "../../features/perfil";
 import { HomePage } from "../../pages/HomePage";
+import { PaginaDo } from "../../pages/PaginaDo";
 import { PaginaNaoEncontrada } from "../../pages/PaginaNaoEncontrada";
 
 export const router = createBrowserRouter([
@@ -16,6 +17,10 @@ export const router = createBrowserRouter([
   {
     path: "/perfil",
     element: <PaginaPerfil />,
+  },
+  {
+    path: "/do",
+    element: <PaginaDo />,
   },
   {
     path: "/perfil/editar",
