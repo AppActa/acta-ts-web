@@ -1,8 +1,8 @@
 import { Link, useParams } from "react-router-dom";
-import { PainelCicloPlanDo } from "../features/ciclo/components/PainelCicloPlanDo";
-import "../features/perfil/styles/pagina-perfil.css";
-import "../features/ciclo/styles/painel-ciclo-plan-do.css";
-import "./pagina-ciclo-do-cronograma.css";
+import { PainelCicloPlanDo } from "../../ciclo/components/PainelCicloPlanDo";
+import "../../perfil/styles/pagina-perfil.css";
+import "../../ciclo/styles/painel-ciclo-plan-do.css";
+import "../styles/pagina-ciclo-do-cronograma.css";
 
 const tarefas = [
   { titulo: "Padronizar conferência dupla", responsavel: "Camila Souza", periodo: "12–16 out", progresso: 36 },
