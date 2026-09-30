@@ -1,8 +1,8 @@
 import { Link, useParams } from "react-router-dom";
-import { Sidebar } from "../features/layout/components/Sidebar";
-import { treinamentosDoCiclo } from "../features/do/pages/PaginaCicloDoTreinamentos";
-import "../features/perfil/styles/pagina-perfil.css";
-import "./pagina-ciclo-do-treinamento-especifico.css";
+import { Sidebar } from "../../layout/components/Sidebar";
+import { treinamentosDoCiclo } from "./PaginaCicloDoTreinamentos";
+import "../../perfil/styles/pagina-perfil.css";
+import "../styles/pagina-ciclo-do-treinamento-especifico.css";
 
 function AbasTreinamento({ cicloId }: { cicloId: string | undefined }) {
   return (
