@@ -1,7 +1,8 @@
 .pagina-sucesso-do { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; background: #292929; font-family: "SF Pro Display", "Inter", Arial, sans-serif; }
 .sucesso-do_modal { position: relative; width: 446px; height: 348px; }
 .sucesso-do_cartao { position: absolute; top: 71px; left: 6.5px; width: 433px; height: 277px; border-radius: 20px; background: #fff; }
-.sucesso-do_estrela { position: absolute; top: 0; left: 143px; width: 160px; height: 160px; object-fit: contain; }
+.sucesso-do_estrela { position: absolute; top: 0; left: 144px; width: 160px; height: 160px; }
+.sucesso-do_estrela img { position: absolute; inset: 7.7% 8.37% 10.37%; width: auto; height: auto; }
 .sucesso-do_check { position: absolute; top: 43px; left: 187px; width: 73px; height: 73px; }
 .sucesso-do_titulo { position: absolute; top: 174px; left: 50%; width: 309px; margin: 0; transform: translate(-50%, -50%); color: #111; font-size: 20px; font-weight: 700; line-height: 1.15; text-align: center; }
 .sucesso-do_descricao { position: absolute; top: 221px; left: 50%; margin: 0; transform: translate(-50%, -50%); color: #a4a4a4; font-size: 13px; line-height: 1.35; text-align: center; }

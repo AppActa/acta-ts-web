@@ -44,7 +44,7 @@
 .treinamento-atencao p { display: grid; gap: 3px; margin: 0; }
 .treinamento-atencao p strong { color: #141c29; font-size: 11px; font-weight: 600; }
 .treinamento-atencao p small { color: #75808a; font-size: 10px; }
-.treinamento-atencao button { min-height: 37px; margin: auto 0 0; border: 0; border-radius: 9px; background: #48b3c6; box-shadow: 0 0 20px #48b3c680; color: #fff; font: inherit; font-size: 11px; }
+.treinamento-atencao button, .treinamento-atencao_lembrete { display: grid; min-height: 37px; margin: auto 0 0; border: 0; border-radius: 9px; padding: 0 16px; place-items: center; background: #48b3c6; box-shadow: 0 0 20px #48b3c680; color: #fff; font: inherit; font-size: 11px; text-decoration: none; }
 .treinamento-atencao button:disabled { cursor: default; }
 .treinamento-modulos { display: flex; grid-column: 2; grid-row: 2 / 4; flex-direction: column; }
 .treinamento-modulos h3 { margin-bottom: 21px; }
