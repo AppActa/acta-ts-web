@@ -1,9 +1,9 @@
 import { Link, useParams } from "react-router-dom";
-import { PainelCicloPlanDo } from "../features/ciclo/components/PainelCicloPlanDo";
-import progressoPlan from "../features/ciclo/assets/progresso-plan.svg";
-import "../features/perfil/styles/pagina-perfil.css";
-import "../features/ciclo/styles/painel-ciclo-plan-do.css";
-import "./pagina-ciclo-plan.css";
+import { PainelCicloPlanDo } from "../../ciclo/components/PainelCicloPlanDo";
+import progressoPlan from "../../ciclo/assets/progresso-plan.svg";
+import "../../perfil/styles/pagina-perfil.css";
+import "../../ciclo/styles/painel-ciclo-plan-do.css";
+import "../styles/pagina-ciclo-plan.css";
 
 const indicadores = [
   { titulo: "Identificação do problema", estado: "Enviado", descricao: "Problema: divergências na separação" },
