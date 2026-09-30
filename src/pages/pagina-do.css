@@ -1,0 +1,536 @@
+.pagina-do {
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: 119px minmax(0, 1fr);
+  background: #202020;
+  color: #202020;
+}
+
+.pagina-do .barra-lateral {
+  min-height: 100vh;
+}
+
+.pagina-do .barra-lateral_item:disabled {
+  cursor: default;
+}
+
+.do-painel {
+  min-width: 0;
+  min-height: calc(100vh - 58px);
+  margin: 29px 27px 29px 0;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #f5f5f5;
+}
+
+.do-cabecalho {
+  position: relative;
+  height: 149px;
+}
+
+.do-marca {
+  position: absolute;
+  top: 21px;
+  left: 31px;
+  display: inline-flex;
+  align-items: center;
+  color: #202020;
+  font-size: 35px;
+  font-weight: 600;
+  letter-spacing: -0.065em;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.do-marca img {
+  width: 61px;
+  height: 61px;
+}
+
+.do-marca_ponto {
+  color: #202020;
+}
+
+.do-topo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  width: 459px;
+  height: 96px;
+  align-items: center;
+  justify-content: space-around;
+  border-bottom-left-radius: 20px;
+  background: #202020;
+}
+
+.do-topo_item {
+  display: flex;
+  width: 92px;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  color: #686868;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.do-topo_item svg,
+.do-topo_placeholder {
+  display: block;
+  width: 36px;
+  height: 36px;
+}
+
+.do-topo_placeholder {
+  width: 48px;
+  background: #d9d9d9;
+}
+
+.do-topo_item[href]:hover,
+.do-topo_item[href]:focus-visible {
+  color: #71cbd4;
+}
+
+.do-conteudo {
+  padding: 0 30px 50px 31px;
+}
+
+.do-linha-superior {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 30px;
+}
+
+.do-resumo {
+  min-width: 0;
+}
+
+.do-boas-vindas {
+  min-height: 160px;
+  border-radius: 20px;
+  padding: 27px 34px;
+  background: #fff;
+}
+
+.do-boas-vindas h1,
+.do-boas-vindas p,
+.do-pendencias h2,
+.do-pendencias p,
+.do-ciclos h2,
+.do-etapas h2 {
+  margin: 0;
+}
+
+.do-boas-vindas h1 {
+  font-size: 35px;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.15;
+}
+
+.do-boas-vindas p {
+  font-size: 23px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
+
+.do-metricas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 35px 0 0 4px;
+}
+
+.do-metrica {
+  display: flex;
+  min-height: 162px;
+  flex-direction: column;
+  border-radius: 13px;
+  padding: 17px 15px 20px;
+  background: #fff;
+}
+
+.do-metrica h2 {
+  margin: 0 0 12px;
+  color: #686868;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.do-metrica strong {
+  font-size: 43px;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  line-height: 1;
+}
+
+.do-numero_azul { color: #006caa; }
+.do-numero_ciano { color: #00b5c1; }
+.do-numero_verde { color: #35ad7e; }
+
+.do-metrica p {
+  margin: auto 0 0;
+  color: #686868;
+  font-size: 16px;
+}
+
+.do-pendencias {
+  min-width: 0;
+  min-height: 360px;
+  border-radius: 20px;
+  padding: 49px 38px 27px 33px;
+  background: #fff;
+}
+
+.do-secao_cabecalho,
+.do-ciclos_cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.do-pendencias h2,
+.do-ciclos h2,
+.do-etapas h2 {
+  font-size: 34px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.do-secao_descricao {
+  margin-top: 5px !important;
+  color: #777;
+  font-size: 12px;
+}
+
+.do-botao {
+  display: inline-flex;
+  min-width: 156px;
+  min-height: 33px;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border: 0;
+  border-radius: 999px;
+  padding: 4px 14px;
+  background: #09bfca;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 15px;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.do-botao svg {
+  width: 16px;
+  height: 16px;
+}
+
+.do-botao:hover:not(:disabled),
+.do-botao:focus-visible {
+  background: #04aeb9;
+}
+
+.do-botao:disabled {
+  cursor: default;
+}
+
+.do-pendencias_lista,
+.do-etapas ul {
+  display: grid;
+  gap: 11px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.do-pendencia {
+  display: grid;
+  min-height: 54px;
+  grid-template-columns: 8px minmax(0, 1fr) 112px;
+  align-items: center;
+  gap: 11px;
+  border-radius: 10px;
+  padding: 7px 56px 7px 12px;
+  background: #f5f5f5;
+}
+
+.do-pendencia_ponto {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #006398;
+}
+
+.do-pendencia_ponto-atrasada { background: #08b6c2; }
+.do-pendencia_ponto-pendente { background: #3cae80; }
+
+.do-pendencia_texto {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.do-pendencia_texto strong {
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.do-pendencia_texto small {
+  overflow: hidden;
+  color: #6b6b6b;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.do-estado {
+  border-radius: 99px;
+  padding: 5px 8px;
+  font-size: 11px;
+  text-align: center;
+}
+
+.do-estado_aguardando { background: #dceefb; color: #006398; }
+.do-estado_atrasada { background: #fff1c7; color: #725208; }
+.do-estado_pendente { background: #dff5e9; color: #21a76e; }
+
+.do-linha-inferior {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 294px;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.do-ciclos,
+.do-etapas {
+  min-width: 0;
+  min-height: 383px;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.do-ciclos {
+  padding: 52px 33px 37px;
+  overflow: hidden;
+}
+
+.do-ciclos_cabecalho {
+  margin: 0 21px 21px;
+}
+
+.do-ciclos_acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.do-mais {
+  font-size: 29px;
+  font-weight: 300;
+  line-height: 16px;
+}
+
+.do-ciclos_lista {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding-bottom: 3px;
+  scrollbar-width: thin;
+}
+
+.do-ciclos_lista-expandida {
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+.do-ciclo {
+  display: flex;
+  width: 178px;
+  min-width: 178px;
+  height: 222px;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 18px;
+  padding: 11px 12px 15px;
+  background: #f6f6f6;
+  color: inherit;
+  text-align: center;
+  text-decoration: none;
+}
+
+.do-ciclo:focus-visible { outline: 3px solid #006398; outline-offset: 3px; }
+
+.do-ciclo_icone {
+  display: grid;
+  width: 150px;
+  height: 138px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 19px;
+  color: #fff;
+}
+
+.do-ciclo_icone svg {
+  width: 124px;
+  height: 124px;
+}
+
+.do-ciclo_icone-ciano { background: #08bfca; }
+.do-ciclo_icone-verde { background: #43ae85; }
+.do-ciclo_icone-azul { background: #006497; }
+.do-ciclo_icone-turquesa { background: #00a8a4; }
+
+.do-ciclo h3 {
+  display: -webkit-box;
+  width: 100%;
+  min-height: 36px;
+  margin: 10px 0 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.18;
+}
+
+.do-ciclo_rodape {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 4px;
+  margin-top: auto;
+  font-size: 10px;
+}
+
+.do-progresso {
+  width: 100%;
+  height: 11px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #2e2e2e;
+}
+
+.do-progresso span {
+  display: block;
+  height: 100%;
+  background: #09bfca;
+}
+
+.do-ciclo_icone-verde ~ .do-ciclo_rodape .do-progresso span { background: #43ae85; }
+
+.do-etapas {
+  padding: 39px 34px;
+}
+
+.do-etapas h2 {
+  color: #172033;
+}
+
+.do-etapas ul {
+  gap: 19px;
+  margin-top: 24px;
+}
+
+.do-etapas li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 26px;
+  align-items: center;
+  gap: 8px;
+  color: #172033;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.do-etapa_icone {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 50%;
+  background: #09bfca;
+  color: #168f93;
+  font-size: 16px;
+}
+
+.do-etapa_numero {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border-radius: 50%;
+  background: #dceefb;
+  color: #006398;
+  font-size: 11px;
+}
+
+.do-marca:focus-visible,
+.do-topo_item:focus-visible,
+.do-botao:focus-visible {
+  outline: 3px solid #006398;
+  outline-offset: 3px;
+}
+
+@media (max-width: 1250px) {
+  .do-conteudo { padding-right: 24px; padding-left: 24px; }
+  .do-linha-superior { gap: 20px; }
+  .do-linha-inferior { grid-template-columns: minmax(0, 1fr) 270px; }
+  .do-pendencias { padding-right: 20px; padding-left: 20px; }
+  .do-pendencia { padding-right: 12px; }
+  .do-ciclos_cabecalho { margin-right: 0; margin-left: 0; }
+}
+
+@media (max-width: 1050px) {
+  .do-linha-superior,
+  .do-linha-inferior { grid-template-columns: minmax(0, 1fr); }
+  .do-resumo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+  .do-metricas { margin: 0; }
+  .do-metrica { padding: 13px 10px; }
+  .do-metrica h2 { font-size: 15px; }
+  .do-metrica p { font-size: 12px; }
+  .do-pendencias { min-height: 0; }
+  .do-etapas { min-height: 0; }
+  .do-etapas ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  .pagina-do { display: block; padding-bottom: 80px; }
+  .pagina-do .barra-lateral { position: fixed; z-index: 3; right: 0; bottom: 0; left: 0; width: 100%; min-height: 0; height: 72px; flex-direction: row; padding: 7px 10px; background: #202020; }
+  .pagina-do .barra-lateral_navegacao { display: flex; width: 100%; justify-content: space-around; gap: 2px; }
+  .pagina-do .barra-lateral_item { width: 58px; gap: 3px; font-size: 11px; }
+  .pagina-do .barra-lateral_icone { width: 30px; height: 30px; }
+  .pagina-do .barra-lateral_perfil { display: none; }
+  .do-painel { margin: 0; min-height: calc(100vh - 72px); border-radius: 0 0 20px 20px; }
+  .do-cabecalho { height: 135px; }
+  .do-marca { top: 14px; left: 20px; font-size: 27px; }
+  .do-marca img { width: 48px; height: 48px; }
+  .do-topo { top: 70px; right: 0; left: 0; width: 100%; height: 55px; border-radius: 0; }
+  .do-topo_item { gap: 0; font-size: 10px; }
+  .do-topo_item svg, .do-topo_placeholder { width: 22px; height: 22px; }
+  .do-conteudo { padding: 0 15px 30px; }
+  .do-resumo { grid-template-columns: minmax(0, 1fr); gap: 15px; }
+  .do-boas-vindas { min-height: 0; padding: 22px; }
+  .do-boas-vindas h1 { font-size: 29px; }
+  .do-boas-vindas p { font-size: 18px; }
+  .do-metricas { gap: 8px; }
+  .do-metrica { min-height: 135px; }
+  .do-metrica strong { font-size: 32px; }
+  .do-pendencias { padding: 25px 15px; }
+  .do-pendencias h2, .do-ciclos h2, .do-etapas h2 { font-size: 27px; }
+  .do-botao { min-width: 112px; font-size: 12px; }
+  .do-ciclos { min-height: 0; padding: 25px 16px; }
+  .do-ciclos_cabecalho { align-items: flex-start; }
+  .do-ciclos_acoes { justify-content: flex-end; }
+  .do-etapas { padding: 25px 20px; }
+}

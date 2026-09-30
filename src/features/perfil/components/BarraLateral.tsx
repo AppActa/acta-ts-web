@@ -7,8 +7,6 @@ import iconePlan from "../assets/icone-plan.png";
 import referenciaPerfil from "../assets/referencia-perfil.png";
 
 const itens = [
-  { icone: iconePlan, rotulo: "Plan" },
-  { icone: iconeDo, rotulo: "Do" },
   { icone: iconeCheck, rotulo: "Check" },
   { icone: iconeAct, rotulo: "Act" },
 ];
@@ -22,8 +20,18 @@ export function BarraLateral() {
           <span>Home</span>
         </NavLink>
 
+        <button className="barra-lateral_item" type="button" disabled title="Área Plan em desenvolvimento">
+          <img className="barra-lateral_icone" src={iconePlan} alt="" />
+          <span>Plan</span>
+        </button>
+
+        <NavLink className="barra-lateral_item" to="/do">
+          <img className="barra-lateral_icone" src={iconeDo} alt="" />
+          <span>Do</span>
+        </NavLink>
+
         {itens.map((item) => (
-          <button className="barra-lateral_item" type="button" key={item.rotulo}>
+          <button className="barra-lateral_item" type="button" key={item.rotulo} disabled title={`Área ${item.rotulo} em desenvolvimento`}>
             <img className="barra-lateral_icone" src={item.icone} alt="" />
             <span>{item.rotulo}</span>
           </button>
