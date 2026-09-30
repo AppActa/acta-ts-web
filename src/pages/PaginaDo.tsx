@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import logoActa from "../features/auth/assets/logo-acta.svg";
 import { BarraLateral } from "../features/perfil/components/BarraLateral";
@@ -43,8 +42,6 @@ function IconeCiclo({ tipo }: { tipo: TipoIcone }) {
 }
 
 export function PaginaDo() {
-  const [mostrarTodos, setMostrarTodos] = useState(false);
-
   return (
     <main className="pagina-do">
       <BarraLateral />
@@ -57,7 +54,7 @@ export function PaginaDo() {
           <nav className="do-topo" aria-label="Acesso rápido">
             <span className="do-topo_item"><IconeTopo tipo="notificacoes" /><span>Notificações</span></span>
             <span className="do-topo_item"><IconeTopo tipo="relatorios" /><span>Relatórios</span></span>
-            <a className="do-topo_item" href="#meus-ciclos"><IconeTopo tipo="ciclos" /><span>Ciclos</span></a>
+            <Link className="do-topo_item" to="/ciclos"><IconeTopo tipo="ciclos" /><span>Ciclos</span></Link>
             <span className="do-topo_item"><IconeTopo tipo="cato" /><span>Cato</span></span>
           </nav>
         </header>
@@ -97,10 +94,10 @@ export function PaginaDo() {
                 <h2>Meus ciclos</h2>
                 <div className="do-ciclos_acoes">
                   <button className="do-botao" type="button" disabled title="Cadastro de ciclos ainda não integrado à API"><span className="do-mais" aria-hidden="true">+</span>Criar novo</button>
-                  <button className="do-botao" type="button" onClick={() => setMostrarTodos((atual) => !atual)} aria-expanded={mostrarTodos}><IconeLista />{mostrarTodos ? "Recolher" : "Ver todos"}</button>
+                  <Link className="do-botao" to="/ciclos"><IconeLista />Ver todos</Link>
                 </div>
               </div>
-              <div className={`do-ciclos_lista${mostrarTodos ? " do-ciclos_lista-expandida" : ""}`}>
+              <div className="do-ciclos_lista">
                 {ciclos.map((ciclo, indice) => (
                   <Link className="do-ciclo" key={ciclo.titulo} to={`/do/ciclo/${indice + 1}`} aria-label={`Abrir ciclo ${ciclo.titulo}`}>
                     <div className={`do-ciclo_icone do-ciclo_icone-${ciclo.cor}`}><IconeCiclo tipo={ciclo.icone} /></div>
