@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { PainelCicloPlanDo } from "../features/ciclo/components/PainelCicloPlanDo";
-import "../features/perfil/styles/pagina-perfil.css";
-import "../features/ciclo/styles/painel-ciclo-plan-do.css";
-import "./pagina-plan-identificacao-problema.css";
+import { PainelCicloPlanDo } from "../../ciclo/components/PainelCicloPlanDo";
+import "../../perfil/styles/pagina-perfil.css";
+import "../../ciclo/styles/painel-ciclo-plan-do.css";
+import "../styles/pagina-plan-identificacao-problema.css";
 
 const historico = [
   ["Abr 2026", "10,2%"], ["Mai 2026", "9,6%"], ["Jun 2026", "8,4%"],
