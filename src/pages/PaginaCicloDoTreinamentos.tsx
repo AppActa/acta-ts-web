@@ -41,7 +41,7 @@ export function PaginaCicloDoTreinamentos() {
       <BarraLateral />
       <div className="treinamentos_painel">
         <header className="treinamentos_cabecalho">
-          <div className="treinamentos_icone" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="31" stroke="white" strokeWidth="5"/><path d="M40 22v20L28 52" stroke="white" strokeWidth="5" strokeLinecap="round"/></svg></div>
+          <div className="treinamentos_icone" aria-hidden="true" />
           <div><h1>Redução do tempo de atendimento</h1><span className="treinamentos_status">Status: Do</span><p><span>Responsável pelo ciclo:</span> Catarina Cândido</p><p><span>Iniciado em:</span> 26/05/2026</p><p><span>Prazo final:</span> 30/10/2026</p></div>
         </header>
         <AbasTreinamentos cicloId={cicloId} />
