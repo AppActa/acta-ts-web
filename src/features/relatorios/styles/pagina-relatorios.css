@@ -24,12 +24,11 @@
 
 .pagina-relatorios .web-listas_cabecalho {
   height: 96px;
+  background: linear-gradient(105deg, #51ced3, #75dadd 45%, #51b9c9);
 }
 
 .pagina-relatorios .web-listas_cabecalho::before {
-  width: 65%;
-  border-bottom-right-radius: 0;
-  background: linear-gradient(105deg, #51ced3, #75dadd 45%, #51b9c9);
+  display: none;
 }
 
 .pagina-relatorios .web-listas_titulo {
@@ -295,7 +294,6 @@
 
 @media (max-width: 850px) {
   .pagina-relatorios .web-listas_cabecalho { height: 70px; }
-  .pagina-relatorios .web-listas_cabecalho::before { width: 100%; }
   .pagina-relatorios .web-listas_titulo { gap: 12px; padding-left: 12px; }
   .pagina-relatorios .web-listas_titulo > a,
   .pagina-relatorios .web-listas_titulo > a img:first-child { width: 42px; height: 42px; }

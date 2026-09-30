@@ -16,23 +16,11 @@
 
 .pagina-todos-ciclos .web-listas_cabecalho {
   height: 96px;
-}
-
-.pagina-todos-ciclos .web-listas_cabecalho::before {
-  width: 100%;
-  border-radius: 0;
   background: linear-gradient(100deg, #50cdd3, #75dadd 48%, #4eb9c7);
 }
 
-.pagina-todos-ciclos .web-listas_cabecalho::after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 780px;
-  border-bottom-left-radius: 20px;
-  background: #202020;
-  content: "";
+.pagina-todos-ciclos .web-listas_cabecalho::before {
+  display: none;
 }
 
 .pagina-todos-ciclos .web-listas_titulo {
@@ -311,7 +299,6 @@
 
 @media (max-width: 850px) {
   .pagina-todos-ciclos .web-listas_cabecalho { height: 70px; }
-  .pagina-todos-ciclos .web-listas_cabecalho::after { display: none; }
   .pagina-todos-ciclos .web-listas_titulo { gap: 12px; padding-left: 12px; }
   .pagina-todos-ciclos .web-listas_titulo > a,
   .pagina-todos-ciclos .web-listas_titulo > a img:first-child { width: 42px; height: 42px; }
