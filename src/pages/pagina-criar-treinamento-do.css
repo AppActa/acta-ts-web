@@ -1,0 +1,53 @@
+.pagina-criar-treinamento-do { display: grid; min-height: 100vh; place-items: center; padding: 24px; background: #292929; color: #101010; }
+.criar-treinamento_modal { display: grid; width: min(1209px, 84vw); height: min(784px, 76.5vh); grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px; border-radius: 24px; padding: 22px; background: #fff; }
+.criar-treinamento_mensagem { display: flex; min-width: 0; align-items: end; border-radius: 22px; padding: 30px; background: linear-gradient(151deg, #7de2e2 0%, #53bfcb 54%, #b8edf0 100%); }
+.criar-treinamento_mensagem div { display: grid; gap: 3px; }
+.criar-treinamento_mensagem span { font-size: 25px; }
+.criar-treinamento_mensagem strong { font-size: 28px; font-weight: 600; line-height: 1.12; }
+.criar-treinamento_formulario { position: relative; display: flex; min-width: 0; flex-direction: column; overflow-y: auto; padding: 33px 6px 5px 0; }
+.criar-treinamento_fechar { position: absolute; top: 0; right: 0; color: #74808a; font-size: 40px; font-weight: 200; line-height: 1; text-decoration: none; }
+.criar-treinamento_formulario h1 { margin: 0 45px 23px 0; font-size: 30px; font-weight: 700; line-height: 1.1; }
+.criar-treinamento_campo { display: grid; min-width: 0; gap: 7px; color: #141414; font-size: 15px; }
+.criar-treinamento_campo input, .criar-treinamento_campo textarea, .criar-treinamento_material input { width: 100%; min-width: 0; border: 1px solid #dedede; border-radius: 8px; outline-color: #48b3c6; padding: 0 10px; background: #fff; color: #161616; font: inherit; font-size: 14px; }
+.criar-treinamento_campo input { height: 38px; }
+.criar-treinamento_campo textarea { height: 74px; resize: vertical; padding-top: 9px; }
+.criar-treinamento_campo-descricao { margin-top: 17px; }
+.criar-treinamento_dupla { display: grid; grid-template-columns: minmax(0, 1fr) 123px; gap: 28px; margin-top: 16px; }
+.criar-treinamento_dupla .criar-treinamento_campo input { height: 38px; }
+.criar-treinamento_obrigatorio { display: flex; align-items: center; gap: 14px; margin-top: 17px; }
+.criar-treinamento_obrigatorio span { min-width: 123px; border-radius: 99px; padding: 6px 13px; background: #fff1d9; color: #9f670d; font-size: 10px; text-align: center; }
+.criar-treinamento_obrigatorio small { color: #75808a; font-size: 10px; }
+.criar-treinamento_colaboradores { display: flex; align-items: end; gap: 8px; margin-top: 20px; }
+.criar-treinamento_colaboradores .criar-treinamento_campo { width: 112px; font-size: 15px; }
+.criar-treinamento_colaboradores .criar-treinamento_campo input { height: 36px; }
+.criar-treinamento_colaboradores button, .criar-treinamento_material button { height: 36px; border: 0; border-radius: 8px; padding: 0 10px; background: #48b3c6; color: #fff; font: inherit; font-size: 12px; white-space: nowrap; }
+.criar-treinamento_formulario button:disabled { cursor: default; }
+.criar-treinamento_material { display: grid; gap: 7px; margin-top: 16px; color: #141414; font-size: 15px; }
+.criar-treinamento_material > div { display: flex; gap: 10px; }
+.criar-treinamento_material input { height: 36px; }
+.criar-treinamento_concluido { min-height: 38px; margin-top: auto; border: 0; border-radius: 9px; background: #48b3c6; box-shadow: 0 0 20px #48b3c680; color: #fff; font: inherit; font-size: 12px; }
+.criar-treinamento_fechar:focus-visible { outline: 3px solid #056196; outline-offset: 3px; }
+
+@media (max-width: 1050px) {
+  .criar-treinamento_modal { width: min(900px, 94vw); height: min(784px, 92vh); grid-template-columns: .75fr 1fr; gap: 18px; padding: 16px; }
+  .criar-treinamento_mensagem { padding: 20px; }
+  .criar-treinamento_mensagem span { font-size: 19px; }
+  .criar-treinamento_mensagem strong { font-size: 22px; }
+  .criar-treinamento_formulario { padding-top: 30px; }
+  .criar-treinamento_formulario h1 { font-size: 24px; }
+  .criar-treinamento_dupla { grid-template-columns: minmax(0, 1fr) 110px; gap: 12px; }
+  .criar-treinamento_colaboradores { flex-wrap: wrap; }
+}
+@media (max-width: 650px) {
+  .pagina-criar-treinamento-do { min-height: 100vh; padding: 12px; }
+  .criar-treinamento_modal { width: 100%; height: calc(100vh - 24px); grid-template-columns: 1fr; gap: 14px; overflow: auto; border-radius: 17px; padding: 12px; }
+  .criar-treinamento_mensagem { min-height: 110px; }
+  .criar-treinamento_mensagem span { font-size: 15px; }
+  .criar-treinamento_mensagem strong { font-size: 18px; }
+  .criar-treinamento_formulario { overflow: visible; padding: 8px 4px 4px; }
+  .criar-treinamento_fechar { top: -130px; right: 10px; }
+  .criar-treinamento_formulario h1 { font-size: 21px; }
+  .criar-treinamento_dupla { grid-template-columns: 1fr 130px; }
+  .criar-treinamento_obrigatorio { align-items: start; flex-direction: column; gap: 6px; }
+  .criar-treinamento_concluido { margin-top: 20px; }
+}

@@ -49,7 +49,7 @@ export function PaginaCicloDoTreinamentos() {
           <div className="treinamentos_titulo_linha">
             <Link to={`/do/ciclo/${cicloId}/tarefas`} className="treinamentos_voltar" aria-label="Voltar às tarefas">‹</Link>
             <h2>Treinamentos</h2>
-            <button type="button" className="treinamentos_criar" disabled><span>＋</span>Criar novo</button>
+            <Link to={`/do/ciclo/${cicloId}/treinamentos/criar`} className="treinamentos_criar"><span>＋</span>Criar novo</Link>
           </div>
           <div className="treinamentos_filtros">
             <label className="treinamentos_busca"><span className="visually-hidden">Buscar treinamento</span><input value={busca} onChange={(event) => setBusca(event.target.value)} placeholder="Buscar treinamento" /></label>
