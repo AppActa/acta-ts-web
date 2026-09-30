@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { BarraLateral } from "../features/perfil/components/BarraLateral";
+import { Sidebar } from "../features/layout/components/Sidebar";
 import { treinamentosDoCiclo } from "./PaginaCicloDoTreinamentos";
 import "../features/perfil/styles/pagina-perfil.css";
 import "./pagina-ciclo-do-treinamento-especifico.css";
@@ -22,7 +22,7 @@ export function PaginaCicloDoTreinamentoEspecifico() {
 
   return (
     <main className="pagina-treinamento-especifico">
-      <BarraLateral />
+      <Sidebar />
       <div className="treinamento-especifico_painel">
         <header className="treinamento-especifico_cabecalho">
           <div className="treinamento-especifico_icone" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="31" stroke="white" strokeWidth="5"/><path d="M40 22v20L28 52" stroke="white" strokeWidth="5" strokeLinecap="round"/></svg></div>

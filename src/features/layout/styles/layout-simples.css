@@ -1,0 +1,41 @@
+.layout-simples {
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: 119px minmax(0, 1fr);
+  background: #1f1f1f;
+}
+
+.layout-simples_painel {
+  min-width: 0;
+  min-height: calc(100vh - 58px);
+  margin: 29px 27px 29px 0;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #f6f6f6;
+}
+
+.layout-simples_painel .page-shell {
+  min-height: calc(100vh - 58px);
+  background: transparent;
+}
+
+.layout-simples_painel .pagina-editar-perfil {
+  min-height: calc(100vh - 58px);
+  padding: 24px;
+  background: transparent;
+}
+
+.layout-simples_painel .cartao-editar-perfil {
+  width: min(1210px, 100%);
+  gap: clamp(24px, 6vw, 111px);
+}
+
+@media (max-width: 760px) {
+  .layout-simples { display: block; padding-bottom: 72px; }
+  .layout-simples .barra-lateral { position: fixed; z-index: 3; right: 0; bottom: 0; left: 0; width: 100%; min-height: 0; height: 72px; flex-direction: row; padding: 7px 10px; background: #1f1f1f; }
+  .layout-simples .barra-lateral_navegacao { display: flex; width: 100%; justify-content: space-around; gap: 2px; }
+  .layout-simples .barra-lateral_item { width: 58px; gap: 3px; font-size: 11px; }
+  .layout-simples .barra-lateral_icone { width: 30px; height: 30px; }
+  .layout-simples .barra-lateral_perfil { display: none; }
+  .layout-simples_painel { min-height: calc(100vh - 72px); margin: 0; border-radius: 0; }
+}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useBlocker, useNavigate } from "react-router-dom";
+import { LayoutSimples } from "../../layout/components/LayoutSimples";
 import referenciaEditarPerfil from "../assets/referencia-editar-perfil.png";
 import { FormularioEditarPerfil } from "../components/FormularioEditarPerfil";
 import { ModalEdicaoPerfil } from "../components/ModalEdicaoPerfil";
@@ -46,7 +47,7 @@ export function PaginaEditarPerfil() {
   }
 
   return (
-    <main className="pagina-editar-perfil">
+    <LayoutSimples><div className="pagina-editar-perfil">
       <section className="cartao-editar-perfil" aria-labelledby="titulo-editar-perfil">
         <div className="foto-editar-perfil">
           <div className="foto-editar-perfil_recorte">
@@ -75,6 +76,6 @@ export function PaginaEditarPerfil() {
           aoCancelar={cancelarSaida}
         />
       )}
-    </main>
+    </div></LayoutSimples>
   );
 }

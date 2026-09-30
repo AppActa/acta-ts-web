@@ -7,7 +7,7 @@ import iconeNotificacoes from "../assets/icone-notificacoes.png";
 import iconeSol from "../assets/icone-sol.svg";
 import iconeVolume from "../assets/icone-volume.svg";
 import { Alternador } from "../components/Alternador";
-import { BarraLateral } from "../components/BarraLateral";
+import { Sidebar } from "../../layout/components/Sidebar";
 import { CabecalhoPerfil } from "../components/CabecalhoPerfil";
 import { Icone } from "../components/Icone";
 import { ItemConfiguracao } from "../components/ItemConfiguracao";
@@ -24,7 +24,7 @@ export function PaginaPerfil() {
 
   return (
     <main className="pagina-perfil">
-      <BarraLateral />
+      <Sidebar />
 
       <section className="conteudo-perfil">
         <CabecalhoPerfil />

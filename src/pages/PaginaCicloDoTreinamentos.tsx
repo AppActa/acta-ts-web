@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { BarraLateral } from "../features/perfil/components/BarraLateral";
+import { Sidebar } from "../features/layout/components/Sidebar";
 import "../features/perfil/styles/pagina-perfil.css";
 import "./pagina-ciclo-do-treinamentos.css";
 
@@ -38,7 +38,7 @@ export function PaginaCicloDoTreinamentos() {
 
   return (
     <main className="pagina-treinamentos">
-      <BarraLateral />
+      <Sidebar />
       <div className="treinamentos_painel">
         <header className="treinamentos_cabecalho">
           <div className="treinamentos_icone" aria-hidden="true" />

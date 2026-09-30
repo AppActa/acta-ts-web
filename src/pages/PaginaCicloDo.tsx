@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { BarraLateral } from "../features/perfil/components/BarraLateral";
+import { Sidebar } from "../features/layout/components/Sidebar";
 import iconeVisaoGeral from "./assets/ciclo-visao-geral/063c5.svg";
 import iconePlanAba from "./assets/ciclo-visao-geral/47893.svg";
 import iconeDo from "./assets/ciclo-visao-geral/d01c2.svg";
@@ -39,7 +39,7 @@ export function PaginaCicloDo() {
 
   return (
     <main className="pagina-ciclo-do">
-      <BarraLateral />
+      <Sidebar />
       <div className="ciclo-do_painel">
         <header className="ciclo-do_cabecalho">
           <span className="ciclo-do_cabecalho_icone" aria-hidden="true" />
@@ -118,7 +118,6 @@ export function PaginaCicloDo() {
         </div>
       </div>
 
-      <div className="ciclo-do_moldura_superior" aria-hidden="true"><span /><span /><span /><span /></div>
     </main>
   );
 }

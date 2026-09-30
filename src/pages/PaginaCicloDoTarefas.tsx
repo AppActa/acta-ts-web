@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { BarraLateral } from "../features/perfil/components/BarraLateral";
+import { Sidebar } from "../features/layout/components/Sidebar";
 import "../features/perfil/styles/pagina-perfil.css";
 import "./pagina-ciclo-do-tarefas.css";
 
@@ -35,7 +35,7 @@ export function PaginaCicloDoTarefas() {
 
   return (
     <main className="pagina-ciclo-do-tarefas">
-      <BarraLateral />
+      <Sidebar />
       <div className="ciclo-do_tarefas_painel">
         <header className="ciclo-do_tarefas_cabecalho">
           <div className="ciclo-do_tarefas_icone" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="31" stroke="white" strokeWidth="5"/><path d="M40 22v20L28 52" stroke="white" strokeWidth="5" strokeLinecap="round"/></svg></div>

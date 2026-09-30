@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { BarraLateral } from "../../perfil/components/BarraLateral";
+import { Sidebar } from "../../layout/components/Sidebar";
 import relogioCiclo from "../assets/relogio-ciclo.svg";
 import "../styles/painel-ciclo-plan-do.css";
 
@@ -19,7 +19,7 @@ export function PainelCicloPlanDo({ cicloId, etapaAtiva, tituloCiclo, children }
 
   return (
     <>
-      <BarraLateral />
+      <Sidebar />
       <div className={`painel-ciclo-plan-do painel-ciclo-plan-do-${etapaAtiva}`}>
         <header className="painel-ciclo-plan-do_cabecalho">
           <div className="painel-ciclo-plan-do_icone" aria-hidden="true">

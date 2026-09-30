@@ -1,6 +1,6 @@
 .pagina-web-listas { display: grid; min-height: 100vh; grid-template-columns: 119px minmax(0, 1fr); background: #202020; color: #141c29; }
 .pagina-web-listas > .barra-lateral { min-height: 100vh; }
-.web-listas_painel { min-width: 0; min-height: 100vh; margin-right: 27px; background: #f6f6f6; }
+.web-listas_painel { min-width: 0; min-height: calc(100vh - 58px); margin: 29px 27px 29px 0; overflow: hidden; border-radius: 20px; background: #f6f6f6; }
 .web-listas_cabecalho { position: relative; display: flex; height: 124px; align-items: flex-start; justify-content: space-between; overflow: hidden; background: #202020; }
 .web-listas_cabecalho::before { position: absolute; inset: 0 auto 0 0; width: 65%; border-bottom-right-radius: 20px; background: linear-gradient(110deg, #50d0d4, #47bdc8); content: ""; }
 .web-listas_titulo { position: relative; z-index: 1; display: flex; height: 100%; align-items: center; gap: 28px; padding-left: 24px; }

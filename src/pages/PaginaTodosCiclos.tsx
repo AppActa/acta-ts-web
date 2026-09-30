@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { BarraLateral } from "../features/perfil/components/BarraLateral";
+import { Sidebar } from "../features/layout/components/Sidebar";
 import "../features/perfil/styles/pagina-perfil.css";
 import "./pagina-todos-ciclos.css";
 
@@ -12,13 +12,6 @@ const ciclos = [
   { id: 5, nome: "Padronização das aprovações internas", responsavel: "A definir", prazo: "A definir", progresso: 100, cor: "turquesa", estado: "Concluído" },
 ];
 
-function IconeTopo({ tipo }: { tipo: "notificacoes" | "relatorios" | "ciclos" | "cato" }) {
-  if (tipo === "notificacoes") return <svg aria-hidden="true" viewBox="0 0 36 36" fill="none"><path d="M18 5a8 8 0 0 0-8 8v6c0 2-1 4-3 6h22c-2-2-3-4-3-6v-6a8 8 0 0 0-8-8Zm-3 24a3 3 0 0 0 6 0" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" /></svg>;
-  if (tipo === "relatorios") return <svg aria-hidden="true" viewBox="0 0 36 36" fill="none"><path d="M8 3h15l6 6v24H8V3Z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" /><path d="M23 3v7h6M13 26v-7m5 7V14m5 12v-9" stroke="currentColor" strokeWidth="2.5" /></svg>;
-  if (tipo === "ciclos") return <svg aria-hidden="true" viewBox="0 0 36 36" fill="none"><path d="M29 13a12 12 0 0 0-21-4L5 12m2-7v7h7M7 23a12 12 0 0 0 21 4l3-3m-2 7v-7h-7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>;
-  return <span className="lista-ciclos_topo-placeholder" />;
-}
-
 export function PaginaTodosCiclos() {
   const [busca, setBusca] = useState("");
   const [filtro, setFiltro] = useState("Todos");
@@ -29,11 +22,10 @@ export function PaginaTodosCiclos() {
 
   return (
     <main className="pagina-web-listas pagina-todos-ciclos">
-      <BarraLateral />
+      <Sidebar />
       <div className="web-listas_painel">
         <header className="web-listas_cabecalho">
           <div className="web-listas_titulo"><Link to="/do" aria-label="Voltar ao ACTA">◀</Link><h1>Todos os ciclos</h1><button type="button" disabled title="A criação de ciclos ainda aguarda integração com a API">＋ Criar novo</button></div>
-          <nav className="web-listas_topo" aria-label="Atalhos"><span><IconeTopo tipo="notificacoes" />Notificações</span><Link to="/relatorios"><IconeTopo tipo="relatorios" />Relatórios</Link><span><IconeTopo tipo="ciclos" />Ciclos</span><span><IconeTopo tipo="cato" />Cato</span></nav>
         </header>
         <section className="lista-ciclos_conteudo" aria-label="Ciclos do ACTA">
           <div className="lista-ciclos_filtros">

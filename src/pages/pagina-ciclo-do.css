@@ -498,37 +498,6 @@
   background:#f3a640
 }
 
-.ciclo-do_moldura_superior {
-  position:absolute;
-  z-index:2;
-  top:0;
-  right:0;
-  display:flex;
-  width:541px;
-  height:125px;
-  align-items:flex-start;
-  gap:32px;
-  padding:36px 0 0 101px;
-  border-radius:0 0 0 20px;
-  background:#1f1f1f;
-  pointer-events:none
-}
-
-.ciclo-do_moldura_superior span {
-  width:56px;
-  height:56px;
-  flex:0 0 56px;
-  background:#d9d9d9
-}
-
-.pagina-ciclo-do .barra-lateral_item[aria-current="page"] {
-  color:#5d5d5d
-}
-
-.pagina-ciclo-do .barra-lateral_perfil {
-  color:#91c5c7
-}
-
 @media(max-width:1358px) {
   .ciclo-do_conteudo {
     display:grid;
@@ -588,19 +557,6 @@
 @media(max-width:1180px) {
   .ciclo-do_membros {
     max-width:388px
-  }
-
-  .ciclo-do_moldura_superior {
-    width:38%;
-    gap:14px;
-    justify-content:center;
-    padding-left:0
-  }
-
-  .ciclo-do_moldura_superior span {
-    width:40px;
-    height:40px;
-    flex-basis:40px
   }
 
 }
@@ -663,10 +619,6 @@
 
   .ciclo-do_etapa-act {
     top:320px
-  }
-
-  .ciclo-do_moldura_superior {
-    display:none
   }
 
   .ciclo-do_resumo-tarefas,.ciclo-do_resumo-indicador,.ciclo-do_decisoes {
