@@ -1,6 +1,9 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
+import voltarMoldura from "../assets/voltar-moldura.svg";
+import voltarSeta from "../assets/voltar-seta.svg";
+import iconeCriar from "../assets/icone-criar.svg";
 import "../../perfil/styles/pagina-perfil.css";
 import "../../layout/styles/web-listas.css";
 import "../styles/pagina-todos-ciclos.css";
@@ -26,7 +29,7 @@ export function PaginaTodosCiclos() {
       <Sidebar />
       <div className="web-listas_painel">
         <header className="web-listas_cabecalho">
-          <div className="web-listas_titulo"><Link to="/do" aria-label="Voltar ao ACTA">◀</Link><h1>Todos os ciclos</h1><button type="button" disabled title="A criação de ciclos ainda aguarda integração com a API">＋ Criar novo</button></div>
+          <div className="web-listas_titulo"><Link to="/do" aria-label="Voltar ao ACTA"><img src={voltarMoldura} alt="" /><img src={voltarSeta} alt="" /></Link><h1>Todos os ciclos</h1><button type="button" disabled title="A criação de ciclos ainda aguarda integração com a API"><img src={iconeCriar} alt="" />Criar novo</button></div>
         </header>
         <section className="lista-ciclos_conteudo" aria-label="Ciclos do ACTA">
           <div className="lista-ciclos_filtros">
@@ -39,8 +42,7 @@ export function PaginaTodosCiclos() {
             {filtrados.map((ciclo) => (
               <article className="lista-ciclos_item" key={ciclo.id}>
                 <span className={`lista-ciclos_icone ${ciclo.cor}`} aria-hidden="true" />
-                <div className="lista-ciclos_identificacao"><h2>{ciclo.nome}</h2><p>Responsável: {ciclo.responsavel} <span>•</span> Prazo: {ciclo.prazo}</p></div>
-                <span className={`lista-ciclos_estado ${ciclo.estado === "Concluído" ? "concluido" : "andamento"}`}>{ciclo.estado}</span>
+                <div className="lista-ciclos_identificacao"><div className="lista-ciclos_titulo_linha"><h2>{ciclo.nome}</h2><span className={`lista-ciclos_estado ${ciclo.estado === "Concluído" ? "concluido" : "andamento"}`}>{ciclo.estado}</span></div><p>Responsável: {ciclo.responsavel} <span>•</span> Prazo: {ciclo.prazo}</p></div>
                 <div className="lista-ciclos_progresso"><strong>{ciclo.progresso}% concluído</strong><span role="progressbar" aria-label={`Progresso de ${ciclo.nome}`} aria-valuenow={ciclo.progresso} aria-valuemin={0} aria-valuemax={100}><i className={ciclo.cor} style={{ width: `${ciclo.progresso}%` }} /></span></div>
                 <Link className={`lista-ciclos_abrir ${ciclo.cor}`} to={`/do/ciclo/${ciclo.id}`}>Abrir ciclo</Link>
                 <button className="lista-ciclos_mais" type="button" aria-label={`Mais ações para ${ciclo.nome}`} disabled title="Mais ações ainda não estão disponíveis">⋮</button>
