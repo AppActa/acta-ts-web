@@ -4,7 +4,7 @@ import { Sidebar } from "../../layout/components/Sidebar";
 import voltarMoldura from "../assets/relatorios/voltar-moldura.svg";
 import voltarSeta from "../assets/relatorios/voltar-seta.svg";
 import "../../perfil/styles/pagina-perfil.css";
-import "../../../pages/pagina-todos-ciclos.css";
+import "../../ciclos/styles/pagina-todos-ciclos.css";
 import "../styles/pagina-relatorios.css";
 
 const relatorios = [

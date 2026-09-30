@@ -16,7 +16,7 @@ import { PaginaPlanColeta } from "../../pages/PaginaPlanColeta";
 import { PaginaPlanCriarFormulario } from "../../pages/PaginaPlanCriarFormulario";
 import { PaginaPlanIdentificacaoProblema } from "../../pages/PaginaPlanIdentificacaoProblema";
 import { PaginaPlanAvisoColeta } from "../../pages/PaginaPlanAvisoColeta";
-import { PaginaTodosCiclos } from "../../pages/PaginaTodosCiclos";
+import { PaginaTodosCiclos } from "../../features/ciclos/pages/PaginaTodosCiclos";
 import { PaginaRelatorios } from "../../features/relatorios/pages/PaginaRelatorios";
 import { PaginaNaoEncontrada } from "../../pages/PaginaNaoEncontrada";
 
