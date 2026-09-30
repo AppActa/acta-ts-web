@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
-import voltarMoldura from "../assets/relatorios/voltar-moldura.svg";
-import voltarSeta from "../assets/relatorios/voltar-seta.svg";
+import voltarMoldura from "../assets/voltar-moldura.svg";
+import voltarSeta from "../assets/voltar-seta.svg";
 import "../../perfil/styles/pagina-perfil.css";
-import "../../ciclos/styles/pagina-todos-ciclos.css";
+import "../../layout/styles/web-listas.css";
 import "../styles/pagina-relatorios.css";
 
 const relatorios = [

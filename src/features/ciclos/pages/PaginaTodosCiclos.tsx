@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
 import "../../perfil/styles/pagina-perfil.css";
+import "../../layout/styles/web-listas.css";
 import "../styles/pagina-todos-ciclos.css";
 
 const ciclos = [
