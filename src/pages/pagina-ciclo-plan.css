@@ -1,0 +1,32 @@
+.pagina-ciclo-plan .painel-ciclo-plan-do_abas { margin-bottom: 50px; }
+.plan-resumo-conteudo { display: grid; grid-template-columns: repeat(2, minmax(0, 580px)); gap: 25px 23px; justify-content: start; padding: 0 55px 30px; }
+.plan-indicador, .plan-progresso { min-width: 0; height: 178px; border-radius: 12px; background: #fff; }
+.plan-indicador { display: flex; flex-direction: column; align-items: start; padding: 18px 20px; }
+.plan-indicador h2, .plan-progresso h2 { margin: 0; color: #1c2636; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 17px; font-weight: 600; }
+.plan-indicador_estado { margin-top: 10px; color: #267a5c; font-size: 12px; font-weight: 600; }
+.plan-indicador p { margin: 14px 0 0; color: #5e6675; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 13px; }
+.plan-indicador a, .plan-indicador_detalhes { margin-top: auto; color: #266e5c; font-size: 13px; font-weight: 600; text-decoration: none; }
+.plan-indicador a:focus-visible { outline: 3px solid #056196; outline-offset: 3px; }
+.plan-progresso { display: flex; align-items: center; gap: 26px; padding: 0 36px; }
+.plan-progresso_grafico { position: relative; display: grid; width: 108px; height: 108px; flex: 0 0 auto; place-items: center; }
+.plan-progresso_grafico img { position: absolute; inset: 0; width: 108px; height: 108px; }
+.plan-progresso_grafico strong { color: #056196; font-size: 14px; font-weight: 600; }
+.plan-progresso_texto { display: grid; min-width: 0; gap: 8px; }
+.plan-progresso_texto > strong { color: #056196; font-size: 13px; font-weight: 600; }
+.plan-progresso_texto p { margin: 0; color: #667080; font-size: 12px; }
+.plan-progresso_legenda { display: flex; gap: 19px; color: #667080; font-size: 11px; }
+.plan-progresso_legenda span { display: inline-flex; align-items: center; gap: 4px; }
+.plan-progresso_legenda i { width: 7px; height: 7px; border-radius: 50%; }
+.plan-progresso_legenda .concluido { background: #056196; }
+.plan-progresso_legenda .pendente { background: #a5adb5; }
+@media (max-width: 1100px) {
+  .plan-resumo-conteudo { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; padding: 0 28px 30px; }
+  .plan-indicador, .plan-progresso { height: auto; min-height: 178px; }
+}
+@media (max-width: 760px) {
+  .pagina-ciclo-plan .painel-ciclo-plan-do_abas { margin-bottom: 24px; }
+  .plan-resumo-conteudo { grid-template-columns: minmax(0, 1fr); padding: 0 14px 24px; }
+  .plan-progresso { gap: 14px; padding: 20px; }
+  .plan-progresso_grafico { width: 88px; height: 88px; }
+  .plan-progresso_grafico img { width: 88px; height: 88px; }
+}

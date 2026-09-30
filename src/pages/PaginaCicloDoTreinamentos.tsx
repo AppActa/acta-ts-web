@@ -19,7 +19,7 @@ function AbasTreinamentos({ cicloId }: { cicloId: string | undefined }) {
   return (
     <nav className="treinamentos_abas" aria-label="Etapas do ciclo">
       <Link to={`/do/ciclo/${cicloId}/visao-geral`} className="treinamentos_aba treinamentos_aba-visao"><span>⟳</span>Visão geral</Link>
-      <button type="button" className="treinamentos_aba treinamentos_aba-plan" disabled><span>▣</span>Plan</button>
+      <Link to={`/do/ciclo/${cicloId}/plan`} className="treinamentos_aba treinamentos_aba-plan"><span>▣</span>Plan</Link>
       <Link to={`/do/ciclo/${cicloId}/tarefas`} aria-current="page" className="treinamentos_aba treinamentos_aba-do"><span>▷</span>Do</Link>
       <button type="button" className="treinamentos_aba treinamentos_aba-check" disabled><span>✓</span>Checar</button>
       <button type="button" className="treinamentos_aba treinamentos_aba-act" disabled><span>✧</span>Agir</button>

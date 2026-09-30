@@ -11,6 +11,7 @@ import { PaginaCriarTreinamentoDo } from "../../pages/PaginaCriarTreinamentoDo";
 import { PaginaSucessoTreinamentoCriadoDo } from "../../pages/PaginaSucessoTreinamentoCriadoDo";
 import { PaginaSucessoLembreteDo } from "../../pages/PaginaSucessoLembreteDo";
 import { PaginaCicloDoCronograma } from "../../pages/PaginaCicloDoCronograma";
+import { PaginaCicloPlan } from "../../pages/PaginaCicloPlan";
 import { PaginaNaoEncontrada } from "../../pages/PaginaNaoEncontrada";
 
 export const router = createBrowserRouter([
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
   {
     path: "/do",
     element: <PaginaDo />,
+  },
+  {
+    path: "/do/ciclo/:cicloId/plan",
+    element: <PaginaCicloPlan />,
   },
   {
     path: "/do/ciclo/:cicloId",

@@ -8,7 +8,7 @@ function AbasTreinamento({ cicloId }: { cicloId: string | undefined }) {
   return (
     <nav className="treinamento-especifico_abas" aria-label="Etapas do ciclo">
       <Link to={`/do/ciclo/${cicloId}/visao-geral`} className="treinamento-especifico_aba treinamento-especifico_aba-visao"><span>⟳</span>Visão geral</Link>
-      <button type="button" className="treinamento-especifico_aba treinamento-especifico_aba-plan" disabled><span>▣</span>Plan</button>
+      <Link to={`/do/ciclo/${cicloId}/plan`} className="treinamento-especifico_aba treinamento-especifico_aba-plan"><span>▣</span>Plan</Link>
       <Link to={`/do/ciclo/${cicloId}/tarefas`} aria-current="page" className="treinamento-especifico_aba treinamento-especifico_aba-do"><span>▷</span>Do</Link>
       <button type="button" className="treinamento-especifico_aba treinamento-especifico_aba-check" disabled><span>✓</span>Checar</button>
       <button type="button" className="treinamento-especifico_aba treinamento-especifico_aba-act" disabled><span>✧</span>Agir</button>

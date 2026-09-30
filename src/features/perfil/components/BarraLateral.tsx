@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import iconeAct from "../assets/icone-act.png";
 import iconeCheck from "../assets/icone-check.png";
 import iconeDo from "../assets/icone-do.png";
@@ -12,6 +12,9 @@ const itens = [
 ];
 
 export function BarraLateral() {
+  const { cicloId } = useParams();
+  const linkPlan = `/do/ciclo/${cicloId ?? "1"}/plan`;
+
   return (
     <aside className="barra-lateral" aria-label="Navegação principal">
       <nav className="barra-lateral_navegacao">
@@ -20,10 +23,10 @@ export function BarraLateral() {
           <span>Home</span>
         </NavLink>
 
-        <button className="barra-lateral_item" type="button" disabled title="Área Plan em desenvolvimento">
+        <NavLink className="barra-lateral_item" to={linkPlan}>
           <img className="barra-lateral_icone" src={iconePlan} alt="" />
           <span>Plan</span>
-        </button>
+        </NavLink>
 
         <NavLink className="barra-lateral_item" to="/do">
           <img className="barra-lateral_icone" src={iconeDo} alt="" />

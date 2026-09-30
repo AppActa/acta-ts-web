@@ -35,9 +35,7 @@ export function PainelCicloPlanDo({ cicloId, etapaAtiva, tituloCiclo, children }
 
         <nav className="painel-ciclo-plan-do_abas" aria-label="Etapas do ciclo">
           <Link to={`/do/ciclo/${cicloId}/visao-geral`} className="painel-ciclo-plan-do_aba painel-ciclo-plan-do_aba-visao"><span aria-hidden="true">⟳</span>Visão geral</Link>
-          {!isDo
-            ? <Link to={etapaHref("plan")} aria-current="page" className="painel-ciclo-plan-do_aba painel-ciclo-plan-do_aba-plan ativa"><span aria-hidden="true">▣</span>Plan</Link>
-            : <button type="button" className="painel-ciclo-plan-do_aba painel-ciclo-plan-do_aba-plan" disabled><span aria-hidden="true">▣</span>Plan</button>}
+          <Link to={etapaHref("plan")} aria-current={!isDo ? "page" : undefined} className={`painel-ciclo-plan-do_aba painel-ciclo-plan-do_aba-plan${!isDo ? " ativa" : ""}`}><span aria-hidden="true">▣</span>Plan</Link>
           <Link to={etapaHref("do")} aria-current={isDo ? "page" : undefined} className={`painel-ciclo-plan-do_aba painel-ciclo-plan-do_aba-do${isDo ? " ativa" : ""}`}><span aria-hidden="true">▷</span>Do</Link>
           <button type="button" className="painel-ciclo-plan-do_aba painel-ciclo-plan-do_aba-check" disabled><span aria-hidden="true">✓</span>Checar</button>
           <button type="button" className="painel-ciclo-plan-do_aba painel-ciclo-plan-do_aba-act" disabled><span aria-hidden="true">✧</span>Agir</button>
