@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
-import { Sidebar } from "../features/layout/components/Sidebar";
-import "../features/perfil/styles/pagina-perfil.css";
-import "./pagina-ciclo-do-tarefas.css";
+import { Sidebar } from "../../layout/components/Sidebar";
+import "../../perfil/styles/pagina-perfil.css";
+import "../styles/pagina-ciclo-do-tarefas.css";
 
 type Tarefa = { titulo: string; responsavel: string; prazo: string };
 const colunas: { titulo: string; classe: string; tarefas: Tarefa[] }[] = [

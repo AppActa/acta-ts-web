@@ -4,7 +4,7 @@ import { PaginaEditarPerfil, PaginaPerfil } from "../../features/perfil";
 import { HomePage } from "../../pages/HomePage";
 import { PaginaDo } from "../../features/do/pages/PaginaDo";
 import { PaginaCicloDo } from "../../features/do/pages/PaginaCicloDo";
-import { PaginaCicloDoTarefas } from "../../pages/PaginaCicloDoTarefas";
+import { PaginaCicloDoTarefas } from "../../features/do/pages/PaginaCicloDoTarefas";
 import { PaginaCicloDoTreinamentos } from "../../pages/PaginaCicloDoTreinamentos";
 import { PaginaCicloDoTreinamentoEspecifico } from "../../pages/PaginaCicloDoTreinamentoEspecifico";
 import { PaginaCriarTreinamentoDo } from "../../pages/PaginaCriarTreinamentoDo";
