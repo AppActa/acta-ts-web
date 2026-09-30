@@ -57,7 +57,7 @@
 .pagina-todos-ciclos .web-listas_titulo > button {
   position: absolute;
   top: 31px;
-  left: 588px;
+  left: max(588px, calc(100vw - 792px));
   display: flex;
   width: 156px;
   height: 33px;
