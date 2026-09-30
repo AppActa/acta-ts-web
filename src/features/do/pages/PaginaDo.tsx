@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import logoActa from "../features/auth/assets/logo-acta.svg";
-import { Sidebar } from "../features/layout/components/Sidebar";
-import "../features/perfil/styles/pagina-perfil.css";
-import "./pagina-do.css";
+import logoActa from "../../auth/assets/logo-acta.svg";
+import { Sidebar } from "../../layout/components/Sidebar";
+import "../../perfil/styles/pagina-perfil.css";
+import "../styles/pagina-do.css";
 
 type TipoIcone = "relogio" | "caixa" | "equipe" | "escudo" | "aprovacao";
 
