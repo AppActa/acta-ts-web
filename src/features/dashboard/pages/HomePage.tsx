@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { LayoutSimples } from "../features/layout/components/LayoutSimples";
+import { LayoutSimples } from "../../layout/components/LayoutSimples";
 
 export function HomePage() {
   return (

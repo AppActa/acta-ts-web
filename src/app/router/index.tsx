@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { PaginaLogin } from "../../features/auth";
 import { PaginaEditarPerfil, PaginaPerfil } from "../../features/perfil";
-import { HomePage } from "../../pages/HomePage";
+import { HomePage } from "../../features/dashboard/pages/HomePage";
 import { PaginaDo } from "../../features/do/pages/PaginaDo";
 import { PaginaCicloDo } from "../../features/do/pages/PaginaCicloDo";
 import { PaginaCicloDoTarefas } from "../../features/do/pages/PaginaCicloDoTarefas";
