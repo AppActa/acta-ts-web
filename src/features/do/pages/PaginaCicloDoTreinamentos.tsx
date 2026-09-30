@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Sidebar } from "../features/layout/components/Sidebar";
-import "../features/perfil/styles/pagina-perfil.css";
-import "./pagina-ciclo-do-treinamentos.css";
+import { Sidebar } from "../../layout/components/Sidebar";
+import "../../perfil/styles/pagina-perfil.css";
+import "../styles/pagina-ciclo-do-treinamentos.css";
 
 type StatusFiltro = "todos" | "andamento" | "concluidos";
 type Treinamento = { id: string; titulo: string; responsavel: string; data: string; material: string; status: Exclude<StatusFiltro, "todos"> };

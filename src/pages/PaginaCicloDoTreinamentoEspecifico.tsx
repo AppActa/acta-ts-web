@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { Sidebar } from "../features/layout/components/Sidebar";
-import { treinamentosDoCiclo } from "./PaginaCicloDoTreinamentos";
+import { treinamentosDoCiclo } from "../features/do/pages/PaginaCicloDoTreinamentos";
 import "../features/perfil/styles/pagina-perfil.css";
 import "./pagina-ciclo-do-treinamento-especifico.css";
 
