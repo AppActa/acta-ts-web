@@ -1,107 +1,793 @@
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("./assets/ciclo-visao-geral/plus-jakarta-400.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("./assets/ciclo-visao-geral/plus-jakarta-600.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("./assets/ciclo-visao-geral/plus-jakarta-700.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 .pagina-ciclo-do {
-  display: grid;
-  min-height: 100vh;
-  grid-template-columns: 119px minmax(0, 1fr);
-  background: #202020;
-  color: #141c29;
+  position:relative;
+  display:grid;
+  min-height:100vh;
+  grid-template-columns:119px minmax(0,1fr);
+  background:#1f1f1f;
+  color:#141c29
 }
 
-.pagina-ciclo-do .barra-lateral { min-height: 100vh; }
-.ciclo-do_painel { min-width: 0; min-height: calc(100vh - 58px); margin: 29px 27px 29px 0; overflow: hidden; border-radius: 20px; background: #f6f6f6; }
-.ciclo-do_cabecalho { position: relative; display: flex; min-height: 196px; align-items: center; gap: 22px; padding: 25px 36px 25px 43px; border-radius: 0 0 20px 20px; background: #fff; }
-.ciclo-do_cabecalho_icone { width: 118px; height: 118px; flex: 0 0 auto; transform: translateY(4px); border-radius: 20px; background: #0ac2ca; }
-.ciclo-do_identificacao { min-width: 0; }
-.ciclo-do_titulo_linha { display: flex; align-items: center; gap: 18px; }
-.ciclo-do_titulo_linha h1 { margin: 0; color: #141c29; font-size: 24px; font-weight: 600; }
-.ciclo-do_status { border-radius: 99px; padding: 4px 24px; background: #0ac2ca; color: #fff; font-size: 11px; font-weight: 600; white-space: nowrap; }
-.ciclo-do_identificacao p { margin: 1px 0; color: #888; font-size: 17px; }
-.ciclo-do_identificacao p strong { color: #1f1f1f; font-weight: 500; }
-.ciclo-do_abas { display: flex; height: 79px; align-items: end; gap: 0; border-bottom: 27px solid #0ac2ca; padding-left: 33px; background: #73e2e7; }
-.ciclo-do_aba { display: inline-flex; width: 156px; height: 55px; flex: 0 0 156px; align-items: center; justify-content: center; gap: 5px; border: 0; border-radius: 20px 20px 0 0; color: #163a44; font-size: 15px; font-weight: 600; text-decoration: none; }
-.ciclo-do_aba:disabled { cursor: default; }
-.ciclo-do_aba span, .ciclo-do_aba svg { font-size: 19px; }
-.ciclo-do_aba-visao { background: #0ac2ca; color: #068e94; }
-.ciclo-do_aba-plan { background: #056196; color: #022e46; }
-.ciclo-do_aba-do { background: #0ac2ca; color: #08717a; }
-.ciclo-do_aba-ativa { background: #fff; color: #08717a; }
-.ciclo-do_aba-check { background: #43ae85; color: #287a5a; }
-.ciclo-do_aba-act { background: #00a89d; color: #006c66; }
-.ciclo-do_conteudo { display: grid; grid-template-columns: 190px 189px 314px 388px; grid-template-rows: 325px 223px; align-items: start; column-gap: 19px; row-gap: 34px; padding: 66px 81px 30px 66px; }
-.ciclo-do_conteudo h2 { margin: 0 0 22px; color: #141c29; font-size: 18px; font-weight: 700; }
-.ciclo-do_status_ciclo { grid-column: 1 / 4; grid-row: 1; }
-.ciclo-do_etapas { display: grid; height: 261px; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 74px 74px; align-content: start; gap: 24px 20px; border-radius: 14px; padding: 32px 38px; background: #fff; }
-.ciclo-do_etapa { display: grid; min-width: 0; grid-template-columns: 52px minmax(0, 1fr) 52px; align-items: center; gap: 12px; }
-.ciclo-do_etapa_icone { display: grid; width: 52px; height: 52px; place-items: center; border-radius: 50%; color: #fff; }
-.ciclo-do_etapa-plan .ciclo-do_etapa_icone { background: #056196; }
-.ciclo-do_etapa-do .ciclo-do_etapa_icone { background: #0ac2ca; }
-.ciclo-do_etapa-check .ciclo-do_etapa_icone { background: #43ae85; }
-.ciclo-do_etapa-act .ciclo-do_etapa_icone { background: #00a89d; }
-.ciclo-do_icone-plan, .ciclo-do_icone-check { font-size: 21px; }
-.ciclo-do_icone-play { font-size: 24px; }
-.ciclo-do_icone-act { font-size: 25px; }
-.ciclo-do_etapa_info { display: grid; min-width: 0; grid-template-columns: 1fr; gap: 3px; }
-.ciclo-do_etapa_info strong { color: #1f1f1f; font-size: 14px; font-weight: 600; }
-.ciclo-do_etapa_info > span { color: #333; font-size: 13px; }
-.ciclo-do_etapa_barra { height: 6px; margin-top: 4px; overflow: hidden; border-radius: 8px; background: #f1f2f3; }
-.ciclo-do_etapa_barra span { display: block; height: 100%; border-radius: inherit; background: #056196; }
-.ciclo-do_etapa-do .ciclo-do_etapa_barra span { background: #0ac2ca; }
-.ciclo-do_etapa-check .ciclo-do_etapa_barra span { background: #43ae85; }
-.ciclo-do_etapa-act .ciclo-do_etapa_barra span { background: #00a89d; }
-.ciclo-do_etapa_percentual { display: flex; align-items: center; gap: 9px; color: #1f1f1f; font-size: 14px; white-space: nowrap; }
-.ciclo-do_etapa_percentual b { font-size: 16px; font-weight: 400; }
-.ciclo-do_equipe { grid-column: 4; grid-row: 1; transform: translateX(9px); }
-.ciclo-do_membros { display: flex; min-height: 257px; flex-direction: column; border-radius: 14px; padding: 24px 20px 22px; background: #fff; }
-.ciclo-do_membros p { margin: 8px 0; color: #141c29; font-size: 13px; }
-.ciclo-do_membros button { min-height: 28px; margin: auto 25px 0; border: 0; border-radius: 9px; background: #48b3c6; box-shadow: 0 0 20px #48b3c680; color: #fff; font: inherit; font-size: 11px; }
-.ciclo-do_membros button:disabled { cursor: default; }
-.ciclo-do_resumo, .ciclo-do_decisoes { grid-row: 2; align-self: stretch; }
-.ciclo-do_resumo-tarefas { grid-column: 1; }
-.ciclo-do_resumo-indicador { grid-column: 2; }
-.ciclo-do_decisoes { grid-column: 3; }
-.ciclo-do_resumo h2, .ciclo-do_decisoes h2 { margin-bottom: 15px; }
-.ciclo-do_card_tarefas, .ciclo-do_card_indicador, .ciclo-do_card_decisoes { min-height: 184px; border-radius: 12px; padding: 16px; background: #fff; }
-.ciclo-do_card_tarefas > span, .ciclo-do_card_indicador > span { color: #77808b; font-size: 10px; }
-.ciclo-do_rosca { display: grid; width: 122px; height: 122px; place-items: center; margin: 2px auto 0; border: 11px solid #0bb5bf; border-left-color: #e1e7eb; border-radius: 50%; transform: rotate(-35deg); }
-.ciclo-do_rosca strong { color: #0bb5bf; font-size: 22px; transform: rotate(35deg); }
-.ciclo-do_card_indicador { display: flex; flex-direction: column; gap: 27px; }
-.ciclo-do_card_indicador strong { align-self: center; color: #056196; font-size: 36px; }
-.ciclo-do_card_decisoes { display: flex; flex-direction: column; justify-content: center; gap: 11px; padding: 16px 20px; }
-.ciclo-do_card_decisoes p { display: flex; align-items: start; gap: 9px; margin: 0; }
-.ciclo-do_card_decisoes p > span:last-child { display: grid; gap: 2px; }
-.ciclo-do_card_decisoes strong { color: #141c29; font-size: 13px; font-weight: 600; }
-.ciclo-do_card_decisoes small { color: #75808a; font-size: 12px; }
-.ciclo-do_ponto { width: 7px; height: 7px; flex: 0 0 auto; margin-top: 4px; border-radius: 50%; }
-.ciclo-do_ponto-turquesa { background: #0ac2ca; }
-.ciclo-do_ponto-laranja { background: #f3a640; }
-.ciclo-do_aba:focus-visible { outline: 3px solid #056196; outline-offset: 3px; }
-
-@media (max-width: 1050px) {
-  .ciclo-do_conteudo { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto; align-items: start; padding: 28px; }
-  .ciclo-do_status_ciclo, .ciclo-do_equipe, .ciclo-do_resumo-tarefas, .ciclo-do_resumo-indicador, .ciclo-do_decisoes { grid-column: auto; grid-row: auto; }
-  .ciclo-do_status_ciclo, .ciclo-do_decisoes { grid-column: 1 / -1; }
+.pagina-ciclo-do .barra-lateral {
+  min-height:100vh
 }
-@media (max-width: 760px) {
-  .pagina-ciclo-do { display: block; padding-bottom: 72px; }
-  .pagina-ciclo-do .barra-lateral { position: fixed; z-index: 3; right: 0; bottom: 0; left: 0; width: 100%; min-height: 0; height: 72px; flex-direction: row; padding: 7px 10px; background: #202020; }
-  .pagina-ciclo-do .barra-lateral_navegacao { display: flex; width: 100%; justify-content: space-around; gap: 2px; }
-  .pagina-ciclo-do .barra-lateral_item { width: 58px; gap: 3px; font-size: 11px; }
-  .pagina-ciclo-do .barra-lateral_icone { width: 30px; height: 30px; }
-  .pagina-ciclo-do .barra-lateral_perfil { display: none; }
-  .ciclo-do_painel { margin: 0; min-height: calc(100vh - 72px); border-radius: 0; }
-  .ciclo-do_cabecalho { min-height: 170px; gap: 12px; padding: 35px 16px 20px; }
-  .ciclo-do_cabecalho_icone { width: 58px; height: 58px; }
-  .ciclo-do_titulo_linha { align-items: start; flex-direction: column; gap: 5px; }
-  .ciclo-do_titulo_linha h1 { font-size: 17px; }
-  .ciclo-do_identificacao p { font-size: 12px; }
-  .ciclo-do_abas { height: 52px; gap: 1px; padding-left: 4px; }
-  .ciclo-do_aba { width: auto; min-width: 63px; height: 35px; flex: 1 1 auto; gap: 3px; font-size: 10px; }
-  .ciclo-do_conteudo { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 12px; padding: 25px 14px; }
-  .ciclo-do_status_ciclo, .ciclo-do_decisoes { grid-column: 1 / -1; }
-  .ciclo-do_etapas { height: auto; grid-template-columns: 1fr; padding: 20px 12px; }
-  .ciclo-do_etapa { grid-template-columns: 36px minmax(0, 1fr) 43px; gap: 8px; }
-  .ciclo-do_etapa_percentual { gap: 3px; font-size: 10px; }
-  .ciclo-do_membros { padding-right: 10px; padding-left: 10px; }
-  .ciclo-do_equipe { transform: none; }
-  .ciclo-do_membros p { font-size: 10px; }
-  .ciclo-do_membros button { margin-right: 0; margin-left: 0; }
+
+.ciclo-do_painel {
+  min-width:0;
+  min-height:calc(100vh - 58px);
+  margin:29px 27px 29px 0;
+  overflow:hidden;
+  border-radius:20px;
+  background:#f6f6f6
+}
+
+.ciclo-do_cabecalho {
+  position:relative;
+  height:195px;
+  border-radius:20px;
+  background:#fff
+}
+
+.ciclo-do_cabecalho_icone {
+  position:absolute;
+  top:43px;
+  left:43px;
+  width:118px;
+  height:118px;
+  border-radius:20px;
+  background:#0ac2ca
+}
+
+.ciclo-do_identificacao {
+  position:absolute;
+  top:50px;
+  left:183px;
+  min-width:0
+}
+
+.ciclo-do_titulo_linha {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:1px
+}
+
+.ciclo-do_titulo_linha h1 {
+  margin:0;
+  color:#141c29;
+  font-family:"Plus Jakarta Sans",sans-serif;
+  font-size:24px;
+  font-weight:600;
+  line-height:31px;
+  white-space:nowrap
+}
+
+.ciclo-do_status {
+  display:grid;
+  width:127px;
+  height:23px;
+  flex:0 0 auto;
+  place-items:center;
+  border-radius:100px;
+  background:#0ac2ca;
+  color:#fff;
+  font-size:12px;
+  font-weight:700
+}
+
+.ciclo-do_identificacao p {
+  margin:0;
+  color:#858585;
+  font-size:20px;
+  line-height:21px;
+  white-space:nowrap
+}
+
+.ciclo-do_identificacao p strong {
+  color:#1f1f1f;
+  font-weight:500
+}
+
+.ciclo-do_abas {
+  position:relative;
+  display:flex;
+  height:80px;
+  align-items:flex-end;
+  padding-left:33px;
+  background:linear-gradient(to bottom,#73e2e7 0 53px,#0ac2ca 53px 100%)
+}
+
+.ciclo-do_aba {
+  z-index:1;
+  display:inline-flex;
+  width:156px;
+  height:55px;
+  flex:0 0 156px;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  border-radius:20px 20px 0 0;
+  font-size:15px;
+  font-weight:700;
+  text-decoration:none
+}
+
+.ciclo-do_aba img {
+  width:25px;
+  height:25px;
+  object-fit:contain
+}
+
+.ciclo-do_aba-visao {
+  background:#fff;
+  color:#1f1f1f
+}
+
+.ciclo-do_aba-plan {
+  background:#025a8a;
+  color:#003654
+}
+
+.ciclo-do_aba-do {
+  background:#0ac2ca;
+  color:#068e94
+}
+
+.ciclo-do_aba-check {
+  background:#43ae85;
+  color:#338162
+}
+
+.ciclo-do_aba-act {
+  background:#00a89d;
+  color:#026b66
+}
+
+.ciclo-do_aba:focus-visible {
+  outline:3px solid #025a8a;
+  outline-offset:-4px
+}
+
+.ciclo-do_conteudo {
+  position:relative;
+  height:691px;
+  font-family:"Plus Jakarta Sans",sans-serif
+}
+
+.ciclo-do_conteudo h2 {
+  margin:0;
+  color:#141c29;
+  font-size:20px;
+  font-weight:700;
+  line-height:25px
+}
+
+.ciclo-do_status_ciclo {
+  position:absolute;
+  top:65px;
+  left:67px;
+  width:731px
+}
+
+.ciclo-do_etapas {
+  position:relative;
+  height:261px;
+  margin-top:22px;
+  border-radius:20px;
+  background:#fff
+}
+
+.ciclo-do_etapa {
+  position:absolute;
+  width:306px;
+  height:90px;
+  font-family:"Segoe UI",sans-serif
+}
+
+.ciclo-do_etapa-plan {
+  top:32px;
+  left:38px
+}
+
+.ciclo-do_etapa-do {
+  top:131px;
+  left:38px
+}
+
+.ciclo-do_etapa-check {
+  top:34px;
+  left:404px
+}
+
+.ciclo-do_etapa-act {
+  top:139px;
+  left:404px
+}
+
+.ciclo-do_etapa_icone {
+  position:absolute;
+  top:0;
+  left:0;
+  width:53px;
+  height:53px
+}
+
+.ciclo-do_etapa_circulo {
+  display:block;
+  width:53px;
+  height:53px
+}
+
+.ciclo-do_etapa_simbolo {
+  position:absolute;
+  top:14px;
+  left:14px;
+  width:25px;
+  height:25px;
+  object-fit:contain
+}
+
+.ciclo-do_etapa_texto {
+  position:absolute;
+  top:8px;
+  left:65px;
+  display:grid;
+  gap:1px;
+  color:#1f1f1f;
+  font-size:15px;
+  line-height:19px;
+  white-space:nowrap
+}
+
+.ciclo-do_etapa_texto strong {
+  font-weight:700
+}
+
+.ciclo-do_etapa_percentual {
+  position:absolute;
+  top:13px;
+  left:211px;
+  display:flex;
+  width:77px;
+  justify-content:space-between;
+  color:#1f1f1f;
+  font-size:16px;
+  font-weight:600;
+  line-height:20px;
+  white-space:nowrap
+}
+
+.ciclo-do_etapa_barra {
+  position:absolute;
+  top:63px;
+  left:2px;
+  width:246px;
+  height:6px;
+  overflow:hidden;
+  border-radius:90px;
+  background:#f6f6f6
+}
+
+.ciclo-do_etapa_barra>span {
+  display:block;
+  height:100%;
+  border-radius:inherit;
+  background:#025a8a
+}
+
+.ciclo-do_etapa-do .ciclo-do_etapa_barra>span {
+  background:#0ac2ca
+}
+
+.ciclo-do_equipe {
+  position:absolute;
+  top:72px;
+  left:818px;
+  width:395px
+}
+
+.ciclo-do_membros {
+  position:relative;
+  width:388px;
+  height:257px;
+  margin:15px 0 0 7px;
+  border-radius:14px;
+  background:#fff
+}
+
+.ciclo-do_membros p {
+  position:absolute;
+  left:20px;
+  margin:0;
+  color:#141c29;
+  font-size:13px;
+  line-height:18px;
+  white-space:nowrap
+}
+
+.ciclo-do_membros p strong {
+  font-weight:600
+}
+
+.ciclo-do_membros p:nth-child(1) {
+  top:34px
+}
+
+.ciclo-do_membros p:nth-child(2) {
+  top:71px
+}
+
+.ciclo-do_membros p:nth-child(3) {
+  top:108px
+}
+
+.ciclo-do_membros p:nth-child(4) {
+  top:144px
+}
+
+.ciclo-do_membros button {
+  position:absolute;
+  top:186px;
+  left:57px;
+  width:274px;
+  height:38px;
+  border:0;
+  border-radius:10px;
+  background:#48b3c6;
+  box-shadow:0 0 25px #48b3c680;
+  color:#fff;
+  font:inherit;
+  font-size:15px
+}
+
+.ciclo-do_membros button:disabled {
+  cursor:default
+}
+
+.ciclo-do_resumo,.ciclo-do_decisoes {
+  position:absolute;
+  top:419px
+}
+
+.ciclo-do_resumo-tarefas {
+  left:66px;
+  width:189px
+}
+
+.ciclo-do_resumo-indicador {
+  left:275px;
+  width:189px
+}
+
+.ciclo-do_decisoes {
+  left:484px;
+  width:314px
+}
+
+.ciclo-do_resumo h2,.ciclo-do_decisoes h2 {
+  margin-bottom:20px
+}
+
+.ciclo-do_card_tarefas,.ciclo-do_card_indicador,.ciclo-do_card_decisoes {
+  position:relative;
+  height:184px;
+  border-radius:14px;
+  background:#fff
+}
+
+.ciclo-do_card_tarefas>span,.ciclo-do_card_indicador>span {
+  position:absolute;
+  top:24px;
+  left:14px;
+  color:#66707a;
+  font-size:12px
+}
+
+.ciclo-do_rosca {
+  position:absolute;
+  top:45px;
+  left:30px;
+  width:130px;
+  height:130px
+}
+
+.ciclo-do_rosca img {
+  position:absolute;
+  top:3.6px;
+  left:3.6px;
+  width:122.7px;
+  height:122.7px
+}
+
+.ciclo-do_rosca img:nth-child(2) {
+  left:18.5px;
+  width:107px
+}
+
+.ciclo-do_rosca strong {
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  color:#05adb8;
+  font-size:20px;
+  font-weight:600
+}
+
+.ciclo-do_card_indicador strong {
+  position:absolute;
+  top:75px;
+  left:51px;
+  color:#056196;
+  font-size:32px;
+  font-weight:700;
+  line-height:37px
+}
+
+.ciclo-do_card_decisoes p {
+  position:absolute;
+  left:29px;
+  display:flex;
+  gap:10px;
+  margin:0
+}
+
+.ciclo-do_card_decisoes p:nth-child(1) {
+  top:44px
+}
+
+.ciclo-do_card_decisoes p:nth-child(2) {
+  top:100px
+}
+
+.ciclo-do_card_decisoes p>span:last-child {
+  display:grid;
+  gap:2px
+}
+
+.ciclo-do_card_decisoes strong {
+  color:#141c29;
+  font-size:14px;
+  font-weight:600;
+  line-height:20px;
+  white-space:nowrap
+}
+
+.ciclo-do_card_decisoes small {
+  color:#66707a;
+  font-size:12px;
+  line-height:18px
+}
+
+.ciclo-do_ponto {
+  width:8px;
+  height:8px;
+  flex:0 0 auto;
+  margin-top:6px;
+  border-radius:4px
+}
+
+.ciclo-do_ponto-turquesa {
+  background:#05adb8
+}
+
+.ciclo-do_ponto-laranja {
+  background:#f3a640
+}
+
+.ciclo-do_moldura_superior {
+  position:absolute;
+  z-index:2;
+  top:0;
+  right:0;
+  display:flex;
+  width:541px;
+  height:125px;
+  align-items:flex-start;
+  gap:32px;
+  padding:36px 0 0 101px;
+  border-radius:0 0 0 20px;
+  background:#1f1f1f;
+  pointer-events:none
+}
+
+.ciclo-do_moldura_superior span {
+  width:56px;
+  height:56px;
+  flex:0 0 56px;
+  background:#d9d9d9
+}
+
+.pagina-ciclo-do .barra-lateral_item[aria-current="page"] {
+  color:#5d5d5d
+}
+
+.pagina-ciclo-do .barra-lateral_perfil {
+  color:#91c5c7
+}
+
+@media(max-width:1358px) {
+  .ciclo-do_conteudo {
+    display:grid;
+    height:auto;
+    grid-template-columns:1fr;
+    gap:42px;
+    padding:65px 40px 43px 66px
+  }
+
+  .ciclo-do_status_ciclo,.ciclo-do_equipe,.ciclo-do_resumo,.ciclo-do_decisoes {
+    position:static;
+    width:auto
+  }
+
+  .ciclo-do_status_ciclo {
+    grid-column:1
+  }
+
+  .ciclo-do_equipe {
+    grid-column:1;
+    grid-row:2;
+    padding-top:0
+  }
+
+  .ciclo-do_etapas {
+    width:min(100%,731px)
+  }
+
+  .ciclo-do_membros {
+    width:100%;
+    margin-left:0
+  }
+
+  .ciclo-do_resumo,.ciclo-do_decisoes {
+    grid-row:3
+  }
+
+  .ciclo-do_resumo-tarefas {
+    grid-column:1;
+    width:189px
+  }
+
+  .ciclo-do_resumo-indicador {
+    grid-column:1;
+    width:189px;
+    margin-left:209px
+  }
+
+  .ciclo-do_decisoes {
+    grid-column:1;
+    width:314px;
+    margin-left:418px
+  }
+
+}
+
+@media(max-width:1180px) {
+  .ciclo-do_membros {
+    max-width:388px
+  }
+
+  .ciclo-do_moldura_superior {
+    width:38%;
+    gap:14px;
+    justify-content:center;
+    padding-left:0
+  }
+
+  .ciclo-do_moldura_superior span {
+    width:40px;
+    height:40px;
+    flex-basis:40px
+  }
+
+}
+
+@media(max-width:900px) {
+  .ciclo-do_cabecalho {
+    height:205px
+  }
+
+  .ciclo-do_identificacao {
+    right:16px
+  }
+
+  .ciclo-do_titulo_linha {
+    align-items:flex-start;
+    flex-direction:column;
+    gap:3px
+  }
+
+  .ciclo-do_titulo_linha h1 {
+    max-width:100%;
+    overflow:hidden;
+    font-size:18px;
+    text-overflow:ellipsis
+  }
+
+  .ciclo-do_identificacao p {
+    font-size:14px;
+    line-height:18px
+  }
+
+  .ciclo-do_abas {
+    overflow-x:auto
+  }
+
+  .ciclo-do_conteudo {
+    padding:32px 24px
+  }
+
+  .ciclo-do_etapas {
+    height:auto;
+    min-height:440px
+  }
+
+  .ciclo-do_etapa-plan,.ciclo-do_etapa-do,.ciclo-do_etapa-check,.ciclo-do_etapa-act {
+    left:30px
+  }
+
+  .ciclo-do_etapa-plan {
+    top:20px
+  }
+
+  .ciclo-do_etapa-do {
+    top:120px
+  }
+
+  .ciclo-do_etapa-check {
+    top:220px
+  }
+
+  .ciclo-do_etapa-act {
+    top:320px
+  }
+
+  .ciclo-do_moldura_superior {
+    display:none
+  }
+
+  .ciclo-do_resumo-tarefas,.ciclo-do_resumo-indicador,.ciclo-do_decisoes {
+    grid-column:1;
+    grid-row:auto;
+    margin-left:0
+  }
+
+}
+
+@media(max-width:760px) {
+  .pagina-ciclo-do {
+    display:block;
+    padding-bottom:72px
+  }
+
+  .pagina-ciclo-do .barra-lateral {
+    position:fixed;
+    z-index:3;
+    right:0;
+    bottom:0;
+    left:0;
+    width:100%;
+    min-height:0;
+    height:72px;
+    flex-direction:row;
+    padding:7px 10px;
+    background:#202020
+  }
+
+  .pagina-ciclo-do .barra-lateral_navegacao {
+    display:flex;
+    width:100%;
+    justify-content:space-around;
+    gap:2px
+  }
+
+  .pagina-ciclo-do .barra-lateral_item {
+    width:58px;
+    gap:3px;
+    font-size:11px
+  }
+
+  .pagina-ciclo-do .barra-lateral_icone {
+    width:30px;
+    height:30px
+  }
+
+  .pagina-ciclo-do .barra-lateral_perfil {
+    display:none
+  }
+
+  .ciclo-do_painel {
+    min-height:calc(100vh - 72px);
+    margin:0;
+    border-radius:0
+  }
+
+  .ciclo-do_cabecalho {
+    height:170px;
+    border-radius:0 0 20px 20px
+  }
+
+  .ciclo-do_cabecalho_icone {
+    top:32px;
+    left:16px;
+    width:58px;
+    height:58px;
+    border-radius:10px
+  }
+
+  .ciclo-do_identificacao {
+    top:29px;
+    left:88px
+  }
+
+  .ciclo-do_titulo_linha h1 {
+    font-size:16px;
+    line-height:22px
+  }
+
+  .ciclo-do_status {
+    width:100px;
+    height:20px;
+    font-size:10px
+  }
+
+  .ciclo-do_identificacao p {
+    font-size:11px;
+    line-height:16px
+  }
+
+  .ciclo-do_abas {
+    height:63px;
+    padding-left:8px;
+    background:linear-gradient(to bottom,#73e2e7 0 47px,#0ac2ca 47px 100%)
+  }
+
+  .ciclo-do_aba {
+    width:96px;
+    height:42px;
+    flex-basis:96px;
+    gap:2px;
+    border-radius:12px 12px 0 0;
+    font-size:11px
+  }
+
+  .ciclo-do_aba img {
+    width:17px;
+    height:17px
+  }
+
+  .ciclo-do_resumo-tarefas,.ciclo-do_resumo-indicador,.ciclo-do_decisoes {
+    grid-column:1;
+    grid-row:auto;
+    margin-left:0
+  }
+
+  .ciclo-do_etapa {
+    transform:scale(.9);
+    transform-origin:left top
+  }
+
 }
