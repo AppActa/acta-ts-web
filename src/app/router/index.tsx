@@ -12,7 +12,7 @@ import { PaginaSucessoTreinamentoCriadoDo } from "../../features/do/pages/Pagina
 import { PaginaSucessoLembreteDo } from "../../features/do/pages/PaginaSucessoLembreteDo";
 import { PaginaCicloDoCronograma } from "../../features/do/pages/PaginaCicloDoCronograma";
 import { PaginaCicloPlan } from "../../features/plan/pages/PaginaCicloPlan";
-import { PaginaPlanColeta } from "../../pages/PaginaPlanColeta";
+import { PaginaPlanColeta } from "../../features/plan/pages/PaginaPlanColeta";
 import { PaginaPlanCriarFormulario } from "../../pages/PaginaPlanCriarFormulario";
 import { PaginaPlanIdentificacaoProblema } from "../../pages/PaginaPlanIdentificacaoProblema";
 import { PaginaPlanAvisoColeta } from "../../pages/PaginaPlanAvisoColeta";
