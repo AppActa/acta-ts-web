@@ -8,7 +8,7 @@ import { PaginaCicloDoTarefas } from "../../features/do/pages/PaginaCicloDoTaref
 import { PaginaCicloDoTreinamentos } from "../../features/do/pages/PaginaCicloDoTreinamentos";
 import { PaginaCicloDoTreinamentoEspecifico } from "../../features/do/pages/PaginaCicloDoTreinamentoEspecifico";
 import { PaginaCriarTreinamentoDo } from "../../features/do/pages/PaginaCriarTreinamentoDo";
-import { PaginaSucessoTreinamentoCriadoDo } from "../../pages/PaginaSucessoTreinamentoCriadoDo";
+import { PaginaSucessoTreinamentoCriadoDo } from "../../features/do/pages/PaginaSucessoTreinamentoCriadoDo";
 import { PaginaSucessoLembreteDo } from "../../pages/PaginaSucessoLembreteDo";
 import { PaginaCicloDoCronograma } from "../../pages/PaginaCicloDoCronograma";
 import { PaginaCicloPlan } from "../../pages/PaginaCicloPlan";

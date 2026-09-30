@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { ModalSucessoDo } from "../features/do/components/ModalSucessoDo";
+import { ModalSucessoDo } from "../components/ModalSucessoDo";
 
 export function PaginaSucessoTreinamentoCriadoDo() {
   const { cicloId } = useParams();
