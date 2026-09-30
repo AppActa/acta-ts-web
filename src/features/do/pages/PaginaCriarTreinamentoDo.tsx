@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import "./pagina-criar-treinamento-do.css";
+import "../styles/pagina-criar-treinamento-do.css";
 
 export function PaginaCriarTreinamentoDo() {
   const { cicloId } = useParams();
