@@ -1,21 +1,21 @@
 import { Link, useParams } from "react-router-dom";
-import { Sidebar } from "../features/layout/components/Sidebar";
-import iconeVisaoGeral from "./assets/ciclo-visao-geral/063c5.svg";
-import iconePlanAba from "./assets/ciclo-visao-geral/47893.svg";
-import iconeDo from "./assets/ciclo-visao-geral/d01c2.svg";
-import iconeCheckAba from "./assets/ciclo-visao-geral/fe2f6.svg";
-import iconeActAba from "./assets/ciclo-visao-geral/a51ff.svg";
-import circuloPlan from "./assets/ciclo-visao-geral/9576b.svg";
-import iconePlan from "./assets/ciclo-visao-geral/79e34.svg";
-import circuloDo from "./assets/ciclo-visao-geral/a380d.svg";
-import circuloCheck from "./assets/ciclo-visao-geral/61e69.svg";
-import iconeCheck from "./assets/ciclo-visao-geral/6c5ca.svg";
-import circuloAct from "./assets/ciclo-visao-geral/0afc5.svg";
-import iconeAct from "./assets/ciclo-visao-geral/3f4de.svg";
-import roscaFundo from "./assets/ciclo-visao-geral/7787a.svg";
-import roscaProgresso from "./assets/ciclo-visao-geral/ebea0.svg";
-import "../features/perfil/styles/pagina-perfil.css";
-import "./pagina-ciclo-do.css";
+import { Sidebar } from "../../layout/components/Sidebar";
+import iconeVisaoGeral from "../assets/ciclo-visao-geral/063c5.svg";
+import iconePlanAba from "../assets/ciclo-visao-geral/47893.svg";
+import iconeDo from "../assets/ciclo-visao-geral/d01c2.svg";
+import iconeCheckAba from "../assets/ciclo-visao-geral/fe2f6.svg";
+import iconeActAba from "../assets/ciclo-visao-geral/a51ff.svg";
+import circuloPlan from "../assets/ciclo-visao-geral/9576b.svg";
+import iconePlan from "../assets/ciclo-visao-geral/79e34.svg";
+import circuloDo from "../assets/ciclo-visao-geral/a380d.svg";
+import circuloCheck from "../assets/ciclo-visao-geral/61e69.svg";
+import iconeCheck from "../assets/ciclo-visao-geral/6c5ca.svg";
+import circuloAct from "../assets/ciclo-visao-geral/0afc5.svg";
+import iconeAct from "../assets/ciclo-visao-geral/3f4de.svg";
+import roscaFundo from "../assets/ciclo-visao-geral/7787a.svg";
+import roscaProgresso from "../assets/ciclo-visao-geral/ebea0.svg";
+import "../../perfil/styles/pagina-perfil.css";
+import "../styles/pagina-ciclo-do.css";
 
 const ciclos = [
   { nome: "Redução do tempo de atendimento", inicio: "26/05/2026", prazo: "30/10/2026" },

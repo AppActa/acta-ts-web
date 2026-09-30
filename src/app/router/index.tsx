@@ -3,7 +3,7 @@ import { PaginaLogin } from "../../features/auth";
 import { PaginaEditarPerfil, PaginaPerfil } from "../../features/perfil";
 import { HomePage } from "../../pages/HomePage";
 import { PaginaDo } from "../../pages/PaginaDo";
-import { PaginaCicloDo } from "../../pages/PaginaCicloDo";
+import { PaginaCicloDo } from "../../features/do/pages/PaginaCicloDo";
 import { PaginaCicloDoTarefas } from "../../pages/PaginaCicloDoTarefas";
 import { PaginaCicloDoTreinamentos } from "../../pages/PaginaCicloDoTreinamentos";
 import { PaginaCicloDoTreinamentoEspecifico } from "../../pages/PaginaCicloDoTreinamentoEspecifico";
