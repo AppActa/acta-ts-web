@@ -16,7 +16,7 @@
 .ciclo-do_status { border-radius: 99px; padding: 4px 24px; background: #0ac2ca; color: #fff; font-size: 11px; font-weight: 600; white-space: nowrap; }
 .ciclo-do_identificacao p { margin: 1px 0; color: #888; font-size: 15px; }
 .ciclo-do_identificacao p strong { color: #1f1f1f; font-weight: 500; }
-.ciclo-do_abas { display: flex; height: 58px; align-items: end; gap: 2px; border-bottom: 19px solid #0ac2ca; padding-left: 10px; background: #73e2e7; }
+.ciclo-do_abas { display: flex; height: 58px; align-items: end; gap: 2px; margin-top: 24px; border-bottom: 19px solid #0ac2ca; padding-left: 10px; background: #73e2e7; }
 .ciclo-do_aba { display: inline-flex; width: 111px; height: 40px; align-items: center; justify-content: center; gap: 5px; border: 0; border-radius: 16px 16px 0 0; color: #163a44; font-size: 13px; font-weight: 600; text-decoration: none; }
 .ciclo-do_aba:disabled { cursor: default; }
 .ciclo-do_aba span, .ciclo-do_aba svg { font-size: 19px; }
@@ -25,7 +25,7 @@
 .ciclo-do_aba-do { background: #0ac2ca; color: #08717a; }
 .ciclo-do_aba-check { background: #43ae85; color: #287a5a; }
 .ciclo-do_aba-act { background: #00a89d; color: #006c66; }
-.ciclo-do_conteudo { display: grid; grid-template-columns: 134px minmax(150px, 1fr) minmax(190px, 1.12fr) minmax(260px, 1.8fr); grid-template-rows: 325px 190px; align-items: start; gap: 28px 14px; padding: 90px 65px 30px 47px; }
+.ciclo-do_conteudo { display: grid; grid-template-columns: 134px minmax(150px, 1fr) minmax(190px, 1.12fr) minmax(260px, 1.8fr); grid-template-rows: 325px 190px; align-items: start; gap: 28px 14px; padding: 66px 65px 30px 47px; }
 .ciclo-do_conteudo h2 { margin: 0 0 13px; color: #141c29; font-size: 16px; font-weight: 700; }
 .ciclo-do_status_ciclo { grid-column: 1 / 4; grid-row: 1; }
 .ciclo-do_etapas { display: grid; height: 185px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; border-radius: 14px; padding: 23px 28px; background: #fff; }

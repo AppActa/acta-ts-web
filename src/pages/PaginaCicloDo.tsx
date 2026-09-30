@@ -46,7 +46,7 @@ export function PaginaCicloDo() {
         <nav className="ciclo-do_abas" aria-label="Etapas do ciclo">
           <Link to={`/do/ciclo/${cicloId}/visao-geral`} aria-current="page" className="ciclo-do_aba ciclo-do_aba-visao"><span>⟳</span>Visão geral</Link>
           <button type="button" className="ciclo-do_aba ciclo-do_aba-plan" disabled><IconeEtapa nome="Plan" />Plan</button>
-          <button type="button" className="ciclo-do_aba ciclo-do_aba-do ciclo-do_aba-ativa" disabled><IconeEtapa nome="Do" />Do</button>
+          <Link to={`/do/ciclo/${cicloId}/tarefas`} aria-current="page" className="ciclo-do_aba ciclo-do_aba-do ciclo-do_aba-ativa"><IconeEtapa nome="Do" />Do</Link>
           <button type="button" className="ciclo-do_aba ciclo-do_aba-check" disabled><IconeEtapa nome="Check" />Checar</button>
           <button type="button" className="ciclo-do_aba ciclo-do_aba-act" disabled><IconeEtapa nome="Act" />Agir</button>
         </nav>
