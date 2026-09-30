@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Sidebar } from "../features/layout/components/Sidebar";
+import voltarMoldura from "./assets/relatorios/voltar-moldura.svg";
+import voltarSeta from "./assets/relatorios/voltar-seta.svg";
 import "../features/perfil/styles/pagina-perfil.css";
 import "./pagina-todos-ciclos.css";
 import "./pagina-relatorios.css";
@@ -14,21 +16,17 @@ const relatorios = [
 
 export function PaginaRelatorios() {
   const [busca, setBusca] = useState("");
-  const [periodo, setPeriodo] = useState("Todos os períodos");
-  const [tipo, setTipo] = useState("PDF e PPTX");
   const [avisoDownload, setAvisoDownload] = useState("");
   const filtrados = useMemo(() => relatorios.filter((relatorio) => {
-    const correspondeBusca = `${relatorio.ciclo} ${relatorio.responsavel}`.toLocaleLowerCase("pt-BR").includes(busca.toLocaleLowerCase("pt-BR"));
-    const correspondeTipo = tipo === "PDF e PPTX" || relatorio.tipo === tipo;
-    return correspondeBusca && correspondeTipo;
-  }), [busca, tipo]);
+    return `${relatorio.ciclo} ${relatorio.responsavel}`.toLocaleLowerCase("pt-BR").includes(busca.toLocaleLowerCase("pt-BR"));
+  }), [busca]);
 
   return (
     <main className="pagina-web-listas pagina-relatorios">
       <Sidebar />
       <div className="web-listas_painel">
         <header className="web-listas_cabecalho">
-          <div className="web-listas_titulo"><Link to="/do" aria-label="Voltar ao ACTA">◀</Link><h1>Relatórios</h1></div>
+          <div className="web-listas_titulo"><Link to="/do" aria-label="Voltar ao ACTA"><img src={voltarMoldura} alt="" /><img src={voltarSeta} alt="" /></Link><h1>Relatórios</h1></div>
         </header>
         <section className="relatorios_conteudo" aria-label="Relatórios dos ciclos">
           <div className="relatorios_metricas">
@@ -39,10 +37,8 @@ export function PaginaRelatorios() {
 
           <form className="relatorios_filtros" onSubmit={(event) => event.preventDefault()}>
             <label><span className="sr-only">Buscar ciclo ou responsável</span><input value={busca} onChange={(event) => setBusca(event.target.value)} placeholder="Buscar ciclo ou responsável" /></label>
-            <label className="sr-only" htmlFor="relatorios-periodo">Período</label>
-            <select id="relatorios-periodo" value={periodo} onChange={(event) => setPeriodo(event.target.value)}><option>Todos os períodos</option><option>Esta semana</option><option>Este mês</option></select>
-            <label className="sr-only" htmlFor="relatorios-tipo">Formato</label>
-            <select id="relatorios-tipo" value={tipo} onChange={(event) => setTipo(event.target.value)}><option>PDF e PPTX</option><option>PDF</option><option>PPTX</option></select>
+            <span className="relatorios_filtro_etiqueta relatorios_filtro_periodo">Todos os períodos</span>
+            <span className="relatorios_filtro_etiqueta relatorios_filtro_formato">PDF e PPTX</span>
             <button type="submit">Filtrar</button>
           </form>
 
