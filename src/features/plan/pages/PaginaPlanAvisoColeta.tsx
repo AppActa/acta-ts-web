@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import "./pagina-plan-aviso-coleta.css";
+import "../styles/pagina-plan-aviso-coleta.css";
 
 export function PaginaPlanAvisoColeta() {
   const { cicloId } = useParams();

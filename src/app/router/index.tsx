@@ -15,7 +15,7 @@ import { PaginaCicloPlan } from "../../features/plan/pages/PaginaCicloPlan";
 import { PaginaPlanColeta } from "../../features/plan/pages/PaginaPlanColeta";
 import { PaginaPlanCriarFormulario } from "../../features/plan/pages/PaginaPlanCriarFormulario";
 import { PaginaPlanIdentificacaoProblema } from "../../features/plan/pages/PaginaPlanIdentificacaoProblema";
-import { PaginaPlanAvisoColeta } from "../../pages/PaginaPlanAvisoColeta";
+import { PaginaPlanAvisoColeta } from "../../features/plan/pages/PaginaPlanAvisoColeta";
 import { PaginaTodosCiclos } from "../../features/ciclos/pages/PaginaTodosCiclos";
 import { PaginaRelatorios } from "../../features/relatorios/pages/PaginaRelatorios";
 import { PaginaNaoEncontrada } from "../../pages/PaginaNaoEncontrada";
