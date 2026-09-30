@@ -54,7 +54,7 @@ export function PaginaCicloDoTreinamentoEspecifico() {
             <div><span /><p><strong>Lucas Nunes</strong><small>Não iniciou o módulo de conferência.</small></p></div>
             <div><span /><p><strong>Paulo Mendes</strong><small>Prazo termina em 20 out.</small></p></div>
             <div><span /><p><strong>Paulo Mendes</strong><small>Prazo termina em 20 out.</small></p></div>
-            <button type="button" disabled>Enviar lembrete</button>
+            <Link to={`/do/ciclo/${cicloId}/treinamentos/${treinamentoId}/lembrete/sucesso`} className="treinamento-atencao_lembrete">Enviar lembrete</Link>
           </section>
 
           <section className="treinamento-modulos">
