@@ -73,7 +73,7 @@ export function PaginaCicloDoTarefas() {
           </section>
 
             <section className="ciclo-do_treinamentos">
-            <h2>Treinamentos obrigatórios</h2><article><p>Integração ao processo · 3 de 4 pessoas concluíram.</p><span>75% concluído</span><div className="ciclo-do_barra_treinamento"><span /></div><button type="button" disabled>Abrir treinamentos</button></article>
+            <h2>Treinamentos obrigatórios</h2><Link to={`/do/ciclo/${cicloId}/treinamentos`}><article><p>Integração ao processo · 3 de 4 pessoas concluíram.</p><span>75% concluído</span><div className="ciclo-do_barra_treinamento"><span /></div><span className="ciclo-do_link_botao">Abrir treinamentos</span></article></Link>
           </section>
 
           <section className="ciclo-do_prazos">

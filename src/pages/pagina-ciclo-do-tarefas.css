@@ -54,11 +54,12 @@
 .ciclo-do_treinamentos, .ciclo-do_prazos { min-width: 0; }
 .ciclo-do_treinamentos h2, .ciclo-do_prazos h2 { margin-bottom: 11px; }
 .ciclo-do_treinamentos article, .ciclo-do_prazos article { display: flex; min-height: 112px; flex-direction: column; align-items: stretch; border-radius: 14px; padding: 16px 18px 9px; background: #fff; }
+.ciclo-do_treinamentos a { color: inherit; text-decoration: none; }
 .ciclo-do_treinamentos article p, .ciclo-do_prazos article p { margin: 0 0 9px; color: #75808a; font-size: 10px; }
 .ciclo-do_treinamentos article > span, .ciclo-do_prazos article > span { color: #0aa9b2; font-size: 10px; }
 .ciclo-do_barra_treinamento { height: 7px; margin: 12px 0 10px; overflow: hidden; border-radius: 9px; background: #292929; }
 .ciclo-do_barra_treinamento span { display: block; width: 75%; height: 100%; background: #0bb5bf; }
-.ciclo-do_treinamentos button, .ciclo-do_prazos button { min-height: 29px; background: #48b3c6; box-shadow: 0 0 16px #48b3c680; }
+.ciclo-do_link_botao, .ciclo-do_prazos button { display: grid; min-height: 29px; place-items: center; border: 0; border-radius: 9px; background: #48b3c6; box-shadow: 0 0 16px #48b3c680; color: #fff !important; }
 .ciclo-do_prazos article { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 12px; }
 .ciclo-do_prazos article p { grid-column: 1 / -1; }
 .ciclo-do_prazos article > span { align-self: start; }
