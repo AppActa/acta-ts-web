@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { BarraLateral } from "../features/perfil/components/BarraLateral";
 import "../features/perfil/styles/pagina-perfil.css";
 import "./pagina-ciclo-do.css";
@@ -27,6 +27,9 @@ function IconeEtapa({ nome }: { nome: string }) {
 
 export function PaginaCicloDo() {
   const { cicloId } = useParams();
+  const { pathname } = useLocation();
+  const visaoGeralAtiva = pathname.endsWith("/visao-geral") || pathname === `/do/ciclo/${cicloId}`;
+  const etapaDoAtiva = pathname.endsWith("/tarefas");
   const ciclo = ciclos[Math.max(0, Number(cicloId ?? 1) - 1)] ?? ciclos[0];
 
   return (
@@ -44,9 +47,9 @@ export function PaginaCicloDo() {
         </header>
 
         <nav className="ciclo-do_abas" aria-label="Etapas do ciclo">
-          <Link to={`/do/ciclo/${cicloId}/visao-geral`} aria-current="page" className="ciclo-do_aba ciclo-do_aba-visao"><span>⟳</span>Visão geral</Link>
+          <Link to={`/do/ciclo/${cicloId}/visao-geral`} aria-current={visaoGeralAtiva ? "page" : undefined} className={`ciclo-do_aba ciclo-do_aba-visao${visaoGeralAtiva ? " ciclo-do_aba-ativa" : ""}`}><span>⟳</span>Visão geral</Link>
           <Link to={`/do/ciclo/${cicloId}/plan`} className="ciclo-do_aba ciclo-do_aba-plan"><IconeEtapa nome="Plan" />Plan</Link>
-          <Link to={`/do/ciclo/${cicloId}/tarefas`} aria-current="page" className="ciclo-do_aba ciclo-do_aba-do ciclo-do_aba-ativa"><IconeEtapa nome="Do" />Do</Link>
+          <Link to={`/do/ciclo/${cicloId}/tarefas`} aria-current={etapaDoAtiva ? "page" : undefined} className={`ciclo-do_aba ciclo-do_aba-do${etapaDoAtiva ? " ciclo-do_aba-ativa" : ""}`}><IconeEtapa nome="Do" />Do</Link>
           <button type="button" className="ciclo-do_aba ciclo-do_aba-check" disabled><IconeEtapa nome="Check" />Checar</button>
           <button type="button" className="ciclo-do_aba ciclo-do_aba-act" disabled><IconeEtapa nome="Act" />Agir</button>
         </nav>
