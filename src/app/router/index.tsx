@@ -17,7 +17,7 @@ import { PaginaPlanCriarFormulario } from "../../pages/PaginaPlanCriarFormulario
 import { PaginaPlanIdentificacaoProblema } from "../../pages/PaginaPlanIdentificacaoProblema";
 import { PaginaPlanAvisoColeta } from "../../pages/PaginaPlanAvisoColeta";
 import { PaginaTodosCiclos } from "../../pages/PaginaTodosCiclos";
-import { PaginaRelatorios } from "../../pages/PaginaRelatorios";
+import { PaginaRelatorios } from "../../features/relatorios/pages/PaginaRelatorios";
 import { PaginaNaoEncontrada } from "../../pages/PaginaNaoEncontrada";
 
 export const router = createBrowserRouter([

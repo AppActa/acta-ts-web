@@ -1,11 +1,11 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { Sidebar } from "../features/layout/components/Sidebar";
-import voltarMoldura from "./assets/relatorios/voltar-moldura.svg";
-import voltarSeta from "./assets/relatorios/voltar-seta.svg";
-import "../features/perfil/styles/pagina-perfil.css";
-import "./pagina-todos-ciclos.css";
-import "./pagina-relatorios.css";
+import { Sidebar } from "../../layout/components/Sidebar";
+import voltarMoldura from "../assets/relatorios/voltar-moldura.svg";
+import voltarSeta from "../assets/relatorios/voltar-seta.svg";
+import "../../perfil/styles/pagina-perfil.css";
+import "../../../pages/pagina-todos-ciclos.css";
+import "../styles/pagina-relatorios.css";
 
 const relatorios = [
   { tipo: "PDF", ciclo: "Organização do estoque", responsavel: "Catarina Cândido", atualizado: "29/09/2026" },
