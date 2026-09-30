@@ -5,14 +5,14 @@ import "../features/perfil/styles/pagina-perfil.css";
 import "./pagina-ciclo-do-treinamentos.css";
 
 type StatusFiltro = "todos" | "andamento" | "concluidos";
-type Treinamento = { titulo: string; responsavel: string; data: string; material: string; status: Exclude<StatusFiltro, "todos"> };
+type Treinamento = { id: string; titulo: string; responsavel: string; data: string; material: string; status: Exclude<StatusFiltro, "todos"> };
 
-const treinamentos: Treinamento[] = [
-  { titulo: "Conferência dupla de pedidos", responsavel: "Camila Souza", data: "15 out", material: "procedimento.pdf", status: "andamento" },
-  { titulo: "Separação por código e SKU", responsavel: "Diego Martins", data: "18 out", material: "guia-codigos-sku.pdf", status: "andamento" },
-  { titulo: "Identificação de pedidos frágeis", responsavel: "Camila Souza", data: "20 out", material: "embalagem-segura.pdf", status: "andamento" },
-  { titulo: "Registro imediato de divergências", responsavel: "Rafael Costa", data: "22 out", material: "registro-divergencias.pdf", status: "andamento" },
-  { titulo: "Conferência final por pedido", responsavel: "Ana Martins", data: "24 out", material: "procedimento-conferencia-final.pdf", status: "concluidos" },
+export const treinamentosDoCiclo: Treinamento[] = [
+  { id: "conferencia-dupla", titulo: "Conferência dupla de pedidos", responsavel: "Camila Souza", data: "15 out", material: "procedimento.pdf", status: "andamento" },
+  { id: "separacao-sku", titulo: "Separação por código e SKU", responsavel: "Diego Martins", data: "18 out", material: "guia-codigos-sku.pdf", status: "andamento" },
+  { id: "pedidos-frageis", titulo: "Identificação de pedidos frágeis", responsavel: "Camila Souza", data: "20 out", material: "embalagem-segura.pdf", status: "andamento" },
+  { id: "divergencias", titulo: "Registro imediato de divergências", responsavel: "Rafael Costa", data: "22 out", material: "registro-divergencias.pdf", status: "andamento" },
+  { id: "conferencia-final", titulo: "Conferência final por pedido", responsavel: "Ana Martins", data: "24 out", material: "procedimento-conferencia-final.pdf", status: "concluidos" },
 ];
 
 function AbasTreinamentos({ cicloId }: { cicloId: string | undefined }) {
@@ -31,7 +31,7 @@ export function PaginaCicloDoTreinamentos() {
   const { cicloId } = useParams();
   const [busca, setBusca] = useState("");
   const [filtro, setFiltro] = useState<StatusFiltro>("todos");
-  const listaVisivel = useMemo(() => treinamentos.filter((item) => {
+  const listaVisivel = useMemo(() => treinamentosDoCiclo.filter((item) => {
     const correspondeTexto = `${item.titulo} ${item.responsavel} ${item.material}`.toLocaleLowerCase("pt-BR").includes(busca.toLocaleLowerCase("pt-BR"));
     return correspondeTexto && (filtro === "todos" || item.status === filtro);
   }), [busca, filtro]);
@@ -49,7 +49,7 @@ export function PaginaCicloDoTreinamentos() {
           <div className="treinamentos_titulo_linha">
             <Link to={`/do/ciclo/${cicloId}/tarefas`} className="treinamentos_voltar" aria-label="Voltar às tarefas">‹</Link>
             <h2>Treinamentos</h2>
-            <button type="button" className="treinamentos_criar" disabled><span>＋</span>Criar novo</button>
+            <Link to={`/do/ciclo/${cicloId}/treinamentos/criar`} className="treinamentos_criar"><span>＋</span>Criar novo</Link>
           </div>
           <div className="treinamentos_filtros">
             <label className="treinamentos_busca"><span className="visually-hidden">Buscar treinamento</span><input value={busca} onChange={(event) => setBusca(event.target.value)} placeholder="Buscar treinamento" /></label>
@@ -62,10 +62,10 @@ export function PaginaCicloDoTreinamentos() {
           {listaVisivel.length > 0 ? (
             <div className="treinamentos_lista">
               {listaVisivel.map((treinamento) => (
-                <article className="treinamento_card" key={treinamento.titulo}>
-                  <div className="treinamento_cartao_topo"><span className="treinamento_cartao_icone" aria-hidden="true" /><button type="button" disabled aria-label={`Baixar material ${treinamento.material}`}>↓&nbsp; Baixar material</button></div>
+                <Link className="treinamento_card" key={treinamento.id} to={`/do/ciclo/${cicloId}/treinamentos/${treinamento.id}`} aria-label={`Ver treinamento ${treinamento.titulo}`}>
+                  <div className="treinamento_cartao_topo"><span className="treinamento_cartao_icone" aria-hidden="true" /><span className="treinamento_baixar_material" aria-label={`Material ${treinamento.material}`}>↓&nbsp; Baixar material</span></div>
                   <div className="treinamento_detalhes"><h3>{treinamento.titulo}</h3><p><strong>Responsável:</strong> {treinamento.responsavel} · {treinamento.data}</p><p><strong>Material:</strong> {treinamento.material}</p><p><strong>Ciclo:</strong> Reduzir retrabalho na separação</p></div>
-                </article>
+                </Link>
               ))}
             </div>
           ) : <p className="treinamentos_vazio">Nenhum treinamento encontrado.</p>}

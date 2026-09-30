@@ -6,6 +6,8 @@ import { PaginaDo } from "../../pages/PaginaDo";
 import { PaginaCicloDo } from "../../pages/PaginaCicloDo";
 import { PaginaCicloDoTarefas } from "../../pages/PaginaCicloDoTarefas";
 import { PaginaCicloDoTreinamentos } from "../../pages/PaginaCicloDoTreinamentos";
+import { PaginaCicloDoTreinamentoEspecifico } from "../../pages/PaginaCicloDoTreinamentoEspecifico";
+import { PaginaCriarTreinamentoDo } from "../../pages/PaginaCriarTreinamentoDo";
 import { PaginaNaoEncontrada } from "../../pages/PaginaNaoEncontrada";
 
 export const router = createBrowserRouter([
@@ -40,6 +42,14 @@ export const router = createBrowserRouter([
   {
     path: "/do/ciclo/:cicloId/treinamentos",
     element: <PaginaCicloDoTreinamentos />,
+  },
+  {
+    path: "/do/ciclo/:cicloId/treinamentos/criar",
+    element: <PaginaCriarTreinamentoDo />,
+  },
+  {
+    path: "/do/ciclo/:cicloId/treinamentos/:treinamentoId",
+    element: <PaginaCicloDoTreinamentoEspecifico />,
   },
   {
     path: "/perfil/editar",
