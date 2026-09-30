@@ -1,0 +1,50 @@
+.pagina-plan-identificacao .painel-ciclo-plan-do_abas { margin-bottom: 36px; }
+.plan-identificacao_conteudo { padding: 0 37px 30px; }
+.plan-identificacao_titulo-linha { display: flex; height: 46px; align-items: center; gap: 13px; margin-bottom: 56px; }
+.plan-identificacao_titulo-linha h2 { margin: 0; color: #141c29; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 24px; font-weight: 700; }
+.plan-identificacao_voltar { display: grid; width: 46px; height: 46px; place-items: center; border-radius: 50%; background: #26393d; color: #fff; font-size: 37px; line-height: 1; text-decoration: none; }
+.plan-identificacao_voltar:focus-visible, .plan-identificacao_card button:focus-visible, .plan-identificacao_anexar:focus-within, .plan-identificacao_salvar:focus-visible { outline: 3px solid #025a8a; outline-offset: 3px; }
+.plan-identificacao_grade { display: grid; grid-template-columns: 409fr 388fr 388fr; gap: 21px; }
+.plan-identificacao_card { min-width: 0; border-radius: 12px; background: #fff; padding: 16px 20px; }
+.plan-identificacao_grade > .plan-identificacao_card { height: 250px; }
+.plan-identificacao_card h3 { margin: 0; color: #141c29; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 13px; font-weight: 700; }
+.plan-identificacao_card p { margin: 7px 0 0; color: #66707a; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 10px; line-height: 1.5; }
+.plan-identificacao_historico table { width: 100%; margin-top: 12px; border-collapse: collapse; color: #66707a; font-size: 10px; text-align: left; }
+.plan-identificacao_historico th { padding: 0 0 3px; font-weight: 400; }
+.plan-identificacao_historico td { height: 20px; }
+.plan-identificacao_arquivo { margin-top: 8px !important; }
+.plan-identificacao_status { display: inline-block; min-width: 100px; margin-top: 12px; border-radius: 13px; padding: 6px 12px; background: #fff3e2; color: #9b6500; font-size: 10px; text-align: center; }
+.plan-identificacao_card .plan-identificacao_nota { min-height: 38px; margin-top: 8px; }
+.plan-identificacao_anexar { display: grid; width: min(274px,100%); min-height: 38px; place-items: center; margin: 8px auto 0; border-radius: 10px; background: #48b3c6; box-shadow: 0 0 25px #48b3c680; color: #fff; font-size: 11px; cursor: pointer; }
+.plan-identificacao_anexar input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; clip-path: inset(50%); }
+.plan-identificacao_lista-sugestoes { display: grid; gap: 14px; margin-top: 20px; }
+.plan-identificacao_sugestao > p { margin: 0; font-size: 10px; }
+.plan-identificacao_acoes-sugestao { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-top: 7px; }
+.plan-identificacao_acoes-sugestao button { border: 0; padding: 0; background: transparent; color: #66707a; font: inherit; font-size: 10px; cursor: pointer; }
+.plan-identificacao_acoes-sugestao button + button::before { content: "·"; margin-right: 5px; }
+.plan-identificacao_selecionada { border-radius: 13px; padding: 5px 9px; background: #fff3e2; color: #9b6500; font-size: 10px; }
+.plan-identificacao_manual { margin-top: 13px !important; }
+.plan-identificacao_impactos { min-height: 249px; margin-top: 25px; padding: 16px 20px; }
+.plan-identificacao_impactos-cabecalho { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.plan-identificacao_salvar { width: 274px; min-height: 38px; border: 0; border-radius: 10px; background: #48b3c6; box-shadow: 0 0 25px #48b3c680; color: #fff; font: inherit; font-size: 11px; cursor: pointer; }
+.plan-identificacao_campos-impacto { display: grid; grid-template-columns: 350px 350px; column-gap: 22px; row-gap: 15px; margin-top: 15px; }
+.plan-identificacao_campos-impacto label, .plan-identificacao_campos-impacto div { display: grid; gap: 6px; color: #66707a; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 10px; }
+.plan-identificacao_campos-impacto input { width: 100%; height: 34px; border: 1px solid #d9dfe4; border-radius: 8px; padding: 6px 10px; color: #354252; font: inherit; font-size: 10px; }
+.plan-identificacao_campos-impacto div p { margin: 0; }
+.plan-identificacao_feedback { margin-top: 8px !important; color: #266e5c !important; }
+@media (max-width: 1120px) {
+  .plan-identificacao_grade { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .plan-identificacao_sugestoes { grid-column: 1 / -1; }
+  .plan-identificacao_grade > .plan-identificacao_card { height: auto; min-height: 250px; }
+  .plan-identificacao_campos-impacto { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .pagina-plan-identificacao .painel-ciclo-plan-do_abas { margin-bottom: 24px; }
+  .plan-identificacao_conteudo { padding: 0 14px 24px; }
+  .plan-identificacao_titulo-linha { margin-bottom: 28px; }
+  .plan-identificacao_titulo-linha h2 { font-size: 19px; }
+  .plan-identificacao_grade, .plan-identificacao_campos-impacto { grid-template-columns: 1fr; }
+  .plan-identificacao_sugestoes { grid-column: auto; }
+  .plan-identificacao_impactos-cabecalho { flex-direction: column; }
+  .plan-identificacao_salvar { width: 100%; }
+}

@@ -27,6 +27,8 @@ export function PaginaCicloPlan() {
               <p>{indicador.descricao}</p>
               {indicador.titulo === "Coleta de dados"
                 ? <Link className="plan-indicador_detalhes" to={`/do/ciclo/${cicloId}/plan/coleta`}>Ver detalhes →</Link>
+                : indicador.titulo === "Identificação do problema"
+                  ? <Link className="plan-indicador_detalhes" to={`/do/ciclo/${cicloId}/plan/identificacao-problema`}>Ver detalhes →</Link>
                 : <span className="plan-indicador_detalhes">Ver detalhes →</span>}
             </article>
           ))}
