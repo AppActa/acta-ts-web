@@ -1,10 +1,24 @@
 import { createBrowserRouter } from "react-router-dom";
 import { PaginaLogin } from "../../features/auth";
 import { PaginaEditarPerfil, PaginaPerfil } from "../../features/perfil";
-import { HomePage } from "../../pages/HomePage";
-import { PaginaDo } from "../../pages/PaginaDo";
-import { PaginaCicloDo } from "../../pages/PaginaCicloDo";
-import { PaginaNaoEncontrada } from "../../pages/PaginaNaoEncontrada";
+import { HomePage } from "../../features/dashboard/pages/HomePage";
+import { PaginaDo } from "../../features/do/pages/PaginaDo";
+import { PaginaCicloDo } from "../../features/do/pages/PaginaCicloDo";
+import { PaginaCicloDoTarefas } from "../../features/do/pages/PaginaCicloDoTarefas";
+import { PaginaCicloDoTreinamentos } from "../../features/do/pages/PaginaCicloDoTreinamentos";
+import { PaginaCicloDoTreinamentoEspecifico } from "../../features/do/pages/PaginaCicloDoTreinamentoEspecifico";
+import { PaginaCriarTreinamentoDo } from "../../features/do/pages/PaginaCriarTreinamentoDo";
+import { PaginaSucessoTreinamentoCriadoDo } from "../../features/do/pages/PaginaSucessoTreinamentoCriadoDo";
+import { PaginaSucessoLembreteDo } from "../../features/do/pages/PaginaSucessoLembreteDo";
+import { PaginaCicloDoCronograma } from "../../features/do/pages/PaginaCicloDoCronograma";
+import { PaginaCicloPlan } from "../../features/plan/pages/PaginaCicloPlan";
+import { PaginaPlanColeta } from "../../features/plan/pages/PaginaPlanColeta";
+import { PaginaPlanCriarFormulario } from "../../features/plan/pages/PaginaPlanCriarFormulario";
+import { PaginaPlanIdentificacaoProblema } from "../../features/plan/pages/PaginaPlanIdentificacaoProblema";
+import { PaginaPlanAvisoColeta } from "../../features/plan/pages/PaginaPlanAvisoColeta";
+import { PaginaTodosCiclos } from "../../features/ciclos/pages/PaginaTodosCiclos";
+import { PaginaRelatorios } from "../../features/relatorios/pages/PaginaRelatorios";
+import { PaginaNaoEncontrada } from "../../features/layout/pages/PaginaNaoEncontrada";
 
 export const router = createBrowserRouter([
   {
@@ -24,12 +38,68 @@ export const router = createBrowserRouter([
     element: <PaginaDo />,
   },
   {
+    path: "/ciclos",
+    element: <PaginaTodosCiclos />,
+  },
+  {
+    path: "/relatorios",
+    element: <PaginaRelatorios />,
+  },
+  {
+    path: "/do/ciclo/:cicloId/plan",
+    element: <PaginaCicloPlan />,
+  },
+  {
+    path: "/do/ciclo/:cicloId/plan/coleta",
+    element: <PaginaPlanColeta />,
+  },
+  {
+    path: "/do/ciclo/:cicloId/plan/coleta/criar",
+    element: <PaginaPlanCriarFormulario />,
+  },
+  {
+    path: "/do/ciclo/:cicloId/plan/coleta/aviso",
+    element: <PaginaPlanAvisoColeta />,
+  },
+  {
+    path: "/do/ciclo/:cicloId/plan/identificacao-problema",
+    element: <PaginaPlanIdentificacaoProblema />,
+  },
+  {
     path: "/do/ciclo/:cicloId",
     element: <PaginaCicloDo />,
   },
   {
     path: "/do/ciclo/:cicloId/visao-geral",
     element: <PaginaCicloDo />,
+  },
+  {
+    path: "/do/ciclo/:cicloId/cronograma",
+    element: <PaginaCicloDoCronograma />,
+  },
+  {
+    path: "/do/ciclo/:cicloId/tarefas",
+    element: <PaginaCicloDoTarefas />,
+  },
+  {
+    path: "/do/ciclo/:cicloId/treinamentos",
+    element: <PaginaCicloDoTreinamentos />,
+  },
+  {
+    path: "/do/ciclo/:cicloId/treinamentos/criar/sucesso",
+    element: <PaginaSucessoTreinamentoCriadoDo />,
+  },
+  {
+    path: "/do/ciclo/:cicloId/treinamentos/criar",
+    element: <PaginaCriarTreinamentoDo />,
+  },
+  {
+    path: "/do/ciclo/:cicloId/treinamentos/:treinamentoId/lembrete/sucesso",
+    element: <PaginaSucessoLembreteDo />,
+  },
+  {
+    path: "/do/ciclo/:cicloId/treinamentos/:treinamentoId",
+    element: <PaginaCicloDoTreinamentoEspecifico />,
   },
   {
     path: "/perfil/editar",

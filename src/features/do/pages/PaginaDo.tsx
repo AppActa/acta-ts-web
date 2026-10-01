@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import logoActa from "../features/auth/assets/logo-acta.svg";
-import { BarraLateral } from "../features/perfil/components/BarraLateral";
-import "../features/perfil/styles/pagina-perfil.css";
-import "./pagina-do.css";
+import logoActa from "../../auth/assets/logo-acta.svg";
+import { Sidebar } from "../../layout/components/Sidebar";
+import "../../perfil/styles/pagina-perfil.css";
+import "../styles/pagina-do.css";
 
 type TipoIcone = "relogio" | "caixa" | "equipe" | "escudo" | "aprovacao";
 
@@ -26,12 +25,6 @@ function IconeLista() {
   return <svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M7 5h10M7 10h10M7 15h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><circle cx="3.5" cy="5" r="1.5" fill="currentColor"/><circle cx="3.5" cy="10" r="1.5" fill="currentColor"/><circle cx="3.5" cy="15" r="1.5" fill="currentColor"/></svg>;
 }
 
-function IconeTopo({ tipo }: { tipo: "notificacoes" | "relatorios" | "ciclos" | "cato" }) {
-  if (tipo === "notificacoes") return <svg aria-hidden="true" viewBox="0 0 36 36" fill="none"><path d="M18 5a8 8 0 0 0-8 8v6c0 2-1 4-3 6h22c-2-2-3-4-3-6v-6a8 8 0 0 0-8-8Zm-3 24a3 3 0 0 0 6 0" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round"/><path d="M16 3a2 2 0 0 1 4 0" stroke="currentColor" strokeWidth="2"/></svg>;
-  if (tipo === "relatorios") return <svg aria-hidden="true" viewBox="0 0 36 36" fill="none"><path d="M8 3h15l6 6v24H8V3Z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round"/><path d="M23 3v7h6M13 26v-7m5 7V14m5 12v-9" stroke="currentColor" strokeWidth="2.5"/></svg>;
-  return <span aria-hidden="true" className="do-topo_placeholder" />;
-}
-
 function IconeCiclo({ tipo }: { tipo: TipoIcone }) {
   switch (tipo) {
     case "relogio": return <svg aria-hidden="true" viewBox="0 0 128 128" fill="none"><circle cx="64" cy="64" r="51" stroke="currentColor" strokeWidth="9"/><path d="M64 35v31L43 86" stroke="currentColor" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round"/></svg>;
@@ -43,23 +36,15 @@ function IconeCiclo({ tipo }: { tipo: TipoIcone }) {
 }
 
 export function PaginaDo() {
-  const [mostrarTodos, setMostrarTodos] = useState(false);
-
   return (
     <main className="pagina-do">
-      <BarraLateral />
+      <Sidebar />
       <div className="do-painel">
         <header className="do-cabecalho">
           <Link className="do-marca" to="/" aria-label="ACTA, voltar para Home">
             <img src={logoActa} alt="" />
             <span>ACTA<span className="do-marca_ponto">.</span></span>
           </Link>
-          <nav className="do-topo" aria-label="Acesso rápido">
-            <span className="do-topo_item"><IconeTopo tipo="notificacoes" /><span>Notificações</span></span>
-            <span className="do-topo_item"><IconeTopo tipo="relatorios" /><span>Relatórios</span></span>
-            <a className="do-topo_item" href="#meus-ciclos"><IconeTopo tipo="ciclos" /><span>Ciclos</span></a>
-            <span className="do-topo_item"><IconeTopo tipo="cato" /><span>Cato</span></span>
-          </nav>
         </header>
 
         <div className="do-conteudo">
@@ -97,10 +82,10 @@ export function PaginaDo() {
                 <h2>Meus ciclos</h2>
                 <div className="do-ciclos_acoes">
                   <button className="do-botao" type="button" disabled title="Cadastro de ciclos ainda não integrado à API"><span className="do-mais" aria-hidden="true">+</span>Criar novo</button>
-                  <button className="do-botao" type="button" onClick={() => setMostrarTodos((atual) => !atual)} aria-expanded={mostrarTodos}><IconeLista />{mostrarTodos ? "Recolher" : "Ver todos"}</button>
+                  <Link className="do-botao" to="/ciclos"><IconeLista />Ver todos</Link>
                 </div>
               </div>
-              <div className={`do-ciclos_lista${mostrarTodos ? " do-ciclos_lista-expandida" : ""}`}>
+              <div className="do-ciclos_lista">
                 {ciclos.map((ciclo, indice) => (
                   <Link className="do-ciclo" key={ciclo.titulo} to={`/do/ciclo/${indice + 1}`} aria-label={`Abrir ciclo ${ciclo.titulo}`}>
                     <div className={`do-ciclo_icone do-ciclo_icone-${ciclo.cor}`}><IconeCiclo tipo={ciclo.icone} /></div>

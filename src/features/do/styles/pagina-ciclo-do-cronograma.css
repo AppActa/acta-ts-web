@@ -1,0 +1,24 @@
+.cronograma-conteudo { padding: 36px 43px 40px 37px; }
+.cronograma-titulo { display: flex; height: 46px; align-items: center; gap: 13px; margin-bottom: 42px; }
+.cronograma-titulo a { display: grid; width: 46px; height: 46px; place-items: center; border-radius: 50%; background: #26393b; color: #29c0c8; font-size: 36px; line-height: .7; text-decoration: none; }
+.cronograma-titulo h2 { margin: 0; color: #141c29; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 24px; font-weight: 700; }
+.cronograma-gantt { position: relative; display: grid; width: calc(100% - 6px); max-width: 1198px; min-height: 396px; grid-template-columns: 280px minmax(500px, 780px); grid-template-rows: 32px 42px repeat(4, 60px) 48px; column-gap: 30px; overflow-x: auto; margin-left: 6px; border-radius: 14px; padding: 16px 20px 0; background: #fff; }
+.cronograma-gantt h3 { grid-column: 1 / -1; grid-row: 1; margin: 0; color: #141c29; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 16px; font-weight: 700; }
+.cronograma-datas { display: flex; grid-column: 2; grid-row: 2; align-items: end; justify-content: space-between; padding: 0 0 2px; color: #66707a; font-size: 12px; }
+.cronograma-linha { display: contents; }
+.cronograma-tarefa { display: grid; grid-column: 1; align-content: center; gap: 4px; color: #66707a; font-size: 12px; }
+.cronograma-tarefa small { font-size: 11px; }
+.cronograma-trilho { position: relative; grid-column: 2; align-self: center; height: 7px; border-radius: 4px; background: #f7f9fa; }
+.cronograma-trilho span { display: block; height: 100%; border-radius: inherit; background: #05adb8; }
+.cronograma-bloqueio { grid-column: 1 / -1; align-self: center; margin: 0; color: #66707a; font-size: 11px; }
+.cronograma-titulo a:focus-visible { outline: 3px solid #056196; outline-offset: 3px; }
+@media (max-width: 1100px) {
+  .cronograma-conteudo { padding: 30px 20px; }
+  .cronograma-gantt { grid-template-columns: 230px minmax(500px, 1fr); column-gap: 20px; }
+}
+@media (max-width: 760px) {
+  .cronograma-conteudo { padding: 24px 14px; }
+  .cronograma-titulo { margin-bottom: 20px; }
+  .cronograma-titulo h2 { font-size: 20px; }
+  .cronograma-gantt { grid-template-columns: 180px 500px; column-gap: 16px; padding-right: 16px; }
+}

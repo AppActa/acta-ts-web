@@ -1,0 +1,30 @@
+.plan-criar-formulario { display: grid; min-height: 100vh; place-items: center; overflow: auto; padding: 40px; background: rgba(31, 31, 31, .96); }
+.plan-criar-formulario_modal { position: relative; display: grid; width: min(1209px, 100%); min-height: 784px; grid-template-columns: 479px minmax(0, 1fr); gap: 34px; border-radius: 22px; background: #fff; padding: 22px; }
+.plan-criar-formulario_banner { position: relative; display: flex; min-height: 733px; align-items: end; overflow: hidden; border-radius: 30px; background: radial-gradient(ellipse at 8% 95%, #e4fdff 0%, #b6f2f4 34%, transparent 72%), linear-gradient(138deg, #91e3e7 8%, #50c6d0 54%, #a8eef0 100%); padding: 29px; box-shadow: 0 0 10px #0000000d; }
+.plan-criar-formulario_mensagem { position: relative; z-index: 1; color: #050505; }
+.plan-criar-formulario_mensagem p { margin: 0 0 5px; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 24px; }
+.plan-criar-formulario_mensagem h1 { margin: 0; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 24px; line-height: 1.28; }
+.plan-criar-formulario_fechar { position: absolute; top: 35px; right: 35px; z-index: 2; color: #66707a; font: 300 38px/1 Arial, sans-serif; text-decoration: none; }
+.plan-criar-formulario_fechar:focus-visible, .plan-criar-formulario_adicionar:focus-visible, .plan-criar-formulario_concluir:focus-visible { outline: 3px solid #025a8a; outline-offset: 3px; }
+.plan-criar-formulario_conteudo { align-self: start; margin-top: 84px; padding: 0 25px 0 0; }
+.plan-criar-formulario_conteudo h2 { margin: 0 0 30px; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 28px; font-weight: 600; }
+.plan-criar-formulario_campos { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.plan-criar-formulario_campos label, .plan-criar-formulario_campo-extra { display: grid; gap: 10px; color: #111; font-size: 14px; }
+.plan-criar-formulario_campos input, .plan-criar-formulario_campo-extra input { min-width: 0; height: 38px; border: 1px solid #d9d9d9; border-radius: 10px; padding: 0 10px; font: inherit; }
+.plan-criar-formulario_automacoes { display: flex; justify-content: space-between; gap: 10px; margin: 17px -5px 35px; color: #66707a; font-size: 9px; white-space: nowrap; }
+.plan-criar-formulario_adicionar { display: inline-flex; min-width: 160px; height: 33px; align-items: center; justify-content: center; gap: 7px; border: 0; border-radius: 18px; background: #0ac2ca; color: #fff; font: inherit; font-size: 12px; cursor: pointer; }
+.plan-criar-formulario_adicionar span { font-size: 20px; }
+.plan-criar-formulario_campo-extra { margin: 18px 0; }
+.plan-criar-formulario_concluir { width: 100%; height: 38px; margin-top: 45px; border: 0; border-radius: 10px; background: #48b3c6; box-shadow: 0 0 25px #48b3c680; color: #fff; font: inherit; font-size: 13px; cursor: pointer; }
+.plan-criar-formulario_status { margin: 14px 0 0; color: #266e5c; font-size: 12px; }
+@media (max-width: 850px) {
+  .plan-criar-formulario { place-items: start center; padding: 16px; }
+  .plan-criar-formulario_modal { min-height: 0; grid-template-columns: 1fr; gap: 24px; padding: 16px; }
+  .plan-criar-formulario_banner { min-height: 220px; border-radius: 20px; }
+  .plan-criar-formulario_conteudo { margin-top: 0; padding: 0 4px 12px; }
+  .plan-criar-formulario_conteudo h2 { margin: 0 0 20px; font-size: 24px; }
+  .plan-criar-formulario_fechar { top: 26px; right: 26px; color: #fff; }
+  .plan-criar-formulario_automacoes { flex-direction: column; white-space: normal; }
+  .plan-criar-formulario_concluir { margin-top: 28px; }
+}
+@media (max-width: 480px) { .plan-criar-formulario_campos { grid-template-columns: 1fr; gap: 16px; } }

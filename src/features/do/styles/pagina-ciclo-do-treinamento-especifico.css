@@ -1,0 +1,93 @@
+.pagina-treinamento-especifico { display: grid; min-height: 100vh; grid-template-columns: 119px minmax(0, 1fr); background: #202020; color: #141c29; }
+.pagina-treinamento-especifico .barra-lateral { min-height: 100vh; }
+.treinamento-especifico_painel { min-width: 0; min-height: calc(100vh - 58px); margin: 29px 27px 29px 0; overflow: hidden; border-radius: 20px; background: #f6f6f6; }
+.treinamento-especifico_cabecalho { display: flex; min-height: 196px; align-items: center; gap: 16px; padding: 25px 36px 25px 30px; border-radius: 0 0 20px 20px; background: #fff; }
+.treinamento-especifico_icone { display: grid; width: 118px; height: 118px; flex: 0 0 auto; place-items: center; border-radius: 20px; background: #0ac2ca; }
+.treinamento-especifico_icone svg { width: 96px; height: 96px; }
+.treinamento-especifico_cabecalho h1 { display: inline-block; margin: 0 16px 4px 0; color: #141c29; font-size: 20px; font-weight: 600; }
+.treinamento-especifico_cabecalho p { margin: 1px 0; color: #1f1f1f; font-size: 15px; }
+.treinamento-especifico_cabecalho p span { color: #959595; }
+.treinamento-especifico_status { display: inline-block; border-radius: 99px; padding: 4px 24px; background: #0ac2ca; color: #fff; font-size: 11px; font-weight: 600; vertical-align: 3px; }
+.treinamento-especifico_abas { display: flex; height: 58px; align-items: end; gap: 2px; margin-top: 24px; border-bottom: 19px solid #0ac2ca; padding-left: 10px; background: #73e2e7; }
+.treinamento-especifico_aba { display: inline-flex; width: 156px; height: 40px; align-items: center; justify-content: center; gap: 5px; border: 0; border-radius: 16px 16px 0 0; color: #163a44; font-size: 13px; font-weight: 600; text-decoration: none; }
+.treinamento-especifico_aba span { font-size: 19px; }
+.treinamento-especifico_aba:disabled { cursor: default; }
+.treinamento-especifico_aba-visao { background: #0ac2ca; color: #068e94; }
+.treinamento-especifico_aba-plan { background: #056196; color: #003654; }
+.treinamento-especifico_aba-do { background: #f6f6f6; color: #068e94; }
+.treinamento-especifico_aba-check { background: #43ae85; color: #338162; }
+.treinamento-especifico_aba-act { background: #00a89d; color: #026b66; }
+.treinamento-especifico_conteudo { display: grid; grid-template-columns: minmax(0, 1.64fr) minmax(300px, 1fr); grid-template-rows: 46px 129px 354px; gap: 12px 26px; padding: 41px 27px 30px 26px; }
+.treinamento-especifico_titulo_linha { display: flex; grid-column: 1 / -1; align-items: center; gap: 11px; }
+.treinamento-especifico_titulo_linha a { display: grid; width: 46px; height: 46px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: #26393b; color: #29c0c8; font-size: 36px; line-height: .7; text-decoration: none; }
+.treinamento-especifico_titulo_linha h2 { overflow: hidden; margin: 0; color: #141c29; font-size: 18px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.treinamento-especifico_conteudo h3 { margin: 0 0 13px; color: #141c29; font-size: 13px; font-weight: 700; }
+.treinamento-equipe { display: grid; grid-column: 1; grid-row: 2; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; gap: 8px; border-radius: 14px; padding: 15px 20px; background: #fff; }
+.treinamento-equipe h3 { grid-column: 1 / -1; align-self: start; margin: 0 !important; }
+.treinamento-equipe_metrica { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 3px 8px; }
+.treinamento-equipe_metrica span { grid-column: 1 / -1; color: #75808a; font-size: 10px; }
+.treinamento-equipe_metrica strong { color: #056196; font-size: 19px; font-weight: 600; }
+.treinamento-equipe_metrica:last-child strong { color: #f3a640; }
+.treinamento-equipe_metrica small { color: #75808a; font-size: 9px; }
+.treinamento-selecionado, .treinamento-atencao, .treinamento-modulos { min-width: 0; border-radius: 14px; padding: 20px; background: #fff; }
+.treinamento-selecionado { grid-column: 1; grid-row: 3; }
+.treinamento-selecionado h3 { margin-bottom: 25px; }
+.treinamento-selecionado h4 { margin: 0 0 8px; color: #141c29; font-size: 13px; font-weight: 600; }
+.treinamento-selecionado p { overflow: hidden; margin: 3px 0; color: #141c29; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.treinamento-selecionado p strong { font-weight: 500; }
+.treinamento-obrigatorio { display: inline-block; margin: 21px 0 10px; border-radius: 99px; padding: 6px 14px; background: #70d9dc; color: #04747d; font-size: 10px; }
+.treinamento-selecionado ul { display: grid; gap: 7px; margin: 0; padding: 0; color: #26343b; font-size: 11px; list-style: none; }
+.treinamento-atencao { display: flex; grid-column: 2; grid-row: 3; flex-direction: column; }
+.treinamento-atencao h3 { margin-bottom: 20px; }
+.treinamento-atencao > div { display: flex; align-items: start; gap: 9px; margin: 0 0 13px; }
+.treinamento-atencao > div > span { width: 7px; height: 7px; flex: 0 0 auto; margin-top: 5px; border-radius: 50%; background: #f3a640; }
+.treinamento-atencao p { display: grid; gap: 3px; margin: 0; }
+.treinamento-atencao p strong { color: #141c29; font-size: 11px; font-weight: 600; }
+.treinamento-atencao p small { color: #75808a; font-size: 10px; }
+.treinamento-atencao button, .treinamento-atencao_lembrete { display: grid; min-height: 37px; margin: auto 0 0; border: 0; border-radius: 9px; padding: 0 16px; place-items: center; background: #48b3c6; box-shadow: 0 0 20px #48b3c680; color: #fff; font: inherit; font-size: 11px; text-decoration: none; }
+.treinamento-atencao button:disabled { cursor: default; }
+.treinamento-modulos { display: flex; grid-column: 2; grid-row: 2 / 4; flex-direction: column; }
+.treinamento-modulos h3 { margin-bottom: 21px; }
+.treinamento-modulos article { border-bottom: 1px solid #e5e8ea; padding: 0 0 15px; margin-bottom: 14px; }
+.treinamento-modulos article > div:first-child { display: flex; align-items: center; justify-content: space-between; gap: 7px; }
+.treinamento-modulos article strong { color: #141c29; font-size: 11px; font-weight: 600; }
+.treinamento-modulo_badge { flex: 0 0 auto; border-radius: 99px; padding: 5px 12px; font-size: 9px; }
+.treinamento-modulo_pendente { background: #fff1d9; color: #bf7a0a; }
+.treinamento-modulo_concluido { background: #e3f6ed; color: #37a77b; }
+.treinamento-modulos article p { margin: 7px 0 13px; color: #75808a; font-size: 10px; }
+.treinamento-modulos article small { display: block; margin-bottom: 14px; color: #75808a; font-size: 10px; }
+.treinamento-modulo_barra { height: 3px; margin-left: 16px; overflow: hidden; border-radius: 10px; background: #f0f2f3; }
+.treinamento-modulo_barra span { display: block; height: 100%; background: #05adb8; }
+.treinamento-especifico_titulo_linha a:focus-visible, .treinamento-especifico_aba:focus-visible { outline: 3px solid #056196; outline-offset: 3px; }
+
+@media (max-width: 1050px) {
+  .treinamento-especifico_conteudo { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 46px 129px auto auto; gap: 14px; padding: 28px 18px; }
+  .treinamento-especifico_titulo_linha { grid-column: 1 / -1; grid-row: 1; }
+  .treinamento-equipe { grid-column: 1 / -1; grid-row: 2; }
+  .treinamento-selecionado { grid-column: 1; grid-row: 3; }
+  .treinamento-atencao { grid-column: 2; grid-row: 3; }
+  .treinamento-modulos { grid-column: 1 / -1; grid-row: 4; }
+}
+@media (max-width: 760px) {
+  .pagina-treinamento-especifico { display: block; padding-bottom: 72px; }
+  .pagina-treinamento-especifico .barra-lateral { position: fixed; z-index: 3; right: 0; bottom: 0; left: 0; width: 100%; min-height: 0; height: 72px; flex-direction: row; padding: 7px 10px; background: #202020; }
+  .pagina-treinamento-especifico .barra-lateral_navegacao { display: flex; width: 100%; justify-content: space-around; gap: 2px; }
+  .pagina-treinamento-especifico .barra-lateral_item { width: 58px; gap: 3px; font-size: 11px; }
+  .pagina-treinamento-especifico .barra-lateral_icone { width: 30px; height: 30px; }
+  .pagina-treinamento-especifico .barra-lateral_perfil { display: none; }
+  .treinamento-especifico_painel { margin: 0; min-height: calc(100vh - 72px); border-radius: 0; }
+  .treinamento-especifico_cabecalho { min-height: 160px; gap: 12px; padding: 18px 14px; }
+  .treinamento-especifico_icone { width: 58px; height: 58px; border-radius: 14px; }
+  .treinamento-especifico_icone svg { width: 48px; height: 48px; }
+  .treinamento-especifico_cabecalho h1 { display: block; margin: 0 0 4px; font-size: 15px; }
+  .treinamento-especifico_cabecalho p { font-size: 11px; }
+  .treinamento-especifico_status { padding: 3px 12px; font-size: 9px; }
+  .treinamento-especifico_abas { height: 52px; gap: 1px; padding-left: 4px; }
+  .treinamento-especifico_aba { width: auto; min-width: 63px; height: 35px; gap: 3px; font-size: 10px; }
+  .treinamento-especifico_conteudo { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; padding: 24px 14px; }
+  .treinamento-especifico_titulo_linha { grid-column: 1; grid-row: auto; }
+  .treinamento-especifico_titulo_linha h2 { font-size: 15px; }
+  .treinamento-equipe, .treinamento-selecionado, .treinamento-atencao, .treinamento-modulos { grid-column: 1; grid-row: auto; }
+  .treinamento-equipe { grid-template-columns: 1fr; }
+  .treinamento-equipe h3 { grid-column: 1; }
+}

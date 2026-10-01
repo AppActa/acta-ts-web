@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import { LayoutSimples } from "../../layout/components/LayoutSimples";
 
 export function HomePage() {
   return (
-    <main className="page-shell">
+    <LayoutSimples><div className="page-shell">
       <p className="eyebrow">ACTA</p>
       <h1>Base do ACTA Web preparada</h1>
       <p>
@@ -14,6 +15,6 @@ export function HomePage() {
         <Link to="/login">Ir para login</Link>
         <Link to="/perfil">Ver perfil</Link>
       </nav>
-    </main>
+    </div></LayoutSimples>
   );
 }

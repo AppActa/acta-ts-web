@@ -1,0 +1,104 @@
+.pagina-ciclo-do-tarefas { display: grid; min-height: 100vh; grid-template-columns: 119px minmax(0, 1fr); background: #202020; color: #141c29; }
+.pagina-ciclo-do-tarefas .barra-lateral { min-height: 100vh; }
+.ciclo-do_tarefas_painel { min-width: 0; min-height: calc(100vh - 58px); margin: 29px 27px 29px 0; overflow: hidden; border-radius: 20px; background: #f6f6f6; font-family: "Plus Jakarta Sans", sans-serif; }
+.ciclo-do_tarefas_cabecalho { position: relative; height: 195px; border-radius: 0 0 20px 20px; background: #fff; }
+.ciclo-do_tarefas_icone { position: absolute; top: 43px; left: 43px; display: grid; width: 118px; height: 118px; place-items: center; border-radius: 20px; background: #0ac2ca; }
+.ciclo-do_tarefas_icone img { display: block; width: 92px; height: 92px; }
+.ciclo-do_tarefas_identificacao { position: absolute; top: 50px; left: 183px; }
+.ciclo-do_tarefas_linha { display: flex; align-items: center; gap: 10px; }
+.ciclo-do_tarefas_cabecalho h1 { margin: 0; color: #141c29; font-size: 24px; font-weight: 600; line-height: 31px; white-space: nowrap; }
+.ciclo-do_tarefas_cabecalho p { margin: 0; color: #1f1f1f; font-size: 20px; line-height: 24px; white-space: nowrap; }
+.ciclo-do_tarefas_cabecalho p span { color: #959595; }
+.ciclo-do_tarefas_status { display: grid; width: 127px; height: 23px; flex: 0 0 auto; place-items: center; transform: translateY(4px); border-radius: 99px; background: #0ac2ca; color: #fff; font-size: 12px; font-weight: 700; }
+.ciclo-do_tarefas_abas { display: flex; height: 80px; align-items: end; gap: 0; padding-left: 33px; background: linear-gradient(to bottom, #73e2e7 0 53px, #0ac2ca 53px 100%); }
+.ciclo-do_tarefas_aba { z-index: 1; display: inline-flex; width: 156px; height: 55px; flex: 0 0 156px; align-items: center; justify-content: center; gap: 4px; border: 0; border-radius: 20px 20px 0 0; color: #163a44; font-size: 15px; font-weight: 700; text-decoration: none; }
+.ciclo-do_tarefas_aba > img { display: block; flex: 0 0 auto; }
+.ciclo-do_tarefas_icone-do { position: relative; display: block; width: 27px; height: 27px; }
+.ciclo-do_tarefas_icone-do img { position: absolute; top: 0; left: 0; display: block; width: 27px; height: 27px; }
+.ciclo-do_tarefas_aba-do img { filter: brightness(0) saturate(100%) invert(39%) sepia(78%) saturate(1362%) hue-rotate(142deg) brightness(94%) contrast(95%); }
+.ciclo-do_tarefas_aba:disabled { cursor: default; }
+.ciclo-do_tarefas_aba-visao { background: #0ac2ca; color: #068e94; }
+.ciclo-do_tarefas_aba-plan { background: #056196; color: #003654; }
+.ciclo-do_tarefas_aba-do { background: #fff; color: #068e94; }
+.ciclo-do_tarefas_aba-check { background: #43ae85; color: #338162; }
+.ciclo-do_tarefas_aba-act { background: #00a89d; color: #026b66; }
+.ciclo-do_tarefas_conteudo { display: grid; grid-template-columns: minmax(0, 884px) 310px; grid-template-rows: 402px 209px; gap: 24px 39px; padding: 25px 36px 20px 25px; }
+.ciclo-do_tarefas_conteudo h2 { margin: 0; color: #141c29; font-size: 20px; font-weight: 700; }
+.ciclo-do_quadro { min-width: 0; }
+.ciclo-do_tarefas_titulo { display: flex; height: 51px; align-items: start; justify-content: space-between; margin-top: 8px; padding-left: 8px; }
+.ciclo-do_tarefas_titulo h2 { font-size: 24px; line-height: 33px; }
+.ciclo-do_tarefas_titulo button, .ciclo-do_treinamentos button, .ciclo-do_prazos button, .ciclo-do_abrir_cronograma { border: 0; border-radius: 9px; background: #0ac2ca; color: #fff; font: inherit; font-size: 11px; }
+.ciclo-do_tarefas_titulo button { display: flex; width: 156px; height: 33px; align-items: center; justify-content: center; gap: 5px; border-radius: 100px; font-size: 15px; }
+.ciclo-do_tarefas_titulo button img { display: block; width: 24px; height: 24px; }
+.ciclo-do_tarefas_conteudo button:disabled { cursor: default; }
+.ciclo-do_kanban { position: relative; display: grid; height: 360px; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; border-radius: 16px; padding: 60px 18px 34px; background: #fff; }
+.ciclo-do_kanban_instrucao { position: absolute; top: 32px; left: 18px; margin: 0; color: #66707a; font-size: 12px; }
+.ciclo-do_coluna { min-width: 0; border-radius: 12px; padding: 11px 10px; background: #f6f6f6; }
+.ciclo-do_coluna h3 { margin: 0 0 11px; font-size: 10px; font-weight: 600; line-height: 18px; }
+.ciclo-do_coluna-a-fazer h3 { color: #056196; }
+.ciclo-do_coluna-andamento h3 { color: #068e94; }
+.ciclo-do_coluna-concluidas h3 { color: #338162; }
+.ciclo-do_tarefa { display: grid; height: 80px; gap: 0; margin-bottom: 12px; border-radius: 10px; padding: 8px 9px; background: #fff; }
+.ciclo-do_tarefa strong { overflow: hidden; color: #141c29; font-size: 12px; font-weight: 400; line-height: 20px; text-overflow: ellipsis; white-space: nowrap; }
+.ciclo-do_tarefa span { color: #66707a; font-size: 10px; font-weight: 600; line-height: 16px; }
+.ciclo-do_tarefa time { color: #056196; font-size: 10px; font-weight: 600; line-height: 16px; }
+.ciclo-do_resumo_lateral { grid-column: 2; grid-row: 1 / 3; min-width: 0; border-radius: 14px; padding: 18px; background: #fff; }
+.ciclo-do_resumo_lateral h2 { height: 24px; margin-bottom: 10px; font-size: 16px; font-weight: 600; }
+.ciclo-do_badge_andamento { display: grid; width: 132px; height: 24px; place-items: center; border-radius: 99px; background: #d4f4f7; color: #056196; font-size: 10px; text-align: center; }
+.ciclo-do_progresso_geral { height: 8px; margin-top: 0; overflow: hidden; border-radius: 99px; background: #dbe4e8; }
+.ciclo-do_progresso_geral span { display: block; width: 62%; height: 100%; border-radius: inherit; background: #0bb5bf; }
+.ciclo-do_rotulo_progresso { height: 33px; margin: 12px 0 7px; border-top: 1px solid #e6e9eb; padding-top: 14px; color: #66707a; font-size: 12px; line-height: 18px; }
+.ciclo-do_contadores { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; margin-top: 18px; }
+.ciclo-do_contadores article { display: grid; min-height: 72px; gap: 4px; border-radius: 10px; padding: 10px; background: #f6f6f6; }
+.ciclo-do_contadores article span { color: #66707a; font-size: 11px; }
+.ciclo-do_contadores article strong { color: #056196; font-size: 16px; font-weight: 600; }
+.ciclo-do_contadores article:nth-child(3) strong { color: #05adb8; }
+.ciclo-do_contadores article:nth-child(4) strong { color: #b3841e; }
+.ciclo-do_alerta { display: grid; height: 92px; align-items: start; margin: 22px 0 21px; border-radius: 12px; padding: 14px 12px; background: #fff1c7; color: #8a6712; font-size: 12px; }
+.ciclo-do_abrir_cronograma { display: grid; width: 100%; height: 38px; place-items: center; border-radius: 10px; background: #48b3c6; box-shadow: 0 0 20px #48b3c680; color: #fff; font-size: 15px; text-decoration: none; }
+.ciclo-do_dica { margin: 24px 0; color: #75808a; font-size: 12px; }
+.ciclo-do_treinamentos, .ciclo-do_prazos { min-width: 0; }
+.ciclo-do_treinamentos { grid-column: 1; grid-row: 2; width: 351px; padding-top: 16px; }
+.ciclo-do_prazos { grid-column: 1; grid-row: 2; width: 511px; margin-left: 373px; padding-top: 14px; }
+.ciclo-do_treinamentos h2 { margin-bottom: 17px; }
+.ciclo-do_prazos h2 { margin-bottom: 14px; padding-left: 11px; }
+.ciclo-do_treinamentos article, .ciclo-do_prazos article { position: relative; height: 158px; border-radius: 16px; background: #fff; }
+.ciclo-do_treinamentos a { color: inherit; text-decoration: none; }
+.ciclo-do_treinamentos article p, .ciclo-do_prazos article p { position: absolute; top: 22px; left: 26px; margin: 0; color: #75808a; font-size: 12px; }
+.ciclo-do_treinamentos article > span, .ciclo-do_prazos article > span { position: absolute; top: 52px; left: 26px; color: #0aa9b2; font-size: 12px; }
+.ciclo-do_barra_treinamento { position: absolute; top: 89px; left: 26px; width: 300px; height: 8px; overflow: hidden; border-radius: 9px; background: #292929; }
+.ciclo-do_barra_treinamento span { display: block; width: 75%; height: 100%; background: #0bb5bf; }
+.ciclo-do_treinamentos article > .ciclo-do_link_botao, .ciclo-do_prazos button { position: absolute; top: 112px; left: 26px; display: grid; width: calc(100% - 52px); height: 38px; place-items: center; border: 0; border-radius: 10px; background: #48b3c6; box-shadow: 0 0 16px #48b3c680; color: #fff !important; font-size: 15px; }
+.ciclo-do_prazos article p { top: 24px; color: #5e6675; font-size: 13px; }
+.ciclo-do_prazos article > span { width: 170px; }
+
+@media (max-width: 1050px) {
+  .ciclo-do_tarefas_conteudo { grid-template-columns: minmax(0, 1fr) 245px; grid-template-rows: 402px auto; padding: 28px 18px 18px; gap: 24px 16px; }
+  .ciclo-do_resumo_lateral { grid-column: 2; grid-row: 1 / 3; }
+  .ciclo-do_treinamentos, .ciclo-do_prazos { grid-column: 1; grid-row: auto; width: auto; margin-left: 0; }
+}
+@media (max-width: 760px) {
+  .pagina-ciclo-do-tarefas { display: block; padding-bottom: 72px; }
+  .pagina-ciclo-do-tarefas .barra-lateral { position: fixed; z-index: 3; right: 0; bottom: 0; left: 0; width: 100%; min-height: 0; height: 72px; flex-direction: row; padding: 7px 10px; background: #202020; }
+  .pagina-ciclo-do-tarefas .barra-lateral_navegacao { display: flex; width: 100%; justify-content: space-around; gap: 2px; }
+  .pagina-ciclo-do-tarefas .barra-lateral_item { width: 58px; gap: 3px; font-size: 11px; }
+  .pagina-ciclo-do-tarefas .barra-lateral_icone { width: 30px; height: 30px; }
+  .pagina-ciclo-do-tarefas .barra-lateral_perfil { display: none; }
+  .ciclo-do_tarefas_painel { margin: 0; min-height: calc(100vh - 72px); border-radius: 0; }
+  .ciclo-do_tarefas_cabecalho { display: flex; height: 160px; align-items: center; gap: 12px; padding: 18px 14px; }
+  .ciclo-do_tarefas_icone { position: static; width: 58px; height: 58px; flex: 0 0 58px; border-radius: 14px; }
+  .ciclo-do_tarefas_icone img { width: 52px; height: 52px; }
+  .ciclo-do_tarefas_identificacao { position: static; min-width: 0; }
+  .ciclo-do_tarefas_linha { flex-wrap: wrap; gap: 4px; }
+  .ciclo-do_tarefas_cabecalho h1 { display: block; margin: 0 0 4px; font-size: 15px; }
+  .ciclo-do_tarefas_cabecalho p { font-size: 11px; }
+  .ciclo-do_tarefas_status { padding: 3px 12px; font-size: 9px; }
+  .ciclo-do_tarefas_abas { height: 52px; gap: 1px; padding-left: 4px; }
+  .ciclo-do_tarefas_aba { width: auto; min-width: 63px; height: 35px; flex: 1 1 auto; gap: 3px; font-size: 10px; }
+  .ciclo-do_tarefas_conteudo { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; padding: 25px 14px; gap: 20px; }
+  .ciclo-do_kanban { height: auto; grid-template-columns: minmax(0, 1fr); padding-top: 54px; }
+  .ciclo-do_coluna { min-height: 140px; }
+  .ciclo-do_resumo_lateral { grid-column: 1; grid-row: auto; }
+  .ciclo-do_treinamentos, .ciclo-do_prazos { grid-column: 1; }
+  .ciclo-do_barra_treinamento { width: calc(100% - 52px); }
+}
