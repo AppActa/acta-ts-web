@@ -1,0 +1,32 @@
+@media (min-width: 1101px) {
+  .layout-proporcional:has(.sidebar) {
+    height: 100dvh;
+    overflow: clip;
+    background: #202020;
+  }
+
+  .layout-proporcional:has(.sidebar) > .layout-proporcional_cena {
+    width: var(--largura-layout);
+    height: var(--altura-layout);
+    transform: scale(var(--escala-layout));
+    transform-origin: top left;
+  }
+
+  .layout-proporcional_cena > :has(> .sidebar) {
+    height: var(--altura-layout);
+    min-height: 0;
+    overflow: clip;
+  }
+
+  .layout-proporcional_cena > :has(> .sidebar) > .sidebar {
+    height: var(--altura-layout);
+    min-height: 0;
+  }
+
+  .layout-proporcional_cena > :has(> .sidebar) > .sidebar + * {
+    height: calc(var(--altura-layout) - 58px);
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
