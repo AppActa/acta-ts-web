@@ -6,7 +6,7 @@ export function PainelMarca() {
       <img className="painel-marca_logo" src={logoActa} alt="ACTA" />
 
       <p className="painel-marca_mensagem">
-        <span>Acta, seu app de PDCA</span>
+        <span>ACTA, seu app de PDCA</span>
         <strong>
           O ciclo da melhoria
           <br /> começa aqui!
