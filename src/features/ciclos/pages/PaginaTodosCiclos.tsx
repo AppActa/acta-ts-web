@@ -29,7 +29,7 @@ export function PaginaTodosCiclos() {
       <Sidebar />
       <div className="web-listas_painel">
         <header className="web-listas_cabecalho">
-          <div className="web-listas_titulo"><Link to="/do" aria-label="Voltar ao ACTA"><img src={voltarMoldura} alt="" /><img src={voltarSeta} alt="" /></Link><h1>Todos os ciclos</h1><button type="button" disabled title="A criação de ciclos ainda aguarda integração com a API"><img src={iconeCriar} alt="" />Criar novo</button></div>
+          <div className="web-listas_titulo"><Link to="/do" aria-label="Voltar ao ACTA"><img src={voltarMoldura} alt="" /><img src={voltarSeta} alt="" /></Link><h1>Todos os ciclos</h1><button type="button" disabled title="Disponível em breve"><img src={iconeCriar} alt="" />Criar novo</button></div>
         </header>
         <section className="lista-ciclos_conteudo" aria-label="Ciclos do ACTA">
           <div className="lista-ciclos_filtros">

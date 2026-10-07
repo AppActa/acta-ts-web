@@ -85,7 +85,7 @@ export function PaginaPlanIdentificacaoProblema() {
               <div><span>Responsável pelo registro</span><p>Catarina Cândido · Gestora</p></div>
               <div><span>Peso calculado: 0,90</span><p>Peso confirmado pelo gestor · pode editar</p></div>
             </div>
-            {salvo && <p className="plan-identificacao_feedback" role="status">Alterações mantidas nesta prévia. A gravação na API ainda não está conectada.</p>}
+            {salvo && <p className="plan-identificacao_feedback" role="status">Alterações salvas nesta prévia. O salvamento definitivo estará disponível em breve.</p>}
           </form>
         </section>
       </PainelCicloPlanDo>

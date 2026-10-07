@@ -50,7 +50,7 @@ export function PaginaRelatorios() {
                 <span className={`relatorios_tipo ${relatorio.tipo.toLowerCase()}`}>{relatorio.tipo}</span>
                 <div className="relatorios_item_info"><h3>{relatorio.ciclo}</h3><p>Responsável: {relatorio.responsavel} <span>•</span> Atualizado em {relatorio.atualizado}</p></div>
                 <span className="relatorios_disponivel">Disponível</span>
-                <button type="button" onClick={() => setAvisoDownload(`O arquivo de ${relatorio.ciclo} poderá ser baixado quando a API de relatórios estiver conectada.`)}>Baixar</button>
+                <button type="button" onClick={() => setAvisoDownload(`O download do relatório de ${relatorio.ciclo} estará disponível em breve.`)}>Baixar</button>
               </article>)}
               {filtrados.length === 0 && <p className="relatorios_vazio">Nenhum relatório corresponde aos filtros.</p>}
             </div>
