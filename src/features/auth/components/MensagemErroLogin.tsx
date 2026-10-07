@@ -1,13 +1,8 @@
 type PropriedadesMensagemErro = {
-    visivel: boolean;
+  mensagem: string | null;
 };
-export function MensagemErroLogin({ visivel }: PropriedadesMensagemErro) {
-    if (!visivel) return null;
-    
-    return (
-        <p className="cabecalho-login_erro" role="alert">
-            email/senha incorretos*
-        </p>
-    );
-}
+export function MensagemErroLogin({ mensagem }: PropriedadesMensagemErro) {
+  if (!mensagem) return null;
 
+  return <p className="cabecalho-login_erro" role="alert">{mensagem}</p>;
+}

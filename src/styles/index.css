@@ -76,6 +76,13 @@ body {
   font-weight: 600;
 }
 
+.page-shell_botao--secundario {
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  box-shadow: none;
+  color: #315efb;
+}
+
 .page-shell_botao:focus-visible,
 .page-shell_navegacao a:focus-visible,
 .barra-lateral_item:focus-visible {
