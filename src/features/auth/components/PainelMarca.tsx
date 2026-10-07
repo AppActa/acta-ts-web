@@ -8,7 +8,7 @@ export function PainelMarca() {
       <p className="painel-marca_mensagem">
         <span>ACTA, seu app de PDCA</span>
         <strong>
-          O ciclo da melhoria
+          O ciclo da melhoria contínua
           <br /> começa aqui!
         </strong>
       </p>
