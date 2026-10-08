@@ -62,7 +62,7 @@ export function PaginaDo() {
             </div>
 
             <section className="do-pendencias" id="pendencias">
-              <div className="do-secao_cabecalho"><h2>Minhas pendências</h2><button className="do-botao" type="button" disabled title="Lista completa ainda não integrada à API"><IconeLista />Ver todos</button></div>
+              <div className="do-secao_cabecalho"><h2>Minhas pendências</h2><button className="do-botao" type="button" disabled title="Disponível em breve"><IconeLista />Ver todos</button></div>
               <p className="do-secao_descricao">Pontos que podem pedir acompanhamento.</p>
               <ul className="do-pendencias_lista">
                 {pendencias.map((pendencia) => (
@@ -81,7 +81,7 @@ export function PaginaDo() {
               <div className="do-ciclos_cabecalho">
                 <h2>Meus ciclos</h2>
                 <div className="do-ciclos_acoes">
-                  <button className="do-botao" type="button" disabled title="Cadastro de ciclos ainda não integrado à API"><span className="do-mais" aria-hidden="true">+</span>Criar novo</button>
+                  <button className="do-botao" type="button" disabled title="Disponível em breve"><span className="do-mais" aria-hidden="true">+</span>Criar novo</button>
                   <Link className="do-botao" to="/ciclos"><IconeLista />Ver todos</Link>
                 </div>
               </div>

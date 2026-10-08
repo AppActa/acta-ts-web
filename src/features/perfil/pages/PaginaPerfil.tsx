@@ -12,13 +12,16 @@ import { CabecalhoPerfil } from "../components/CabecalhoPerfil";
 import { Icone } from "../components/Icone";
 import { ItemConfiguracao } from "../components/ItemConfiguracao";
 import { ModalEdicaoPerfil } from "../components/ModalEdicaoPerfil";
+import { useAuth } from "../../../auth/AuthProvider";
 import "../styles/pagina-perfil.css";
 
 export function PaginaPerfil() {
   const [confirmandoSaida, setConfirmandoSaida] = useState(false);
   const navegar = useNavigate();
+  const { logout } = useAuth();
 
-  function sairDoPerfil() {
+  async function sairDoPerfil() {
+    await logout();
     navegar("/login", { replace: true });
   }
 

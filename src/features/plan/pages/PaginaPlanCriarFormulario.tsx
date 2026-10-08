@@ -10,14 +10,14 @@ export function PaginaPlanCriarFormulario() {
 
   function concluir(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setMensagem("Prévia do formulário salva localmente. A gravação na API ainda não está conectada.");
+    setMensagem("Prévia do formulário salva neste dispositivo. O salvamento definitivo estará disponível em breve.");
   }
 
   return (
     <main className="plan-criar-formulario">
       <section className="plan-criar-formulario_modal" aria-labelledby="plan-criar-formulario-titulo">
         <aside className="plan-criar-formulario_banner">
-          <div className="plan-criar-formulario_mensagem"><p>Acta, seu app de PDCA</p><h1>O ciclo da melhoria<br />começa aqui!</h1></div>
+          <div className="plan-criar-formulario_mensagem"><p>ACTA, seu app de PDCA</p><h1>O ciclo da melhoria contínua<br />começa aqui!</h1></div>
         </aside>
 
         <Link className="plan-criar-formulario_fechar" to={`/do/ciclo/${cicloId}/plan/coleta`} aria-label="Fechar criação de formulário">×</Link>

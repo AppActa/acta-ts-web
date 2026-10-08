@@ -37,7 +37,7 @@ export function PaginaPlanColeta() {
               <button type="button" className="plan-coleta_reenviar" aria-describedby="plan-coleta-aviso" onClick={() => setAvisoEnvio(true)}>
                 Reenviar aos pendentes
               </button>
-              {avisoEnvio && <p className="plan-coleta_privacidade" role="status">O reenvio ficará disponível quando a integração com a API estiver conectada.</p>}
+              {avisoEnvio && <p className="plan-coleta_privacidade" role="status">O reenvio estará disponível em breve.</p>}
               <p className="plan-coleta_privacidade" id="plan-coleta-aviso">Respostas ficam vinculadas ao ciclo e à empresa.</p>
             </article>
           </div>
