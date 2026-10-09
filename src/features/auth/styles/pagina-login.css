@@ -79,6 +79,10 @@
   letter-spacing: 0.005em;
 }
 
+.cabecalho-login {
+  margin-bottom: 28px;
+}
+
 .cabecalho-login_erro {
   margin: 10px 0 3px !important;
   color: #ed6259 !important;
@@ -117,12 +121,22 @@
   box-shadow: 0 0 0 3px rgba(72, 179, 198, 0.18);
 }
 
+.campo-login-senha { position: relative; }
+.campo-login-senha input { padding-right: 46px; }
+.campo-login-senha_botao { position: absolute; top: 50%; right: 8px; transform: translateY(-50%); border: 0; padding: 4px 6px; background: transparent; color: #267f8e; cursor: pointer; font: inherit; font-size: .8rem; font-weight: 600; display: grid; place-items: center; width: 36px; height: 36px; }
+.campo-login-senha_botao:focus-visible { outline: 2px solid #48b3c6; border-radius: 4px; }
+
 .formulario-login input + label {
   margin-top: 27px;
 }
+.formulario-login .campo-login-senha + label { margin-top: 27px; }
 
 .formulario-login_botao {
+  display: flex;
   height: 39px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
   margin-top: 24px;
   border: 0;
   border-radius: 9px;
@@ -133,6 +147,25 @@
   font: inherit;
   font-weight: 500;
   transition: background 160ms ease, transform 160ms ease;
+}
+
+.formulario-login_botao:disabled {
+  cursor: wait;
+  opacity: 0.85;
+}
+
+.formulario-login_spinner {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: login-spinner 700ms linear infinite;
+}
+
+@keyframes login-spinner {
+  to { transform: rotate(360deg); }
 }
 
 .formulario-login_botao:hover {
@@ -202,6 +235,7 @@
   font: inherit;
   text-underline-offset: 2px;
 }
+.cadastro-login { display: block; margin-top: 22px; color: #267f8e; text-align: center; font-weight: 600; text-underline-offset: 3px; }
 
 .modal-recuperar_overlay {
   position: fixed;
@@ -404,11 +438,11 @@
   }
 
   .layout-login {
-    min-height: 672px;
+    min-height: 0;
   }
 
   .painel-marca {
-    min-height: 632px;
+    min-height: 0;
   }
 }
 
@@ -417,5 +451,9 @@
   .formulario-login_botao,
   .botao-login-google {
     transition: none;
+  }
+
+  .formulario-login_spinner {
+    animation-duration: 1.8s;
   }
 }
