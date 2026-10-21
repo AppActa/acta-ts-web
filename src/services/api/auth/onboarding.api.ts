@@ -1,4 +1,3 @@
-import type { CurrentUser } from "../../../contracts/auth";
 import { env } from "../../../config/env";
 import { httpClient } from "../../http/client";
 
@@ -9,9 +8,10 @@ export type ResultadoOnboarding = {
   empresaExistente: boolean; conviteEnviado: boolean; proximaEtapa: boolean;
   idEmpresa: number | null; statusEmpresa: string | null; idUsuario: number | null;
   tipoUsuario: string | null; statusUsuario: string | null;
+  mensagem?: string | null;
 };
 
-const base = `${env.apiPgUrl.replace(/\/+$/, "")}/api/v1`;
+const base = `${env.apiAuthUrl.replace(/\/+$/, "")}/api/v1`;
 export const iniciarOnboarding = (gestor: Gestor, cnpj: string) =>
   httpClient<ResultadoOnboarding>(`${base}/onboarding/inicio`, { method: "POST", body: JSON.stringify({ gestor, cnpj }), signal: AbortSignal.timeout(20_000) });
 export const cadastrarGestor = (gestor: Gestor, empresa: Empresa, endereco: Endereco) =>

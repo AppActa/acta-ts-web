@@ -1,7 +1,7 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type PropsWithChildren,} from "react";
+import { createContext, useCallback, useContext, useEffect, useState, type PropsWithChildren,} from "react";
 import { GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, type User,} from "firebase/auth";
 import type { CurrentUser } from "../contracts/auth";
-import { getCurrentActaUser } from "../services/api/pg/auth.api";
+import { getCurrentActaUser } from "../services/api/auth/auth.api";
 import { ApiError } from "../services/http/client";
 import { auth } from "../lib/firebase";
 
@@ -18,6 +18,14 @@ type AuthContextValue = {
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
+
+function mensagemErroPerfil(cause: unknown) {
+  if (!(cause instanceof ApiError)) return "Não foi possível carregar seu acesso ao ACTA. Tente novamente.";
+  if (cause.status === 401) return "Sua sessão não foi autorizada. Entre novamente e tente outra vez.";
+  if (cause.status === 403) return "Sua conta não tem acesso ao ACTA.";
+  if (cause.status === 0 || cause.status >= 500) return "O serviço de autenticação está indisponível. Tente novamente em alguns minutos.";
+  return "Não foi possível carregar seu acesso ao ACTA. Tente novamente.";
+}
 
 export function AuthProvider({ children }: PropsWithChildren) {
   // autenticação separada do perfil
@@ -38,11 +46,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
     } catch (cause) {
       setActaUser(null);
       setErrorStatus(cause instanceof ApiError ? cause.status : null);
-      setError(
-        cause instanceof ApiError && cause.status === 403
-          ? "Sua conta não tem acesso ao ACTA."
-          : "Não foi possível carregar seu acesso ao ACTA. Tente novamente.",
-      );
+      setError(mensagemErroPerfil(cause));
     } finally {
       setLoading(false);
     }
@@ -78,11 +82,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
           if (requestId !== currentRequestId) return;
           setActaUser(null);
           setErrorStatus(cause instanceof ApiError ? cause.status : null);
-          setError(
-            cause instanceof ApiError && cause.status === 403
-              ? "Sua conta não tem acesso ao ACTA."
-              : "Não foi possível carregar seu acesso ao ACTA. Tente novamente.",
-          );
+          setError(mensagemErroPerfil(cause));
         })
         .finally(() => {
           if (requestId === currentRequestId) setLoading(false);
@@ -118,21 +118,17 @@ export function AuthProvider({ children }: PropsWithChildren) {
     await signOut(auth);
   }, []);
 
-  // mantem o valor constante
-  const value = useMemo(
-    () => ({
-      firebaseUser,
-      actaUser,
-      loading,
-      error,
-      errorStatus,
-      login,
-      loginWithGoogle,
-      logout,
-      refreshActaUser,
-    }),
-    [firebaseUser, actaUser, loading, error, errorStatus, login, loginWithGoogle, logout, refreshActaUser],
-  );
+  const value: AuthContextValue = {
+    firebaseUser,
+    actaUser,
+    loading,
+    error,
+    errorStatus,
+    login,
+    loginWithGoogle,
+    logout,
+    refreshActaUser,
+  };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

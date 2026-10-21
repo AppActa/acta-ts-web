@@ -1,4 +1,5 @@
 export const env = {
+  apiAuthUrl: import.meta.env.VITE_API_AUTH_URL ?? "",
   apiPgUrl: import.meta.env.VITE_API_PG_URL ?? "",
   apiImportUrl: import.meta.env.VITE_API_IMPORT_URL ?? "",
   apiMongoUrl: import.meta.env.VITE_API_MONGO_URL ?? "",
