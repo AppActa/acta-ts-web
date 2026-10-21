@@ -32,8 +32,6 @@ export async function httpClient<T>(
   if (tokenResult?.claims.email_verified !== true) {
     throw new ApiError("Não foi possível confirmar seu e-mail. Atualize a confirmação e tente novamente.", 401);
   }
-  const url = String(input);
-  const metodo = options.method ?? "GET";
 
   if (
     typeof requestOptions.body === "string" &&
@@ -54,7 +52,8 @@ export async function httpClient<T>(
       }
     }
   } catch (cause) {
-    throw cause;
+    if (cause instanceof DOMException && cause.name === "AbortError") throw cause;
+    throw new ApiError("O serviço está indisponível no momento. Tente novamente em alguns minutos.", 0);
   }
 
   if (!response.ok) {
