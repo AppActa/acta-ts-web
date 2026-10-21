@@ -1,13 +1,27 @@
-export type CurrentUser = {
-  estadoPerfil: "CADASTRO_NAO_INICIADO" | "PERFIL_CRIADO" | string;
+type StatusUsuario = "ATIVO" | "INATIVO" | "PENDENTE" | "BLOQUEADO" | "ARQUIVADO";
+
+type DadosPerfil = {
   firebaseUid: string;
-  idUsuario: number;
-  idEmpresa: number;
   idColaborador: number | null;
   nome: string;
   email: string;
   nomeEmpresa: string;
-  tipo: string;
   permissaoGestor: boolean;
-  status: "ATIVO" | "INATIVO" | "PENDENTE" | "BLOQUEADO" | "ARQUIVADO";
 };
+
+export type CurrentUser = DadosPerfil & (
+  | {
+      estadoPerfil: "CADASTRO_NAO_INICIADO";
+      idUsuario?: null;
+      idEmpresa?: null;
+      tipo?: null;
+      status?: null;
+    }
+  | {
+      estadoPerfil: "PERFIL_CRIADO";
+      idUsuario: number;
+      idEmpresa: number;
+      tipo: string;
+      status: StatusUsuario;
+    }
+);
