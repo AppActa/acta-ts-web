@@ -3,8 +3,8 @@ import { reload, sendEmailVerification, verifyBeforeUpdateEmail } from "firebase
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../auth/AuthProvider";
 import { ApiError } from "../../../services/http/client";
-import { getCurrentActaUser } from "../../../services/api/pg/auth.api";
-import { cadastrarGestor, iniciarOnboarding, type Empresa, type Endereco, type Gestor, type ResultadoOnboarding } from "../../../services/api/pg/onboarding.api";
+import { getCurrentActaUser } from "../../../services/api/auth/auth.api";
+import { cadastrarGestor, iniciarOnboarding, type Empresa, type Endereco, type Gestor, type ResultadoOnboarding } from "../../../services/api/auth/onboarding.api";
 import { buscarEnderecoPorCep } from "../../../services/api/viacep.api";
 import { PainelMarca } from "../../auth/components/PainelMarca";
 import "../styles/onboarding.css";
@@ -136,18 +136,24 @@ export function PaginaOnboarding({ pendente = false }: { pendente?: boolean }) {
         if (campo) proximos[campo === "token" ? "codigo" : campo] = texto;
       }
       setErros(proximos);
-      setMensagem(lista.join(" "));
-    } else setMensagem("Não foi possível concluir a solicitação. Tente novamente.");
+      setMensagem(cause.status === 401
+        ? "Sua sessão expirou ou não foi autorizada. Entre novamente e tente outra vez."
+        : cause.status === 403
+          ? "Sua conta não tem autorização para concluir esta etapa. Procure um administrador ou o suporte do ACTA."
+          : cause.status === 0 || cause.status >= 500
+            ? "O serviço de autenticação está indisponível no momento. Tente novamente em alguns minutos."
+            : lista.join(" "));
+    } else setMensagem("Não foi possível conectar ao serviço de autenticação. Verifique sua conexão e tente novamente.");
   };
   const seguir = (resultado: ResultadoOnboarding) => {
     if (resultado.empresaExistente && resultado.statusEmpresa === "ATIVO") {
       setEtapa("convite");
-      setMensagem("Esta empresa já está ativa. Verifique a caixa de entrada e o spam do e-mail informado para receber o convite e concluir a ativação.");
+      setMensagem(resultado.mensagem || "Esta empresa já está ativa. Peça a um administrador da empresa para convidar você. O convite ainda não foi enviado.");
     } else if (resultado.empresaExistente && resultado.statusEmpresa === "PENDENTE") {
       setEtapa("espera");
-      setMensagem("Esta empresa já possui um cadastro pendente. Não é possível avançar por esse cadastro. Procure o suporte do ACTA.");
+      setMensagem(resultado.mensagem || "Esta empresa já possui um cadastro pendente. Não é possível avançar por esse cadastro. Procure o suporte do ACTA.");
     } else if (resultado.proximaEtapa && !resultado.empresaExistente) {
-      setEtapa("empresa"); setMensagem("");
+      setEtapa("empresa"); setMensagem(resultado.mensagem ?? "");
     } else setMensagem("Não foi possível confirmar seu cadastro. Tente novamente ou procure o suporte.");
   };
   const confirmarPerfilAtivo = async () => {
@@ -213,15 +219,10 @@ export function PaginaOnboarding({ pendente = false }: { pendente?: boolean }) {
           { ...empresa, cnpj: digitos(empresa.cnpj), telefoneEmpresa: digitos(empresa.telefoneEmpresa), emailEmpresa: empresa.emailEmpresa.trim() },
           { ...endereco, cep: digitos(endereco.cep), uf: endereco.uf.toUpperCase(), complemento: endereco.complemento?.trim() || null },
         );
-        if (resultado.statusEmpresa !== "ATIVO" || resultado.statusUsuario !== "ATIVO" || resultado.conviteEnviado || resultado.proximaEtapa) {
-          setEtapa("espera");
-          setMensagem("Ainda não foi possível confirmar a ativação do cadastro. Confira a situação ou volte ao formulário para tentar novamente.");
-          return;
-        }
         const perfil = await getCurrentActaUser();
         if (perfil.estadoPerfil !== "PERFIL_CRIADO" || perfil.status !== "ATIVO") {
           setEtapa("espera");
-          setMensagem("Seu cadastro foi enviado, mas ainda não foi possível confirmar se o perfil está ativo. Verifique a situação ou volte ao formulário para tentar novamente.");
+          setMensagem(resultado.mensagem || "Seu cadastro foi enviado, mas ainda não foi possível confirmar se o perfil está ativo. Verifique a situação ou volte ao formulário para tentar novamente.");
           return;
         }
         await refreshActaUser();
@@ -259,8 +260,8 @@ export function PaginaOnboarding({ pendente = false }: { pendente?: boolean }) {
     }
   };
   const campo = (id: string, label: string, value: string, change: (value: string) => void, options: { type?: string; max?: number; maxDate?: string; readOnly?: boolean; required?: boolean } = {}) => <label className="onboarding-campo" key={id}>{label}<input aria-invalid={Boolean(erros[id])} aria-describedby={erros[id] ? `${id}-erro` : undefined} type={options.type ?? "text"} maxLength={options.max} max={options.maxDate} readOnly={options.readOnly} required={options.required !== false} value={value} onChange={(e) => change(e.target.value)} />{erros[id] && <small id={`${id}-erro`}>{erros[id]}</small>}</label>;
-  const titulo = etapa === "gestor" ? "Comece o cadastro" : etapa === "empresa" ? "Dados da empresa" : etapa === "endereco" ? "Endereço" : etapa === "convite" ? "Convite enviado" : "Cadastro não concluído";
-  const descricao = etapa === "gestor" ? "Informe seus dados e o CNPJ para iniciar." : etapa === "empresa" ? "Complete os dados da empresa." : etapa === "endereco" ? "Informe o endereço da empresa." : etapa === "convite" ? "Aguarde o convite enviado para o e-mail da sua conta e siga as instruções recebidas para ativar o acesso." : "Não foi possível concluir o onboarding. Confira a situação ou procure o suporte do ACTA.";
+  const titulo = etapa === "gestor" ? "Comece o cadastro" : etapa === "empresa" ? "Dados da empresa" : etapa === "endereco" ? "Endereço" : etapa === "convite" ? "Acesso à empresa" : "Cadastro não concluído";
+  const descricao = etapa === "gestor" ? "Informe seus dados e o CNPJ para iniciar." : etapa === "empresa" ? "Complete os dados da empresa." : etapa === "endereco" ? "Informe o endereço da empresa." : etapa === "convite" ? "Peça a um administrador da empresa para enviar seu convite. Depois, siga as instruções recebidas para ativar o acesso." : "Não foi possível concluir o onboarding. Confira a situação ou procure o suporte do ACTA.";
   return <main className="onboarding"><section className="onboarding-card" aria-labelledby="titulo-onboarding"><PainelMarca /><div className="onboarding-conteudo"><header className="onboarding-cabecalho"><h1 id="titulo-onboarding">{titulo}</h1><p>{descricao}</p></header>
     {(etapa === "gestor" || etapa === "empresa" || etapa === "endereco") && <div className="onboarding-progresso" role="group" aria-label={`Etapa ${etapa === "gestor" ? 1 : etapa === "empresa" ? 2 : 3} de 3`}><span className={etapa === "gestor" ? "ativo" : "concluido"} aria-label="Etapa 1: dados do gestor" /><span className={etapa === "empresa" ? "ativo" : etapa === "endereco" ? "concluido" : ""} aria-label="Etapa 2: dados da empresa" /><span className={etapa === "endereco" ? "ativo" : ""} aria-label="Etapa 3: endereço" /></div>}
     {!emailVerificado && <div className="onboarding-aviso" role="alert"><strong>Confirme seu e-mail para continuar.</strong><p>Enviamos um link para {firebaseUser?.email}. Abra a mensagem, confirme seu e-mail e volte aqui.</p><button type="button" disabled={verificando} onClick={() => void confirmarEmail()}>{verificando ? "Verificando…" : "Já confirmei meu e-mail"}</button><button type="button" disabled={reenviando} onClick={() => void reenviarEmail()}>{reenviando ? "Enviando…" : "Reenviar link"}</button><button type="button" onClick={() => { setTrocandoEmail((aberto) => !aberto); setMensagem(""); setNovoEmail(""); }}>{trocandoEmail ? "Cancelar troca" : "Trocar e-mail"}</button>{trocandoEmail && <form className="onboarding-troca-email" onSubmit={(e) => void atualizarEmail(e)}><label className="onboarding-campo" htmlFor="novo-email">Novo e-mail<input id="novo-email" type="email" autoComplete="email" maxLength={254} required value={novoEmail} onChange={(e) => setNovoEmail(e.target.value)} /></label><button type="submit" disabled={atualizandoEmail}>{atualizandoEmail ? "Enviando…" : "Enviar confirmação"}</button></form>}</div>}
