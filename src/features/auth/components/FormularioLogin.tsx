@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { useAuth } from "../../../auth/AuthProvider";
 import { ModalRecuperarSenha } from "./ModalRecuperarSenha";
@@ -15,6 +15,12 @@ export function FormularioLogin() {
   const [mostrarRecuperacao, definirMostrarRecuperacao] = useState(false);
   const navegar = useNavigate();
   const localizacao = useLocation();
+  const obterDestinoSeguro = () => {
+    const origem = (localizacao.state as { from?: { pathname?: unknown } } | null)?.from?.pathname;
+    return typeof origem === "string" && origem.startsWith("/") && !origem.startsWith("//") && !origem.includes("\\")
+      ? origem
+      : "/";
+  };
 
   if (firebaseUser && !loading) return <Navigate to={actaUser?.status === "ATIVO" ? "/" : "/onboarding"} replace />;
 
@@ -29,8 +35,7 @@ export function FormularioLogin() {
 
     try {
       await login(email, senha);
-      const origem = (localizacao.state as { from?: { pathname?: string } } | null)?.from?.pathname;
-      navegar(origem || "/", { replace: true });
+      navegar(obterDestinoSeguro(), { replace: true });
     } catch (erro) {
       definirMensagemErro(
         erro instanceof FirebaseError &&
@@ -52,8 +57,7 @@ export function FormularioLogin() {
     definirEntrandoComGoogle(true);
     try {
       await loginWithGoogle();
-      const origem = (localizacao.state as { from?: { pathname?: string } } | null)?.from?.pathname;
-      navegar(origem || "/", { replace: true });
+      navegar(obterDestinoSeguro(), { replace: true });
     } catch (erro) {
       definirMensagemErro(
         erro instanceof FirebaseError && erro.code === "auth/popup-closed-by-user"
@@ -124,8 +128,6 @@ export function FormularioLogin() {
         visivel={mostrarRecuperacao}
         aoFechar={() => definirMostrarRecuperacao(false)}
       />
-
-      <Link className="cadastro-login" to="/criar-conta">Criar conta para cadastrar empresa ou gestor</Link>
 
       {firebaseUser && !actaUser && (
         <button type="button" className="esqueci-senha" onClick={() => void logout()}>
