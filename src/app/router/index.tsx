@@ -19,6 +19,7 @@ import { PaginaPlanCriarFormulario } from "../../features/plan/pages/PaginaPlanC
 import { PaginaPlanIdentificacaoProblema } from "../../features/plan/pages/PaginaPlanIdentificacaoProblema";
 import { PaginaPlanAvisoColeta } from "../../features/plan/pages/PaginaPlanAvisoColeta";
 import { PaginaPlanTodosCiclos } from "../../features/plan/pages/PaginaPlanTodosCiclos";
+import { PaginaCheckTodosCiclos } from "../../features/check/pages/PaginaCheckTodosCiclos";
 import { PaginaTodosCiclos } from "../../features/ciclos/pages/PaginaTodosCiclos";
 import { PaginaRelatorios } from "../../features/relatorios/pages/PaginaRelatorios";
 import { PaginaNaoEncontrada } from "../../features/layout/pages/PaginaNaoEncontrada";
@@ -100,6 +101,7 @@ export const router = createBrowserRouter([
           { index: true, element: <HomePage /> },
           { path: "perfil", element: <PaginaPerfil /> },
           { path: "do", element: <PaginaDo /> },
+          { path: "check", element: <PaginaCheckTodosCiclos /> },
           { path: "ciclos", element: <PaginaTodosCiclos /> },
           { path: "relatorios", element: <PaginaRelatorios /> },
           { path: "plan/ciclos", element: <PaginaPlanTodosCiclos /> },
