@@ -1,0 +1,375 @@
+@font-face {
+  font-family: "Plan Jakarta";
+  src: url("../../../styles/fonts/plus-jakarta-400.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plan Jakarta";
+  src: url("../../../styles/fonts/plus-jakarta-600.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plan Jakarta";
+  src: url("../../../styles/fonts/plus-jakarta-700.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+.pagina-plan-ciclos {
+  color: #253132;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.plan-ciclos_conteudo {
+  min-width: 0;
+  padding: 35px 42px 34px 40px;
+}
+
+.plan-ciclos_cabecalho {
+  min-height: 100px;
+  padding-left: 62px;
+  padding-right: 280px;
+}
+
+.plan-ciclos_cabecalho h1 {
+  margin: 0;
+  color: #1f1f1f;
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+}
+
+.plan-ciclos_cabecalho p {
+  margin: 4px 0 24px;
+  color: #003654;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.plan-ciclos_metricas {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.plan-ciclos_metrica,
+.plan-ciclos_grafico,
+.plan-ciclos_tabela-secao,
+.plan-ciclos_vazio {
+  min-width: 0;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 4%);
+}
+
+.plan-ciclos_metrica {
+  min-height: 84px;
+  padding: 13px 16px;
+}
+
+.plan-ciclos_metrica h2 {
+  margin: 0 0 5px;
+  color: #5e686b;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.plan-ciclos_metrica p {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin: 0;
+}
+
+.plan-ciclos_metrica strong {
+  color: #025a8a;
+  font: 600 26px/1.3 "Plan Jakarta", sans-serif;
+}
+
+.plan-ciclos_metrica-ciano strong { color: #00b8c5; }
+.plan-ciclos_metrica-laranja strong { color: #ffad2e; }
+.plan-ciclos_metrica-verde strong { color: #37ad83; }
+
+.plan-ciclos_metrica p > span {
+  color: #5e686b;
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.plan-ciclos_graficos {
+  display: grid;
+  grid-template-columns: minmax(0, 734fr) minmax(0, 458fr);
+  gap: 20px;
+  margin-top: 18px;
+}
+
+.plan-ciclos_grafico {
+  min-height: 360px;
+  margin: 0;
+  padding: 22px 24px 18px;
+}
+
+.plan-ciclos_grafico h2 {
+  margin: 0;
+  font: 700 18px/1.4 "Plan Jakarta", sans-serif;
+}
+
+.plan-ciclos_grafico figcaption > p {
+  margin: 4px 0 0;
+  color: #52666a;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.plan-ciclos_barras {
+  display: grid;
+  gap: 15px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plan-ciclos_barra-linha {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: 180px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding-right: 38px;
+}
+
+.plan-ciclos_barra-ciclo { grid-column: 1; grid-row: 1; }
+.plan-ciclos_barra-total {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: start;
+  left: var(--posicao-total-percentual, 100%);
+  margin-left: 8px;
+}
+
+.plan-ciclos_barra-ciclo,
+.plan-ciclos_barra-total {
+  font: 700 12px/1.4 "Plan Jakarta", sans-serif;
+  overflow-wrap: anywhere;
+}
+
+.plan-ciclos_barra {
+  display: flex;
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  height: 23px;
+  background: repeating-linear-gradient(to right, #e3ebec 0 1px, transparent 1px 25%);
+}
+
+.plan-ciclos_barra-segmento {
+  display: grid;
+  min-width: 0;
+  height: 100%;
+  flex-shrink: 1;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 3px;
+  color: #fff;
+  font: 700 11px/1 "Plan Jakarta", sans-serif;
+}
+
+.plan-ciclos_barra-segmento-aceitas { background: #025a8a; }
+.plan-ciclos_barra-segmento-validacao { background: #6eadc4; color: #17343f; }
+
+.plan-ciclos_eixo {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 38px 0 194px;
+  padding: 0;
+  color: #52666a;
+  font-size: 10px;
+  list-style: none;
+}
+
+.plan-ciclos_eixo li { width: 0; text-align: center; }
+
+.plan-ciclos_legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 38px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plan-ciclos_legenda li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #52666a;
+  font-size: 11px;
+}
+
+.plan-ciclos_legenda-amostra {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  border-radius: 3px;
+}
+
+.plan-ciclos_legenda-amostra-aceitas,
+.plan-ciclos_legenda-amostra-aprovado { background: #025a8a; }
+.plan-ciclos_legenda-amostra-validacao { background: #6eadc4; }
+.plan-ciclos_legenda-amostra-rascunho { background: #5184a0; }
+
+.plan-ciclos_nota-grafico {
+  margin: 12px 0 0;
+  color: #52666a;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.plan-ciclos_grafico-planos {
+  display: grid;
+  grid-template-columns: 154px minmax(0, 1fr);
+  grid-template-rows: auto minmax(190px, 1fr) auto;
+  column-gap: 24px;
+}
+
+.plan-ciclos_grafico-planos figcaption,
+.plan-ciclos_base-grafico,
+.plan-ciclos_grafico-planos .plan-ciclos_grafico-vazio { grid-column: 1 / -1; }
+
+.plan-ciclos_donut-resumo {
+  position: relative;
+  grid-column: 1;
+  grid-row: 2;
+  align-self: center;
+  width: 154px;
+  height: 154px;
+}
+
+.plan-ciclos_donut-asset-slot {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle closest-side, #fff 76%, transparent calc(76% + 1px)), conic-gradient(#5184a0 0 clamp(0%, var(--percentual-rascunho, 0%), 100%), #025a8a 0 100%);
+}
+
+.plan-ciclos_donut-total {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  text-align: center;
+}
+
+.plan-ciclos_donut-total strong { font: 700 30px/1.2 "Plan Jakarta", sans-serif; }
+.plan-ciclos_donut-total > span { color: #52666a; font-size: 11px; }
+
+.plan-ciclos_legenda-planos {
+  display: grid;
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  gap: 18px;
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plan-ciclos_legenda-planos li {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: 9px minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 8px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.plan-ciclos_legenda-planos strong { font: 700 13px/1.4 "Plan Jakarta", sans-serif; }
+.plan-ciclos_legenda-planos li > span:last-child { grid-column: 3; color: #52666a; font-size: 10px; text-align: right; }
+
+.plan-ciclos_base-grafico {
+  margin: 0;
+  border-top: 1px solid #e3ebec;
+  padding-top: 16px;
+  color: #52666a;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.plan-ciclos_tabela-secao { margin-top: 20px; padding: 16px 10px 28px; }
+.plan-ciclos_tabela-secao > h2 { margin: 0 6px 14px; font: 600 14px/1.5 "Plan Jakarta", sans-serif; }
+.plan-ciclos_tabela-rolagem { max-width: 100%; overflow-x: auto; border-radius: 16px; }
+.plan-ciclos_tabela { width: 100%; min-width: 680px; border-collapse: separate; border-spacing: 0 8px; table-layout: fixed; }
+.plan-ciclos_tabela th, .plan-ciclos_tabela td { padding: 12px; text-align: left; overflow-wrap: anywhere; }
+.plan-ciclos_tabela thead th { padding-block: 0 6px; color: #5e686b; font-size: 9px; font-weight: 400; text-transform: uppercase; }
+.plan-ciclos_tabela th:first-child { width: 30%; }
+.plan-ciclos_tabela th:nth-child(2) { width: 14%; }
+.plan-ciclos_tabela th:nth-child(3) { width: 12%; }
+.plan-ciclos_tabela th:nth-child(4) { width: 23%; }
+.plan-ciclos_tabela th:nth-child(5) { width: 21%; }
+.plan-ciclos_tabela tbody tr { background: #fff; box-shadow: 0 1px 10px rgb(0 0 0 / 3%); }
+.plan-ciclos_tabela tbody th { height: 56px; border-radius: 20px 0 0 20px; color: #253132; font-size: 11px; font-weight: 400; }
+.plan-ciclos_tabela tbody td { color: #5e686b; font-size: 10px; line-height: 1.5; }
+.plan-ciclos_tabela tbody td:last-child { border-radius: 0 20px 20px 0; }
+.plan-ciclos_status { display: inline-flex; min-width: 120px; min-height: 28px; align-items: center; justify-content: center; border-radius: 20px; padding: 5px 12px; font-size: 10px; text-align: center; }
+.plan-ciclos_status-andamento { background: #fff3dc; color: #875300; }
+.plan-ciclos_status-atencao { background: #e1f5f7; color: #025a8a; }
+.plan-ciclos_status-revisao { background: #e6f5ee; color: #22764e; }
+.plan-ciclos_vazio { padding: 28px; }
+.plan-ciclos_vazio h2 { margin: 0 0 12px; font-size: 20px; }
+.plan-ciclos_vazio p, .plan-ciclos_grafico-vazio, .plan-ciclos_tabela-vazia { color: #52666a; font-size: 14px; line-height: 1.6; }
+.plan-ciclos_grafico-vazio { align-self: center; margin: 28px 0; }
+.plan-ciclos_tabela-vazia { padding: 12px; }
+.plan-ciclos_conteudo :focus-visible { outline: 3px solid #025a8a; outline-offset: -3px; }
+
+@media (max-width: 1200px) {
+  .plan-ciclos_conteudo { padding-inline: 26px; }
+  .plan-ciclos_cabecalho { min-height: 120px; padding-left: 20px; padding-right: 280px; }
+  .plan-ciclos_cabecalho h1 { font-size: 30px; }
+  .plan-ciclos_metricas { gap: 14px; }
+  .plan-ciclos_metrica p { gap: 12px; }
+  .plan-ciclos_graficos { grid-template-columns: minmax(0, 1fr); }
+  .plan-ciclos_barra-linha { grid-template-columns: 180px minmax(0, 1fr); }
+  .plan-ciclos_grafico-planos { grid-template-columns: 154px minmax(0, 260px); justify-content: space-between; }
+}
+
+@media (max-width: 850px) {
+  .plan-ciclos_conteudo { padding: 140px 18px 28px; }
+  .plan-ciclos_cabecalho { min-height: 0; padding: 0; }
+  .plan-ciclos_cabecalho h1 { font-size: clamp(24px, 4vw, 30px); }
+  .plan-ciclos_metricas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .plan-ciclos_grafico { padding: 22px 18px; }
+}
+
+@media (max-width: 760px) {
+  .plan-ciclos_conteudo { padding-top: 28px; }
+}
+
+@media (max-width: 520px) {
+  .plan-ciclos_conteudo { padding-inline: 12px; }
+  .plan-ciclos_metrica p { align-items: flex-start; flex-direction: column; gap: 2px; }
+  .plan-ciclos_metrica { padding: 14px; }
+  .plan-ciclos_grafico h2 { font-size: 17px; }
+  .plan-ciclos_barra-linha { grid-template-columns: 96px minmax(0, 1fr); gap: 8px; padding-right: 26px; }
+  .plan-ciclos_barra-ciclo, .plan-ciclos_barra-total { font-size: 10px; }
+  .plan-ciclos_barra-segmento { font-size: 10px; }
+  .plan-ciclos_eixo { margin-left: 104px; margin-right: 26px; }
+  .plan-ciclos_legenda { gap: 10px 18px; }
+  .plan-ciclos_grafico-planos { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto auto; justify-items: center; }
+  .plan-ciclos_grafico-planos figcaption { width: 100%; }
+  .plan-ciclos_donut-resumo { grid-column: 1; grid-row: 2; margin-top: 24px; }
+  .plan-ciclos_legenda-planos { grid-column: 1; grid-row: 3; width: 100%; margin: 24px 0; }
+  .plan-ciclos_base-grafico { width: 100%; }
+}

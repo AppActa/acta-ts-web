@@ -27,7 +27,7 @@ export function Sidebar() {
           <img className="barra-lateral_icone barra-lateral_logo" src={iconeHome} alt="" />
           <span>Home</span>
         </Link>
-        <Link className="barra-lateral_item" to={`/do/ciclo/${cicloId}/plan`} aria-current={estaEmPlan ? "page" : undefined}>
+        <Link className="barra-lateral_item" to="/plan/ciclos" aria-current={estaEmPlan ? "page" : undefined}>
           <img className="barra-lateral_icone" src={iconePlan} alt="" />
           <span>Plan</span>
         </Link>
