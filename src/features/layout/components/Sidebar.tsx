@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import iconeAct from "../../perfil/assets/icone-act.png";
 import iconeCheck from "../../perfil/assets/icone-check.png";
 import iconeDo from "../../perfil/assets/icone-do.png";
@@ -13,9 +13,8 @@ import "../styles/sidebar.css";
 
 export function Sidebar() {
   const { pathname } = useLocation();
-  const { cicloId = "1" } = useParams();
   const estaEmPlan = pathname.includes("/plan");
-  const estaEmDo = pathname.includes("/tarefas") || pathname.includes("/treinamentos") || pathname.includes("/cronograma");
+  const estaEmDo = pathname === "/do" || pathname.includes("/tarefas") || pathname.includes("/treinamentos") || pathname.includes("/cronograma");
   const estaEmCheck = pathname === "/check";
   const estaEmHome = pathname === "/";
   const estaEmPerfil = pathname.startsWith("/perfil");
@@ -31,7 +30,7 @@ export function Sidebar() {
           <img className="barra-lateral_icone" src={iconePlan} alt="" />
           <span>Plan</span>
         </Link>
-        <Link className="barra-lateral_item" to={`/do/ciclo/${cicloId}/tarefas`} aria-current={estaEmDo ? "page" : undefined}>
+        <Link className="barra-lateral_item" to="/do" aria-current={estaEmDo ? "page" : undefined}>
           <img className="barra-lateral_icone" src={iconeDo} alt="" />
           <span>Do</span>
         </Link>
