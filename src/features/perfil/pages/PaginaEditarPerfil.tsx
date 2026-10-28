@@ -51,8 +51,9 @@ export function PaginaEditarPerfil() {
       <section className="cartao-editar-perfil" aria-labelledby="titulo-editar-perfil">
         <div className="foto-editar-perfil">
           <div className="foto-editar-perfil_recorte">
-            <img src={referenciaEditarPerfil} alt="Catarina Cândido" />
+            <img src={referenciaEditarPerfil} alt="Foto de demonstração" />
           </div>
+          <p>Foto de demonstração</p>
 
           <label className="botao-editar-foto" htmlFor="foto-perfil" title="Alterar foto do perfil">
             <span className="texto-acessivel">Alterar foto do perfil</span>

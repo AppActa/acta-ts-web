@@ -49,6 +49,7 @@ export type DadosDoTodosCiclos = {
 
 type PaginaDoProps = {
   dados?: DadosDoTodosCiclos | null;
+  estado?: "carregando" | "erro" | "cancelado";
 };
 
 const escalaExecucao = [0, 3, 6, 9, 12] as const;
@@ -97,7 +98,7 @@ function formatarPercentualSituacao(valor: number, total: number): string {
   return `${formatadorPercentual.format(percentual)}%`;
 }
 
-export function PaginaDo({ dados }: PaginaDoProps) {
+export function PaginaDo({ dados, estado }: PaginaDoProps) {
   return (
     <main className="pagina-do pagina-do-todos-ciclos">
       <Sidebar />
@@ -118,7 +119,20 @@ export function PaginaDo({ dados }: PaginaDoProps) {
             </div>
           </header>
 
-          {!dados ? (
+          {estado === "carregando" ? (
+            <section className="do-todos-ciclos_vazio" role="status" aria-live="polite" aria-busy="true">
+              <h2>Carregando dados do Do</h2>
+            </section>
+          ) : estado === "erro" ? (
+            <section className="do-todos-ciclos_vazio" role="alert">
+              <h2>Não foi possível carregar os dados do Do</h2>
+              <p>Tente novamente mais tarde.</p>
+            </section>
+          ) : estado === "cancelado" ? (
+            <section className="do-todos-ciclos_vazio" role="status" aria-live="polite">
+              <h2>Carregamento do Do interrompido</h2>
+            </section>
+          ) : !dados ? (
             <section className="do-todos-ciclos_vazio" role="status" aria-live="polite">
               <h2>Dados de Do indisponíveis</h2>
               <p>Métricas, execução e acompanhamento serão exibidos quando houver dados disponíveis.</p>

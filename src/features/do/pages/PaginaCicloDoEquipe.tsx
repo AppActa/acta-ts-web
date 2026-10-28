@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
-import { obterCiclo } from "../../ciclo/data/ciclos";
+import { useCicloDaConta, rotuloStatusCiclo } from "../../ciclo/hooks/useCicloDaConta";
 import iconeVisaoGeral from "../assets/ciclo-visao-geral/063c5.svg";
 import iconePlanAba from "../assets/ciclo-visao-geral/47893.svg";
 import iconeDo from "../assets/ciclo-visao-geral/d01c2.svg";
@@ -34,9 +34,25 @@ const etapas = [
 
 export function PaginaCicloDoEquipe({ pessoas }: PaginaCicloDoEquipeProps) {
   const { cicloId } = useParams();
-  const ciclo = obterCiclo(cicloId);
+  const resultadoCiclo = useCicloDaConta(cicloId);
   const listaPessoas = pessoas ?? [];
-  const responsavel = listaPessoas.find((pessoa) => pessoa.papel.toLocaleLowerCase("pt-BR") === "responsável");
+
+  if (resultadoCiclo.estado !== "sucesso") {
+    const carregando = resultadoCiclo.estado === "carregando";
+    const naoEncontrado = resultadoCiclo.estado === "nao-encontrado";
+    return (
+      <main className="pagina-ciclo-do pagina-ciclo-do-equipe">
+        <Sidebar />
+        <div className="ciclo-do_painel">
+          <section className="ciclo-do-equipe_estado" role={carregando ? "status" : "alert"} aria-live="polite">
+            <h1>{carregando ? "Carregando ciclo" : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
+            {!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}
+          </section>
+        </div>
+      </main>
+    );
+  }
+  const ciclo = resultadoCiclo.ciclo;
 
   return (
     <main className="pagina-ciclo-do pagina-ciclo-do-equipe">
@@ -46,12 +62,12 @@ export function PaginaCicloDoEquipe({ pessoas }: PaginaCicloDoEquipeProps) {
           <span className="ciclo-do_cabecalho_icone" aria-hidden="true" />
           <div className="ciclo-do_identificacao">
             <div className="ciclo-do_titulo_linha">
-              <h1>{ciclo.nome}</h1>
-              <span className="ciclo-do_status">Status: Do</span>
+              <h1>{ciclo.titulo}</h1>
+              <span className="ciclo-do_status">Status: {rotuloStatusCiclo(ciclo.status)}</span>
             </div>
-            <p><span>Responsável pelo ciclo:</span> {responsavel && <strong>{responsavel.nome}</strong>}</p>
-            <p><span>Iniciado em:</span> <strong>{ciclo.inicio}</strong></p>
-            <p><span>Prazo final:</span> <strong>{ciclo.prazo}</strong></p>
+            <p><span>Responsável pelo ciclo:</span> <strong>Não informado</strong></p>
+            <p><span>Iniciado em:</span> <strong>{ciclo.dataInicio ?? "Não informado"}</strong></p>
+            <p><span>Prazo final:</span> <strong>{ciclo.dataEstimadaFim ?? "Não informado"}</strong></p>
           </div>
         </header>
 
@@ -83,8 +99,8 @@ export function PaginaCicloDoEquipe({ pessoas }: PaginaCicloDoEquipeProps) {
             <section className="ciclo-do-equipe_pessoas" aria-labelledby="ciclo-do-equipe-pessoas-titulo">
               <header className="ciclo-do-equipe_pessoas-cabecalho">
                 <h3 id="ciclo-do-equipe-pessoas-titulo">Pessoas do ciclo</h3>
-                <span>{listaPessoas.length} {listaPessoas.length === 1 ? "pessoa" : "pessoas"}</span>
-                <p>Acesso concedido apenas às pessoas envolvidas na execução.</p>
+                <span>{pessoas == null ? "Contagem indisponível" : `${listaPessoas.length} ${listaPessoas.length === 1 ? "pessoa" : "pessoas"}`}</span>
+                <p>Participantes e permissões do ciclo.</p>
               </header>
 
               <table className="ciclo-do-equipe_tabela">
@@ -118,9 +134,11 @@ export function PaginaCicloDoEquipe({ pessoas }: PaginaCicloDoEquipeProps) {
                   ))}
                 </tbody>
               </table>
-              {listaPessoas.length === 0 && (
+              {pessoas == null ? (
+                <p className="ciclo-do-equipe_vazio" role="status" aria-live="polite">Equipe ainda não consultada.</p>
+              ) : listaPessoas.length === 0 ? (
                 <p className="ciclo-do-equipe_vazio" role="status" aria-live="polite">Nenhuma pessoa no ciclo.</p>
-              )}
+              ) : null}
             </section>
 
             <section className="ciclo-do-equipe_convidar" aria-labelledby="ciclo-do-equipe-convidar-titulo">

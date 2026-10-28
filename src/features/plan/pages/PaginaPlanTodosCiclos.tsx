@@ -44,6 +44,7 @@ export type DadosPlanTodosCiclos = {
 
 type PaginaPlanTodosCiclosProps = {
   dados?: DadosPlanTodosCiclos | null;
+  estado?: "carregando" | "erro" | "cancelado";
 };
 
 const escalaCausas = [0, 2, 4, 6, 8] as const;
@@ -59,7 +60,7 @@ function posicaoTotal(total: number): EstiloPosicaoTotal {
   return { "--posicao-total-percentual": `${percentual}%` };
 }
 
-export function PaginaPlanTodosCiclos({ dados }: PaginaPlanTodosCiclosProps) {
+export function PaginaPlanTodosCiclos({ dados, estado }: PaginaPlanTodosCiclosProps) {
   const totalPlanos = dados?.planosAcao.total ?? 0;
   const percentualRascunho = dados && totalPlanos > 0 ? (dados.planosAcao.rascunho / totalPlanos) * 100 : 0;
   const resumoDonut = dados
@@ -76,7 +77,20 @@ export function PaginaPlanTodosCiclos({ dados }: PaginaPlanTodosCiclosProps) {
             <p>Acompanhe problemas, coleta, causas, metas e planos de ação em planejamento.</p>
           </header>
 
-          {!dados ? (
+          {estado === "carregando" ? (
+            <section className="plan-ciclos_vazio" role="status" aria-live="polite" aria-busy="true">
+              <h2>Carregando dados do Plan</h2>
+            </section>
+          ) : estado === "erro" ? (
+            <section className="plan-ciclos_vazio" role="alert">
+              <h2>Não foi possível carregar os dados do Plan</h2>
+              <p>Tente novamente mais tarde.</p>
+            </section>
+          ) : estado === "cancelado" ? (
+            <section className="plan-ciclos_vazio" role="status" aria-live="polite">
+              <h2>Carregamento do Plan interrompido</h2>
+            </section>
+          ) : !dados ? (
             <section className="plan-ciclos_vazio" role="status" aria-live="polite">
               <h2>Dados globais do Plan indisponíveis</h2>
               <p>Os indicadores e ciclos aparecerão quando houver dados de apresentação disponíveis.</p>

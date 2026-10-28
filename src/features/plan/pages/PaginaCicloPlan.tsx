@@ -19,7 +19,7 @@ export function PaginaCicloPlan() {
   return (
     <main className="pagina-ciclo-plan-do pagina-ciclo-plan">
       <PainelCicloPlanDo cicloId={cicloId} etapaAtiva="plan">
-        <div className="plan-resumo-conteudo">
+        <section className="plan-resumo-conteudo" aria-label="Etapas do planejamento">
           {indicadores.map((indicador) => (
             <article className="plan-indicador" key={indicador.titulo}>
               <h2>{indicador.titulo}</h2>
@@ -32,11 +32,11 @@ export function PaginaCicloPlan() {
                 : <span className="plan-indicador_detalhes">Ver detalhes →</span>}
             </article>
           ))}
-          <article className="plan-progresso">
-            <div className="plan-progresso_grafico"><img src={progressoPlan} alt="" /><strong>80%</strong></div>
-            <div className="plan-progresso_texto"><h2>Etapas do planejamento</h2><strong>4 de 5 indicadores prontos</strong><p>Problema, coleta, causas e meta concluídos.</p><div className="plan-progresso_legenda"><span><i className="concluido" />Concluído</span><span><i className="pendente" />Pendente</span></div></div>
+          <article className="plan-progresso" aria-labelledby="plan-progresso-titulo">
+            <div className="plan-progresso_grafico" role="progressbar" aria-label="Etapas do planejamento concluídas" aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}><img src={progressoPlan} alt="" /><strong>80%</strong></div>
+            <div className="plan-progresso_texto"><h2 id="plan-progresso-titulo">Etapas do planejamento</h2><strong>4 de 5 indicadores prontos</strong><p>Problema, coleta, causas e meta concluídos.</p><div className="plan-progresso_legenda" role="group" aria-label="Legenda do progresso"><span><i className="concluido" aria-hidden="true" />Concluído</span><span><i className="pendente" aria-hidden="true" />Pendente</span></div></div>
           </article>
-        </div>
+        </section>
       </PainelCicloPlanDo>
     </main>
   );

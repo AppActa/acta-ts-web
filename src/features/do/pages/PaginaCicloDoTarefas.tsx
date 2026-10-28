@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
-import { obterCiclo } from "../../ciclo/data/ciclos";
+import { useCicloDaConta, rotuloStatusCiclo } from "../../ciclo/hooks/useCicloDaConta";
+import { AvisoDadosDemonstrativos } from "../../layout/components/AvisoDadosDemonstrativos";
 import iconeVisaoGeral from "../assets/ciclo-visao-geral/063c5.svg";
 import iconePlan from "../assets/ciclo-visao-geral/47893.svg";
 import iconeDo from "../assets/ciclo-visao-geral/d01c2.svg";
@@ -40,7 +41,24 @@ function AbasDoCiclo({ cicloId }: { cicloId: string | undefined }) {
 
 export function PaginaCicloDoTarefas() {
   const { cicloId } = useParams();
-  const ciclo = obterCiclo(cicloId);
+  const resultadoCiclo = useCicloDaConta(cicloId);
+
+  if (resultadoCiclo.estado !== "sucesso") {
+    const carregando = resultadoCiclo.estado === "carregando";
+    const naoEncontrado = resultadoCiclo.estado === "nao-encontrado";
+    return (
+      <main className="pagina-ciclo-do-tarefas">
+        <Sidebar />
+        <div className="ciclo-do_tarefas_painel">
+          <section className="ciclo-do_tarefas_estado" role={carregando ? "status" : "alert"} aria-live="polite">
+            <h1>{carregando ? "Carregando ciclo" : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
+            {!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}
+          </section>
+        </div>
+      </main>
+    );
+  }
+  const ciclo = resultadoCiclo.ciclo;
 
   return (
     <main className="pagina-ciclo-do-tarefas">
@@ -48,9 +66,10 @@ export function PaginaCicloDoTarefas() {
       <div className="ciclo-do_tarefas_painel">
         <header className="ciclo-do_tarefas_cabecalho">
           <div className="ciclo-do_tarefas_icone" aria-hidden="true"><img src={relogio} alt="" /></div>
-          <div className="ciclo-do_tarefas_identificacao"><div className="ciclo-do_tarefas_linha"><h1>{ciclo.nome}</h1><span className="ciclo-do_tarefas_status">Status: Do</span></div><p><span>Responsável pelo ciclo:</span> Catarina Cândido</p><p><span>Iniciado em:</span> {ciclo.inicio}</p><p><span>Prazo final:</span> {ciclo.prazo}</p></div>
+          <div className="ciclo-do_tarefas_identificacao"><div className="ciclo-do_tarefas_linha"><h1>{ciclo.titulo}</h1><span className="ciclo-do_tarefas_status">Status: {rotuloStatusCiclo(ciclo.status)}</span></div><p><span>Responsável pelo ciclo:</span> Não informado</p><p><span>Iniciado em:</span> {ciclo.dataInicio ?? "Não informado"}</p><p><span>Prazo final:</span> {ciclo.dataEstimadaFim ?? "Não informado"}</p></div>
         </header>
         <AbasDoCiclo cicloId={cicloId} />
+        <AvisoDadosDemonstrativos />
         <div className="ciclo-do_tarefas_conteudo">
           <section className="ciclo-do_quadro">
             <div className="ciclo-do_tarefas_titulo"><h2>Quadro de tarefas</h2><button type="button" disabled><img src={iconeMais} alt="" />Criar nova</button></div>

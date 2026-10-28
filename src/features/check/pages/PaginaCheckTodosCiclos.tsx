@@ -48,6 +48,7 @@ export type DadosCheckTodosCiclos = {
 
 type PaginaCheckTodosCiclosProps = {
   dados?: DadosCheckTodosCiclos | null;
+  estado?: "carregando" | "erro" | "cancelado";
 };
 
 const escalaResultados = [0, 2, 4, 6, 8] as const;
@@ -93,7 +94,7 @@ function resumoSituacaoMetas(situacao: SituacaoMetasCheck): string {
   return `Atingidas: ${situacao.atingidas} de ${situacao.total} (${formatarPercentualMeta(situacao.atingidas, situacao.total)}). Em andamento: ${situacao.emAndamento} de ${situacao.total} (${formatarPercentualMeta(situacao.emAndamento, situacao.total)}). Não atingidas: ${situacao.naoAtingidas} de ${situacao.total} (${formatarPercentualMeta(situacao.naoAtingidas, situacao.total)}). Total: ${situacao.total} metas.`;
 }
 
-export function PaginaCheckTodosCiclos({ dados }: PaginaCheckTodosCiclosProps) {
+export function PaginaCheckTodosCiclos({ dados, estado }: PaginaCheckTodosCiclosProps) {
   return (
     <main className="pagina-web-listas check-todos-ciclos">
       <Sidebar />
@@ -114,7 +115,20 @@ export function PaginaCheckTodosCiclos({ dados }: PaginaCheckTodosCiclosProps) {
             </div>
           </header>
 
-          {!dados ? (
+          {estado === "carregando" ? (
+            <section className="check-todos-ciclos_vazio" role="status" aria-live="polite" aria-busy="true">
+              <h2>Carregando dados de Check</h2>
+            </section>
+          ) : estado === "erro" ? (
+            <section className="check-todos-ciclos_vazio" role="alert">
+              <h2>Não foi possível carregar os dados de Check</h2>
+              <p>Tente novamente mais tarde.</p>
+            </section>
+          ) : estado === "cancelado" ? (
+            <section className="check-todos-ciclos_vazio" role="status" aria-live="polite">
+              <h2>Carregamento de Check interrompido</h2>
+            </section>
+          ) : !dados ? (
             <section className="check-todos-ciclos_vazio" role="status" aria-live="polite">
               <h2>Dados de Check indisponíveis</h2>
               <p>Métricas, metas e ciclos serão exibidos quando houver dados disponíveis.</p>
