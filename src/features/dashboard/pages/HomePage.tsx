@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { Link } from "react-router-dom";
 import { LayoutSimples } from "../../layout/components/LayoutSimples";
 import "../styles/home-page.css";
 import logoActa from "../../auth/assets/logo-acta.svg";
@@ -21,7 +22,7 @@ export type VariantePendenciaHome = "aguardando" | "atrasada" | "pendente";
 export type MetricaHome = {
   id: string;
   titulo: string;
-  valor: number;
+  valor: number | null;
   contexto: string;
   variante: VarianteMetricaHome;
 };
@@ -37,8 +38,8 @@ export type PendenciaHome = {
 export type CicloHome = {
   id: string;
   titulo: string;
-  progresso: number;
-  icone: IconeCicloHome;
+  progresso: number | null;
+  icone: IconeCicloHome | null;
 };
 
 export type EtapaHome = {
@@ -51,13 +52,15 @@ export type EtapaHome = {
 export type DadosHomePage = {
   nomeUsuario: string;
   metricas: readonly [MetricaHome, MetricaHome, MetricaHome];
-  pendencias: readonly PendenciaHome[];
+  pendencias: readonly PendenciaHome[] | null;
   ciclos: readonly CicloHome[];
   etapas: readonly EtapaHome[];
+  tituloCiclos?: string;
 };
 
 type HomePageProps = {
   dados?: DadosHomePage | null;
+  estado?: "carregando" | "erro" | "cancelado";
 };
 
 const iconesCiclos: Record<IconeCicloHome, string> = {
@@ -78,7 +81,7 @@ function estiloProgresso(progresso: number): CSSProperties {
   return { width: `${Math.min(100, Math.max(0, progresso))}%` };
 }
 
-export function HomePage({ dados }: HomePageProps) {
+export function HomePage({ dados, estado }: HomePageProps) {
   return (
     <LayoutSimples>
       <div className="home-page">
@@ -86,7 +89,20 @@ export function HomePage({ dados }: HomePageProps) {
           <img className="home-page_logo" src={logoActa} alt="ACTA" />
         </header>
 
-        {!dados ? (
+        {estado === "carregando" ? (
+          <section className="home-page_vazio" role="status" aria-live="polite" aria-busy="true">
+            <h1>Carregando dados da Home</h1>
+          </section>
+        ) : estado === "erro" ? (
+          <section className="home-page_vazio" role="alert">
+            <h1>Não foi possível carregar os dados da Home</h1>
+            <p>Tente novamente mais tarde.</p>
+          </section>
+        ) : estado === "cancelado" ? (
+          <section className="home-page_vazio" role="status" aria-live="polite">
+            <h1>Carregamento da Home interrompido</h1>
+          </section>
+        ) : !dados ? (
           <section className="home-page_vazio" role="status" aria-live="polite">
             <h1>Dados da Home indisponíveis</h1>
             <p>O resumo e os ciclos aparecerão quando houver dados disponíveis.</p>
@@ -103,7 +119,9 @@ export function HomePage({ dados }: HomePageProps) {
                   {dados.metricas.map((metrica) => (
                     <article className={`home-page_metrica home-page_metrica-${metrica.variante}`} key={metrica.id}>
                       <h2>{metrica.titulo}</h2>
-                      <strong>{String(metrica.valor).padStart(2, "0")}</strong>
+                      <strong aria-label={metrica.valor === null ? `${metrica.titulo}: ${metrica.contexto}` : undefined}>
+                        {metrica.valor === null ? "—" : String(metrica.valor).padStart(2, "0")}
+                      </strong>
                       <p>{metrica.contexto}</p>
                     </article>
                   ))}
@@ -119,60 +137,77 @@ export function HomePage({ dados }: HomePageProps) {
                   </button>
                 </div>
                 <p className="home-page_pendencias-descricao">Pontos que podem pedir acompanhamento.</p>
-                <ul className="home-page_pendencias-lista">
-                  {dados.pendencias.map((pendencia) => (
-                    <li className="home-page_pendencia" key={pendencia.id}>
-                      <img className="home-page_pendencia-icone" src={iconesPendencias[pendencia.variante]} alt="" />
-                      <span className="home-page_pendencia-texto">
-                        <strong>{pendencia.titulo}</strong>
-                        <small>{pendencia.detalhe}</small>
-                      </span>
-                      <span className={`home-page_pendencia-estado home-page_pendencia-estado-${pendencia.variante}`}>
-                        {pendencia.estado}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                {dados.pendencias === null ? (
+                  <p className="home-page_pendencias-indisponiveis" role="status">Resumo de pendências ainda indisponível.</p>
+                ) : dados.pendencias.length === 0 ? (
+                  <p className="home-page_pendencias-vazio" role="status">Nenhuma pendência disponível.</p>
+                ) : (
+                  <ul className="home-page_pendencias-lista">
+                    {dados.pendencias.map((pendencia) => (
+                      <li className="home-page_pendencia" key={pendencia.id}>
+                        <img className="home-page_pendencia-icone" src={iconesPendencias[pendencia.variante]} alt="" />
+                        <span className="home-page_pendencia-texto">
+                          <strong>{pendencia.titulo}</strong>
+                          <small>{pendencia.detalhe}</small>
+                        </span>
+                        <span className={`home-page_pendencia-estado home-page_pendencia-estado-${pendencia.variante}`}>
+                          {pendencia.estado}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </section>
             </div>
 
             <div className="home-page_linha-inferior">
               <section className="home-page_ciclos" aria-labelledby="home-page-ciclos-titulo">
                 <div className="home-page_ciclos-cabecalho">
-                  <h2 id="home-page-ciclos-titulo">Meus ciclos</h2>
+                  <h2 id="home-page-ciclos-titulo">{dados.tituloCiclos ?? "Meus ciclos"}</h2>
                   <div className="home-page_ciclos-acoes">
                     <button className="home-page_botao" type="button" disabled>
                       <img src={iconeMais} alt="" />
                       <span>Criar novo</span>
                     </button>
-                    <button className="home-page_botao" type="button" disabled>
+                    <Link className="home-page_botao" to="/ciclos">
                       <img src={iconeLista} alt="" />
                       <span>Ver todos</span>
-                    </button>
+                    </Link>
                   </div>
                 </div>
                 <ul className="home-page_ciclos-lista" tabIndex={0} aria-labelledby="home-page-ciclos-titulo">
                   {dados.ciclos.map((ciclo) => (
                     <li className="home-page_ciclo" key={ciclo.id}>
-                      <div className={`home-page_ciclo-icone home-page_ciclo-icone-${ciclo.icone}`}>
-                        <img src={iconesCiclos[ciclo.icone]} alt="" />
-                      </div>
-                      <h3>{ciclo.titulo}</h3>
-                      <div className="home-page_ciclo-progresso">
-                        <div
-                          className="home-page_ciclo-trilho"
-                          role="progressbar"
-                          aria-label={`Progresso de ${ciclo.titulo}`}
-                          aria-valuenow={Math.min(100, Math.max(0, ciclo.progresso))}
-                          aria-valuemin={0}
-                          aria-valuemax={100}
-                        >
-                          <span style={estiloProgresso(ciclo.progresso)} />
+                      {ciclo.icone === null ? (
+                        <div className="home-page_ciclo-icone home-page_ciclo-icone-indisponivel" aria-hidden="true">
+                          {/* # colocar imagem */}
                         </div>
-                        <span>{ciclo.progresso}%</span>
-                      </div>
+                      ) : (
+                        <div className={`home-page_ciclo-icone home-page_ciclo-icone-${ciclo.icone}`}>
+                          <img src={iconesCiclos[ciclo.icone]} alt="" />
+                        </div>
+                      )}
+                      <h3>{ciclo.titulo}</h3>
+                      {ciclo.progresso === null ? (
+                        <p className="home-page_ciclo-progresso-indisponivel" role="status">Progresso indisponível</p>
+                      ) : (
+                        <div className="home-page_ciclo-progresso">
+                          <div
+                            className="home-page_ciclo-trilho"
+                            role="progressbar"
+                            aria-label={`Progresso de ${ciclo.titulo}`}
+                            aria-valuenow={Math.min(100, Math.max(0, ciclo.progresso))}
+                            aria-valuemin={0}
+                            aria-valuemax={100}
+                          >
+                            <span style={estiloProgresso(ciclo.progresso)} />
+                          </div>
+                          <span>{ciclo.progresso}%</span>
+                        </div>
+                      )}
                     </li>
                   ))}
+                  {dados.ciclos.length === 0 && <li className="home-page_ciclos-vazio" role="status">Nenhum ciclo cadastrado para esta empresa.</li>}
                 </ul>
               </section>
 
@@ -187,6 +222,7 @@ export function HomePage({ dados }: HomePageProps) {
                     </li>
                   ))}
                 </ul>
+                <p className="home-page_etapas-nota">Ciclos concluídos, pausados e cancelados não entram nessas contagens.</p>
               </section>
             </div>
           </>

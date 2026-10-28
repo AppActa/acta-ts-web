@@ -3,7 +3,7 @@ import { useAuth } from "../../auth/AuthProvider";
 import { PaginaLogin } from "../../features/auth";
 import { PaginaCadastroConta } from "../../features/auth/pages/PaginaCadastroConta";
 import { PaginaEditarPerfil, PaginaPerfil } from "../../features/perfil";
-import { HomePage } from "../../features/dashboard/pages/HomePage";
+import { HomePageConectada } from "../../features/dashboard/pages/HomePageConectada";
 import { PaginaDo } from "../../features/do/pages/PaginaDo";
 import { PaginaCicloDo } from "../../features/do/pages/PaginaCicloDo";
 import { PaginaCicloDoEquipe } from "../../features/do/pages/PaginaCicloDoEquipe";
@@ -18,6 +18,7 @@ import { PaginaCicloPlan } from "../../features/plan/pages/PaginaCicloPlan";
 import { PaginaPlanColeta } from "../../features/plan/pages/PaginaPlanColeta";
 import { PaginaPlanCriarFormulario } from "../../features/plan/pages/PaginaPlanCriarFormulario";
 import { PaginaPlanIdentificacaoProblema } from "../../features/plan/pages/PaginaPlanIdentificacaoProblema";
+import { PaginaPlanProblemasRegistrados } from "../../features/plan/pages/PaginaPlanProblemasRegistrados";
 import { PaginaPlanAvisoColeta } from "../../features/plan/pages/PaginaPlanAvisoColeta";
 import { PaginaPlanTodosCiclos } from "../../features/plan/pages/PaginaPlanTodosCiclos";
 import { PaginaCheckTodosCiclos } from "../../features/check/pages/PaginaCheckTodosCiclos";
@@ -99,7 +100,7 @@ export const router = createBrowserRouter([
       {
         element: <RotaPrivada />,
         children: [
-          { index: true, element: <HomePage /> },
+          { index: true, element: <HomePageConectada /> },
           { path: "perfil", element: <PaginaPerfil /> },
           { path: "do", element: <PaginaDo /> },
           { path: "check", element: <PaginaCheckTodosCiclos /> },
@@ -111,6 +112,7 @@ export const router = createBrowserRouter([
           { path: "do/ciclo/:cicloId/plan/coleta/criar", element: <PaginaPlanCriarFormulario /> },
           { path: "do/ciclo/:cicloId/plan/coleta/aviso", element: <PaginaPlanAvisoColeta /> },
           { path: "do/ciclo/:cicloId/plan/identificacao-problema", element: <PaginaPlanIdentificacaoProblema /> },
+          { path: "do/ciclo/:cicloId/plan/identificacao-problema/lista", element: <PaginaPlanProblemasRegistrados /> },
           { path: "do/ciclo/:cicloId", element: <PaginaCicloDo /> },
           { path: "do/ciclo/:cicloId/visao-geral", element: <PaginaCicloDo /> },
           { path: "do/ciclo/:cicloId/equipe", element: <PaginaCicloDoEquipe /> },
