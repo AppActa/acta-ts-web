@@ -6,6 +6,7 @@ import { PaginaEditarPerfil, PaginaPerfil } from "../../features/perfil";
 import { HomePage } from "../../features/dashboard/pages/HomePage";
 import { PaginaDo } from "../../features/do/pages/PaginaDo";
 import { PaginaCicloDo } from "../../features/do/pages/PaginaCicloDo";
+import { PaginaCicloDoEquipe } from "../../features/do/pages/PaginaCicloDoEquipe";
 import { PaginaCicloDoTarefas } from "../../features/do/pages/PaginaCicloDoTarefas";
 import { PaginaCicloDoTreinamentos } from "../../features/do/pages/PaginaCicloDoTreinamentos";
 import { PaginaCicloDoTreinamentoEspecifico } from "../../features/do/pages/PaginaCicloDoTreinamentoEspecifico";
@@ -112,6 +113,7 @@ export const router = createBrowserRouter([
           { path: "do/ciclo/:cicloId/plan/identificacao-problema", element: <PaginaPlanIdentificacaoProblema /> },
           { path: "do/ciclo/:cicloId", element: <PaginaCicloDo /> },
           { path: "do/ciclo/:cicloId/visao-geral", element: <PaginaCicloDo /> },
+          { path: "do/ciclo/:cicloId/equipe", element: <PaginaCicloDoEquipe /> },
           { path: "do/ciclo/:cicloId/cronograma", element: <PaginaCicloDoCronograma /> },
           { path: "do/ciclo/:cicloId/tarefas", element: <PaginaCicloDoTarefas /> },
           { path: "do/ciclo/:cicloId/treinamentos", element: <PaginaCicloDoTreinamentos /> },

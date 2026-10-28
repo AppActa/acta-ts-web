@@ -79,7 +79,7 @@ export function PaginaCicloDo() {
               <p>Rafael Lima · Participante</p>
               <p>Camila Souza · Executor</p>
               <p>Ana Ribeiro · Validadora</p>
-              <button type="button" disabled title="Tela de equipe em desenvolvimento">Ver toda equipe</button>
+              <Link className="ciclo-do_membros_abrir-equipe" to={`/do/ciclo/${cicloId}/equipe`}>Ver toda equipe</Link>
             </div>
           </section>
 
