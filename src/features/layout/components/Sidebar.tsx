@@ -15,7 +15,7 @@ export function Sidebar() {
   const { pathname } = useLocation();
   const estaEmPlan = pathname.includes("/plan");
   const estaEmDo = pathname === "/do" || pathname.includes("/tarefas") || pathname.includes("/treinamentos") || pathname.includes("/cronograma");
-  const estaEmCheck = pathname === "/check";
+  const estaEmCheck = pathname === "/check" || /^\/do\/ciclo\/\d+\/check$/.test(pathname);
   const estaEmHome = pathname === "/";
   const estaEmPerfil = pathname.startsWith("/perfil");
 

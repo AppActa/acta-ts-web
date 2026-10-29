@@ -1,0 +1,422 @@
+.pagina-ciclo-check .painel-ciclo-plan-do_icone,
+.pagina-ciclo-check .painel-ciclo-plan-do_titulo-linha > span {
+  background: #44ad84;
+}
+
+.pagina-ciclo-check .painel-ciclo-plan-do_titulo-linha {
+  flex-wrap: wrap;
+}
+
+.pagina-ciclo-check .painel-ciclo-plan-do_titulo-linha h1 {
+  font-size: 24px;
+  line-height: 31px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-check .painel-ciclo-plan-do_titulo-linha > span {
+  color: #172033;
+}
+
+.pagina-ciclo-check .painel-ciclo-plan-do_identificacao p {
+  color: #66707a;
+  font-size: 20px;
+  line-height: 24px;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-check .painel-ciclo-plan-do_abas {
+  border-bottom-color: #44ad84;
+  background: #7fcfbe;
+}
+
+.pagina-ciclo-check .painel-ciclo-plan-do_aba {
+  flex: 0 0 156px;
+  color: #15332b;
+}
+
+.pagina-ciclo-check .painel-ciclo-plan-do_aba-visao {
+  background: #44ad84;
+}
+
+.pagina-ciclo-check .painel-ciclo-plan-do_aba-plan {
+  color: #fff;
+}
+
+.pagina-ciclo-check .painel-ciclo-plan-do_aba.ativa {
+  background: #f6f6f6;
+  color: #1f6b4b;
+}
+
+.pagina-ciclo-check .painel-ciclo-plan-do_aba:focus-visible {
+  outline: 3px solid #172033;
+  outline-offset: -4px;
+}
+
+.pagina-ciclo-check .ciclo-check_conteudo {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: minmax(0, 781fr) minmax(0, 420fr);
+  grid-template-areas: "metricas verificacoes" "resultados verificacoes" "comparacao comparacao";
+  align-items: stretch;
+  gap: 14px 12px;
+  padding: 49px 46px 72px 35px;
+  color: #253132;
+  font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-check .ciclo-check_conteudo:not([data-estado="sucesso"]) {
+  grid-template-areas: "estado estado" "metricas verificacoes" "resultados verificacoes" "comparacao comparacao";
+}
+
+.pagina-ciclo-check .ciclo-check_metricas {
+  grid-area: metricas;
+  min-width: 0;
+}
+
+.pagina-ciclo-check .ciclo-check_metricas-lista {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 13px;
+  margin: 0;
+}
+
+.pagina-ciclo-check .ciclo-check_metrica {
+  min-width: 0;
+  min-height: 110px;
+  border-radius: 20px;
+  padding: 15px 16px 10px;
+  background: #fff;
+}
+
+.pagina-ciclo-check .ciclo-check_metrica-titulo {
+  color: #66707a;
+  font-size: 11px;
+  line-height: 18px;
+}
+
+.pagina-ciclo-check .ciclo-check_metrica-valor {
+  margin: 3px 0 0;
+  color: #20734f;
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 39px;
+}
+
+.pagina-ciclo-check .ciclo-check_metrica[data-metrica="metasAtingidas"] .ciclo-check_metrica-valor {
+  color: #216c60;
+}
+
+.pagina-ciclo-check .ciclo-check_metrica[data-metrica="efeitosSecundarios"] .ciclo-check_metrica-valor {
+  color: #805300;
+}
+
+.pagina-ciclo-check .ciclo-check_conteudo:not([data-estado="sucesso"]) .ciclo-check_metrica-valor {
+  color: #66707a;
+  font-size: 14px;
+  line-height: 24px;
+  margin-top: 12px;
+}
+
+.pagina-ciclo-check .ciclo-check_metrica-contexto {
+  margin: 5px 0 0;
+  color: #66707a;
+  font-size: 10px;
+  line-height: 16px;
+}
+
+.pagina-ciclo-check .ciclo-check_resultados,
+.pagina-ciclo-check .ciclo-check_verificacoes,
+.pagina-ciclo-check .ciclo-check_comparacao {
+  min-width: 0;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.pagina-ciclo-check .ciclo-check_resultados {
+  grid-area: resultados;
+  min-height: 279px;
+  padding: 18px 20px 16px;
+}
+
+.pagina-ciclo-check .ciclo-check_verificacoes {
+  grid-area: verificacoes;
+  min-height: 403px;
+  padding: 18px;
+}
+
+.pagina-ciclo-check .ciclo-check_titulo {
+  margin: 0;
+  color: #253132;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 25px;
+}
+
+.pagina-ciclo-check .ciclo-check_descricao {
+  margin: 2px 0 0;
+  color: #66707a;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.pagina-ciclo-check .ciclo-check_lista {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pagina-ciclo-check .ciclo-check_item {
+  display: flex;
+  min-width: 0;
+  min-height: 54px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-radius: 20px;
+  padding: 8px 20px 8px 30px;
+  box-shadow: 0 0 10px rgb(0 0 0 / 5%);
+}
+
+.pagina-ciclo-check .ciclo-check_item-conteudo {
+  min-width: 0;
+}
+
+.pagina-ciclo-check .ciclo-check_item-titulo {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.pagina-ciclo-check .ciclo-check_detalhe {
+  margin: 0;
+  color: #66707a;
+  font-size: 10px;
+  line-height: 16px;
+}
+
+.pagina-ciclo-check .ciclo-check_badge {
+  max-width: 100%;
+  flex: 0 0 auto;
+  border-radius: 14px;
+  padding: 6px 16px;
+  background: #eef1f4;
+  color: #465361;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.pagina-ciclo-check .ciclo-check_badge[data-estado="atingida"],
+.pagina-ciclo-check .ciclo-check_badge[data-estado="registrada"] {
+  background: #e5f5eb;
+  color: #1c704e;
+}
+
+.pagina-ciclo-check .ciclo-check_badge[data-estado="acompanhar"] {
+  background: #fff5d9;
+  color: #805300;
+}
+
+.pagina-ciclo-check .ciclo-check_verificacoes .ciclo-check_lista {
+  gap: 14px;
+  margin-top: 35px;
+}
+
+.pagina-ciclo-check .ciclo-check_verificacoes .ciclo-check_item {
+  min-height: 62px;
+  padding-right: 18px;
+}
+
+.pagina-ciclo-check .ciclo-check_verificacoes .ciclo-check_badge {
+  min-width: 92px;
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+.pagina-ciclo-check .ciclo-check_acao {
+  display: block;
+  width: min(274px, 100%);
+  min-height: 38px;
+  margin: 22px auto 10px;
+  border: 0;
+  border-radius: 10px;
+  padding: 9px 12px;
+  background: #48b3c6;
+  box-shadow: 0 0 25px rgb(72 179 198 / 50%);
+  color: #172033;
+  font: inherit;
+  font-size: 15px;
+  line-height: 20px;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-check .ciclo-check_acao:disabled {
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.pagina-ciclo-check .ciclo-check_acao:focus-visible {
+  outline: 3px solid #172033;
+  outline-offset: 4px;
+}
+
+.pagina-ciclo-check .ciclo-check_comparacao {
+  grid-area: comparacao;
+  display: grid;
+  min-height: 154px;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 24px;
+  margin-left: 8px;
+  padding: 14px 17px;
+}
+
+.pagina-ciclo-check .ciclo-check_comparacao .ciclo-check_titulo {
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.pagina-ciclo-check .ciclo-check_comparacao .ciclo-check_descricao {
+  max-width: 181px;
+  font-size: 10px;
+  line-height: 12px;
+}
+
+.pagina-ciclo-check .ciclo-check_comparacao-lista {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-content: start;
+  gap: 20px 32px;
+  margin: 17px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pagina-ciclo-check .ciclo-check_comparacao-item {
+  min-width: 0;
+}
+
+.pagina-ciclo-check .ciclo-check_comparacao-item .ciclo-check_item-titulo {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.pagina-ciclo-check .ciclo-check_barras {
+  display: grid;
+  min-width: 0;
+  gap: 9px;
+  margin-top: 7px;
+}
+
+.pagina-ciclo-check .ciclo-check_barra {
+  max-width: 100%;
+  height: 10px;
+  border-radius: 5px;
+}
+
+.pagina-ciclo-check .ciclo-check_barra-antes { background: #44ad84; }
+.pagina-ciclo-check .ciclo-check_barra-atual { background: #7fcfbe; }
+
+.pagina-ciclo-check .ciclo-check_legenda {
+  margin: 6px 0 0;
+  color: #66707a;
+  font-size: 9px;
+  line-height: 14px;
+}
+
+.pagina-ciclo-check .ciclo-check_estado {
+  margin: 24px 0;
+  color: #465361;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.pagina-ciclo-check .ciclo-check_estado-geral {
+  grid-area: estado;
+  margin: 0;
+  border: 1px solid #c8dcd2;
+  border-radius: 12px;
+  padding: 12px 16px;
+  background: #edf6f1;
+}
+
+@media (max-width: 1180px) {
+  .pagina-ciclo-check .painel-ciclo-plan-do_abas {
+    height: 82px;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .pagina-ciclo-check .ciclo-check_conteudo {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "metricas" "resultados" "verificacoes" "comparacao";
+    padding-right: 28px;
+    padding-left: 28px;
+  }
+
+  .pagina-ciclo-check .ciclo-check_conteudo:not([data-estado="sucesso"]) {
+    grid-template-areas: "estado" "metricas" "resultados" "verificacoes" "comparacao";
+  }
+
+  .pagina-ciclo-check .ciclo-check_verificacoes {
+    min-height: 0;
+  }
+
+  .pagina-ciclo-check .ciclo-check_comparacao {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    margin-left: 0;
+  }
+
+  .pagina-ciclo-check .ciclo-check_comparacao .ciclo-check_descricao {
+    max-width: none;
+  }
+
+  .pagina-ciclo-check .ciclo-check_comparacao-lista {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .pagina-ciclo-check .painel-ciclo-plan-do_titulo-linha h1 { font-size: 15px; line-height: 20px; }
+  .pagina-ciclo-check .painel-ciclo-plan-do_identificacao p { font-size: 11px; line-height: 16px; }
+
+  .pagina-ciclo-check .painel-ciclo-plan-do_abas {
+    height: 62px;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .pagina-ciclo-check .painel-ciclo-plan-do_aba {
+    flex-basis: 76px;
+  }
+
+  .pagina-ciclo-check .ciclo-check_conteudo {
+    padding: 24px 14px 32px;
+  }
+
+  .pagina-ciclo-check .ciclo-check_item {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+  }
+
+  .pagina-ciclo-check .ciclo-check_comparacao-lista {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pagina-ciclo-check .ciclo-check_acao {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 600px) {
+  .pagina-ciclo-check .ciclo-check_metricas-lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
