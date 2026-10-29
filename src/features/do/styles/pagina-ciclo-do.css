@@ -141,7 +141,8 @@
   object-fit:contain
 }
 
-.ciclo-do_aba-visao {
+.ciclo-do_aba-visao,
+.ciclo-do_aba-visao-ativa {
   background:#fff;
   color:#1f1f1f
 }
@@ -365,6 +366,31 @@
 
 .ciclo-do_membros button:disabled {
   cursor:default
+}
+
+.pagina-ciclo-do .ciclo-do_membros_abrir-equipe {
+  position:absolute;
+  top:186px;
+  left:50%;
+  display:grid;
+  width:min(274px,calc(100% - 32px));
+  height:38px;
+  place-items:center;
+  transform:translateX(-50%);
+  border-radius:10px;
+  background:#48b3c6;
+  box-shadow:0 0 25px #48b3c680;
+  color:#172033;
+  font:inherit;
+  font-size:15px;
+  text-align:center;
+  text-decoration:none;
+  overflow-wrap:anywhere
+}
+
+.pagina-ciclo-do .ciclo-do_membros_abrir-equipe:focus-visible {
+  outline:3px solid #025a8a;
+  outline-offset:4px
 }
 
 .ciclo-do_resumo,.ciclo-do_decisoes {

@@ -1,0 +1,27 @@
+.aviso-dados-demonstrativos {
+  box-sizing: border-box;
+  grid-column: 1 / -1;
+  min-width: 0;
+  max-width: 100%;
+  margin: 8px 0 12px;
+  border: 1px solid #d9c58e;
+  border-radius: 8px;
+  padding: 12px 16px;
+  background: #fff8e6;
+  color: #55421c;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.aviso-dados-demonstrativos > strong {
+  display: block;
+  font-weight: 700;
+}
+
+.aviso-dados-demonstrativos > p {
+  margin: 4px 0 0;
+  font: inherit;
+}

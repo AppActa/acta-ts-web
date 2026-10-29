@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
+import { AvisoDadosDemonstrativos } from "../../layout/components/AvisoDadosDemonstrativos";
 import voltarMoldura from "../assets/voltar-moldura.svg";
 import voltarSeta from "../assets/voltar-seta.svg";
 import "../../perfil/styles/pagina-perfil.css";
@@ -28,6 +29,7 @@ export function PaginaRelatorios() {
         <header className="web-listas_cabecalho">
           <div className="web-listas_titulo"><Link to="/do" aria-label="Voltar ao ACTA"><img src={voltarMoldura} alt="" /><img src={voltarSeta} alt="" /></Link><h1>Relatórios</h1></div>
         </header>
+        <AvisoDadosDemonstrativos />
         <section className="relatorios_conteudo" aria-label="Relatórios dos ciclos">
           <div className="relatorios_metricas">
             <article><span>Relatórios disponíveis</span><strong className="azul">12</strong><p>PDF e PowerPoint</p></article>

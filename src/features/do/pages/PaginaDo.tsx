@@ -1,110 +1,250 @@
-import { Link } from "react-router-dom";
-import logoActa from "../../auth/assets/logo-acta.svg";
+import type { CSSProperties } from "react";
 import { Sidebar } from "../../layout/components/Sidebar";
 import "../../perfil/styles/pagina-perfil.css";
 import "../styles/pagina-do.css";
 
-type TipoIcone = "relogio" | "caixa" | "equipe" | "escudo" | "aprovacao";
+export type VarianteMetricaDo = "abertas" | "andamento" | "atrasadas" | "treinamentos";
 
-const pendencias = [
-  { titulo: "Aprovar planejamento", detalhe: "Onboarding de novos colaboradores", estado: "Aguardando", classe: "aguardando" },
-  { titulo: "Acompanhar tarefa atrasada", detalhe: "Organização do estoque • prazo 12/10", estado: "Atrasada", classe: "atrasada" },
-  { titulo: "Registrar verificação", detalhe: "Redução do tempo de atendimento", estado: "Pendente", classe: "pendente" },
-] as const;
+export type MetricaDo = {
+  id: string;
+  titulo: string;
+  valor: number;
+  contexto: string;
+  variante: VarianteMetricaDo;
+};
 
-// Dados da imagem de referência; a integração precisa dos contratos e da sessão Firebase.
-const ciclos: { titulo: string; progresso: number; icone: TipoIcone; cor: string }[] = [
-  { titulo: "Redução do tempo de atendimento", progresso: 68, icone: "relogio", cor: "ciano" },
-  { titulo: "Organização do estoque", progresso: 82, icone: "caixa", cor: "verde" },
-  { titulo: "Onboarding de novos colaboradores", progresso: 15, icone: "equipe", cor: "azul" },
-  { titulo: "Proteção de dados e acessos", progresso: 75, icone: "escudo", cor: "verde" },
-  { titulo: "Padronização de aprovações", progresso: 43, icone: "aprovacao", cor: "turquesa" },
-];
+export type ExecucaoPorCicloDo = {
+  id: string;
+  ciclo: string;
+  concluidas: number;
+  emAndamento: number;
+  pendentes: number;
+  outrosEstados: number;
+};
 
-function IconeLista() {
-  return <svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M7 5h10M7 10h10M7 15h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><circle cx="3.5" cy="5" r="1.5" fill="currentColor"/><circle cx="3.5" cy="10" r="1.5" fill="currentColor"/><circle cx="3.5" cy="15" r="1.5" fill="currentColor"/></svg>;
+export type SituacaoTarefasDo = {
+  total: number;
+  concluidas: number;
+  emAndamento: number;
+  pendentes: number;
+  outrosEstados: number;
+};
+
+export type CicloAcompanhamentoDo = {
+  id: string;
+  tarefa: string;
+  ciclo: string;
+  responsavel: string;
+  prazo: string;
+  status: string;
+  varianteStatus: "andamento" | "atrasada" | "pendente";
+};
+
+export type DadosDoTodosCiclos = {
+  metricas: readonly [MetricaDo, MetricaDo, MetricaDo, MetricaDo];
+  execucaoPorCiclo: readonly ExecucaoPorCicloDo[];
+  situacaoTarefas: SituacaoTarefasDo;
+  ciclosAcompanhamento: readonly CicloAcompanhamentoDo[];
+};
+
+type PaginaDoProps = {
+  dados?: DadosDoTodosCiclos | null;
+  estado?: "carregando" | "erro" | "cancelado";
+};
+
+const escalaExecucao = [0, 3, 6, 9, 12] as const;
+const escalaMaximaExecucao = 12;
+const formatadorPercentual = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 2 });
+
+type EstiloSegmento = CSSProperties & { "--largura-segmento": string };
+type EstiloPosicaoTotal = CSSProperties & { "--posicao-total-percentual": string };
+type EstiloRosca = CSSProperties & {
+  "--percentual-concluidas": string;
+  "--percentual-andamento": string;
+  "--percentual-pendentes": string;
+  "--percentual-outros-estados": string;
+};
+
+function larguraSegmento(valor: number): EstiloSegmento {
+  const percentual = Math.min(100, Math.max(0, (valor / escalaMaximaExecucao) * 100));
+  return { "--largura-segmento": `${percentual}%` };
 }
 
-function IconeCiclo({ tipo }: { tipo: TipoIcone }) {
-  switch (tipo) {
-    case "relogio": return <svg aria-hidden="true" viewBox="0 0 128 128" fill="none"><circle cx="64" cy="64" r="51" stroke="currentColor" strokeWidth="9"/><path d="M64 35v31L43 86" stroke="currentColor" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round"/></svg>;
-    case "caixa": return <svg aria-hidden="true" viewBox="0 0 128 128" fill="none"><path d="m64 12 48 27v53l-48 27-48-27V39l48-27Z" stroke="currentColor" strokeWidth="6" strokeLinejoin="round"/><path d="m16 39 48 28 48-28M64 67v52M40 26l49 28M31 72l14 8" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/></svg>;
-    case "equipe": return <svg aria-hidden="true" viewBox="0 0 128 128" fill="none"><circle cx="64" cy="31" r="13" stroke="currentColor" strokeWidth="6"/><circle cx="26" cy="53" r="9" stroke="currentColor" strokeWidth="6"/><circle cx="102" cy="53" r="9" stroke="currentColor" strokeWidth="6"/><path d="M40 103V84c0-14 10-24 24-24s24 10 24 24v19c0 5-4 8-8 8H48c-4 0-8-3-8-8ZM16 75c-4 5-6 11-6 17v10c0 5 4 8 8 8h18m76-35c4 5 6 11 6 17v10c0 5-4 8-8 8H92" stroke="currentColor" strokeWidth="6" strokeLinecap="round"/></svg>;
-    case "escudo": return <svg aria-hidden="true" viewBox="0 0 128 128" fill="none"><path d="m64 12 42 16v32c0 30-19 48-42 57-23-9-42-27-42-57V28l42-16Z" stroke="currentColor" strokeWidth="7" strokeLinejoin="round"/></svg>;
-    case "aprovacao": return <svg aria-hidden="true" viewBox="0 0 128 128" fill="none"><path d="M28 20h54l18 18v67H28V20Z" stroke="currentColor" strokeWidth="7" strokeLinejoin="round"/><path d="M82 20v19h18M42 71l15 15 29-32" stroke="currentColor" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
-  }
+function posicaoTotal(total: number): EstiloPosicaoTotal {
+  const percentual = Math.min(100, Math.max(0, (total / escalaMaximaExecucao) * 100));
+  return { "--posicao-total-percentual": `${percentual}%` };
 }
 
-export function PaginaDo() {
+function estiloRosca(situacao: SituacaoTarefasDo): EstiloRosca {
+  const percentual = (valor: number) => {
+    const calculado = situacao.total > 0 ? (valor / situacao.total) * 100 : 0;
+    return `${Math.min(100, Math.max(0, calculado))}%`;
+  };
+
+  return {
+    "--percentual-concluidas": percentual(situacao.concluidas),
+    "--percentual-andamento": percentual(situacao.emAndamento),
+    "--percentual-pendentes": percentual(situacao.pendentes),
+    "--percentual-outros-estados": percentual(situacao.outrosEstados),
+  };
+}
+
+function resumoSituacao(situacao: SituacaoTarefasDo): string {
+  return `Concluídas: ${situacao.concluidas} (${formatarPercentualSituacao(situacao.concluidas, situacao.total)}). Em andamento: ${situacao.emAndamento} (${formatarPercentualSituacao(situacao.emAndamento, situacao.total)}). Pendentes: ${situacao.pendentes} (${formatarPercentualSituacao(situacao.pendentes, situacao.total)}). Outros estados: ${situacao.outrosEstados} (${formatarPercentualSituacao(situacao.outrosEstados, situacao.total)}). Total: ${situacao.total} tarefas.`;
+}
+
+function formatarPercentualSituacao(valor: number, total: number): string {
+  const percentual = total > 0 ? (valor / total) * 100 : 0;
+  return `${formatadorPercentual.format(percentual)}%`;
+}
+
+export function PaginaDo({ dados, estado }: PaginaDoProps) {
   return (
-    <main className="pagina-do">
+    <main className="pagina-do pagina-do-todos-ciclos">
       <Sidebar />
-      <div className="do-painel">
-        <header className="do-cabecalho">
-          <Link className="do-marca" to="/" aria-label="ACTA, voltar para Home">
-            <img src={logoActa} alt="" />
-            <span>ACTA<span className="do-marca_ponto">.</span></span>
-          </Link>
-        </header>
-
-        <div className="do-conteudo">
-          <div className="do-linha-superior">
-            <div className="do-resumo">
-              <section className="do-boas-vindas">
-                <h1>Bom dia, Catarina!</h1>
-                <p>Acompanhe o andamento dos<br />seus ciclos PDCA.</p>
-              </section>
-              <section className="do-metricas" aria-label="Resumo dos ciclos">
-                <article className="do-metrica"><h2>Ciclos ativos</h2><strong className="do-numero_azul">04</strong><p>Em diferentes etapas</p></article>
-                <article className="do-metrica"><h2>Tarefas atrasadas</h2><strong className="do-numero_ciano">03</strong><p>Em 2 ciclos</p></article>
-                <article className="do-metrica"><h2>Prazos próximos</h2><strong className="do-numero_verde">05</strong><p>Nos próximos 7 dias</p></article>
-              </section>
+      <div className="do-painel do-todos-ciclos_painel">
+        <div className="do-todos-ciclos_conteudo">
+          <header className="do-todos-ciclos_cabecalho">
+            <div>
+              <h1>Do · Todos os ciclos</h1>
+              <p>Veja tarefas, prazos e responsáveis sem sair da visão de gestão.</p>
             </div>
-
-            <section className="do-pendencias" id="pendencias">
-              <div className="do-secao_cabecalho"><h2>Minhas pendências</h2><button className="do-botao" type="button" disabled title="Disponível em breve"><IconeLista />Ver todos</button></div>
-              <p className="do-secao_descricao">Pontos que podem pedir acompanhamento.</p>
-              <ul className="do-pendencias_lista">
-                {pendencias.map((pendencia) => (
-                  <li className="do-pendencia" key={pendencia.titulo}>
-                    <span className={`do-pendencia_ponto do-pendencia_ponto-${pendencia.classe}`} />
-                    <span className="do-pendencia_texto"><strong>{pendencia.titulo}</strong><small>{pendencia.detalhe}</small></span>
-                    <span className={`do-estado do-estado_${pendencia.classe}`}>{pendencia.estado}</span>
-                  </li>
+            <div className="do-todos-ciclos_acoes-topo">
+              <div className="do-todos-ciclos_acoes-icones" aria-hidden="true">
+                {[0, 1, 2, 3].map((item) => (
+                  <span className="do-todos-ciclos_acao-icone" key={item}>{/* # colocar imagem */}</span>
                 ))}
-              </ul>
-            </section>
-          </div>
+              </div>
+              <span className="do-todos-ciclos_periodo">Últimos 30 dias</span>
+            </div>
+          </header>
 
-          <div className="do-linha-inferior">
-            <section className="do-ciclos" id="meus-ciclos">
-              <div className="do-ciclos_cabecalho">
-                <h2>Meus ciclos</h2>
-                <div className="do-ciclos_acoes">
-                  <button className="do-botao" type="button" disabled title="Disponível em breve"><span className="do-mais" aria-hidden="true">+</span>Criar novo</button>
-                  <Link className="do-botao" to="/ciclos"><IconeLista />Ver todos</Link>
+          {estado === "carregando" ? (
+            <section className="do-todos-ciclos_vazio" role="status" aria-live="polite" aria-busy="true">
+              <h2>Carregando dados do Do</h2>
+            </section>
+          ) : estado === "erro" ? (
+            <section className="do-todos-ciclos_vazio" role="alert">
+              <h2>Não foi possível carregar os dados do Do</h2>
+              <p>Tente novamente mais tarde.</p>
+            </section>
+          ) : estado === "cancelado" ? (
+            <section className="do-todos-ciclos_vazio" role="status" aria-live="polite">
+              <h2>Carregamento do Do interrompido</h2>
+            </section>
+          ) : !dados ? (
+            <section className="do-todos-ciclos_vazio" role="status" aria-live="polite">
+              <h2>Dados de Do indisponíveis</h2>
+              <p>Métricas, execução e acompanhamento serão exibidos quando houver dados disponíveis.</p>
+            </section>
+          ) : (
+            <>
+              <section className="do-todos-ciclos_metricas" aria-label="Resumo das tarefas">
+                {dados.metricas.map((metrica) => (
+                  <article className={`do-todos-ciclos_metrica do-todos-ciclos_metrica-${metrica.variante}`} key={metrica.id}>
+                    <h2>{metrica.titulo}</h2>
+                    <p><strong>{String(metrica.valor).padStart(2, "0")}</strong><span>{metrica.contexto}</span></p>
+                  </article>
+                ))}
+              </section>
+
+              <div className="do-todos-ciclos_graficos">
+                <figure className="do-todos-ciclos_grafico do-todos-ciclos_grafico-execucao" aria-labelledby="do-todos-ciclos-execucao-titulo">
+                  <figcaption>
+                    <h2 id="do-todos-ciclos-execucao-titulo">Execução por ciclo</h2>
+                    <p>Situação atual das tarefas · {dados.execucaoPorCiclo.length} ciclos</p>
+                  </figcaption>
+                  {dados.execucaoPorCiclo.length === 0 ? (
+                    <p className="do-todos-ciclos_grafico-vazio" role="status">Sem dados de execução por ciclo.</p>
+                  ) : (
+                    <>
+                      <ul className="do-todos-ciclos_barras" aria-label="Execução das tarefas por ciclo">
+                        {dados.execucaoPorCiclo.map((item) => {
+                          const valores = [item.concluidas, item.emAndamento, item.pendentes, item.outrosEstados];
+                          const total = valores.reduce((soma, valor) => soma + valor, 0);
+                          return (
+                            <li className="do-todos-ciclos_barra-linha" key={item.id}>
+                              <span className="do-todos-ciclos_barra-ciclo">{item.ciclo}</span>
+                              <div className="do-todos-ciclos_barra-trilho" aria-hidden="true">
+                                <span className="do-todos-ciclos_barra-segmento do-todos-ciclos_barra-segmento-concluidas" style={larguraSegmento(item.concluidas)}>{item.concluidas}</span>
+                                <span className="do-todos-ciclos_barra-segmento do-todos-ciclos_barra-segmento-andamento" style={larguraSegmento(item.emAndamento)}>{item.emAndamento}</span>
+                                <span className="do-todos-ciclos_barra-segmento do-todos-ciclos_barra-segmento-pendentes" style={larguraSegmento(item.pendentes)}>{item.pendentes}</span>
+                                <span className="do-todos-ciclos_barra-segmento do-todos-ciclos_barra-segmento-outros" style={larguraSegmento(item.outrosEstados)}>{item.outrosEstados}</span>
+                                <strong className="do-todos-ciclos_barra-total" style={posicaoTotal(total)}>{total}</strong>
+                              </div>
+                              <span className="sr-only">{item.concluidas} concluídas; {item.emAndamento} em andamento; {item.pendentes} pendentes; {item.outrosEstados} em outros estados; total {total}.</span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                      <ol className="do-todos-ciclos_eixo" aria-hidden="true">
+                        {escalaExecucao.map((valor) => <li key={valor}>{valor}</li>)}
+                      </ol>
+                    </>
+                  )}
+                  <ul className="do-todos-ciclos_legenda" aria-label="Legenda da execução">
+                    <li><span className="do-todos-ciclos_amostra do-todos-ciclos_amostra-concluidas" aria-hidden="true" />Concluídas</li>
+                    <li><span className="do-todos-ciclos_amostra do-todos-ciclos_amostra-andamento" aria-hidden="true" />Em andamento</li>
+                    <li><span className="do-todos-ciclos_amostra do-todos-ciclos_amostra-pendentes" aria-hidden="true" />Pendentes</li>
+                    <li><span className="do-todos-ciclos_amostra do-todos-ciclos_amostra-outros" aria-hidden="true" />Outros estados¹</li>
+                  </ul>
+                  <p className="do-todos-ciclos_nota-grafico">Quantidade de registros · escala iniciada em zero</p>
+                </figure>
+
+                <figure className="do-todos-ciclos_grafico do-todos-ciclos_grafico-situacao" aria-labelledby="do-todos-ciclos-situacao-titulo">
+                  <figcaption>
+                    <h2 id="do-todos-ciclos-situacao-titulo">Situação das tarefas</h2>
+                    <p>¹ Bloqueadas, atrasadas ou canceladas</p>
+                  </figcaption>
+                  {dados.situacaoTarefas.total === 0 ? (
+                    <p className="do-todos-ciclos_grafico-vazio" role="status">Sem tarefas para exibir.</p>
+                  ) : (
+                    <>
+                      <div className="do-todos-ciclos_rosca" aria-hidden="true">
+                        <div className="do-todos-ciclos_rosca-asset" style={estiloRosca(dados.situacaoTarefas)}>
+                          {/* # colocar imagem */}
+                        </div>
+                        <div className="do-todos-ciclos_rosca-total">
+                          <strong>{dados.situacaoTarefas.total}</strong>
+                          <span>tarefas no total</span>
+                        </div>
+                      </div>
+                      <p className="sr-only">{resumoSituacao(dados.situacaoTarefas)}</p>
+                      <ul className="do-todos-ciclos_legenda-situacao" aria-label="Distribuição da situação das tarefas">
+                        <li><span className="do-todos-ciclos_amostra do-todos-ciclos_amostra-concluidas" aria-hidden="true" />Concluídas <strong>{dados.situacaoTarefas.concluidas}</strong><span>{formatarPercentualSituacao(dados.situacaoTarefas.concluidas, dados.situacaoTarefas.total)}</span></li>
+                        <li><span className="do-todos-ciclos_amostra do-todos-ciclos_amostra-andamento" aria-hidden="true" />Em andamento <strong>{dados.situacaoTarefas.emAndamento}</strong><span>{formatarPercentualSituacao(dados.situacaoTarefas.emAndamento, dados.situacaoTarefas.total)}</span></li>
+                        <li><span className="do-todos-ciclos_amostra do-todos-ciclos_amostra-pendentes" aria-hidden="true" />Pendentes <strong>{dados.situacaoTarefas.pendentes}</strong><span>{formatarPercentualSituacao(dados.situacaoTarefas.pendentes, dados.situacaoTarefas.total)}</span></li>
+                        <li><span className="do-todos-ciclos_amostra do-todos-ciclos_amostra-outros" aria-hidden="true" />Outros estados¹ <strong>{dados.situacaoTarefas.outrosEstados}</strong><span>{formatarPercentualSituacao(dados.situacaoTarefas.outrosEstados, dados.situacaoTarefas.total)}</span></li>
+                      </ul>
+                    </>
+                  )}
+                  <p className="do-todos-ciclos_base-grafico">Base: {dados.situacaoTarefas.total} registros · valores absolutos na legenda</p>
+                </figure>
+              </div>
+
+              <section className="do-todos-ciclos_tabela-secao" aria-labelledby="do-todos-ciclos-tabela-titulo">
+                <h2 id="do-todos-ciclos-tabela-titulo">Ciclos que precisam de acompanhamento</h2>
+                <div className="do-todos-ciclos_tabela-rolagem" role="region" tabIndex={0} aria-label="Tabela de acompanhamento com rolagem horizontal">
+                  <table className="do-todos-ciclos_tabela">
+                    <caption className="sr-only">Tarefas que precisam de acompanhamento, com ciclo, responsável, prazo e status</caption>
+                    <thead><tr><th scope="col">Tarefa</th><th scope="col">Ciclo</th><th scope="col">Responsável</th><th scope="col">Prazo</th><th scope="col">Status</th></tr></thead>
+                    <tbody>
+                      {dados.ciclosAcompanhamento.map((item) => (
+                        <tr key={item.id}>
+                          <th scope="row">{item.tarefa}</th>
+                          <td>{item.ciclo}</td>
+                          <td>{item.responsavel}</td>
+                          <td>{item.prazo}</td>
+                          <td><span className={`do-todos-ciclos_status do-todos-ciclos_status-${item.varianteStatus}`}>{item.status}</span></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-              </div>
-              <div className="do-ciclos_lista">
-                {ciclos.map((ciclo, indice) => (
-                  <Link className="do-ciclo" key={ciclo.titulo} to={`/do/ciclo/${indice + 1}`} aria-label={`Abrir ciclo ${ciclo.titulo}`}>
-                    <div className={`do-ciclo_icone do-ciclo_icone-${ciclo.cor}`}><IconeCiclo tipo={ciclo.icone} /></div>
-                    <h3>{ciclo.titulo}</h3>
-                    <div className="do-ciclo_rodape"><div className="do-progresso" role="progressbar" aria-label={`Progresso de ${ciclo.titulo}`} aria-valuenow={ciclo.progresso} aria-valuemin={0} aria-valuemax={100}><span style={{ width: `${ciclo.progresso}%` }} /></div><span>{ciclo.progresso}%</span></div>
-                  </Link>
-                ))}
-              </div>
-            </section>
-
-            <section className="do-etapas">
-              <h2>Etapas dos<br />ciclos</h2>
-              <ul>
-                {[1, 2, 3, 4].map((numero) => (
-                  <li key={numero}><span className="do-etapa_icone" aria-hidden="true">▣</span><span>Plan · Planejamento</span><span className="do-etapa_numero">02</span></li>
-                ))}
-              </ul>
-            </section>
-          </div>
+                {dados.ciclosAcompanhamento.length === 0 && <p className="do-todos-ciclos_tabela-vazia" role="status">Nenhum ciclo precisa de acompanhamento.</p>}
+              </section>
+            </>
+          )}
         </div>
       </div>
     </main>

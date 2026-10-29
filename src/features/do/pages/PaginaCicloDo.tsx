@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
-import { obterCiclo } from "../../ciclo/data/ciclos";
+import { useCicloDaConta, rotuloStatusCiclo } from "../../ciclo/hooks/useCicloDaConta";
+import { AvisoDadosDemonstrativos } from "../../layout/components/AvisoDadosDemonstrativos";
 import iconeVisaoGeral from "../assets/ciclo-visao-geral/063c5.svg";
 import iconePlanAba from "../assets/ciclo-visao-geral/47893.svg";
 import iconeDo from "../assets/ciclo-visao-geral/d01c2.svg";
@@ -26,8 +27,25 @@ const etapas = [
 ];
 
 export function PaginaCicloDo() {
-  const { cicloId = "1" } = useParams();
-  const ciclo = obterCiclo(cicloId);
+  const { cicloId } = useParams();
+  const resultadoCiclo = useCicloDaConta(cicloId);
+
+  if (resultadoCiclo.estado !== "sucesso") {
+    const carregando = resultadoCiclo.estado === "carregando";
+    const naoEncontrado = resultadoCiclo.estado === "nao-encontrado";
+    return (
+      <main className="pagina-ciclo-do">
+        <Sidebar />
+        <div className="ciclo-do_painel">
+          <section className="ciclo-do_estado" role={carregando ? "status" : "alert"} aria-live="polite">
+            <h1>{carregando ? "Carregando ciclo" : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
+            {!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}
+          </section>
+        </div>
+      </main>
+    );
+  }
+  const ciclo = resultadoCiclo.ciclo;
 
   return (
     <main className="pagina-ciclo-do">
@@ -37,12 +55,12 @@ export function PaginaCicloDo() {
           <span className="ciclo-do_cabecalho_icone" aria-hidden="true" />
           <div className="ciclo-do_identificacao">
             <div className="ciclo-do_titulo_linha">
-              <h1>{ciclo.nome}</h1>
-              <span className="ciclo-do_status">Status: Do</span>
+              <h1>{ciclo.titulo}</h1>
+              <span className="ciclo-do_status">Status: {rotuloStatusCiclo(ciclo.status)}</span>
             </div>
-            <p><span>Responsável pelo ciclo:</span> <strong>Catarina Cândido</strong></p>
-            <p><span>Iniciado em:</span> <strong>{ciclo.inicio}</strong></p>
-            <p><span>Prazo final:</span> <strong>{ciclo.prazo}</strong></p>
+            <p><span>Responsável pelo ciclo:</span> <strong>Não informado</strong></p>
+            <p><span>Iniciado em:</span> <strong>{ciclo.dataInicio ?? "Não informado"}</strong></p>
+            <p><span>Prazo final:</span> <strong>{ciclo.dataEstimadaFim ?? "Não informado"}</strong></p>
           </div>
         </header>
 
@@ -54,6 +72,7 @@ export function PaginaCicloDo() {
           <span className="ciclo-do_aba ciclo-do_aba-act" aria-disabled="true"><img src={iconeActAba} alt="" />Agir</span>
         </nav>
 
+        <AvisoDadosDemonstrativos />
         <div className="ciclo-do_conteudo">
           <section className="ciclo-do_status_ciclo" aria-labelledby="titulo-status-ciclo">
             <h2 id="titulo-status-ciclo">Status de ciclo</h2>
@@ -65,7 +84,7 @@ export function PaginaCicloDo() {
                     <img className="ciclo-do_etapa_simbolo" src={etapa.icone} alt="" />
                   </span>
                   <div className="ciclo-do_etapa_texto"><strong>{etapa.nome}</strong><span>{etapa.estado}</span></div>
-                  <span className="ciclo-do_etapa_percentual">{etapa.percentual}% <span aria-hidden="true">→</span></span>
+                  <span className="ciclo-do_etapa_percentual">{etapa.percentual}% <span aria-hidden="true">{/* # colocar imagem */}</span></span>
                   <div className="ciclo-do_etapa_barra" role="progressbar" aria-label={`Progresso de ${etapa.nome}`} aria-valuenow={etapa.percentual} aria-valuemin={0} aria-valuemax={100}><span style={{ width: `${etapa.percentual}%` }} /></div>
                 </article>
               ))}
@@ -75,11 +94,11 @@ export function PaginaCicloDo() {
           <section className="ciclo-do_equipe" aria-labelledby="titulo-equipe">
             <h2 id="titulo-equipe">Equipe</h2>
             <div className="ciclo-do_membros">
-              <p><strong>Catarina Cândido</strong> · Responsável</p>
+              <p><strong>Pessoa de exemplo</strong> · Responsável</p>
               <p>Rafael Lima · Participante</p>
               <p>Camila Souza · Executor</p>
               <p>Ana Ribeiro · Validadora</p>
-              <button type="button" disabled title="Tela de equipe em desenvolvimento">Ver toda equipe</button>
+              <Link className="ciclo-do_membros_abrir-equipe" to={`/do/ciclo/${cicloId}/equipe`}>Ver toda equipe</Link>
             </div>
           </section>
 
