@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../../auth/AuthProvider";
+import { useAuth } from "../../../components/auth/AuthProvider";
 import { useProblemasDoCiclo } from "./useProblemasDoCiclo";
 import { useDadosCheckDoCiclo } from "../../check/hooks/useDadosCheckDoCiclo";
 import { useTarefasDoCiclo } from "../../do/hooks/useTarefasDoCiclo";
-import { listarCausasRaizPorCicloPg, PgReadError, type CausaRaizPg } from "../../../services/api/pg/dashboard.read.api";
+import { listarCausasRaizPorCicloPg, PgReadError } from "../../../services/api/pg/dashboard.read.api";
+import type { CausaRaizPg } from "../../../types/pdca";
 
 type ResultadoCausas =
   | { estado: "carregando" | "erro" | "indisponivel" }

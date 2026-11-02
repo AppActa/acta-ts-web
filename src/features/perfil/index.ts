@@ -1,2 +1,2 @@
-export { PaginaPerfil } from "./pages/PaginaPerfil";
-export { PaginaEditarPerfil } from "./pages/PaginaEditarPerfil";
+export { PaginaPerfil } from "../../pages/perfil/PaginaPerfil";
+export { PaginaEditarPerfil } from "../../pages/perfil/PaginaEditarPerfil";

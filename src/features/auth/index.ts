@@ -1,1 +1,1 @@
-export { PaginaLogin } from "./pages/PaginaLogin";
+export { PaginaLogin } from "../../pages/auth/PaginaLogin";

@@ -1,0 +1,17 @@
+import logoActa from "../../../../features/auth/assets/logo-acta.svg";
+
+export function PainelMarca() {
+  return (
+    <aside className="painel-marca" aria-label="ACTA">
+      <img className="painel-marca_logo" src={logoActa} alt="ACTA" />
+
+      <p className="painel-marca_mensagem">
+        <span>ACTA, seu app de PDCA</span>
+        <strong>
+          O ciclo da melhoria contínua
+          <br /> começa aqui!
+        </strong>
+      </p>
+    </aside>
+  );
+}

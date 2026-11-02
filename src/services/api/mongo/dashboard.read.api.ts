@@ -1,18 +1,8 @@
 import { env } from "../../../config/env";
 import { httpClient } from "../../http/client";
+import type { CategoriaIshikawaMongo, CausaIshikawaMongo, CincoPorquesMongo, FormularioMongo, IshikawaMongo, LicaoAprendidaMongo, PerguntaFormularioMongo, PorqueMongo, StatusFormularioMongo, TipoFormularioMongo, TipoRespostaMongo } from "../../../types/mongo";
+export type { CategoriaIshikawaMongo, CausaIshikawaMongo, CincoPorquesMongo, FormularioMongo, IshikawaMongo, LicaoAprendidaMongo, PerguntaFormularioMongo, PorqueMongo, StatusFormularioMongo, TipoFormularioMongo, TipoRespostaMongo } from "../../../types/mongo";
 
-export type TipoFormularioMongo = "ANALISE_FENOMENO" | "PARETO" | "ISHIKAWA" | "PLANO_ACAO" | "TREINAMENTO" | "PADRONIZACAO" | "CHECKLIST";
-export type StatusFormularioMongo = "RASCUNHO" | "ATIVO" | "INATIVO";
-export type TipoRespostaMongo = "TEXTO" | "RADIO" | "CHECKBOX" | "DATA" | "EMAIL" | "NUMERO_INTEIRO" | "NUMERO_DECIMAL" | "RANGE" | "TELEFONE" | "SIM_NAO" | "CPF" | "ARQUIVO" | "CEP";
-export type CategoriaIshikawaMongo = "METODO" | "MAO_DE_OBRA" | "MAQUINA" | "MATERIAL" | "MEDICAO" | "MEIO_AMBIENTE";
-
-export type PerguntaFormularioMongo = { id: string; titulo: string; tipo: TipoRespostaMongo; obrigatoria: boolean; opcoes: string[] | null };
-export type FormularioMongo = { id: string; idEmpresa: number; idCiclo: number; titulo: string; tipo: TipoFormularioMongo; status: StatusFormularioMongo; perguntas: PerguntaFormularioMongo[] };
-export type CausaIshikawaMongo = { id: string; categoria: CategoriaIshikawaMongo; descricao: string };
-export type IshikawaMongo = { id: string; idEmpresa: number; idCiclo: number; problema: string; causas: CausaIshikawaMongo[] };
-export type PorqueMongo = { ordem: number; pergunta: string; resposta: string };
-export type CincoPorquesMongo = { id: string; idIshikawa: string; idCausaIshikawa: string | null; hipotese: string; porques: PorqueMongo[] };
-export type LicaoAprendidaMongo = { id: string; idEmpresa: number; idCiclo: number; titulo: string; licao: string; tags: string[] | null; resultado: string | null; area: string | null };
 
 export class MongoReadError extends Error {
   constructor(readonly code: "INVALID_CONFIGURATION" | "INVALID_INPUT" | "INVALID_RESPONSE" | "UNAVAILABLE") {
@@ -21,7 +11,6 @@ export class MongoReadError extends Error {
   }
 }
 
-const MONGO_ORIGIN = "https://acta-mongo-api.onrender.com";
 const FORM_TYPES = ["ANALISE_FENOMENO", "PARETO", "ISHIKAWA", "PLANO_ACAO", "TREINAMENTO", "PADRONIZACAO", "CHECKLIST"] as const;
 const FORM_STATUSES = ["RASCUNHO", "ATIVO", "INATIVO"] as const;
 const ANSWER_TYPES = ["TEXTO", "RADIO", "CHECKBOX", "DATA", "EMAIL", "NUMERO_INTEIRO", "NUMERO_DECIMAL", "RANGE", "TELEFONE", "SIM_NAO", "CPF", "ARQUIVO", "CEP"] as const;
@@ -40,6 +29,10 @@ function requiredText(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
 }
 
+function nullableText(value: unknown): value is string | null {
+  return value === null || typeof value === "string";
+}
+
 function validUuid(value: unknown): value is string {
   return typeof value === "string" && UUID_PATTERN.test(value);
 }
@@ -49,7 +42,8 @@ function validBaseUrl(): URL {
     const configured = env.apiMongoUrl;
     if (!configured || configured.trim() !== configured) throw new Error();
     const url = new URL(configured);
-    if (url.protocol !== "https:" || url.origin !== MONGO_ORIGIN || url.username || url.password || /[?#]/.test(configured) || url.search || url.hash || (url.pathname !== "/" && url.pathname !== "")) throw new Error();
+    const httpLocalhost = import.meta.env.DEV && url.protocol === "http:" && ["localhost", "127.0.0.1"].includes(url.hostname);
+    if ((url.protocol !== "https:" && !httpLocalhost) || url.username || url.password || /[?#]/.test(configured) || url.search || url.hash || (url.pathname !== "/" && url.pathname !== "")) throw new Error();
     return url;
   } catch {
     throw new MongoReadError("INVALID_CONFIGURATION");
@@ -69,7 +63,7 @@ function readUuid(value: unknown): string {
 function endpointUrl(path: string): URL {
   const base = validBaseUrl();
   const url = new URL(`/api/v1${path}`, base.origin);
-  if (url.origin !== MONGO_ORIGIN || url.pathname !== `/api/v1${path}` || url.search || url.hash) throw new MongoReadError("INVALID_INPUT");
+  if (url.origin !== base.origin || url.pathname !== `/api/v1${path}` || url.search || url.hash) throw new MongoReadError("INVALID_INPUT");
   return url;
 }
 
@@ -128,9 +122,12 @@ function parseCincoPorques(value: unknown): CincoPorquesMongo {
 }
 
 function parseLicao(value: unknown): LicaoAprendidaMongo {
-  if (!isRecord(value) || !validUuid(value.id) || !positiveId(value.idEmpresa) || !positiveId(value.idCiclo) || !requiredText(value.titulo) || !requiredText(value.licao)) throw new MongoReadError("INVALID_RESPONSE");
-  if (value.resultado != null && typeof value.resultado !== "string" || value.area != null && typeof value.area !== "string") throw new MongoReadError("INVALID_RESPONSE");
-  return { id: value.id, idEmpresa: value.idEmpresa, idCiclo: value.idCiclo, titulo: value.titulo, licao: value.licao, tags: parseNullableStringArray(value.tags), resultado: value.resultado ?? null, area: value.area ?? null };
+  if (!isRecord(value) || !validUuid(value.id) || !positiveId(value.idEmpresa) || !positiveId(value.idCiclo)
+    || !requiredText(value.titulo) || !requiredText(value.licao)
+    || !(value.resultado === undefined || nullableText(value.resultado))
+    || !(value.area === undefined || nullableText(value.area))) throw new MongoReadError("INVALID_RESPONSE");
+  return { id: value.id, idEmpresa: value.idEmpresa, idCiclo: value.idCiclo, titulo: value.titulo, licao: value.licao,
+    tags: parseNullableStringArray(value.tags), resultado: value.resultado ?? null, area: value.area ?? null };
 }
 
 export async function listarFormulariosMongo(idCiclo: number, signal?: AbortSignal): Promise<FormularioMongo[]> {

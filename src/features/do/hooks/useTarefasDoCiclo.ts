@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../../auth/AuthProvider";
+import { useAuth } from "../../../components/auth/AuthProvider";
 import {
   listarPlanosPorCicloPg,
   listarTarefasPorPlanoPg,
-  type PlanoAcaoPg,
-  type TarefaDoPlanoPg,
 } from "../../../services/api/pg/dashboard.read.api";
+import type { PlanoAcaoPg, TarefaDoPlanoPg } from "../../../types/pdca";
 
 type ResultadoDados = {
   planos: readonly PlanoAcaoPg[];

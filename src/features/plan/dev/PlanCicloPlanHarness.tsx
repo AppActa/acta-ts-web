@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { PaginaCicloPlan } from "../pages/PaginaCicloPlan";
+import { PaginaCicloPlan } from "../../../pages/plan/PaginaCicloPlan";
 
 if (!import.meta.env.DEV) {
   throw new Error("Esta prévia está disponível somente no modo de desenvolvimento.");
