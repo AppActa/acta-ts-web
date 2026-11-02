@@ -45,6 +45,7 @@ import { PaginaTodosCiclos } from "../../features/ciclos/pages/PaginaTodosCiclos
 import { PaginaRelatorios } from "../../features/relatorios/pages/PaginaRelatorios";
 import { PaginaNaoEncontrada } from "../../features/layout/pages/PaginaNaoEncontrada";
 import { PaginaOnboarding } from "../../features/empresas/pages/PaginaOnboarding";
+import { PaginaCato } from "../../features/cato/pages/PaginaCato";
 
 function CarregandoAutenticacao() {
   return <main role="status" aria-live="polite">Carregando sua conta…</main>;
@@ -121,6 +122,7 @@ export const router = createBrowserRouter([
         children: [
           { index: true, element: <HomePageConectada /> },
           { path: "perfil", element: <PaginaPerfil /> },
+          { path: "cato", element: <PaginaCato /> },
           { path: "do", element: <PaginaDo /> },
           { path: "act", element: <PaginaActTodosCiclos /> },
           { path: "check", element: <PaginaCheckTodosCiclos /> },

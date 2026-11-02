@@ -14,6 +14,7 @@ import perfilSelecionado from "../assets/sidebar/perfil-selecionado.png";
 import iconeNotificacoes from "../../perfil/assets/icone-notificacoes.png";
 import iconeRelatorios from "../assets/icone-relatorios.svg";
 import iconeCiclos from "../assets/icone-ciclos.svg";
+import iconeCato from "../assets/icone-cato.svg";
 import "../styles/sidebar.css";
 
 type ItemSidebarProps = {
@@ -53,6 +54,7 @@ export function Sidebar() {
   );
   const estaEmInicio = pathname === "/";
   const estaEmPerfil = pathname.startsWith("/perfil");
+  const estaEmCato = pathname.startsWith("/cato");
   const rotaAgir = cicloId ? `/do/ciclo/${cicloId}/act` : "/act";
 
   return (
@@ -73,7 +75,7 @@ export function Sidebar() {
         <button type="button" disabled title="Notificações ainda não possui página"><img src={iconeNotificacoes} alt="" /><span>Notificações</span></button>
         <Link to="/relatorios" aria-current={pathname === "/relatorios" ? "page" : undefined}><img src={iconeRelatorios} alt="" /><span>Relatórios</span></Link>
         <Link to="/ciclos" aria-current={pathname === "/ciclos" ? "page" : undefined}><img src={iconeCiclos} alt="" /><span>Ciclos</span></Link>
-        <button type="button" disabled title="Cato ainda não possui página"><span className="sidebar_atalhos_cato-placeholder" aria-hidden="true" style={{ display: "block", width: 48, height: 48, backgroundColor: "#d9d9d9" }}>{/* # colocar imagem */}</span><span>Cato</span></button>
+        <Link to="/cato" aria-current={estaEmCato ? "page" : undefined}><img src={iconeCato} alt="" /><span>Cato</span></Link>
       </nav>
     </aside>
   );
