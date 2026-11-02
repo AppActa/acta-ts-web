@@ -13,10 +13,10 @@ export function ModalErroPlan({ titulo, mensagem, aoFechar }: PropriedadesModalE
     if (elemento && !elemento.open) elemento.showModal();
     return () => { if (elemento?.open) elemento.close(); };
   }, []);
-  return <dialog className="modal-erro-plan" ref={dialogo} aria-labelledby={`${id}-titulo`} aria-describedby={`${id}-mensagem`} onClose={aoFechar}>
+  return <dialog className="modal-erro-plan" ref={dialogo} aria-labelledby={`${id}-titulo`} aria-describedby={`${id}-mensagem`} onCancel={(evento) => { evento.preventDefault(); aoFechar(); }}>
     <div className="modal-erro-plan_icone" aria-hidden="true"><img src={triangulo} alt="" /><img src={exclamacao} alt="" /></div>
     <h2 id={`${id}-titulo`}>{titulo}</h2>
     <p id={`${id}-mensagem`}>{mensagem}</p>
-    <button type="button" autoFocus onClick={() => dialogo.current?.close()}>Ok</button>
+    <button type="button" autoFocus onClick={aoFechar}>Ok</button>
   </dialog>;
 }
