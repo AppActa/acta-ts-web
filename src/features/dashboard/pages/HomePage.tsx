@@ -2,7 +2,8 @@ import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { LayoutSimples } from "../../layout/components/LayoutSimples";
 import "../styles/home-page.css";
-import logoActa from "../../auth/assets/logo-acta.svg";
+import logoActaSimbolo from "../assets/home/logo-acta-simbolo.png";
+import logoActaPalavra from "../assets/home/logo-acta-palavra.png";
 import iconeTempo from "../assets/home/icone-tempo.svg";
 import iconeEstoque from "../assets/home/icone-estoque.svg";
 import iconeEquipe from "../assets/home/icone-equipe.svg";
@@ -86,7 +87,10 @@ export function HomePage({ dados, estado }: HomePageProps) {
     <LayoutSimples>
       <div className="home-page">
         <header className="home-page_cabecalho">
-          <img className="home-page_logo" src={logoActa} alt="ACTA" />
+          <div className="home-page_logo" role="img" aria-label="ACTA">
+            <img className="home-page_logo-simbolo" src={logoActaSimbolo} alt="" />
+            <img className="home-page_logo-palavra" src={logoActaPalavra} alt="" />
+          </div>
         </header>
 
         {estado === "carregando" ? (
@@ -222,7 +226,6 @@ export function HomePage({ dados, estado }: HomePageProps) {
                     </li>
                   ))}
                 </ul>
-                <p className="home-page_etapas-nota">Ciclos concluídos, pausados e cancelados não entram nessas contagens.</p>
               </section>
             </div>
           </>

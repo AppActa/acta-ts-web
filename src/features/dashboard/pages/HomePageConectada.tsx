@@ -16,7 +16,7 @@ function montarDadosHome(nomeUsuario: string, ciclos: CicloPg[]): DadosHomePage 
 
   return {
     nomeUsuario,
-    tituloCiclos: "Ciclos da empresa",
+    tituloCiclos: "Meus ciclos",
     metricas: [
       { id: "ciclos", titulo: "Ciclos da empresa", valor: ciclos.length, contexto: "Ciclos cadastrados", variante: "ciclos" },
       { id: "atrasadas", titulo: "Tarefas atrasadas", valor: null, contexto: "Resumo ainda indisponível", variante: "atrasadas" },
