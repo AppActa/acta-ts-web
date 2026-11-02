@@ -1,6 +1,4 @@
 import { Link, useLocation, useParams } from "react-router-dom";
-import { useState } from "react";
-import { useAuth } from "../../../auth/AuthProvider";
 import inicioInativo from "../assets/sidebar/inicio-inativo.png";
 import inicioSelecionado from "../assets/sidebar/inicio-selecionado.png";
 import planoInativo from "../assets/sidebar/plano-inativo.png";
@@ -46,8 +44,6 @@ function ItemSidebar({ ativo, imagemAtiva, imagemInativa, nome, destino }: ItemS
 }
 
 export function Sidebar() {
-  const { actaUser, firebaseUser } = useAuth();
-  const [fotoPerfilFalhou, setFotoPerfilFalhou] = useState(false);
   const { pathname } = useLocation();
   const { cicloId } = useParams<{ cicloId: string }>();
   const estaEmPlano = pathname.includes("/plan");
@@ -59,9 +55,6 @@ export function Sidebar() {
   const estaEmInicio = pathname === "/";
   const estaEmPerfil = pathname.startsWith("/perfil");
   const estaEmCato = pathname.startsWith("/cato");
-  const nomeUsuario = actaUser?.nome || firebaseUser?.displayName || firebaseUser?.email?.split("@")[0] || "Usuário ACTA";
-  const iniciais = nomeUsuario.split(/\s+/).filter(Boolean).slice(0, 2).map((parte) => parte[0]).join("").toLocaleUpperCase("pt-BR");
-  const fotoPerfil = firebaseUser?.photoURL && !fotoPerfilFalhou ? firebaseUser.photoURL : "";
   const rotaAgir = cicloId ? `/do/ciclo/${cicloId}/act` : "/act";
 
   return (
@@ -74,17 +67,8 @@ export function Sidebar() {
         <ItemSidebar nome="Agir" destino={rotaAgir} ativo={estaEmAgir} imagemAtiva={agirSelecionado} imagemInativa={agirInativo} />
       </nav>
 
-      <Link className="barra-lateral_item barra-lateral_perfil" to="/perfil" aria-label={`Abrir perfil de ${nomeUsuario}`} aria-current={estaEmPerfil ? "page" : undefined}>
-        {estaEmCato ? (
-          <>
-            <span className="barra-lateral_avatar" aria-hidden="true">
-              {fotoPerfil ? <img src={fotoPerfil} alt="" onError={() => setFotoPerfilFalhou(true)} /> : <span>{iniciais}</span>}
-            </span>
-            <span>Profile</span>
-          </>
-        ) : (
-          <img className="sidebar__arte sidebar__arte--perfil" src={estaEmPerfil ? perfilSelecionado : perfilInativo} alt="" />
-        )}
+      <Link className="barra-lateral_item barra-lateral_perfil" to="/perfil" aria-label="Perfil" aria-current={estaEmPerfil ? "page" : undefined}>
+        <img className="sidebar__arte sidebar__arte--perfil" src={estaEmPerfil ? perfilSelecionado : perfilInativo} alt="" />
       </Link>
 
       <nav className="sidebar_atalhos" aria-label="Acesso rápido">

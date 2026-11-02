@@ -11,8 +11,8 @@
   height: 100vh;
   height: 100dvh;
   min-height: 0;
-  --cato-rail: 82px;
-  --cato-header: 149px;
+  --cato-rail: 119px;
+  --cato-header: 125px;
   grid-template-columns: var(--cato-rail) minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr);
   background: #1f1f1f;
@@ -22,15 +22,7 @@
 }
 
 html:has(.pagina-cato), body:has(.pagina-cato), body:has(.pagina-cato) #root { width: 100%; height: 100%; min-height: 0; overflow: hidden; }
-.pagina-cato .sidebar_atalhos { right: 27px; }
-.pagina-cato > .barra-lateral { min-height: 0; justify-content: flex-start; padding: clamp(72px, 16vh, 150px) 0 16px; }
-.pagina-cato .barra-lateral_navegacao { gap: clamp(18px, 3.7vh, 34px); }
-.pagina-cato .barra-lateral_item { width: 100%; gap: 4px; font-size: 12px; }
-.pagina-cato .sidebar__arte { max-width: 42px; }
-.pagina-cato .barra-lateral_perfil { margin-top: clamp(18px, 3.5vh, 32px); }
-.pagina-cato .barra-lateral_avatar { display: grid; width: 40px; height: 40px; overflow: hidden; place-items: center; border-radius: 14px; background: #dcebed; }
-.pagina-cato .barra-lateral_avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.pagina-cato .barra-lateral_avatar > span { display: grid; width: 100%; height: 100%; place-items: center; border-radius: inherit; background: linear-gradient(145deg, #529da1, #276a70); color: #fff; font-size: 12px; font-weight: 700; }
+.pagina-cato .sidebar_atalhos a, .pagina-cato .sidebar_atalhos button { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; line-height: 18px; }
 .cato_painel { display: flex; min-width: 0; min-height: 0; flex-direction: column; margin: 29px 27px 0 0; overflow: hidden; border-radius: 20px 20px 0 0; }
 .cato_cabecalho { position: relative; z-index: 1; display: flex; height: var(--cato-header); min-height: var(--cato-header); align-items: center; gap: clamp(10px, 1.25vw, 18px); padding: clamp(12px, 1.67vw, 24px); background: linear-gradient(105deg, #76ccd1 0%, #80d4d5 100%); color: #1f292b; }
 .cato_cabecalho h1 { margin: 0; color: #1f292b; font-size: clamp(14px, 1.53vw, 22px); font-weight: 700; line-height: 1.2; }
@@ -170,26 +162,18 @@ html:has(.pagina-cato), body:has(.pagina-cato), body:has(.pagina-cato) #root { w
   .cato_corpo { grid-template-columns: clamp(180px, 19.86vw, 286px) minmax(0, 1fr); gap: clamp(24px, 3.5vw, 38px); }
 }
 
-@media (min-width: 851px) and (max-height: 600px) {
-  .pagina-cato > .barra-lateral { padding-top: clamp(16px, 12vh, 72px); }
-  .pagina-cato .barra-lateral_navegacao { gap: clamp(8px, 2.5vh, 14px); }
-  .pagina-cato .barra-lateral_item { gap: 3px; font-size: 10px; }
-  .pagina-cato .sidebar__arte { max-width: 34px; }
-  .pagina-cato .barra-lateral_perfil { margin-top: 14px; }
-}
-
 @media (max-width: 850px) {
-  .pagina-cato { --cato-header: 76px; display: block; height: 100vh; height: 100dvh; min-height: 0; padding: 0 0 72px; transition: padding-bottom 260ms ease; }
+  .pagina-cato { --cato-header: 60px; display: block; height: 100vh; height: 100dvh; min-height: 0; padding: 0 0 72px; transition: padding-bottom 260ms ease; }
   .pagina-cato > .barra-lateral { position: fixed; z-index: 3; right: 0; bottom: 0; left: 0; width: 100%; min-height: 0; height: 72px; flex-direction: row; padding: 7px 10px; background: #1f1f1f; transition: transform 260ms ease, opacity 180ms ease; }
   .pagina-cato > .barra-lateral { padding: 7px 10px; }
   .pagina-cato .barra-lateral_navegacao { display: flex; width: 100%; justify-content: space-around; gap: 2px; }
   .pagina-cato .barra-lateral_item { width: 58px; gap: 3px; font-size: 11px; }
-  .pagina-cato .barra-lateral_icone { width: 30px; height: 30px; }
+  .pagina-cato .sidebar__arte { max-width: 40px; max-height: 54px; }
   .pagina-cato .barra-lateral_perfil, .pagina-cato .sidebar_atalhos { display: none; }
   .cato_painel { height: 100%; min-height: 0; margin: 0; overflow: hidden; border-radius: 0; }
-  .cato_cabecalho { height: 76px; min-height: 76px; gap: 10px; padding: 10px 12px; }
-  .cato_cabecalho h1 { font-size: 16px; }
-  .cato_cabecalho p { max-width: 190px; font-size: 10px; }
+  .cato_cabecalho { height: 60px; min-height: 60px; gap: 8px; padding: 8px 12px; }
+  .cato_cabecalho h1 { font-size: 14px; }
+  .cato_cabecalho p { max-width: 190px; font-size: 9px; }
   .cato_corpo { display: flex; height: auto; min-height: 0; flex: 1; padding: 12px; overflow: hidden; border-radius: 16px 16px 0 0; }
   .cato_historico_reabrir { top: 12px; min-height: 54px; }
   .cato_historico { position: absolute; z-index: 2; top: 12px; right: 12px; bottom: 12px; left: 12px; }
