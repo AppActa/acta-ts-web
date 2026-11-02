@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
-import { obterCiclo } from "../../ciclo/data/ciclos";
+import { useCicloDaConta, rotuloStatusCiclo } from "../../ciclo/hooks/useCicloDaConta";
+import { useTarefasDoCiclo } from "../hooks/useTarefasDoCiclo";
 import iconeVisaoGeral from "../assets/ciclo-visao-geral/063c5.svg";
 import iconePlanAba from "../assets/ciclo-visao-geral/47893.svg";
 import iconeDo from "../assets/ciclo-visao-geral/d01c2.svg";
@@ -13,21 +14,60 @@ import circuloCheck from "../assets/ciclo-visao-geral/61e69.svg";
 import iconeCheck from "../assets/ciclo-visao-geral/6c5ca.svg";
 import circuloAct from "../assets/ciclo-visao-geral/0afc5.svg";
 import iconeAct from "../assets/ciclo-visao-geral/3f4de.svg";
-import roscaFundo from "../assets/ciclo-visao-geral/7787a.svg";
-import roscaProgresso from "../assets/ciclo-visao-geral/ebea0.svg";
-import "../../perfil/styles/pagina-perfil.css";
 import "../styles/pagina-ciclo-do.css";
 
 const etapas = [
-  { nome: "Plan", estado: "Concluído", percentual: 100, classe: "plan", circulo: circuloPlan, icone: iconePlan },
-  { nome: "Do", estado: "Iniciado", percentual: 50, classe: "do", circulo: circuloDo, icone: iconeDo },
-  { nome: "Check", estado: "Não foi iniciado", percentual: 0, classe: "check", circulo: circuloCheck, icone: iconeCheck },
-  { nome: "Act", estado: "Não foi iniciado", percentual: 0, classe: "act", circulo: circuloAct, icone: iconeAct },
+  { nome: "Plan", classe: "plan", circulo: circuloPlan, icone: iconePlan },
+  { nome: "Do", classe: "do", circulo: circuloDo, icone: iconeDo },
+  { nome: "Check", classe: "check", circulo: circuloCheck, icone: iconeCheck },
+  { nome: "Act", classe: "act", circulo: circuloAct, icone: iconeAct },
 ];
 
+const statusTarefas = [
+  { valor: "PENDENTE", rotulo: "Pendente" }, { valor: "EM_ANDAMENTO", rotulo: "Em andamento" },
+  { valor: "CONCLUIDA", rotulo: "Concluída" }, { valor: "BLOQUEADA", rotulo: "Bloqueada" },
+  { valor: "ATRASADA", rotulo: "Atrasada" }, { valor: "CANCELADA", rotulo: "Cancelada" },
+] as const;
+
+function ResumoTarefasDoCiclo({ idCiclo }: { idCiclo: number }) {
+  const resultado = useTarefasDoCiclo(idCiclo);
+  if (resultado.estado === "carregando") return <div className="ciclo-do_card_tarefas"><p role="status">Carregando tarefas do ciclo.</p></div>;
+  if (resultado.estado === "erro") return <div className="ciclo-do_card_tarefas"><p role="alert">Contagens de tarefas indisponíveis.</p></div>;
+  if (resultado.estado === "indisponivel") return <div className="ciclo-do_card_tarefas"><p role="status">Tarefas indisponíveis para este ciclo.</p></div>;
+
+  return (
+    <div className="ciclo-do_card_tarefas">
+      <p>{resultado.dados.tarefas.length === 0 ? "Nenhuma tarefa encontrada neste ciclo." : "Contagem por status"}</p>
+      <dl className="ciclo-do_tarefas_contagens">
+        {statusTarefas.map((status) => <div key={status.valor} data-estado={status.valor}>
+          <dt>{status.rotulo}</dt><dd>{resultado.dados.tarefas.filter((tarefa) => tarefa.status === status.valor).length}</dd>
+        </div>)}
+      </dl>
+    </div>
+  );
+}
+
 export function PaginaCicloDo() {
-  const { cicloId = "1" } = useParams();
-  const ciclo = obterCiclo(cicloId);
+  const { cicloId } = useParams();
+  const resultadoCiclo = useCicloDaConta(cicloId);
+
+  if (resultadoCiclo.estado !== "sucesso") {
+    const carregando = resultadoCiclo.estado === "carregando";
+    const naoEncontrado = resultadoCiclo.estado === "nao-encontrado";
+    return (
+      <main className="pagina-ciclo-do">
+        <Sidebar />
+        <div className="ciclo-do_painel">
+          <section className="ciclo-do_estado" role={carregando ? "status" : "alert"} aria-live="polite">
+            <h1>{carregando ? "Carregando ciclo" : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
+            {!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}
+          </section>
+        </div>
+      </main>
+    );
+  }
+  const ciclo = resultadoCiclo.ciclo;
+  const cicloHref = `/do/ciclo/${ciclo.id}`;
 
   return (
     <main className="pagina-ciclo-do">
@@ -37,21 +77,21 @@ export function PaginaCicloDo() {
           <span className="ciclo-do_cabecalho_icone" aria-hidden="true" />
           <div className="ciclo-do_identificacao">
             <div className="ciclo-do_titulo_linha">
-              <h1>{ciclo.nome}</h1>
-              <span className="ciclo-do_status">Status: Do</span>
+              <h1>{ciclo.titulo}</h1>
+              <span className="ciclo-do_status">Status: {rotuloStatusCiclo(ciclo.status)}</span>
             </div>
-            <p><span>Responsável pelo ciclo:</span> <strong>Catarina Cândido</strong></p>
-            <p><span>Iniciado em:</span> <strong>{ciclo.inicio}</strong></p>
-            <p><span>Prazo final:</span> <strong>{ciclo.prazo}</strong></p>
+            <p><span>Responsável pelo ciclo:</span> <strong>Não informado</strong></p>
+            <p><span>Iniciado em:</span> <strong>{ciclo.dataInicio ?? "Não informado"}</strong></p>
+            <p><span>Prazo final:</span> <strong>{ciclo.dataEstimadaFim ?? "Não informado"}</strong></p>
           </div>
         </header>
 
         <nav className="ciclo-do_abas" aria-label="Etapas do ciclo">
-          <Link className="ciclo-do_aba ciclo-do_aba-visao" to={`/do/ciclo/${cicloId}/visao-geral`} aria-current="page"><img src={iconeVisaoGeral} alt="" />Visão geral</Link>
-          <Link className="ciclo-do_aba ciclo-do_aba-plan" to={`/do/ciclo/${cicloId}/plan`}><img src={iconePlanAba} alt="" />Plan</Link>
-          <Link className="ciclo-do_aba ciclo-do_aba-do" to={`/do/ciclo/${cicloId}/tarefas`}><img src={iconeDo} alt="" />Do</Link>
-          <span className="ciclo-do_aba ciclo-do_aba-check" aria-disabled="true"><img src={iconeCheckAba} alt="" />Checar</span>
-          <span className="ciclo-do_aba ciclo-do_aba-act" aria-disabled="true"><img src={iconeActAba} alt="" />Agir</span>
+          <Link className="ciclo-do_aba ciclo-do_aba-visao" to={`${cicloHref}/visao-geral`} aria-current="page"><img src={iconeVisaoGeral} alt="" />Visão geral</Link>
+          <Link className="ciclo-do_aba ciclo-do_aba-plan" to={`${cicloHref}/plan`}><img src={iconePlanAba} alt="" />Plan</Link>
+          <Link className="ciclo-do_aba ciclo-do_aba-do" to={`${cicloHref}/tarefas`}><img src={iconeDo} alt="" />Do</Link>
+          <Link className="ciclo-do_aba ciclo-do_aba-check" to={`${cicloHref}/check`}><img src={iconeCheckAba} alt="" />Checar</Link>
+          <Link className="ciclo-do_aba ciclo-do_aba-act" to={`${cicloHref}/act`}><img src={iconeActAba} alt="" />Agir</Link>
         </nav>
 
         <div className="ciclo-do_conteudo">
@@ -64,9 +104,8 @@ export function PaginaCicloDo() {
                     <img className="ciclo-do_etapa_circulo" src={etapa.circulo} alt="" />
                     <img className="ciclo-do_etapa_simbolo" src={etapa.icone} alt="" />
                   </span>
-                  <div className="ciclo-do_etapa_texto"><strong>{etapa.nome}</strong><span>{etapa.estado}</span></div>
-                  <span className="ciclo-do_etapa_percentual">{etapa.percentual}% <span aria-hidden="true">→</span></span>
-                  <div className="ciclo-do_etapa_barra" role="progressbar" aria-label={`Progresso de ${etapa.nome}`} aria-valuenow={etapa.percentual} aria-valuemin={0} aria-valuemax={100}><span style={{ width: `${etapa.percentual}%` }} /></div>
+                  <div className="ciclo-do_etapa_texto"><strong>{etapa.nome}</strong><span>Status indisponível</span></div>
+                  <span className="ciclo-do_etapa_percentual">Indisponível</span>
                 </article>
               ))}
             </div>
@@ -74,38 +113,22 @@ export function PaginaCicloDo() {
 
           <section className="ciclo-do_equipe" aria-labelledby="titulo-equipe">
             <h2 id="titulo-equipe">Equipe</h2>
-            <div className="ciclo-do_membros">
-              <p><strong>Catarina Cândido</strong> · Responsável</p>
-              <p>Rafael Lima · Participante</p>
-              <p>Camila Souza · Executor</p>
-              <p>Ana Ribeiro · Validadora</p>
-              <button type="button" disabled title="Tela de equipe em desenvolvimento">Ver toda equipe</button>
-            </div>
+            <div className="ciclo-do_membros"><p>Dados da equipe indisponíveis para este ciclo.</p></div>
           </section>
 
           <section className="ciclo-do_resumo ciclo-do_resumo-tarefas" aria-labelledby="titulo-tarefas">
             <h2 id="titulo-tarefas">Tarefas</h2>
-            <div className="ciclo-do_card_tarefas">
-              <span>5/8 concluídas</span>
-              <div className="ciclo-do_rosca" role="img" aria-label="63% das tarefas concluídas">
-                <img src={roscaFundo} alt="" />
-                <img src={roscaProgresso} alt="" />
-                <strong>63%</strong>
-              </div>
-            </div>
+            <ResumoTarefasDoCiclo idCiclo={ciclo.id} />
           </section>
 
           <section className="ciclo-do_resumo ciclo-do_resumo-indicador" aria-labelledby="titulo-indicador">
             <h2 id="titulo-indicador">Indicador</h2>
-            <div className="ciclo-do_card_indicador"><span>Meta ≤ 3,0%</span><strong>8,4%</strong></div>
+            <div className="ciclo-do_card_indicador"><span>Valor atual</span><strong>Indisponível</strong></div>
           </section>
 
           <section className="ciclo-do_decisoes" aria-labelledby="titulo-decisoes">
             <h2 id="titulo-decisoes">Próximas decisões</h2>
-            <div className="ciclo-do_card_decisoes">
-              <p><span className="ciclo-do_ponto ciclo-do_ponto-turquesa" /><span><strong>Validar ação de treinamento</strong><small>Prazo sugerido: 23 out</small></span></p>
-              <p><span className="ciclo-do_ponto ciclo-do_ponto-laranja" /><span><strong>Confirmar custo de leitores</strong><small>Ação ainda em rascunho</small></span></p>
-            </div>
+            <div className="ciclo-do_card_decisoes"><p><span><strong>Próximas decisões indisponíveis</strong><small>Nenhuma decisão foi inferida.</small></span></p></div>
           </section>
         </div>
       </div>

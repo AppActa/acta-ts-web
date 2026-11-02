@@ -1,36 +1,63 @@
 import { Link, useParams } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
+import { useCicloDaConta, rotuloStatusCiclo } from "../../ciclo/hooks/useCicloDaConta";
+import { AvisoDadosDemonstrativos } from "../../layout/components/AvisoDadosDemonstrativos";
 import { treinamentosDoCiclo } from "./PaginaCicloDoTreinamentos";
-import "../../perfil/styles/pagina-perfil.css";
 import "../styles/pagina-ciclo-do-treinamento-especifico.css";
 
 function AbasTreinamento({ cicloId }: { cicloId: string | undefined }) {
   return (
     <nav className="treinamento-especifico_abas" aria-label="Etapas do ciclo">
-      <Link to={`/do/ciclo/${cicloId}/visao-geral`} className="treinamento-especifico_aba treinamento-especifico_aba-visao"><span>⟳</span>Visão geral</Link>
-      <Link to={`/do/ciclo/${cicloId}/plan`} className="treinamento-especifico_aba treinamento-especifico_aba-plan"><span>▣</span>Plan</Link>
-      <Link to={`/do/ciclo/${cicloId}/tarefas`} aria-current="page" className="treinamento-especifico_aba treinamento-especifico_aba-do"><span>▷</span>Do</Link>
-      <button type="button" className="treinamento-especifico_aba treinamento-especifico_aba-check" disabled><span>✓</span>Checar</button>
-      <button type="button" className="treinamento-especifico_aba treinamento-especifico_aba-act" disabled><span>✧</span>Agir</button>
+      <Link to={`/do/ciclo/${cicloId}/visao-geral`} className="treinamento-especifico_aba treinamento-especifico_aba-visao"><span aria-hidden="true">{/* # colocar imagem */}</span>Visão geral</Link>
+      <Link to={`/do/ciclo/${cicloId}/plan`} className="treinamento-especifico_aba treinamento-especifico_aba-plan"><span aria-hidden="true">{/* # colocar imagem */}</span>Plan</Link>
+      <Link to={`/do/ciclo/${cicloId}/tarefas`} aria-current="page" className="treinamento-especifico_aba treinamento-especifico_aba-do"><span aria-hidden="true">{/* # colocar imagem */}</span>Do</Link>
+      <button type="button" className="treinamento-especifico_aba treinamento-especifico_aba-check" disabled><span aria-hidden="true">{/* # colocar imagem */}</span>Checar</button>
+      <button type="button" className="treinamento-especifico_aba treinamento-especifico_aba-act" disabled><span aria-hidden="true">{/* # colocar imagem */}</span>Agir</button>
     </nav>
   );
 }
 
 export function PaginaCicloDoTreinamentoEspecifico() {
   const { cicloId, treinamentoId } = useParams();
-  const treinamento = treinamentosDoCiclo.find((item) => item.id === treinamentoId) ?? treinamentosDoCiclo[0];
+  const resultadoCiclo = useCicloDaConta(cicloId);
+
+  if (resultadoCiclo.estado !== "sucesso") {
+    const carregando = resultadoCiclo.estado === "carregando";
+    const naoEncontrado = resultadoCiclo.estado === "nao-encontrado";
+    return (
+      <main className="pagina-treinamento-especifico">
+        <Sidebar />
+        <div className="treinamento-especifico_painel">
+          <section className="treinamento-especifico_estado" role={carregando ? "status" : "alert"} aria-live="polite">
+            <h1>{carregando ? "Carregando ciclo" : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
+            {!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}
+          </section>
+        </div>
+      </main>
+    );
+  }
+  const ciclo = resultadoCiclo.ciclo;
+  const treinamento = treinamentosDoCiclo.find((item) => item.id === treinamentoId);
 
   return (
     <main className="pagina-treinamento-especifico">
       <Sidebar />
       <div className="treinamento-especifico_painel">
         <header className="treinamento-especifico_cabecalho">
-          <div className="treinamento-especifico_icone" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="31" stroke="white" strokeWidth="5"/><path d="M40 22v20L28 52" stroke="white" strokeWidth="5" strokeLinecap="round"/></svg></div>
-          <div><h1>Redução do tempo de atendimento</h1><span className="treinamento-especifico_status">Status: Do</span><p><span>Responsável pelo ciclo:</span> Catarina Cândido</p><p><span>Iniciado em:</span> 26/05/2026</p><p><span>Prazo final:</span> 30/10/2026</p></div>
+          <div className="treinamento-especifico_icone" aria-hidden="true">{/* # colocar imagem */}</div>
+          <div><h1>{ciclo.titulo}</h1><span className="treinamento-especifico_status">Status: {rotuloStatusCiclo(ciclo.status)}</span><p><span>Responsável pelo ciclo:</span> Não informado</p><p><span>Iniciado em:</span> {ciclo.dataInicio ?? "Não informado"}</p><p><span>Prazo final:</span> {ciclo.dataEstimadaFim ?? "Não informado"}</p></div>
         </header>
         <AbasTreinamento cicloId={cicloId} />
+        {!treinamento ? (
+          <section className="treinamento-especifico_conteudo" role="status" aria-live="polite">
+            <h2>Treinamento indisponível</h2>
+            <p>Não é possível consultar os dados deste treinamento no momento.</p>
+            <Link to={`/do/ciclo/${cicloId}/treinamentos`}>Voltar aos treinamentos</Link>
+          </section>
+        ) : <>
+        <AvisoDadosDemonstrativos />
         <div className="treinamento-especifico_conteudo">
-          <div className="treinamento-especifico_titulo_linha"><Link to={`/do/ciclo/${cicloId}/treinamentos`} aria-label="Voltar aos treinamentos">‹</Link><h2>Treinamentos / {treinamento.titulo}</h2></div>
+          <div className="treinamento-especifico_titulo_linha"><Link to={`/do/ciclo/${cicloId}/treinamentos`} aria-label="Voltar aos treinamentos">{/* # colocar imagem */}</Link><h2>Treinamentos / {treinamento.titulo}</h2></div>
 
           <section className="treinamento-equipe">
             <h3>Acompanhamento da equipe</h3>
@@ -54,7 +81,7 @@ export function PaginaCicloDoTreinamentoEspecifico() {
             <div><span /><p><strong>Lucas Nunes</strong><small>Não iniciou o módulo de conferência.</small></p></div>
             <div><span /><p><strong>Paulo Mendes</strong><small>Prazo termina em 20 out.</small></p></div>
             <div><span /><p><strong>Paulo Mendes</strong><small>Prazo termina em 20 out.</small></p></div>
-            <Link to={`/do/ciclo/${cicloId}/treinamentos/${treinamentoId}/lembrete/sucesso`} className="treinamento-atencao_lembrete">Enviar lembrete</Link>
+            <Link to={`/do/ciclo/${cicloId}/treinamentos/${treinamentoId}/lembrete/sucesso`} className="treinamento-atencao_lembrete">Simular lembrete</Link>
           </section>
 
           <section className="treinamento-modulos">
@@ -64,6 +91,7 @@ export function PaginaCicloDoTreinamentoEspecifico() {
             <article><div><strong>Registro de divergências</strong><span className="treinamento-modulo_badge treinamento-modulo_concluido">Concluído</span></div><p>5 de 5 concluíram</p><small>Prazo 16 out</small><div className="treinamento-modulo_barra"><span style={{ width: "100%" }} /></div></article>
           </section>
         </div>
+        </>}
       </div>
     </main>
   );

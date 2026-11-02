@@ -121,6 +121,17 @@
   box-shadow: 0 0 0 3px rgba(72, 179, 198, 0.18);
 }
 
+.campo-login-erro {
+    margin: 4px 0 0;
+    color: #ed6259;
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+
+.formulario-login > .campo-login-erro + label {
+  margin-top: 27px;
+}
+
 .campo-login-senha { position: relative; }
 .campo-login-senha input { padding-right: 46px; }
 .campo-login-senha_botao { position: absolute; top: 50%; right: 8px; transform: translateY(-50%); border: 0; padding: 4px 6px; background: transparent; color: #267f8e; cursor: pointer; font: inherit; font-size: .8rem; font-weight: 600; display: grid; place-items: center; width: 36px; height: 36px; }
@@ -249,56 +260,26 @@
 }
 
 .modal-recuperar {
-  position: relative;
-  width: min(100%, 582px);
-  min-height: 526px;
-  padding: 133px 101px 127px;
-  border-radius: 16px;
-  background: #fff;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.24);
-}
-
-.modal-recuperar_fechar {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  display: grid;
-  width: 36px;
-  height: 36px;
-  place-items: center;
-  border: 0;
-  border-radius: 9px;
-  background: transparent;
-  color: #4b6970;
-  cursor: pointer;
-  font: inherit;
-  font-size: 1.6rem;
-  line-height: 1;
-}
-
-.modal-recuperar_fechar:hover {
-  background: #eaf7f9;
-  color: #267f8e;
-}
-
-.modal-recuperar_fechar:focus-visible {
-  outline: 3px solid #4bb5c8;
-  outline-offset: 2px;
+  width: 100%;
 }
 
 .modal-recuperar h2 {
   margin: 0 0 12px;
-  font-size: 2.25rem;
+  color: #263436;
+  font-size: 2rem;
   line-height: 1.05;
   letter-spacing: -0.04em;
-  white-space: nowrap;
 }
 
 .modal-recuperar_descricao {
-  margin: 0 0 34px;
+  margin: 0 0 26px;
   color: #999;
   font-size: 1rem;
   font-weight: 500;
+}
+
+.modal-recuperar_descricao--com-mensagem {
+  margin-bottom: 8px;
 }
 
 .modal-recuperar_formulario {
@@ -307,26 +288,34 @@
 
 .modal-recuperar_formulario label {
   margin-bottom: 8px;
-  font-size: 1.125rem;
+  color: #263436;
+  font-size: 0.875rem;
 }
 
 .modal-recuperar_erro {
-  margin: 0 0 7px;
+  margin: 7px 0 0;
   color: #ed6259;
   font-size: 0.75rem;
-  font-weight: 600;
-  line-height: 1;
-  text-align: center;
+  line-height: 1.2;
+}
+
+.modal-recuperar_mensagem {
+  margin: 0 0 14px;
 }
 
 .modal-recuperar_formulario input {
   width: 100%;
-  height: 38px;
+  height: 42px;
   padding: 0 10px;
-  border: 1px solid #d5d5d5;
-  border-radius: 19px;
+  border: 1px solid #d7e0e5;
+  border-radius: 8px;
   outline: none;
+  background: #f4f7f8;
   font: inherit;
+}
+
+.modal-recuperar_formulario input[aria-invalid="true"] {
+  border-color: #ed3838;
 }
 
 .modal-recuperar_formulario input:focus {
@@ -335,10 +324,31 @@
 }
 
 .modal-recuperar_formulario .formulario-login_botao {
-  height: 38px;
-  margin-top: 31px;
-  border-radius: 19px;
+  height: 40px;
+  margin-top: 24px;
+  border-radius: 9px;
   font-size: 0.875rem;
+}
+
+.modal-recuperar_voltar {
+  height: 40px;
+  margin-top: 24px;
+  border: 0;
+  border-radius: 9px;
+  background: #7acfd2;
+  color: #102d31;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+}
+
+.modal-recuperar_voltar:hover {
+  background: #69c3c8;
+}
+
+.modal-recuperar_voltar:focus-visible {
+  outline: 3px solid rgba(72, 179, 198, 0.45);
+  outline-offset: 3px;
 }
 
 .formulario-login_botao:focus-visible,
@@ -418,8 +428,8 @@
   }
 
   .modal-recuperar {
-    min-height: 390px;
-    padding: 82px 32px 52px;
+    min-height: 0;
+    padding: 0;
   }
 
   .modal-recuperar h2 {
@@ -428,7 +438,7 @@
   }
 
   .modal-recuperar_erro {
-    margin: 0 0 7px;
+    margin: 7px 0 0;
   }
 }
 

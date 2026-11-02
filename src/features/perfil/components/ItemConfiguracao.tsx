@@ -3,14 +3,16 @@ import { Link } from "react-router-dom";
 import { Icone, type NomeIcone } from "./Icone";
 
 type PropriedadesItemConfiguracao = {
+  aoClicar?: () => void;
   acao?: ReactNode;
+  desabilitado?: boolean;
   destino?: string;
   icone?: NomeIcone;
   imagemIcone?: string;
   texto: string;
 };
 
-export function ItemConfiguracao({ acao, destino, icone, imagemIcone, texto }: PropriedadesItemConfiguracao) {
+export function ItemConfiguracao({ aoClicar, acao, desabilitado = false, destino, icone, imagemIcone, texto }: PropriedadesItemConfiguracao) {
   const conteudo = (
     <>
       <span className="item-configuracao_icone">
@@ -21,7 +23,7 @@ export function ItemConfiguracao({ acao, destino, icone, imagemIcone, texto }: P
         ) : null}
       </span>
       <span className="item-configuracao_texto">{texto}</span>
-      <span className="item-configuracao_acao">{acao ?? ">"}</span>
+      <span className="item-configuracao_acao" aria-hidden={acao ? undefined : "true"}>{acao ?? ">"}</span>
     </>
   );
 
@@ -30,6 +32,14 @@ export function ItemConfiguracao({ acao, destino, icone, imagemIcone, texto }: P
       <Link className="item-configuracao item-configuracao_link" to={destino}>
         {conteudo}
       </Link>
+    );
+  }
+
+  if (aoClicar || desabilitado) {
+    return (
+      <button className="item-configuracao item-configuracao_interativo" type="button" onClick={aoClicar} disabled={desabilitado}>
+        {conteudo}
+      </button>
     );
   }
 

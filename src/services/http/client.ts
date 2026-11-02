@@ -1,6 +1,9 @@
 import { auth } from "../../lib/firebase";
 
-export type HttpClientOptions = RequestInit;
+export type HttpClientOptions = RequestInit & {
+  retryOnUnauthorized?: boolean;
+  expectedStatus?: 201;
+};
 
 export class ApiError extends Error {
   constructor(
@@ -17,8 +20,8 @@ export async function httpClient<T>(
   input: RequestInfo | URL,
   options: HttpClientOptions = {},
 ): Promise<T> {
-  const headers = new Headers(options.headers);
-  const requestOptions = options;
+  const { retryOnUnauthorized = true, expectedStatus, ...requestOptions } = options;
+  const headers = new Headers(requestOptions.headers);
   const user = auth.currentUser;
 
   if (!user || !user.emailVerified || !user.email) {
@@ -44,7 +47,7 @@ export async function httpClient<T>(
   try {
     headers.set("Authorization", `Bearer ${tokenResult.token}`);
     response = await fetch(input, { ...requestOptions, headers });
-    if (response.status === 401) {
+    if (response.status === 401 && retryOnUnauthorized) {
       tokenResult = await user.getIdTokenResult(true);
       if (tokenResult.claims.email_verified === true) {
         headers.set("Authorization", `Bearer ${tokenResult.token}`);
@@ -64,6 +67,10 @@ export async function httpClient<T>(
       ? mensagens.map((mensagem) => mensagem.replace(/[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}/g, "e-mail informado").replace(/\b\d{11,14}\b/g, "documento informado"))
       : mensagens;
     throw new ApiError(mensagensSeguras.join(" ") || "Não foi possível concluir sua solicitação. Tente novamente.", response.status, mensagensSeguras);
+  }
+
+  if (expectedStatus !== undefined && response.status !== expectedStatus) {
+    throw new ApiError("O serviço retornou uma resposta inesperada.", response.status);
   }
 
   if (response.status === 204) return undefined as T;

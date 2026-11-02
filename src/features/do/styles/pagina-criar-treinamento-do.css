@@ -51,3 +51,9 @@
   .criar-treinamento_obrigatorio { align-items: start; flex-direction: column; gap: 6px; }
   .criar-treinamento_concluido { margin-top: 20px; }
 }
+.pagina-criar-treinamento-do .treinamento_validacao { color: #d43d3d; font-size: 12px; }
+.pagina-criar-treinamento-do [aria-invalid="true"] { border-color: #d43d3d; }
+.treinamento_aviso_fundo { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; padding: 20px; background: rgb(30 55 56 / 65%); backdrop-filter: blur(5px); }
+.treinamento_aviso_modal { width: min(400px, 100%); box-sizing: border-box; padding: 28px; border-radius: 18px; background: white; color: #253132; }
+.treinamento_aviso_modal h2 { font-size: 20px; }.treinamento_aviso_modal p { color: #66707a; }
+.treinamento_aviso_modal button { border: 0; border-radius: 8px; padding: 10px 20px; background: #48b3c6; color: white; cursor: pointer; }

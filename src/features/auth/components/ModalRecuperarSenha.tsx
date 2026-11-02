@@ -14,6 +14,7 @@ export function ModalRecuperarSenha({
 }: PropriedadesModalRecuperarSenha) {
   const [mensagem, definirMensagem] = useState<string | null>(null);
   const [enviando, definirEnviando] = useState(false);
+  const [emailAusente, definirEmailAusente] = useState(false);
 
   if (!visivel) return null;
 
@@ -23,6 +24,11 @@ export function ModalRecuperarSenha({
     definirEnviando(true);
     const dados = new FormData(event.currentTarget);
     const email = String(dados.get("email-recuperacao") ?? "").trim();
+    if (!email) {
+      definirEmailAusente(true);
+      definirEnviando(false);
+      return;
+    }
 
     try {
       await sendPasswordResetEmail(auth, email);
@@ -34,40 +40,39 @@ export function ModalRecuperarSenha({
       }
     }
 
-    definirMensagem("Se houver uma conta para esse e-mail, enviaremos as instruções de recuperação.");
+    definirMensagem(null);
     definirEnviando(false);
   }
 
   return (
-    <div className="modal-recuperar_overlay" role="presentation" onClick={aoFechar}>
-      <section
-        className="modal-recuperar"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="titulo-modal-recuperar"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <button
-          className="modal-recuperar_fechar"
-          type="button"
-          aria-label="Fechar"
-          onClick={aoFechar}
-        >
-          ×
+    <section className="modal-recuperar" aria-labelledby="titulo-modal-recuperar">
+      <h2 id="titulo-modal-recuperar">Recuperar senha</h2>
+      <p className={`modal-recuperar_descricao${mensagem ? " modal-recuperar_descricao--com-mensagem" : ""}`}>
+        Informe o e-mail usado no ACTA.
+      </p>
+      {mensagem && <p className="modal-recuperar_erro modal-recuperar_mensagem" role="status">{mensagem}</p>}
+
+      <form className="modal-recuperar_formulario" onSubmit={handleSubmit} noValidate>
+        <label htmlFor="email-recuperacao">E-mail *</label>
+        <input
+          id="email-recuperacao"
+          name="email-recuperacao"
+          type="email"
+          autoComplete="email"
+          placeholder="Preencha este campo"
+          required
+          aria-invalid={emailAusente}
+          aria-describedby={emailAusente ? "email-recuperacao-erro" : undefined}
+          onChange={() => definirEmailAusente(false)}
+        />
+        {emailAusente && <p className="modal-recuperar_erro" id="email-recuperacao-erro" role="alert">E-mail é obrigatório.</p>}
+        <button className="formulario-login_botao" type="submit" disabled={enviando}>
+          {enviando ? "Enviando…" : "Continuar"}
         </button>
-
-        <h2 id="titulo-modal-recuperar">Esqueceu sua senha?</h2>
-        <p className="modal-recuperar_descricao">Recupere por endereço de email</p>
-
-        <form className="modal-recuperar_formulario" onSubmit={handleSubmit}>
-          {mensagem && <p className="modal-recuperar_erro" role="status">{mensagem}</p>}
-          <label htmlFor="email-recuperacao">Email</label>
-          <input id="email-recuperacao" name="email-recuperacao" type="email" autoComplete="email" required />
-          <button className="formulario-login_botao" type="submit" disabled={enviando}>
-            {enviando ? "Enviando…" : "Concluído"}
-          </button>
-        </form>
-      </section>
-    </div>
+        <button className="modal-recuperar_voltar" type="button" onClick={aoFechar}>
+          Voltar ao login
+        </button>
+      </form>
+    </section>
   );
 }
