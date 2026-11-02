@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../../auth/AuthProvider";
-import { listarProblemasPorCicloPg, PgReadError, type ProblemaPg } from "../../../services/api/pg/dashboard.read.api";
-
-export type ResultadoProblemasDoCiclo =
-  | { estado: "carregando" | "erro" | "indisponivel" }
-  | { estado: "sucesso" | "vazio"; dados: readonly ProblemaPg[] };
+import { useAuth } from "../../../components/auth/AuthProvider";
+import { listarProblemasPorCicloPg, PgReadError } from "../../../services/api/pg/dashboard.read.api";
+import type { ResultadoProblemasDoCiclo } from "../../../types/plan";
 
 // Montar somente no conteudo do painel, depois que useCicloDaConta validar o ciclo.
 export function useProblemasDoCiclo(idCicloValidado: number): ResultadoProblemasDoCiclo {

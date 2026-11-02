@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../../auth/AuthProvider";
-import { listarCiclosPg, type CicloPg } from "../../../services/api/pg/dashboard.read.api";
+import { useAuth } from "../../../components/auth/AuthProvider";
+import { listarCiclosPg } from "../../../services/api/pg/dashboard.read.api";
+import type { CicloPg } from "../../../types/pdca";
+import { lerIdRotaPositivo } from "../../../utils/route-params";
 
 type EstadoInterno = {
   chave: string | null;
@@ -26,19 +28,13 @@ export function rotuloStatusCiclo(status: CicloPg["status"]): string {
   }
 }
 
-function lerIdPositivo(valor: string | undefined): number | null {
-  if (!valor || !/^\d+$/.test(valor)) return null;
-  const id = Number(valor);
-  return Number.isSafeInteger(id) && id > 0 ? id : null;
-}
-
 export function useCicloDaConta(cicloId: string | undefined): ResultadoCicloDaConta {
   const { firebaseUser, actaUser, loading: authLoading } = useAuth();
   const uid = firebaseUser?.uid ?? null;
   const idEmpresa = actaUser?.estadoPerfil === "PERFIL_CRIADO" && actaUser.status === "ATIVO"
     ? actaUser.idEmpresa
     : null;
-  const idCiclo = lerIdPositivo(cicloId);
+  const idCiclo = lerIdRotaPositivo(cicloId);
   const contaAtiva = Boolean(firebaseUser?.emailVerified && uid && idEmpresa && Number.isSafeInteger(idEmpresa) && idEmpresa > 0);
   const chaveAtual = contaAtiva && idCiclo !== null ? `${uid}:${idEmpresa}:${idCiclo}` : null;
   const [snapshot, setSnapshot] = useState<EstadoInterno>({ chave: null, estado: "carregando", ciclo: null });

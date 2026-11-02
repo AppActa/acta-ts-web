@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../../auth/AuthProvider";
-import { listarMetasPorCicloPg, listarVerificacoesPorCicloPg, PgReadError, type MetaPg, type VerificacaoPg } from "../../../services/api/pg/dashboard.read.api";
-
-export type DadosCheckDoCiclo = { metas: readonly MetaPg[]; verificacoes: readonly VerificacaoPg[] };
+import { useAuth } from "../../../components/auth/AuthProvider";
+import { listarMetasPorCicloPg, listarVerificacoesPorCicloPg, PgReadError } from "../../../services/api/pg/dashboard.read.api";
+import type { DadosCheckDoCiclo } from "../../../types/check";
 export type ResultadoDadosCheckDoCiclo =
   | { estado: "carregando" | "erro" | "indisponivel" }
   | { estado: "sucesso" | "vazio"; dados: DadosCheckDoCiclo };

@@ -1,0 +1,77 @@
+import { Link, useLocation, useParams } from "react-router-dom";
+import inicioInativo from "../../../../features/layout/assets/sidebar/inicio-inativo.png";
+import inicioSelecionado from "../../../../features/layout/assets/sidebar/inicio-selecionado.png";
+import planoInativo from "../../../../features/layout/assets/sidebar/plano-inativo.png";
+import planoSelecionado from "../../../../features/layout/assets/sidebar/plano-selecionado.png";
+import fazerInativo from "../../../../features/layout/assets/sidebar/fazer-inativo.png";
+import fazerSelecionado from "../../../../features/layout/assets/sidebar/fazer-selecionado.png";
+import checarInativo from "../../../../features/layout/assets/sidebar/checar-inativo.png";
+import checarSelecionado from "../../../../features/layout/assets/sidebar/checar-selecionado.png";
+import agirInativo from "../../../../features/layout/assets/sidebar/agir-inativo.png";
+import agirSelecionado from "../../../../features/layout/assets/sidebar/agir-selecionado.png";
+import perfilInativo from "../../../../features/layout/assets/sidebar/perfil-inativo.png";
+import perfilSelecionado from "../../../../features/layout/assets/sidebar/perfil-selecionado.png";
+import iconeNotificacoes from "../../../../features/perfil/assets/icone-notificacoes.png";
+import iconeRelatorios from "../../../../features/layout/assets/icone-relatorios.svg";
+import iconeCiclos from "../../../../features/layout/assets/icone-ciclos.svg";
+import iconeCato from "../../../../features/layout/assets/icone-cato.svg";
+import "../../../../features/layout/styles/sidebar.css";
+import { lerIdRotaPositivo } from "../../../utils/route-params";
+import type { ItemSidebarProps } from "../../../types/layout";
+
+function ItemSidebar({ ativo, imagemAtiva, imagemInativa, nome, destino }: ItemSidebarProps) {
+  const conteudo = <img className="sidebar__arte" src={ativo ? imagemAtiva : imagemInativa} alt="" />;
+
+  if (!destino) {
+    return (
+      <button className="barra-lateral_item" type="button" disabled aria-label={nome} title="Abra um ciclo para acessar esta etapa">
+        {conteudo}
+      </button>
+    );
+  }
+
+  return (
+    <Link className="barra-lateral_item" to={destino} aria-label={nome} aria-current={ativo ? "page" : undefined}>
+      {conteudo}
+    </Link>
+  );
+}
+
+export function Sidebar() {
+  const { pathname } = useLocation();
+  const { cicloId: cicloIdParametro } = useParams<{ cicloId: string }>();
+  const cicloId = lerIdRotaPositivo(cicloIdParametro);
+  const estaEmPlano = pathname.includes("/plan");
+  const estaEmChecar = pathname === "/check" || /^\/do\/ciclo\/\d+\/check(?:\/|$)/.test(pathname);
+  const estaEmAgir = pathname === "/act" || /^\/do\/ciclo\/\d+\/act(?:\/|$)/.test(pathname);
+  const estaEmFazer = pathname === "/do" || (
+    /^\/do\/ciclo\/\d+(?:\/|$)/.test(pathname) && !/\/(?:plan|check|act)(?:\/|$)/.test(pathname)
+  );
+  const estaEmInicio = pathname === "/";
+  const estaEmPerfil = pathname.startsWith("/perfil");
+  const estaEmCato = pathname.startsWith("/cato");
+  const rotaAgir = cicloId ? `/do/ciclo/${cicloId}/act` : "/act";
+
+  return (
+    <aside className="barra-lateral sidebar" aria-label="Navegação principal">
+      <nav className="barra-lateral_navegacao" aria-label="Etapas do ACTA">
+        <ItemSidebar nome="Início" destino="/" ativo={estaEmInicio} imagemAtiva={inicioSelecionado} imagemInativa={inicioInativo} />
+        <ItemSidebar nome="Plano" destino="/plan/ciclos" ativo={estaEmPlano} imagemAtiva={planoSelecionado} imagemInativa={planoInativo} />
+        <ItemSidebar nome="Fazer" destino="/do" ativo={estaEmFazer} imagemAtiva={fazerSelecionado} imagemInativa={fazerInativo} />
+        <ItemSidebar nome="Checar" destino="/check" ativo={estaEmChecar} imagemAtiva={checarSelecionado} imagemInativa={checarInativo} />
+        <ItemSidebar nome="Agir" destino={rotaAgir} ativo={estaEmAgir} imagemAtiva={agirSelecionado} imagemInativa={agirInativo} />
+      </nav>
+
+      <Link className="barra-lateral_item barra-lateral_perfil" to="/perfil" aria-label="Perfil" aria-current={estaEmPerfil ? "page" : undefined}>
+        <img className="sidebar__arte sidebar__arte--perfil" src={estaEmPerfil ? perfilSelecionado : perfilInativo} alt="" />
+      </Link>
+
+      <nav className="sidebar_atalhos" aria-label="Acesso rápido">
+        <button type="button" disabled title="Notificações ainda não possui página"><img src={iconeNotificacoes} alt="" /><span>Notificações</span></button>
+        <Link to="/relatorios" aria-current={pathname === "/relatorios" ? "page" : undefined}><img src={iconeRelatorios} alt="" /><span>Relatórios</span></Link>
+        <Link to="/ciclos" aria-current={pathname === "/ciclos" ? "page" : undefined}><img src={iconeCiclos} alt="" /><span>Ciclos</span></Link>
+        <Link to="/cato" aria-current={estaEmCato ? "page" : undefined}><img src={iconeCato} alt="" /><span>Cato</span></Link>
+      </nav>
+    </aside>
+  );
+}

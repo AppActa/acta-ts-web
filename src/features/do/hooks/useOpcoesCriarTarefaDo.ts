@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { listarPlanosPorCicloPg, listarUsuariosDaEmpresaPg, listarUsuariosDoCicloPg } from "../../../services/api/pg/dashboard.read.api";
-import type { PlanoOpcaoCriarTarefaDo, ResponsavelOpcaoCriarTarefaDo } from "../components/FormularioCriarTarefaDo";
+import type { PlanoOpcaoCriarTarefaDo, ResponsavelOpcaoCriarTarefaDo } from "../../../components/do/FormularioCriarTarefaDo";
 
 type Opcoes = { planos: readonly PlanoOpcaoCriarTarefaDo[]; responsaveis: readonly ResponsavelOpcaoCriarTarefaDo[] };
 type Snapshot = { chave: string | null; estado: "carregando" | "erro" | "sucesso"; dados: Opcoes | null };
