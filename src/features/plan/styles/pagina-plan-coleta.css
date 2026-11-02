@@ -1,4 +1,18 @@
 .pagina-plan-coleta .painel-ciclo-plan-do_abas { margin-bottom: 36px; }
+.plan-coleta-conteudo { color: #253132; font-family: "Plus Jakarta Sans", "Segoe UI", sans-serif; }
+.plan-coleta_link-voltar { color: #087c86; font-size: 14px; text-decoration: none; }
+.plan-coleta-conteudo h2 { margin: 16px 0 4px; font-size: 24px; }
+.plan-coleta_subtitulo { margin: 0 0 26px; color: #66707a; font-size: 14px; }
+.plan-coleta_colunas { display: grid; grid-template-columns: minmax(0, 740fr) minmax(0, 418fr); gap: 24px; align-items: start; }
+.plan-coleta_painel { min-width: 0; min-height: 180px; padding: 24px; border-radius: 18px; background: #fff; }
+.plan-coleta_painel h3 { margin: 0 0 16px; font-size: 20px; }
+.plan-coleta_painel p { color: #66707a; font-size: 14px; line-height: 1.5; }
+.plan-coleta_painel .plan-coleta_total { margin: 0; color: #48b3c6; font-size: 24px; font-weight: 700; }
+.plan-coleta_acao { box-sizing: border-box; display: grid; min-height: 40px; margin-top: 12px; border: 0; border-radius: 10px; padding: 0 18px; place-items: center; background: #48b3c6; color: #fff; font: inherit; font-size: 14px; text-align: center; text-decoration: none; }
+.plan-coleta_acompanhamento .plan-coleta_acao { width: 100%; }
+.plan-coleta_acao:disabled { opacity: .65; cursor: not-allowed; }
+.plan-coleta_acao-secundaria { background: #7acfd4; color: #253132; }
+@media (max-width: 760px) { .plan-coleta_colunas { grid-template-columns: 1fr; } }
 .plan-coleta-conteudo { padding: 0 41px 40px; }
 .plan-coleta_titulo-linha { display: flex; align-items: center; gap: 13px; margin-bottom: 53px; }
 .plan-coleta_titulo-linha h2 { margin: 0; color: #141c29; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 24px; font-weight: 700; }

@@ -1,0 +1,108 @@
+@font-face {
+  font-family: "Act Overview Jakarta";
+  src: url("../../../styles/fonts/plus-jakarta-600.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Act Overview Jakarta";
+  src: url("../../../styles/fonts/plus-jakarta-700.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+.act-todos-ciclos {
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: 119px minmax(0, 1fr);
+  background: #202020;
+  color: #253132;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+.act-todos-ciclos > .sidebar { z-index: 21; }
+.act-todos-ciclos_painel { min-width: 0; min-height: calc(100vh - 58px); margin: 29px 27px 29px 0; overflow: hidden; border-radius: 20px; background: #f6f6f6; }
+.act-todos-ciclos_conteudo { min-width: 0; padding: 35px 43px 30px 40px; }
+.act-todos-ciclos_cabecalho { min-height: 87px; padding-left: 62px; padding-right: 290px; }
+.act-todos-ciclos_cabecalho h1 { margin: 0; color: #1f1f1f; font-size: 36px; font-weight: 600; letter-spacing: -.035em; line-height: 1.2; }
+.act-todos-ciclos_cabecalho p { margin: 4px 0 21px; color: #007f87; font-size: 12px; line-height: 1.5; }
+.act-todos-ciclos_metricas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.act-todos-ciclos_metrica,
+.act-todos-ciclos_grafico,
+.act-todos-ciclos_tabela-secao,
+.act-todos-ciclos_estado { min-width: 0; border-radius: 20px; background: #fff; box-shadow: 0 2px 12px rgb(0 0 0 / 4%); }
+.act-todos-ciclos_metrica { min-height: 84px; padding: 14px 15px 12px; }
+.act-todos-ciclos_metrica h2 { margin: 0 0 3px; color: #626970; font-size: 9px; font-weight: 400; line-height: 14px; text-transform: uppercase; }
+.act-todos-ciclos_metrica p { display: flex; align-items: center; gap: 14px; margin: 0; }
+.act-todos-ciclos_metrica strong { min-width: 48px; color: #078890; font: 700 24px/32px "Act Overview Jakarta", sans-serif; }
+.act-todos-ciclos_metrica-padroes strong { color: #078890; }
+.act-todos-ciclos_metrica-acoes strong { color: #00bac5; }
+.act-todos-ciclos_metrica-ciclos strong { color: #eba331; }
+.act-todos-ciclos_metrica p span { min-width: 0; color: #52666a; font-size: 11px; line-height: 1.5; }
+.act-todos-ciclos_graficos { display: grid; grid-template-columns: minmax(0, 733fr) minmax(0, 458fr); gap: 19px; margin-top: 18px; }
+.act-todos-ciclos_grafico { min-height: 360px; padding: 22px 24px 18px; }
+.act-todos-ciclos_grafico header h2 { margin: 0; font: 700 18px/1.4 "Act Overview Jakarta", sans-serif; }
+.act-todos-ciclos_grafico header p { margin: 7px 0 0; color: #52666a; font-size: 12px; line-height: 1.5; }
+.act-todos-ciclos_barras { display: grid; gap: 16px; margin: 30px 0 0; padding: 0; list-style: none; }
+.act-todos-ciclos_barras li { display: grid; min-width: 0; grid-template-columns: 180px minmax(0, 1fr) 18px; align-items: center; gap: 14px; color: #253132; font-size: 12px; }
+.act-todos-ciclos_barras li > span { overflow: hidden; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.act-todos-ciclos_barras li > div { min-width: 0; height: 23px; border-left: 1px solid #e3ebec; background: repeating-linear-gradient(to right, transparent 0 calc(25% - .5px), #e3ebec calc(25% - .5px) calc(25% + .5px), transparent calc(25% + .5px)); }
+.act-todos-ciclos_barras li i { display: grid; min-width: 24px; height: 23px; place-items: center; border-radius: 3px; background: #007f75; color: #fff; font: 700 11px/1 "Act Overview Jakarta", sans-serif; font-style: normal; }
+.act-todos-ciclos_barras li > strong { font: 700 12px/1 "Act Overview Jakarta", sans-serif; }
+.act-todos-ciclos_legenda { display: flex; align-items: center; gap: 6px; margin: 58px 0 0; color: #52666a; font-size: 11px; }
+.act-todos-ciclos_legenda i { width: 9px; height: 9px; border-radius: 3px; background: #007f75; }
+.act-todos-ciclos_nota { margin: 12px 0 0; color: #52666a; font-size: 10px; line-height: 1.5; }
+.act-todos-ciclos_treinamentos { display: flex; flex-direction: column; }
+.act-todos-ciclos_mensagem { display: grid; min-height: 170px; flex: 1; place-items: center; margin: 16px 0 0; color: #626970; font-size: 13px; line-height: 1.6; text-align: center; }
+.act-todos-ciclos_tabela-secao { min-height: 304px; margin-top: 18px; padding: 16px 10px 18px; }
+.act-todos-ciclos_tabela-secao > h2 { margin: 0 6px 9px; font: 600 14px/1.5 "Act Overview Jakarta", sans-serif; }
+.act-todos-ciclos_tabela-rolagem { max-width: 100%; overflow-x: auto; border-radius: 16px; }
+.act-todos-ciclos_tabela-rolagem table { width: 100%; min-width: 700px; border-collapse: separate; border-spacing: 0 7px; table-layout: fixed; }
+.act-todos-ciclos_tabela-rolagem th,
+.act-todos-ciclos_tabela-rolagem td { padding: 12px; text-align: left; overflow-wrap: anywhere; }
+.act-todos-ciclos_tabela-rolagem thead th { padding-block: 0 8px; color: #626970; font-size: 9px; font-weight: 400; text-transform: uppercase; }
+.act-todos-ciclos_tabela-rolagem th:first-child { width: 28%; }
+.act-todos-ciclos_tabela-rolagem th:nth-child(2) { width: 15%; }
+.act-todos-ciclos_tabela-rolagem th:nth-child(3) { width: 16%; }
+.act-todos-ciclos_tabela-rolagem th:nth-child(4) { width: 15%; }
+.act-todos-ciclos_tabela-rolagem th:nth-child(5) { width: 26%; }
+.act-todos-ciclos_tabela-rolagem tbody tr { background: #fff; box-shadow: 0 0 10px rgb(0 0 0 / 4%); }
+.act-todos-ciclos_tabela-rolagem tbody th { height: 47px; border-radius: 18px 0 0 18px; color: #253132; font-size: 11px; font-weight: 600; }
+.act-todos-ciclos_tabela-rolagem tbody th a { color: inherit; text-decoration: none; }
+.act-todos-ciclos_tabela-rolagem tbody th a:hover { color: #007f87; }
+.act-todos-ciclos_tabela-rolagem tbody td { color: #626970; font-size: 10px; line-height: 1.5; }
+.act-todos-ciclos_tabela-rolagem tbody td:last-child { border-radius: 0 18px 18px 0; }
+.act-todos-ciclos_estado { margin: 20px 0 0; padding: 28px; }
+.act-todos-ciclos_estado h2 { margin: 0 0 12px; font-size: 20px; }
+.act-todos-ciclos_estado p { margin: 0; color: #52666a; font-size: 14px; line-height: 1.6; }
+.act-todos-ciclos :focus-visible { outline: 3px solid #087f79; outline-offset: 2px; }
+
+@media (max-width: 1250px) {
+  .act-todos-ciclos_conteudo { padding-inline: 24px; }
+  .act-todos-ciclos_cabecalho { min-height: 110px; padding-left: 20px; padding-right: 290px; }
+  .act-todos-ciclos_cabecalho h1 { font-size: 30px; }
+  .act-todos-ciclos_metricas { gap: 14px; }
+  .act-todos-ciclos_graficos { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 850px) {
+  .act-todos-ciclos { display: block; height: 100dvh; min-height: 0; overflow-y: auto; padding-bottom: 72px; }
+  .act-todos-ciclos > .sidebar { position: fixed; z-index: 21; right: 0; bottom: 0; left: 0; width: 100%; height: 72px; min-height: 0; flex-direction: row; padding: 7px 10px; background: #202020; }
+  .act-todos-ciclos .barra-lateral_navegacao { display: flex; width: 100%; justify-content: space-around; gap: 2px; }
+  .act-todos-ciclos .barra-lateral_item { width: 58px; gap: 3px; font-size: 11px; }
+  .act-todos-ciclos .sidebar__arte { max-width: 40px; max-height: 54px; }
+  .act-todos-ciclos .barra-lateral_perfil { display: none; }
+  .act-todos-ciclos_painel { min-height: calc(100vh - 72px); margin: 0; border-radius: 0; }
+  .act-todos-ciclos_conteudo { padding: 140px 18px 28px; }
+  .act-todos-ciclos_cabecalho { min-height: 0; padding: 0; }
+  .act-todos-ciclos_metricas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .act-todos-ciclos_conteudo { padding-top: 24px; }
+  .act-todos-ciclos_painel { overflow: visible; }
+}
+@media (max-width: 560px) {
+  .act-todos-ciclos_conteudo { padding-inline: 12px; }
+  .act-todos-ciclos_cabecalho h1 { font-size: 26px; }
+  .act-todos-ciclos_metricas { grid-template-columns: minmax(0, 1fr); }
+  .act-todos-ciclos_grafico { padding: 22px 16px; }
+  .act-todos-ciclos_barras li { grid-template-columns: 96px minmax(0, 1fr) 18px; gap: 8px; }
+}

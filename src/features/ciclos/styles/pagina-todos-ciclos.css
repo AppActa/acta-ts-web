@@ -15,8 +15,13 @@
 }
 
 .pagina-todos-ciclos .web-listas_cabecalho {
+  z-index: 0;
   height: 96px;
-  background: linear-gradient(100deg, #50cdd3, #75dadd 48%, #4eb9c7);
+  background: transparent;
+}
+
+.pagina-todos-ciclos > .barra-lateral {
+  z-index: 21;
 }
 
 .pagina-todos-ciclos .web-listas_cabecalho::before {
@@ -31,7 +36,7 @@
 .pagina-todos-ciclos .web-listas_titulo > a {
   position: relative;
   flex: none;
-  background: none;
+  background: #fff;
 }
 
 .pagina-todos-ciclos .web-listas_titulo > a img:first-child {
@@ -45,6 +50,7 @@
   left: 1px;
   width: 53px;
   height: 53px;
+  filter: brightness(0) invert(1);
 }
 
 .pagina-todos-ciclos .web-listas_titulo h1 {
@@ -82,6 +88,56 @@
   padding: 47px 58px 50px 38px;
   font-family: "Plus Jakarta Sans", Arial, sans-serif;
 }
+
+.lista-ciclos_conteudo--vazio {
+  display: grid;
+  min-height: calc(100% - 96px);
+  place-items: center;
+  padding: 24px;
+}
+
+.lista-ciclos_primeiro-ciclo {
+  display: flex;
+  max-width: 660px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.lista-ciclos_primeiro-ciclo > img {
+  display: block;
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+}
+
+.lista-ciclos_primeiro-ciclo h2 {
+  margin: 18px 0 16px;
+  color: #273538;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.lista-ciclos_primeiro-ciclo p {
+  margin: 0 0 26px;
+  color: #66707a;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.lista-ciclos_primeiro-ciclo button {
+  width: 300px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 10px;
+  background: #48b5c5;
+  box-shadow: 0 7px 20px rgb(72 181 197 / 28%);
+  color: #fff;
+  font: 600 14px "Plus Jakarta Sans", Arial, sans-serif;
+}
+
+.lista-ciclos_primeiro-ciclo button:disabled { cursor: default; }
 
 .lista-ciclos_filtros {
   display: flex;
@@ -148,18 +204,18 @@
 
 .lista-ciclos_item {
   display: grid;
-  min-height: 124px;
-  grid-template-columns: 44px minmax(0, 1fr) 170px 104px 36px;
+  min-height: 142px;
+  grid-template-columns: 50px minmax(0, 1fr) 143px 195px 120px 42px;
   align-items: center;
-  gap: 14px;
-  border-radius: 14px;
-  padding: 14px 15px 14px 17px;
+  gap: 18px;
+  border-radius: 16px;
+  padding: 20px;
   background: #fff;
 }
 
 .lista-ciclos_icone {
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   border-radius: 10px;
 }
 
@@ -172,17 +228,9 @@
 .lista-ciclos_identificacao {
   display: grid;
   min-width: 0;
-  height: 52px;
+  min-height: 52px;
   align-content: start;
-  gap: 5px;
-}
-
-.lista-ciclos_titulo_linha {
-  display: grid;
-  height: 24px;
-  grid-template-columns: minmax(0, 600px) 128px;
-  align-items: center;
-  gap: 10px;
+  gap: 4px;
 }
 
 .lista-ciclos_identificacao h2 {
@@ -210,10 +258,11 @@
 
 .lista-ciclos_estado {
   display: grid;
-  width: 128px;
-  height: 24px;
+  width: 143px;
+  height: 28px;
   place-items: center;
   border-radius: 12px;
+  background: #e0f2f7;
   color: #056196;
   font-size: 11px;
   font-weight: 600;
@@ -225,7 +274,8 @@
 
 .lista-ciclos_progresso {
   display: grid;
-  height: 42px;
+  min-width: 0;
+  height: 43px;
   align-content: start;
   gap: 8px;
   color: #141c29;
@@ -240,7 +290,7 @@
 
 .lista-ciclos_progresso > span {
   display: block;
-  width: 170px;
+  width: 100%;
   height: 6px;
   overflow: hidden;
   border-radius: 3px;
@@ -260,8 +310,8 @@
 
 .lista-ciclos_abrir {
   display: grid;
-  width: 104px;
-  height: 38px;
+  width: 120px;
+  height: 44px;
   place-items: center;
   border-radius: 20px;
   box-shadow: 0 0 10px rgb(10 194 202 / 10%);
@@ -273,8 +323,8 @@
 }
 
 .lista-ciclos_mais {
-  width: 36px;
-  height: 38px;
+  width: 42px;
+  height: 44px;
   border: 0;
   border-radius: 10px;
   background: #f7fafb;
@@ -292,9 +342,11 @@
 
 @media (max-width: 1250px) {
   .lista-ciclos_conteudo { padding-right: 26px; padding-left: 26px; }
-  .lista-ciclos_item { grid-template-columns: 44px minmax(0, 1fr) 140px 104px 36px; }
-  .lista-ciclos_titulo_linha { grid-template-columns: minmax(0, 1fr) 128px; }
-  .lista-ciclos_progresso > span { width: 140px; }
+  .lista-ciclos_item { grid-template-columns: 44px minmax(0, 1fr) 128px 150px 104px 36px; gap: 12px; padding: 18px; }
+  .lista-ciclos_icone { width: 44px; height: 44px; }
+  .lista-ciclos_estado { width: 128px; }
+  .lista-ciclos_abrir { width: 104px; }
+  .lista-ciclos_mais { width: 36px; }
 }
 
 @media (max-width: 850px) {
@@ -307,14 +359,26 @@
   .pagina-todos-ciclos .web-listas_titulo > button { position: static; width: auto; height: 32px; margin-left: auto; padding: 0 10px; font-size: 11px; }
   .pagina-todos-ciclos .web-listas_titulo > button img { width: 18px; height: 18px; }
   .lista-ciclos_conteudo { padding: 18px 14px 24px; }
+  .lista-ciclos_conteudo--vazio { min-height: calc(100vh - 190px); padding: 24px 18px; }
+  .lista-ciclos_primeiro-ciclo > img { width: 120px; height: 120px; }
+  .lista-ciclos_primeiro-ciclo h2 { margin: 14px 0 12px; font-size: 20px; }
+  .lista-ciclos_primeiro-ciclo p { font-size: 14px; }
+  .lista-ciclos_quebra-descricao { display: none; }
+  .lista-ciclos_primeiro-ciclo button { width: min(300px, 100%); }
   .lista-ciclos_filtros { height: auto; align-items: stretch; flex-direction: column; margin: 0 0 18px; }
   .lista-ciclos_busca { width: 100%; }
   .lista-ciclos_tabs { overflow-x: auto; }
-  .lista-ciclos_item { grid-template-columns: 44px minmax(0, 1fr) 104px; gap: 10px; padding: 14px; }
-  .lista-ciclos_identificacao { height: auto; }
-  .lista-ciclos_titulo_linha { height: auto; grid-template-columns: 1fr; gap: 4px; }
-  .lista-ciclos_estado { width: 105px; height: 21px; font-size: 10px; }
-  .lista-ciclos_progresso { grid-column: 2; grid-row: 2; height: auto; }
-  .lista-ciclos_abrir { grid-column: 3; grid-row: 1 / 3; }
+  .lista-ciclos_item {
+    min-height: 0;
+    grid-template-columns: 44px minmax(0, 1fr) 104px;
+    grid-template-areas: "icone identificacao identificacao" "icone estado abrir" "progresso progresso progresso";
+    gap: 10px;
+    padding: 14px;
+  }
+  .lista-ciclos_icone { grid-area: icone; width: 44px; height: 44px; }
+  .lista-ciclos_identificacao { grid-area: identificacao; min-height: 0; }
+  .lista-ciclos_estado { grid-area: estado; width: 100%; height: 24px; font-size: 10px; }
+  .lista-ciclos_progresso { grid-area: progresso; width: 100%; height: auto; }
+  .lista-ciclos_abrir { grid-area: abrir; width: 104px; height: 36px; }
   .lista-ciclos_mais { display: none; }
 }

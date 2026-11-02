@@ -1,0 +1,281 @@
+.pagina-plan-problemas-registrados .plan-problemas-registrados_conteudo {
+  min-width: 0;
+  padding: 0 43px 40px 37px;
+  color: #253132;
+  font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif;
+  overflow-wrap: anywhere;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_cabecalho {
+  display: flex;
+  min-width: 0;
+  min-height: 46px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  margin-bottom: 18px;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_titulo-linha {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 400px;
+  align-items: center;
+  gap: 13px;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_titulo-linha h2 {
+  min-width: 0;
+  margin: 0;
+  color: #141c29;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_voltar {
+  position: relative;
+  display: block;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  border-radius: 50%;
+  text-decoration: none;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_voltar img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: none;
+  transform: scale(0.75409836);
+  transform-origin: top left;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_voltar img + img {
+  top: 4px;
+  left: 0.75px;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_criar {
+  box-sizing: border-box;
+  display: inline-flex;
+  width: 156px;
+  max-width: 100%;
+  min-height: 44px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 0;
+  border-radius: 100px;
+  padding: 8px 12px;
+  background: #0ac2ca;
+  color: #172033;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_criar img {
+  flex: 0 0 auto;
+  max-width: none;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_criar span {
+  min-width: 0;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_busca {
+  min-width: 0;
+  margin-left: 2px;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_busca input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  border: 1px solid #737d86;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fff;
+  color: #253132;
+  font: inherit;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_busca input::placeholder {
+  color: #66707a;
+  opacity: 1;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_lista {
+  display: grid;
+  min-width: 0;
+  gap: 17px;
+  margin: 20px 2px 0 4px;
+  padding: 0;
+  list-style: none;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_item {
+  min-width: 0;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_cartao {
+  box-sizing: border-box;
+  display: grid;
+  min-width: 0;
+  min-height: 135px;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  align-items: start;
+  gap: 24px;
+  border-radius: 18px;
+  padding: 22px 20px 14px 24px;
+  background: #fff;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_detalhes {
+  min-width: 0;
+  max-width: 940px;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_detalhes h3 {
+  margin: 0;
+  color: #253132;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_link { color: inherit; text-decoration: none; }
+.pagina-plan-problemas-registrados .plan-problemas-registrados_link:hover { color: #087c86; text-decoration: underline; }
+.pagina-plan-problemas-registrados .plan-problemas-registrados_link:focus-visible { outline: 3px solid #025a8a; outline-offset: 3px; }
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_descricao {
+  margin: 8px 0 0;
+  color: #66707a;
+  font-size: 14px;
+  line-height: 20px;
+  white-space: pre-wrap;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_metadados {
+  margin: 6px 0 0;
+  color: #025a8a;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_subproblemas {
+  display: grid;
+  gap: 4px;
+  margin: 5px 0 0;
+  padding: 0;
+  color: #66707a;
+  font-size: 12px;
+  line-height: 18px;
+  list-style: none;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_sem-subproblemas {
+  margin: 5px 0 0;
+  color: #66707a;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_menu {
+  box-sizing: border-box;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 10px;
+  padding: 0;
+  background: #f6f9fa;
+  color: #465361;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_menu:disabled,
+.pagina-plan-problemas-registrados .plan-problemas-registrados_criar:disabled {
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_voltar:focus-visible,
+.pagina-plan-problemas-registrados .plan-problemas-registrados_criar:focus-visible,
+.pagina-plan-problemas-registrados .plan-problemas-registrados_busca input:focus-visible,
+.pagina-plan-problemas-registrados .plan-problemas-registrados_menu:focus-visible,
+.pagina-plan-problemas-registrados .plan-identificacao_adicionar:focus-visible {
+  outline: 3px solid #025a8a;
+  outline-offset: 4px;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_estado,
+.pagina-plan-problemas-registrados .plan-problemas-registrados_vazio {
+  min-width: 0;
+  margin: 20px 0;
+  border: 1px solid #d2dce2;
+  border-radius: 12px;
+  padding: 16px 20px;
+  background: #fff;
+  color: #465361;
+  font-size: 14px;
+  line-height: 22px;
+  overflow-wrap: anywhere;
+}
+
+.pagina-plan-problemas-registrados .plan-problemas-registrados_estado[data-estado="erro"] {
+  border-color: #d4a7ae;
+  background: #fff4f5;
+  color: #922337;
+}
+
+.pagina-plan-problemas-registrados .plan-identificacao_adicionar {
+  box-sizing: border-box;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  color: #172033;
+  text-align: center;
+  text-decoration: none;
+}
+
+@media (max-width: 1080px) {
+  .pagina-plan-problemas-registrados .plan-problemas-registrados_conteudo {
+    padding-right: 28px;
+    padding-left: 28px;
+  }
+}
+
+@media (max-width: 760px) {
+  .pagina-plan-problemas-registrados .plan-problemas-registrados_conteudo {
+    padding: 0 14px 32px;
+  }
+
+  .pagina-plan-problemas-registrados .plan-problemas-registrados_titulo-linha h2 {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  .pagina-plan-problemas-registrados .plan-problemas-registrados_cartao {
+    gap: 12px;
+    padding: 18px 16px;
+  }
+
+  .pagina-plan-problemas-registrados .plan-problemas-registrados_lista {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .pagina-plan-problemas-registrados .plan-problemas-registrados_busca {
+    margin-left: 0;
+  }
+}

@@ -1,40 +1,54 @@
 import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
-import "../../perfil/styles/pagina-perfil.css";
+import { useCicloDaConta, rotuloStatusCiclo } from "../../ciclo/hooks/useCicloDaConta";
+import { AvisoDadosDemonstrativos } from "../../layout/components/AvisoDadosDemonstrativos";
 import "../styles/pagina-ciclo-do-treinamentos.css";
 
 type StatusFiltro = "todos" | "andamento" | "concluidos";
 type Treinamento = { id: string; titulo: string; responsavel: string; data: string; material: string; status: Exclude<StatusFiltro, "todos"> };
 
-export const treinamentosDoCiclo: Treinamento[] = [
-  { id: "conferencia-dupla", titulo: "Conferência dupla de pedidos", responsavel: "Camila Souza", data: "15 out", material: "procedimento.pdf", status: "andamento" },
-  { id: "separacao-sku", titulo: "Separação por código e SKU", responsavel: "Diego Martins", data: "18 out", material: "guia-codigos-sku.pdf", status: "andamento" },
-  { id: "pedidos-frageis", titulo: "Identificação de pedidos frágeis", responsavel: "Camila Souza", data: "20 out", material: "embalagem-segura.pdf", status: "andamento" },
-  { id: "divergencias", titulo: "Registro imediato de divergências", responsavel: "Rafael Costa", data: "22 out", material: "registro-divergencias.pdf", status: "andamento" },
-  { id: "conferencia-final", titulo: "Conferência final por pedido", responsavel: "Ana Martins", data: "24 out", material: "procedimento-conferencia-final.pdf", status: "concluidos" },
-];
+// A API de treinamentos ainda não está integrada; não apresentar dados de exemplo como dados do ciclo.
+export const treinamentosDoCiclo: Treinamento[] = [];
 
 function AbasTreinamentos({ cicloId }: { cicloId: string | undefined }) {
   return (
     <nav className="treinamentos_abas" aria-label="Etapas do ciclo">
-      <Link to={`/do/ciclo/${cicloId}/visao-geral`} className="treinamentos_aba treinamentos_aba-visao"><span>⟳</span>Visão geral</Link>
-      <Link to={`/do/ciclo/${cicloId}/plan`} className="treinamentos_aba treinamentos_aba-plan"><span>▣</span>Plan</Link>
-      <Link to={`/do/ciclo/${cicloId}/tarefas`} aria-current="page" className="treinamentos_aba treinamentos_aba-do"><span>▷</span>Do</Link>
-      <button type="button" className="treinamentos_aba treinamentos_aba-check" disabled><span>✓</span>Checar</button>
-      <button type="button" className="treinamentos_aba treinamentos_aba-act" disabled><span>✧</span>Agir</button>
+      <Link to={`/do/ciclo/${cicloId}/visao-geral`} className="treinamentos_aba treinamentos_aba-visao"><span aria-hidden="true">{/* # colocar imagem */}</span>Visão geral</Link>
+      <Link to={`/do/ciclo/${cicloId}/plan`} className="treinamentos_aba treinamentos_aba-plan"><span aria-hidden="true">{/* # colocar imagem */}</span>Plan</Link>
+      <Link to={`/do/ciclo/${cicloId}/tarefas`} aria-current="page" className="treinamentos_aba treinamentos_aba-do"><span aria-hidden="true">{/* # colocar imagem */}</span>Do</Link>
+      <Link to={`/do/ciclo/${cicloId}/check`} className="treinamentos_aba treinamentos_aba-check">Checar</Link>
+      <Link to={`/do/ciclo/${cicloId}/act`} className="treinamentos_aba treinamentos_aba-act">Agir</Link>
     </nav>
   );
 }
 
 export function PaginaCicloDoTreinamentos() {
   const { cicloId } = useParams();
+  const resultadoCiclo = useCicloDaConta(cicloId);
   const [busca, setBusca] = useState("");
-  const [filtro, setFiltro] = useState<StatusFiltro>("todos");
+  const [filtro] = useState<StatusFiltro>("todos");
   const listaVisivel = useMemo(() => treinamentosDoCiclo.filter((item) => {
     const correspondeTexto = `${item.titulo} ${item.responsavel} ${item.material}`.toLocaleLowerCase("pt-BR").includes(busca.toLocaleLowerCase("pt-BR"));
     return correspondeTexto && (filtro === "todos" || item.status === filtro);
   }), [busca, filtro]);
+
+  if (resultadoCiclo.estado !== "sucesso") {
+    const carregando = resultadoCiclo.estado === "carregando";
+    const naoEncontrado = resultadoCiclo.estado === "nao-encontrado";
+    return (
+      <main className="pagina-treinamentos">
+        <Sidebar />
+        <div className="treinamentos_painel">
+          <section className="treinamentos_estado" role={carregando ? "status" : "alert"} aria-live="polite">
+            <h1>{carregando ? "Carregando ciclo" : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
+            {!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}
+          </section>
+        </div>
+      </main>
+    );
+  }
+  const ciclo = resultadoCiclo.ciclo;
 
   return (
     <main className="pagina-treinamentos">
@@ -42,33 +56,34 @@ export function PaginaCicloDoTreinamentos() {
       <div className="treinamentos_painel">
         <header className="treinamentos_cabecalho">
           <div className="treinamentos_icone" aria-hidden="true" />
-          <div><h1>Redução do tempo de atendimento</h1><span className="treinamentos_status">Status: Do</span><p><span>Responsável pelo ciclo:</span> Catarina Cândido</p><p><span>Iniciado em:</span> 26/05/2026</p><p><span>Prazo final:</span> 30/10/2026</p></div>
+          <div><h1>{ciclo.titulo}</h1><span className="treinamentos_status">Status: {rotuloStatusCiclo(ciclo.status)}</span><p><span>Responsável pelo ciclo:</span> Não informado</p><p><span>Iniciado em:</span> {ciclo.dataInicio ?? "Não informado"}</p><p><span>Prazo final:</span> {ciclo.dataEstimadaFim ?? "Não informado"}</p></div>
         </header>
         <AbasTreinamentos cicloId={cicloId} />
+        <AvisoDadosDemonstrativos mensagem="A consulta de treinamentos ainda não está disponível." />
         <div className="treinamentos_conteudo">
           <div className="treinamentos_titulo_linha">
             <Link to={`/do/ciclo/${cicloId}/tarefas`} className="treinamentos_voltar" aria-label="Voltar às tarefas">‹</Link>
             <h2>Treinamentos</h2>
-            <Link to={`/do/ciclo/${cicloId}/treinamentos/criar`} className="treinamentos_criar"><span>＋</span>Criar novo</Link>
+            <Link to={`/do/ciclo/${cicloId}/treinamentos/criar`} className="treinamentos_criar"><span aria-hidden="true">+</span>Criar novo</Link>
           </div>
           <div className="treinamentos_filtros">
             <label className="treinamentos_busca"><span className="visually-hidden">Buscar treinamento</span><input value={busca} onChange={(event) => setBusca(event.target.value)} placeholder="Buscar treinamento" /></label>
             <div className="treinamentos_tabs" aria-label="Filtrar treinamentos">
-              <button type="button" aria-pressed={filtro === "todos"} onClick={() => setFiltro("todos")}>Todos (5)</button>
-              <button type="button" aria-pressed={filtro === "andamento"} onClick={() => setFiltro("andamento")}>Em andamento (4)</button>
-              <button type="button" aria-pressed={filtro === "concluidos"} onClick={() => setFiltro("concluidos")}>Concluídos (1)</button>
+              <button type="button" disabled>Todos</button>
+              <button type="button" disabled>Em andamento</button>
+              <button type="button" disabled>Concluídos</button>
             </div>
           </div>
           {listaVisivel.length > 0 ? (
             <div className="treinamentos_lista">
               {listaVisivel.map((treinamento) => (
                 <Link className="treinamento_card" key={treinamento.id} to={`/do/ciclo/${cicloId}/treinamentos/${treinamento.id}`} aria-label={`Ver treinamento ${treinamento.titulo}`}>
-                  <div className="treinamento_cartao_topo"><span className="treinamento_cartao_icone" aria-hidden="true" /><span className="treinamento_baixar_material" aria-label={`Material ${treinamento.material}`}>↓&nbsp; Baixar material</span></div>
+                  <div className="treinamento_cartao_topo"><span className="treinamento_cartao_icone" aria-hidden="true" /><span className="treinamento_baixar_material" aria-label={`Material ${treinamento.material}`}><span aria-hidden="true">{/* # colocar imagem */}</span>&nbsp; Baixar material</span></div>
                   <div className="treinamento_detalhes"><h3>{treinamento.titulo}</h3><p><strong>Responsável:</strong> {treinamento.responsavel} · {treinamento.data}</p><p><strong>Material:</strong> {treinamento.material}</p><p><strong>Ciclo:</strong> Reduzir retrabalho na separação</p></div>
                 </Link>
               ))}
             </div>
-          ) : <p className="treinamentos_vazio">Nenhum treinamento encontrado.</p>}
+          ) : <p className="treinamentos_vazio" role="status">Não é possível consultar os treinamentos deste ciclo no momento.</p>}
         </div>
       </div>
     </main>

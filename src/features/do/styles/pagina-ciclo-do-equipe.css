@@ -1,0 +1,319 @@
+.pagina-ciclo-do-equipe .ciclo-do-equipe_conteudo {
+  min-width: 0;
+  padding: 34px 47px 30px;
+  color: #141c29;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_titulo-linha {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 33px;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_titulo-linha h2 {
+  min-width: 0;
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_voltar {
+  position: relative;
+  display: block;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  border-radius: 50%;
+  text-decoration: none;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_voltar img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: none;
+  transform: scale(0.75409836);
+  transform-origin: top left;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_voltar img + img {
+  top: 4px;
+  left: 0.75px;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_paineis {
+  display: grid;
+  grid-template-columns: minmax(0, 790fr) minmax(0, 388fr);
+  align-items: start;
+  gap: 22px;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_pessoas,
+.pagina-ciclo-do-equipe .ciclo-do-equipe_convidar {
+  min-width: 0;
+  min-height: 550px;
+  border-radius: 14px;
+  padding: 16px 20px;
+  background: #fff;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_pessoas-cabecalho {
+  display: grid;
+  min-height: 68px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-content: start;
+  align-items: start;
+  column-gap: 12px;
+  row-gap: 3px;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_pessoas-cabecalho h3,
+.pagina-ciclo-do-equipe .ciclo-do-equipe_convidar h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_pessoas-cabecalho > span {
+  min-width: 112px;
+  max-width: 100%;
+  border-radius: 13px;
+  padding: 4px 7px;
+  background: #eaf5f7;
+  color: #056196;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_pessoas-cabecalho p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #66707a;
+  font-size: 12px;
+  line-height: 17px;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela thead th {
+  padding: 0 12px 14px 0;
+  color: #66707a;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+  vertical-align: top;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela thead th:nth-child(1) { width: 42.4%; }
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela thead th:nth-child(2) { width: 23.73%; }
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela thead th:nth-child(3) { width: 20.8%; }
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela thead th:nth-child(4) { width: 13.07%; }
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela tbody tr {
+  height: 76px;
+  border-bottom: 1px solid #dbe4e8;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela tbody tr:last-child {
+  height: 40px;
+  border-bottom: 0;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela tbody th,
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela tbody td {
+  padding: 0 12px 8px 0;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 22px;
+  vertical-align: top;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela tbody th {
+  font-weight: 600;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela tbody td:last-child {
+  padding-right: 0;
+  color: #66707a;
+  font-size: 12px;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela [data-estado] {
+  display: inline-block;
+  width: 90px;
+  max-width: 100%;
+  min-height: 26px;
+  border-radius: 13px;
+  padding: 4px 7px;
+  background: #eef1f4;
+  color: #465361;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela [data-estado="ativa"] {
+  background: #eaf7f1;
+  color: #1b704e;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela [data-estado="pendente"] {
+  background: #fff3e2;
+  color: #805300;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_tabela [data-estado="neutra"] {
+  background: #eef1f4;
+  color: #465361;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_vazio {
+  margin: 40px 0;
+  color: #66707a;
+  font-size: 13px;
+  line-height: 22px;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_convidar {
+  display: flex;
+  min-height: 551px;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_convidar h3 {
+  margin-bottom: 36px;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_convidar label {
+  color: #66707a;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_convidar input,
+.pagina-ciclo-do-equipe .ciclo-do-equipe_convidar select {
+  width: 100%;
+  min-width: 0;
+  min-height: 38px;
+  margin: 11px 0;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  padding: 8px 10px;
+  background: #fff;
+  color: #66707a;
+  -webkit-text-fill-color: #66707a;
+  font: inherit;
+  font-size: 12px;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_convidar select {
+  margin-bottom: 18px;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_convidar button {
+  width: min(344px, 100%);
+  min-height: 38px;
+  border: 0;
+  border-radius: 10px;
+  padding: 9px 12px;
+  background: #48b3c6;
+  box-shadow: 0 0 25px rgb(72 179 198 / 50%);
+  color: #172033;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 20px;
+  opacity: 1;
+  overflow-wrap: anywhere;
+  cursor: not-allowed;
+}
+
+.pagina-ciclo-do-equipe .ciclo-do-equipe_voltar:focus-visible,
+.pagina-ciclo-do-equipe .ciclo-do-equipe_convidar input:focus-visible,
+.pagina-ciclo-do-equipe .ciclo-do-equipe_convidar select:focus-visible,
+.pagina-ciclo-do-equipe .ciclo-do-equipe_convidar button:focus-visible {
+  outline: 3px solid #025a8a;
+  outline-offset: 4px;
+}
+
+@media (max-width: 1180px) {
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_conteudo {
+    padding-right: 28px;
+    padding-left: 28px;
+  }
+
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_paineis {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_convidar {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_conteudo {
+    padding: 24px 14px;
+  }
+
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_titulo-linha {
+    margin-bottom: 24px;
+  }
+
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_titulo-linha h2 {
+    font-size: 20px;
+  }
+
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_pessoas,
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_convidar {
+    padding: 16px 12px;
+  }
+
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_pessoas-cabecalho {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    padding-bottom: 20px;
+  }
+
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_pessoas-cabecalho > span {
+    justify-self: start;
+  }
+
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_tabela thead th,
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_tabela tbody th,
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_tabela tbody td {
+    padding-right: 6px;
+  }
+
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_tabela thead th:nth-child(1) { width: 30%; }
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_tabela thead th:nth-child(2) { width: 23%; }
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_tabela thead th:nth-child(3) { width: 25%; }
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_tabela thead th:nth-child(4) { width: 22%; }
+
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_convidar input,
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_convidar select,
+  .pagina-ciclo-do-equipe .ciclo-do-equipe_convidar button {
+    min-height: 44px;
+  }
+}

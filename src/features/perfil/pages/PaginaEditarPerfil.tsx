@@ -47,35 +47,35 @@ export function PaginaEditarPerfil() {
   }
 
   return (
-    <LayoutSimples><div className="pagina-editar-perfil">
-      <section className="cartao-editar-perfil" aria-labelledby="titulo-editar-perfil">
-        <div className="foto-editar-perfil">
-          <div className="foto-editar-perfil_recorte">
-            <img src={referenciaEditarPerfil} alt="Catarina Cândido" />
+    <LayoutSimples>
+      <div className="pagina-editar-perfil">
+        <section className="cartao-editar-perfil" aria-labelledby="titulo-editar-perfil">
+          <div className="foto-editar-perfil">
+            <div className="foto-editar-perfil_recorte">
+              <img src={referenciaEditarPerfil} alt="Foto de perfil de Catarina Cândido" />
+            </div>
+
+            <label className="botao-editar-foto" htmlFor="foto-perfil" title="Alterar foto do perfil">
+              <span className="texto-acessivel">Alterar foto do perfil</span>
+            </label>
+            <input className="entrada-foto-perfil" id="foto-perfil" name="foto-perfil" type="file" accept="image/*" />
           </div>
 
-          <label className="botao-editar-foto" htmlFor="foto-perfil" title="Alterar foto do perfil">
-            <span className="texto-acessivel">Alterar foto do perfil</span>
-          </label>
-          <input className="entrada-foto-perfil" id="foto-perfil" name="foto-perfil" type="file" accept="image/*" />
-        </div>
+          <FormularioEditarPerfil aoConcluir={concluirEdicao} />
+        </section>
 
-        <div>
-          <FormularioEditarPerfil aoConcluir={concluirEdicao} aoVoltar={() => navegar("/perfil")} />
-        </div>
-      </section>
+        {estadoModal === "sucesso" && (
+          <ModalEdicaoPerfil tipo="sucesso" aoConfirmar={concluirSucesso} />
+        )}
 
-      {estadoModal === "sucesso" && (
-        <ModalEdicaoPerfil tipo="sucesso" aoConfirmar={concluirSucesso} />
-      )}
-
-      {estadoModal === "confirmacao" && (
-        <ModalEdicaoPerfil
-          tipo="confirmacao"
-          aoConfirmar={confirmarSaida}
-          aoCancelar={cancelarSaida}
-        />
-      )}
-    </div></LayoutSimples>
+        {estadoModal === "confirmacao" && (
+          <ModalEdicaoPerfil
+            tipo="confirmacao"
+            aoConfirmar={confirmarSaida}
+            aoCancelar={cancelarSaida}
+          />
+        )}
+      </div>
+    </LayoutSimples>
   );
 }

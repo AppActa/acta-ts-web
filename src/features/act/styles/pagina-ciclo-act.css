@@ -1,0 +1,351 @@
+.pagina-ciclo-act .painel-ciclo-plan-do_icone,
+.pagina-ciclo-act .painel-ciclo-plan-do_titulo-linha > span {
+  background: #04a69e;
+}
+
+.pagina-ciclo-act .painel-ciclo-plan-do_titulo-linha {
+  flex-wrap: wrap;
+}
+
+.pagina-ciclo-act .painel-ciclo-plan-do_titulo-linha h1 {
+  font-size: 24px;
+  line-height: 31px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-act .painel-ciclo-plan-do_titulo-linha > span {
+  color: #172033;
+}
+
+.pagina-ciclo-act .painel-ciclo-plan-do_identificacao p {
+  color: #66707a;
+  font-size: 20px;
+  line-height: 24px;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-act .painel-ciclo-plan-do_abas {
+  border-bottom-color: #04a69e;
+  background: #7fcfbe;
+}
+
+.pagina-ciclo-act .painel-ciclo-plan-do_aba {
+  flex: 0 0 156px;
+  color: #172033;
+}
+
+.pagina-ciclo-act .painel-ciclo-plan-do_aba-visao {
+  background: #04a69e;
+}
+
+.pagina-ciclo-act .painel-ciclo-plan-do_aba-plan {
+  color: #fff;
+}
+
+.pagina-ciclo-act .painel-ciclo-plan-do_aba.ativa {
+  background: #f6f6f6;
+  color: #026b66;
+}
+
+.pagina-ciclo-act .painel-ciclo-plan-do_aba:focus-visible {
+  outline: 3px solid #172033;
+  outline-offset: -4px;
+}
+
+.pagina-ciclo-act .ciclo-act_conteudo {
+  display: grid;
+  min-width: 0;
+  gap: 22px;
+  padding: 65px 49px 60px;
+  color: #1c2636;
+  font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-act .ciclo-act_metricas {
+  min-width: 0;
+}
+
+.pagina-ciclo-act .ciclo-act_metricas-lista {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+}
+
+.pagina-ciclo-act .ciclo-act_metrica {
+  display: grid;
+  min-width: 0;
+  min-height: 92px;
+  grid-template-columns: minmax(0, 100px) minmax(0, 1fr);
+  align-content: start;
+  align-items: center;
+  column-gap: 4px;
+  border-radius: 14px;
+  padding: 14px 18px;
+  background: #fff;
+}
+
+.pagina-ciclo-act .ciclo-act_metrica-titulo {
+  grid-column: 2;
+  grid-row: 1;
+  color: #576170;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.pagina-ciclo-act .ciclo-act_metrica-valor {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  margin: 0;
+  color: #026b66;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 34px;
+}
+
+.pagina-ciclo-act .ciclo-act_metrica[data-metrica="auditoria"] {
+  grid-template-columns: minmax(0, 140px) minmax(0, 1fr);
+}
+
+.pagina-ciclo-act .ciclo-act_metrica[data-metrica="auditoria"] .ciclo-act_metrica-valor {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.pagina-ciclo-act .ciclo-act_conteudo:not([data-estado="sucesso"]) .ciclo-act_metrica {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px;
+}
+
+.pagina-ciclo-act .ciclo-act_conteudo:not([data-estado="sucesso"]) .ciclo-act_metrica-titulo {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.pagina-ciclo-act .ciclo-act_conteudo:not([data-estado="sucesso"]) .ciclo-act_metrica-valor {
+  grid-column: 1;
+  grid-row: 2;
+  color: #576170;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.pagina-ciclo-act .ciclo-act_cards {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 28px 24px;
+  margin-right: 12px;
+}
+
+.pagina-ciclo-act .ciclo-act_card {
+  display: flex;
+  min-width: 0;
+  min-height: 192px;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 14px;
+  padding: 18px 20px 20px;
+  background: #fff;
+}
+
+.pagina-ciclo-act .ciclo-act_titulo {
+  margin: 0;
+  color: #1c2636;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+.pagina-ciclo-act .ciclo-act_destaque {
+  margin: 12px 0 0;
+  color: #026b66;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.pagina-ciclo-act .ciclo-act_descricao {
+  margin: 12px 0 0;
+  color: #5e6675;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.pagina-ciclo-act .ciclo-act_acao {
+  max-width: 100%;
+  min-height: 20px;
+  margin-top: auto;
+  border: 0;
+  padding: 8px 0 0;
+  background: transparent;
+  color: #026b66;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-act .ciclo-act_acao:disabled {
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.pagina-ciclo-act .ciclo-act_acao:focus-visible {
+  outline: 3px solid #026b66;
+  outline-offset: 4px;
+}
+
+.pagina-ciclo-act .ciclo-act_progresso {
+  display: grid;
+  grid-template-columns: 108px minmax(0, 1fr);
+  align-content: start;
+  align-items: start;
+  gap: 10px 26px;
+  padding: 24px 36px 20px;
+}
+
+.pagina-ciclo-act .ciclo-act_progresso > .ciclo-act_titulo,
+.pagina-ciclo-act .ciclo-act_progresso > .ciclo-act_destaque,
+.pagina-ciclo-act .ciclo-act_progresso > .ciclo-act_descricao,
+.pagina-ciclo-act .ciclo-act_progresso > .ciclo-act_estado,
+.pagina-ciclo-act .ciclo-act_progresso-percentual {
+  grid-column: 2;
+  margin: 0;
+}
+
+.pagina-ciclo-act .ciclo-act_progresso > .ciclo-act_titulo {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.pagina-ciclo-act .ciclo-act_progresso > .ciclo-act_descricao {
+  font-size: 12px;
+}
+
+.pagina-ciclo-act .ciclo-act_progresso-barra {
+  display: block;
+  width: 108px;
+  max-width: 100%;
+  height: 14px;
+  grid-column: 1;
+  grid-row: 1 / span 4;
+  align-self: center;
+  accent-color: #026b66;
+}
+
+.pagina-ciclo-act .ciclo-act_progresso-percentual {
+  color: #026b66;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.pagina-ciclo-act .ciclo-act_estado {
+  margin: 12px 0;
+  color: #576170;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.pagina-ciclo-act .ciclo-act_estado-geral,
+.pagina-ciclo-act .ciclo-act_aviso {
+  margin: 0;
+  border: 1px solid #badfd9;
+  border-radius: 12px;
+  padding: 12px 16px;
+  background: #edf7f5;
+  color: #254b47;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+@media (max-width: 1180px) {
+  .pagina-ciclo-act .painel-ciclo-plan-do_abas {
+    height: 82px;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .pagina-ciclo-act .ciclo-act_conteudo {
+    padding: 40px 28px;
+  }
+
+  .pagina-ciclo-act .ciclo-act_metrica {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .pagina-ciclo-act .ciclo-act_metrica-titulo {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .pagina-ciclo-act .ciclo-act_metrica-valor {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .pagina-ciclo-act .ciclo-act_metrica[data-metrica="auditoria"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pagina-ciclo-act .ciclo-act_cards {
+    margin-right: 0;
+  }
+
+  .pagina-ciclo-act .ciclo-act_progresso {
+    grid-template-columns: 80px minmax(0, 1fr);
+    column-gap: 16px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .pagina-ciclo-act .ciclo-act_progresso-barra {
+    width: 80px;
+  }
+}
+
+@media (max-width: 760px) {
+  .pagina-ciclo-act .painel-ciclo-plan-do_titulo-linha h1 { font-size: 15px; line-height: 20px; }
+  .pagina-ciclo-act .painel-ciclo-plan-do_identificacao p { font-size: 11px; line-height: 16px; }
+
+  .pagina-ciclo-act .painel-ciclo-plan-do_abas {
+    height: 62px;
+  }
+
+  .pagina-ciclo-act .painel-ciclo-plan-do_aba {
+    flex-basis: 76px;
+  }
+
+  .pagina-ciclo-act .ciclo-act_conteudo {
+    gap: 20px;
+    padding: 24px 14px;
+  }
+
+  .pagina-ciclo-act .ciclo-act_metricas-lista,
+  .pagina-ciclo-act .ciclo-act_cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pagina-ciclo-act .ciclo-act_cards {
+    gap: 20px;
+  }
+
+  .pagina-ciclo-act .ciclo-act_progresso {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .pagina-ciclo-act .ciclo-act_progresso-barra {
+    width: 100%;
+    align-self: stretch;
+    margin: 8px 0;
+  }
+}
