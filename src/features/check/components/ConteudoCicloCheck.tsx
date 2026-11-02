@@ -1,4 +1,4 @@
-import { useId, type CSSProperties } from "react";
+import { useId, type CSSProperties, type ReactNode } from "react";
 
 export type MetricaCicloCheck = { valor: number | null; contexto?: string };
 export type SituacaoIndicadorCheck = "atingida" | "acompanhar" | "indisponivel";
@@ -16,7 +16,18 @@ export type VerificacaoCicloCheck = {
   id: string;
   titulo: string;
   detalhe?: string;
-  situacao: "registrada" | "acompanhar" | "indisponivel";
+  situacao: "registrada" | "acompanhar" | "indisponivel" | "nao-verificado" | "aprovado" | "parcial" | "reprovado";
+  data?: string | null;
+  acaoDetalhe?: ReactNode;
+};
+export type MetaCicloCheck = {
+  id: string;
+  objetivo: string;
+  base: number | null;
+  alvo: number | null;
+  unidade: string | null;
+  prazo: string | null;
+  status: "NAO_INICIADA" | "EM_ANDAMENTO" | "ATINGIDA" | "PARCIALMENTE_ATINGIDA" | "NAO_ATINGIDA" | "CANCELADA";
 };
 export type ComparacaoCicloCheck = {
   id: string;
@@ -34,23 +45,32 @@ export type DadosCicloCheck = {
     verificacoes: MetricaCicloCheck;
     efeitosSecundarios: MetricaCicloCheck;
   };
-  resultados: readonly ResultadoIndicadorCheck[];
+  resultados: readonly ResultadoIndicadorCheck[] | null;
+  metas?: readonly MetaCicloCheck[] | null;
   verificacoes: readonly VerificacaoCicloCheck[];
-  comparacoes: readonly ComparacaoCicloCheck[];
+  comparacoes: readonly ComparacaoCicloCheck[] | null;
 };
 export type EstadoConteudoCicloCheck =
   | { estado: "carregando" }
   | { estado: "erro" }
-  | { estado: "vazio" }
+  | { estado: "vazio"; dados?: DadosCicloCheck }
   | { estado: "indisponivel" }
   | { estado: "sucesso"; dados: DadosCicloCheck };
-export type ConteudoCicloCheckProps = { resultado?: EstadoConteudoCicloCheck };
+export type ConteudoCicloCheckProps = { resultado?: EstadoConteudoCicloCheck; acaoRegistrar?: ReactNode };
 
 const rotulosSituacao = {
   atingida: "Atingida",
   acompanhar: "Em acompanhamento",
   indisponivel: "Indisponível",
   registrada: "Registrada",
+  "nao-verificado": "Não verificado",
+  aprovado: "Aprovado",
+  parcial: "Parcial",
+  reprovado: "Reprovado",
+} as const;
+const rotulosMeta = {
+  NAO_INICIADA: "Não iniciada", EM_ANDAMENTO: "Em andamento", ATINGIDA: "Atingida",
+  PARCIALMENTE_ATINGIDA: "Parcialmente atingida", NAO_ATINGIDA: "Não atingida", CANCELADA: "Cancelada",
 } as const;
 const metricas = [
   ["indicadores", "Indicadores"],
@@ -91,9 +111,9 @@ function Comparacao({ item }: { item: ComparacaoCicloCheck }) {
   );
 }
 
-export function ConteudoCicloCheck({ resultado = { estado: "indisponivel" } }: ConteudoCicloCheckProps) {
+export function ConteudoCicloCheck({ resultado = { estado: "indisponivel" }, acaoRegistrar }: ConteudoCicloCheckProps) {
   const id = useId();
-  const dados = resultado.estado === "sucesso" ? resultado.dados : null;
+  const dados = resultado.estado === "sucesso" || resultado.estado === "vazio" ? resultado.dados : null;
   const mensagem = resultado.estado === "carregando" ? "Carregando dados de Check."
     : resultado.estado === "erro" ? "Não foi possível carregar os dados de Check. Tente novamente mais tarde."
     : resultado.estado === "vazio" ? "Nenhum dado de Check registrado para este ciclo."
@@ -102,7 +122,7 @@ export function ConteudoCicloCheck({ resultado = { estado: "indisponivel" } }: C
 
   return (
     <div className="ciclo-check_conteudo" data-estado={resultado.estado} aria-busy={resultado.estado === "carregando"}>
-      {!dados && <p className="ciclo-check_estado ciclo-check_estado-geral" role={resultado.estado === "erro" ? "alert" : "status"}>{mensagem}</p>}
+      {(!dados || resultado.estado === "vazio") && <p className="ciclo-check_estado ciclo-check_estado-geral" role={resultado.estado === "erro" ? "alert" : "status"}>{mensagem}</p>}
       <section className="ciclo-check_metricas" aria-label="Resumo de Check">
         <dl className="ciclo-check_metricas-lista">
           {metricas.map(([chave, titulo]) => {
@@ -120,8 +140,8 @@ export function ConteudoCicloCheck({ resultado = { estado: "indisponivel" } }: C
 
       <section className="ciclo-check_resultados" aria-labelledby={`${id}-resultados`}>
         <h2 className="ciclo-check_titulo" id={`${id}-resultados`}>Resultados dos indicadores</h2>
-        <p className="ciclo-check_descricao">Valores atuais vinculados a séries de acompanhamento.</p>
-        {dados && dados.resultados.length > 0 ? <ul className="ciclo-check_lista">
+        <p className="ciclo-check_descricao">Leituras atuais de indicadores permanecem indisponíveis sem uma fonte correspondente.</p>
+        {dados?.resultados && dados.resultados.length > 0 ? <ul className="ciclo-check_lista">
           {dados.resultados.map((item) => <li className="ciclo-check_item" key={item.id}>
             <div className="ciclo-check_item-conteudo">
               <h3 className="ciclo-check_item-titulo">{item.titulo}</h3>
@@ -130,7 +150,21 @@ export function ConteudoCicloCheck({ resultado = { estado: "indisponivel" } }: C
             </div>
             <span className="ciclo-check_badge" data-estado={item.situacao}>{rotulosSituacao[item.situacao]}</span>
           </li>)}
-        </ul> : <p className="ciclo-check_estado">{mensagemLista}</p>}
+        </ul> : <p className="ciclo-check_estado">{dados?.resultados === null ? "Resultados atuais dos indicadores indisponíveis." : mensagemLista}</p>}
+        {dados?.metas != null && <section aria-labelledby={`${id}-metas`}>
+          <h3 className="ciclo-check_titulo" id={`${id}-metas`}>Metas do ciclo</h3>
+          <p className="ciclo-check_descricao">Base e alvo são valores de planejamento; não representam uma leitura atual.</p>
+          {dados.metas.length > 0 ? <ul className="ciclo-check_lista">
+            {dados.metas.map((meta) => <li className="ciclo-check_item" key={meta.id}>
+              <div className="ciclo-check_item-conteudo">
+                <h4 className="ciclo-check_item-titulo">{meta.objetivo}</h4>
+                <p className="ciclo-check_detalhe">Base {formatarValor(meta.base, meta.unidade ?? "")} · Alvo {formatarValor(meta.alvo, meta.unidade ?? "")}</p>
+                <p className="ciclo-check_detalhe">Unidade: {meta.unidade?.trim() || "Não informada"} · Prazo: {meta.prazo ?? "Não informado"}</p>
+              </div>
+              <span className="ciclo-check_badge" data-estado={meta.status === "ATINGIDA" ? "atingida" : meta.status === "CANCELADA" ? "indisponivel" : "acompanhar"}>{rotulosMeta[meta.status]}</span>
+            </li>)}
+          </ul> : <p className="ciclo-check_estado">Nenhuma meta registrada para este ciclo.</p>}
+        </section>}
       </section>
 
       <section className="ciclo-check_verificacoes" aria-labelledby={`${id}-verificacoes`}>
@@ -138,14 +172,15 @@ export function ConteudoCicloCheck({ resultado = { estado: "indisponivel" } }: C
         {dados && dados.verificacoes.length > 0 ? <ul className="ciclo-check_lista">
           {dados.verificacoes.map((item) => <li className="ciclo-check_item" key={item.id}>
             <div className="ciclo-check_item-conteudo">
-              <h3 className="ciclo-check_item-titulo">{item.titulo}</h3>
+              <h3 className="ciclo-check_item-titulo">{item.acaoDetalhe ?? item.titulo}</h3>
               {item.detalhe && <p className="ciclo-check_detalhe">{item.detalhe}</p>}
+              <p className="ciclo-check_detalhe">Data: {item.data ? item.data : "Não informada"}</p>
             </div>
             <span className="ciclo-check_badge" data-estado={item.situacao}>{rotulosSituacao[item.situacao]}</span>
           </li>)}
         </ul> : <p className="ciclo-check_estado">{mensagemLista}</p>}
-        <button className="ciclo-check_acao" type="button" disabled aria-describedby={`${id}-registro`}>Registrar verificações</button>
-        <p className="ciclo-check_detalhe" id={`${id}-registro`}>Registro de verificações indisponível no momento.</p>
+        {acaoRegistrar ?? <button className="ciclo-check_acao" type="button" disabled aria-describedby={`${id}-registro`}>Registrar verificações</button>}
+        {!acaoRegistrar && <p className="ciclo-check_detalhe" id={`${id}-registro`}>Registro de verificações indisponível no momento.</p>}
       </section>
 
       <section className="ciclo-check_comparacao" aria-labelledby={`${id}-comparacao`}>
@@ -153,9 +188,9 @@ export function ConteudoCicloCheck({ resultado = { estado: "indisponivel" } }: C
           <h2 className="ciclo-check_titulo" id={`${id}-comparacao`}>Indicadores · antes e atual</h2>
           <p className="ciclo-check_descricao">Comparar a mesma unidade e período.</p>
         </div>
-        {dados && dados.comparacoes.length > 0 ? <ul className="ciclo-check_comparacao-lista">
+        {dados?.comparacoes && dados.comparacoes.length > 0 ? <ul className="ciclo-check_comparacao-lista">
           {dados.comparacoes.map((item) => <Comparacao key={item.id} item={item} />)}
-        </ul> : <p className="ciclo-check_estado">{mensagemLista}</p>}
+        </ul> : <p className="ciclo-check_estado">{dados?.comparacoes === null ? "Comparação antes e atual indisponível: não há leituras correspondentes." : mensagemLista}</p>}
       </section>
     </div>
   );

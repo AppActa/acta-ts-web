@@ -27,10 +27,6 @@
 .check-todos-ciclos .check-todos-ciclos_cabecalho { min-height: 82px; padding-left: 61px; padding-right: 290px; }
 .check-todos-ciclos .check-todos-ciclos_cabecalho h1 { margin: 0; color: #1f1f1f; font-size: 36px; font-weight: 600; letter-spacing: -.035em; line-height: 1.2; }
 .check-todos-ciclos .check-todos-ciclos_cabecalho p { margin: 4px 0 18px; color: #338162; font-size: 12px; line-height: 1.5; }
-.check-todos-ciclos .check-todos-ciclos_acoes-topo { position: absolute; z-index: 1; top: 7px; right: 93px; width: 320px; pointer-events: none; }
-.check-todos-ciclos .check-todos-ciclos_acoes-icones { display: grid; grid-template-columns: repeat(4, 56px); gap: 32px; }
-.check-todos-ciclos .check-todos-ciclos_acao-icone { display: block; width: 56px; height: 56px; background: #d9d9d9; }
-.check-todos-ciclos .check-todos-ciclos_periodo { display: block; margin: 4px 0 0 186px; color: #626970; font-size: 11px; line-height: 18px; white-space: nowrap; }
 
 .check-todos-ciclos .check-todos-ciclos_metricas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
 .check-todos-ciclos .check-todos-ciclos_metrica,
@@ -118,6 +114,10 @@
 .check-todos-ciclos .check-todos-ciclos_tabela th:nth-child(5) { width: 24.5%; }
 .check-todos-ciclos .check-todos-ciclos_tabela tbody tr { background: #fff; box-shadow: 0 0 10px rgb(0 0 0 / 4%); }
 .check-todos-ciclos .check-todos-ciclos_tabela tbody th { height: 47px; border-radius: 20px 0 0 20px; color: #253132; font-size: 11px; font-weight: 400; line-height: 1.5; }
+.check-todos-ciclos .check-todos-ciclos_tabela tbody tr { cursor: pointer; }
+.check-todos-ciclos .check-todos-ciclos_link-ciclo { color: inherit; text-decoration: none; }
+.check-todos-ciclos .check-todos-ciclos_link-ciclo:hover { color: #087d83; text-decoration: underline; text-underline-offset: 2px; }
+.check-todos-ciclos .check-todos-ciclos_link-ciclo:focus-visible { border-radius: 3px; outline: 3px solid #338162; outline-offset: 2px; }
 .check-todos-ciclos .check-todos-ciclos_tabela tbody td { color: #626970; font-size: 10px; line-height: 1.5; }
 .check-todos-ciclos .check-todos-ciclos_tabela tbody td:last-child { border-radius: 0 20px 20px 0; }
 .check-todos-ciclos .check-todos-ciclos_status { display: inline-flex; min-width: 118px; min-height: 23px; align-items: center; justify-content: center; border-radius: 14px; padding: 3px 10px; font-size: 11px; text-align: center; }
@@ -160,10 +160,6 @@
 }
 @media (max-width: 760px) {
   .check-todos-ciclos .check-todos-ciclos_conteudo { padding-top: 24px; }
-  .check-todos-ciclos .check-todos-ciclos_acoes-topo { position: static; width: auto; margin-bottom: 20px; }
-  .check-todos-ciclos .check-todos-ciclos_acoes-icones { grid-template-columns: repeat(4, 32px); gap: 12px; margin-bottom: 8px; }
-  .check-todos-ciclos .check-todos-ciclos_acao-icone { width: 32px; height: 32px; }
-  .check-todos-ciclos .check-todos-ciclos_periodo { margin: 0; }
 }
 @media (max-width: 520px) {
   .check-todos-ciclos .check-todos-ciclos_conteudo { padding-inline: 12px; }
