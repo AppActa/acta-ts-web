@@ -1,0 +1,222 @@
+.pagina-cato {
+  --cato-bg: #f6f8f8;
+  --cato-surface: #ffffff;
+  --cato-field: #edf2f3;
+  --cato-line: #d6dfe1;
+  --cato-text: #293638;
+  --cato-muted: #68777a;
+  --cato-accent: #36aeb4;
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  --cato-rail: 82px;
+  --cato-header: 149px;
+  grid-template-columns: var(--cato-rail) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  background: #1f1f1f;
+  color: var(--cato-text);
+  font-family: "Plus Jakarta Sans", Arial, sans-serif;
+  overflow: hidden;
+}
+
+html:has(.pagina-cato), body:has(.pagina-cato), body:has(.pagina-cato) #root { width: 100%; height: 100%; min-height: 0; overflow: hidden; }
+.pagina-cato .sidebar_atalhos { right: 27px; }
+.pagina-cato > .barra-lateral { min-height: 0; justify-content: flex-start; padding: clamp(72px, 16vh, 150px) 0 16px; }
+.pagina-cato .barra-lateral_navegacao { gap: clamp(18px, 3.7vh, 34px); }
+.pagina-cato .barra-lateral_item { width: 100%; gap: 4px; font-size: 12px; }
+.pagina-cato .barra-lateral_icone { width: 25px; height: 25px; }
+.pagina-cato .barra-lateral_perfil { margin-top: clamp(18px, 3.5vh, 32px); }
+.pagina-cato .barra-lateral_avatar { display: grid; width: 40px; height: 40px; overflow: hidden; place-items: center; border-radius: 14px; background: #dcebed; }
+.pagina-cato .barra-lateral_avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.cato_painel { display: flex; min-width: 0; min-height: 0; flex-direction: column; margin: 29px 27px 0 0; overflow: hidden; border-radius: 20px 20px 0 0; }
+.cato_cabecalho { position: relative; z-index: 1; display: flex; height: var(--cato-header); min-height: var(--cato-header); align-items: center; gap: clamp(10px, 1.25vw, 18px); padding: clamp(12px, 1.67vw, 24px); background: linear-gradient(105deg, #76ccd1 0%, #80d4d5 100%); color: #1f292b; }
+.cato_cabecalho h1 { margin: 0; color: #1f292b; font-size: clamp(14px, 1.53vw, 22px); font-weight: 700; line-height: 1.2; }
+.cato_cabecalho p { margin: 3px 0 0; color: #29393a; font-size: clamp(8px, .76vw, 11px); }
+.cato_historico button:focus-visible, .cato_busca input:focus-visible, .cato_sugestoes button:focus-visible, .cato_compositor button:focus-visible, .cato_erro button:focus-visible { outline: 3px solid #167c82; outline-offset: 3px; }
+.cato_historico_reabrir { position: absolute; z-index: 2; top: clamp(15px, 2.4vh, 23px); left: clamp(15px, 1.67vw, 24px); display: inline-flex; min-height: 50px; align-items: center; justify-content: center; gap: 8px; padding: 0 14px; border: 1px solid #d6e2e3; border-radius: 14px; background: #fff; color: #293638; box-shadow: 0 2px 8px rgb(35 66 68 / 8%); font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; animation: cato_entrada-lateral 220ms ease both; }
+.cato_historico_reabrir span:first-child { font-size: 14px; line-height: 1; }
+.cato_historico_reabrir:focus-visible { outline: 3px solid #167c82; outline-offset: 3px; }
+.cato_corpo--historico-recolhido .cato_contexto { margin-left: 124px; }
+@keyframes cato_entrada-lateral { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+.cato_corpo { position: relative; display: grid; height: auto; min-height: 0; flex: 1; grid-template-columns: clamp(180px, 19.86vw, 286px) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); gap: clamp(24px, 3.5vw, 50px); padding: clamp(15px, 2.4vh, 23px) clamp(15px, 5.28vw, 76px) clamp(16px, 3.9vh, 40px) clamp(15px, 1.67vw, 24px); overflow: hidden; border-radius: 20px 20px 0 0; background: linear-gradient(180deg, #f0f8f8 0%, #f6f8f8 100%); transition: grid-template-columns 260ms ease, gap 260ms ease; }
+.cato_corpo--historico-recolhido { grid-template-columns: 0 minmax(0, 1fr); gap: 0; }
+.pagina-cato .sidebar_atalhos a[aria-current="page"] img { filter: brightness(0) saturate(100%) invert(68%) sepia(23%) saturate(1177%) hue-rotate(133deg); }
+.cato_historico { display: flex; min-width: 0; min-height: 0; flex-direction: column; padding: clamp(14px, 1.67vw, 24px); overflow: hidden; border: 1px solid var(--cato-line); border-radius: 16px; background: var(--cato-surface); transition: width 260ms ease, opacity 180ms ease, padding 260ms ease, transform 260ms ease; }
+.cato_historico--recolhido { width: auto; padding-right: 0; padding-left: 0; border-width: 0; opacity: 0; pointer-events: none; transform: translateX(-14px); }
+.cato_historico_titulo { display: flex; flex: 0 0 36px; align-items: center; justify-content: space-between; }
+.cato_historico_titulo h2 { margin: 0; font-size: clamp(12px, 1.25vw, 18px); font-weight: 600; }
+.cato_historico_titulo > button { display: grid; width: 32px; height: 32px; flex: 0 0 32px; place-items: center; padding: 0; border: 0; border-radius: 10px; background: var(--cato-field); color: var(--cato-text); cursor: pointer; transition: background-color 160ms ease; }
+.cato_historico_titulo > button:hover { background: #e3eeee; }
+.cato_historico_titulo > button:focus-visible { outline: 2px solid #167c82; outline-offset: 2px; }
+.cato_historico_titulo > button svg { display: block; width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+.cato_nova { min-height: clamp(30px, 3.05vw, 44px); margin-top: 10px; border: 0; border-radius: 10px; background: #1a575e; color: #fff; font: inherit; font-size: clamp(11px, .91vw, 13px); font-weight: 700; cursor: pointer; }
+.cato_busca { display: flex; min-height: clamp(34px, 2.92vw, 42px); align-items: center; gap: 8px; margin-top: 9px; padding: 0 12px; border-radius: 10px; background: var(--cato-field); color: var(--cato-muted); }
+.cato_busca > span { font-size: 20px; }
+.cato_busca input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--cato-text); font: inherit; font-size: 12px; }
+.cato_busca input::placeholder { color: var(--cato-muted); }
+.cato_rotulo { flex: 0 0 auto; margin: 10px 0 8px; color: var(--cato-muted); font-size: 9px; font-weight: 700; letter-spacing: .03em; }
+.cato_historico ul { display: grid; min-height: 0; flex: 1; gap: 7px; margin: 0; padding: 0; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; list-style: none; }
+.cato_historico li button { display: block; width: 100%; min-height: clamp(56px, 6.95vw, 100px); padding: 9px 10px; border: 1px solid transparent; border-radius: 10px; background: transparent; color: var(--cato-text); text-align: left; font: inherit; font-size: clamp(10px, .91vw, 13px); font-weight: 600; line-height: 1.4; cursor: pointer; }
+.cato_historico li button:hover, .cato_historico li button.ativo { border-color: #d5e3e4; background: #eef6f6; }
+.cato_historico li small { display: block; margin-top: 6px; color: var(--cato-muted); font-size: 10px; font-weight: 400; }
+.cato_historico_vazio { color: var(--cato-muted); font-size: 11px; line-height: 1.5; }
+.cato_perfil { position: relative; display: grid; min-width: 0; min-height: clamp(48px, 5.76vw, 70px); flex: 0 0 auto; grid-template-columns: clamp(32px, 3.33vw, 44px) minmax(0, 1fr) 14px; align-items: center; gap: clamp(8px, .9vw, 13px); margin: auto 0 0; padding: 8px clamp(10px, 1.25vw, 18px); border: 1px solid transparent; border-radius: 15px; background: var(--cato-field); color: var(--cato-text); text-align: left; text-decoration: none; transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease; }
+.cato_perfil:hover { transform: translateY(-1px); border-color: #c7e2e3; background: #eaf4f4; }
+.cato_perfil:focus-visible { outline: 3px solid #167c82; outline-offset: 3px; }
+.cato_perfil_avatar { --cato-avatar-size: clamp(32px, 3.33vw, 44px); position: relative; display: block; width: var(--cato-avatar-size); height: var(--cato-avatar-size); flex: 0 0 auto; overflow: hidden; border: 2px solid #fff; border-radius: 50%; background: #dcebed; box-shadow: 0 1px 3px rgb(30 67 70 / 16%); }
+.cato_perfil_avatar img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.cato_perfil_avatar > span { display: grid; width: 100%; height: 100%; place-items: center; background: linear-gradient(145deg, #529da1, #276a70); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .04em; }
+.cato_perfil_dados { display: grid; min-width: 0; gap: 3px; }
+.cato_perfil_dados strong { overflow: hidden; color: var(--cato-text); font-size: clamp(10px, .84vw, 12px); font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.cato_perfil_dados small { overflow: hidden; color: var(--cato-muted); font-size: clamp(9px, .7vw, 10px); text-overflow: ellipsis; white-space: nowrap; }
+.cato_perfil_seta { color: #668285; font-size: 20px; text-align: center; }
+.cato_conversa { display: flex; min-width: 0; min-height: 0; flex-direction: column; }
+.cato_contexto { position: relative; z-index: 2; display: flex; min-height: 50px; flex: 0 0 50px; align-items: center; gap: 12px; padding: 6px 8px 6px 14px; border: 1px solid rgb(67 128 131 / 8%); border-radius: 18px; background: var(--cato-surface); text-align: left; }
+.cato_contexto > img { width: 20px; height: 20px; }
+.cato_contexto_selecao { position: static; display: grid; min-width: 0; flex: 1; gap: 2px; padding: 0 2px; }
+.cato_contexto_rotulo { color: var(--cato-text); font-size: 9px; font-weight: 600; letter-spacing: .04em; }
+.cato_contexto_valor { display: flex; width: 100%; min-width: 0; align-items: center; gap: 12px; border: 0; padding: 0 28px 0 0; background: transparent; color: var(--cato-text); text-align: left; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.cato_contexto_valor > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cato_contexto_valor:focus-visible { border-radius: 4px; outline: 2px solid #167c82; outline-offset: 3px; }
+.cato_contexto_valor:disabled { opacity: .55; cursor: not-allowed; }
+.cato_contexto_valor svg { position: absolute; top: 50%; right: 8px; display: block; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; transform: translateY(-50%); transition: transform 180ms ease; }
+.cato_contexto_valor[aria-expanded="true"] svg { transform: translateY(-50%) rotate(180deg); }
+.cato_contexto_opcoes { position: absolute; z-index: 5; top: calc(100% + 8px); right: 0; left: 0; max-height: min(320px, 50vh); padding: 6px; overflow-y: auto; overscroll-behavior: contain; border: 1px solid #d4ebec; border-radius: 16px; background: var(--cato-surface); box-shadow: 0 12px 32px rgb(32 66 68 / 16%); scrollbar-color: #a9c8c9 transparent; scrollbar-width: thin; animation: cato-menu-entrar 150ms ease-out both; }
+.cato_contexto_opcao { display: flex; width: 100%; min-height: 42px; align-items: center; justify-content: space-between; gap: 12px; border: 0; border-radius: 10px; padding: 9px 12px; background: transparent; color: var(--cato-text); text-align: left; font: inherit; font-size: 12px; cursor: pointer; }
+.cato_contexto_opcao:hover, .cato_contexto_opcao:focus-visible { outline: 0; background: #dff1f1; }
+.cato_contexto_opcao[aria-selected="true"] { background: #d7eeee; color: #1c666a; font-weight: 700; }
+.cato_contexto_opcao > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cato_contexto_opcao small { flex: 0 0 auto; border-radius: 999px; padding: 4px 8px; background: #edf2f3; color: var(--cato-muted); font-size: 9px; font-weight: 600; }
+.cato_contexto_opcao[aria-selected="true"] small { background: #d5ecec; color: #1c666a; }
+@keyframes cato-menu-entrar { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+.cato_contexto_selecao label { color: #365254; }
+.cato_ciclos_erro { margin: 4px 0 0; color: #7b2929; font-size: 11px; }
+.cato_mensagens { display: flex; min-height: 0; flex: 1; flex-direction: column; gap: 14px; padding: 12px 0 8px; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.cato_mensagens::-webkit-scrollbar, .cato_historico ul::-webkit-scrollbar { display: none; }
+.cato_inicio { display: flex; min-height: 0; flex: 1; flex-direction: column; align-items: center; text-align: center; }
+.cato_mascote { display: block; width: clamp(66px, 8vw, 96px); height: clamp(68px, 8.3vw, 100px); flex: 0 0 auto; object-fit: contain; }
+.cato_ola { margin: 4px 0 0; color: var(--cato-text); font-size: clamp(17px, 1.7vw, 24px); font-weight: 700; line-height: 1.3; }
+.cato_inicio h2 { margin: 2px 0 0; color: var(--cato-text); font-size: clamp(22px, 2.2vw, 32px); font-weight: 700; line-height: 1.25; }
+.cato_descricao { max-width: 600px; margin: 8px 0 18px; color: var(--cato-muted); font-size: clamp(11px, 1vw, 14px); line-height: 1.4; }
+.cato_sugestoes { display: grid; width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 16px; }
+.cato_sugestoes button { position: relative; display: grid; min-height: clamp(76px, 8vw, 100px); align-content: center; justify-items: start; gap: 5px; padding: 12px 16px; border: 1px solid var(--cato-line); border-radius: 16px; background: var(--cato-surface); color: var(--cato-text); text-align: left; font: inherit; cursor: pointer; }
+.cato_sugestoes button:hover { border-color: #78babc; background: #f2f9f9; }
+.cato_sugestao_mais { display: grid; width: clamp(18px, 1.67vw, 24px); height: clamp(18px, 1.67vw, 24px); place-items: center; margin-bottom: 1px; border-radius: 50%; background: var(--cato-accent); color: #fff; font-size: 17px; line-height: 1; }
+.cato_sugestoes button strong { font-size: 14px; font-weight: 600; line-height: 1.3; }
+.cato_sugestoes button small { color: var(--cato-muted); font-size: 11px; line-height: 1.3; }
+.cato_comecar { margin: auto 0 0; padding-top: 16px; color: var(--cato-muted); text-align: center; font-size: 10px; }
+.cato_lista_mensagens { display: grid; align-content: start; gap: 22px; margin: 0; padding: 8px 0; list-style: none; }
+.cato_mensagem { display: grid; width: min(100%, 850px); min-width: 0; grid-template-columns: minmax(0, 1fr) 88px; align-items: center; justify-self: end; gap: 14px; padding: 0; border: 0; background: transparent; }
+.cato_mensagem--user { margin-left: auto; }
+.cato_mensagem--assistant { display: grid; width: 100%; grid-template-columns: 56px minmax(0, 1fr); align-items: start; justify-self: stretch; gap: 12px; }
+.cato_mensagem_conteudo { min-width: 0; }
+.cato_mensagem--user .cato_mensagem_conteudo { width: min(100%, 760px); justify-self: end; padding: 18px 22px; border: 1px solid rgb(67 128 131 / 8%); border-radius: 24px 24px 2px 24px; background: #fff; }
+.cato_autor { display: block; margin-bottom: 10px; color: #007e85; font-size: 13px; font-weight: 700; text-align: right; }
+.cato_mensagem--assistant .cato_mensagem_conteudo { max-width: 850px; padding: 22px 26px; border: 1px solid rgb(67 128 131 / 8%); border-radius: 24px 24px 24px 8px; background: #fff; }
+.cato_mensagem--assistant .cato_mensagem_conteudo { grid-column: 2; grid-row: 1; }
+.cato_mensagem--assistant .cato_autor { margin: 0 0 14px; color: #007e85; text-align: left; }
+.cato_mensagem p { width: 100%; margin: 0; justify-self: end; color: #293638; font-size: 16px; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; }
+.cato_mensagem--audio .cato_mensagem_conteudo { padding: 22px 26px; border: 1px solid rgb(67 128 131 / 8%); border-radius: 24px 24px 2px 24px; background: #fff; }
+.cato_mensagem--audio .cato_autor { margin-bottom: 4px; text-align: left; }
+.cato_mensagem--user:not(.cato_mensagem--audio) p { text-align: right; }
+.cato_mensagem--audio p { color: #173e42; font-size: 16px; line-height: 1.45; text-align: left; }
+.cato_mensagem_avatar { position: relative; display: grid; width: 56px; height: 56px; grid-column: 2; grid-row: 1; place-items: center; overflow: hidden; border-radius: 50%; background: #dcebed; }
+.cato_mensagem_avatar--cato { grid-column: 1; background: #202020; }
+.cato_mensagem_avatar img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.cato_mensagem_avatar--cato img { width: 88%; height: 88%; object-fit: contain; }
+.cato_mensagem_avatar > span { display: grid; width: 100%; height: 100%; place-items: center; background: linear-gradient(145deg, #529da1, #276a70); color: #fff; font-size: 16px; font-weight: 700; letter-spacing: .04em; }
+.cato_respondendo { align-self: start; margin: 0; color: var(--cato-muted); font-size: 13px; }
+.cato_erro { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border: 1px solid #e3b6b6; border-radius: 12px; background: #fff4f4; color: #7b2929; }
+.cato_erro p { margin: 0; font-size: 13px; }
+.cato_erro button { border: 0; background: transparent; color: #7b2929; font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
+.cato_compositor { display: flex; min-height: clamp(66px, 5.2vw, 72px); flex: 0 0 auto; flex-direction: column; align-items: stretch; gap: 0; padding: 3px 10px; border: 1px solid rgb(67 128 131 / 17%); border-radius: 18px; background: #fff; }
+.cato_compositor_linha { display: flex; min-height: clamp(58px, 4.65vw, 60px); flex: 1; align-items: center; gap: clamp(6px, .84vw, 12px); padding-left: 8px; }
+.cato_compositor textarea { width: auto; min-width: 0; max-height: 150px; flex: 1; resize: none; border: 0; outline: 0; background: transparent; color: var(--cato-text); font: inherit; font-size: 14px; line-height: 1.5; }
+.cato_compositor textarea::placeholder { color: var(--cato-muted); }
+.cato_compositor:focus-within { border-color: #6b9295; box-shadow: 0 0 0 2px rgb(121 213 216 / 12%); }
+.cato_compositor button { display: grid; flex: 0 0 auto; min-width: clamp(32px, 3.33vw, 48px); min-height: clamp(32px, 3.33vw, 48px); place-items: center; border: 0; border-radius: 13px; background: var(--cato-accent); color: white; font: inherit; cursor: pointer; }
+.cato_compositor button:disabled { opacity: .55; cursor: not-allowed; }
+.cato_compositor button img { width: clamp(17px, 1.46vw, 21px); height: clamp(17px, 1.46vw, 21px); }
+.cato_compositor button.cato_microfone:disabled, .cato_compositor button.cato_enviar:disabled { opacity: 1; }
+.cato_compositor .cato_microfone { width: 36px; min-width: 36px; min-height: 40px; padding: 0; background: transparent; }
+.cato_compositor .cato_microfone img { width: 21px; height: 21px; }
+.cato_compositor .cato_microfone--gravando { border-radius: 12px; background: #fde8e7; }
+.cato_compositor .cato_enviar { width: clamp(48px, 4.65vw, 60px); min-width: clamp(48px, 4.65vw, 60px); height: clamp(48px, 4.65vw, 60px); min-height: clamp(48px, 4.65vw, 60px); border-radius: 16px; }
+.cato_aviso { margin: 14px 0 0; color: var(--cato-muted); text-align: center; font-size: 10px; }
+.cato_audio_erro, .cato_gravando { align-self: flex-start; margin: 0 0 6px; color: var(--cato-muted); font-size: 12px; }
+.cato_audio_erro { color: #7b2929; }
+
+@media (max-height: 760px) and (min-width: 851px) {
+  .cato_mensagens { gap: 8px; padding-top: 8px; padding-bottom: 4px; }
+  .cato_mascote { width: 72px; height: 72px; }
+  .cato_ola { margin-top: 2px; font-size: 17px; }
+  .cato_inicio h2 { font-size: 23px; }
+  .cato_descricao { margin: 4px 0 10px; font-size: 11px; }
+  .cato_sugestoes { gap: 10px 12px; }
+  .cato_sugestoes button { min-height: 74px; gap: 3px; padding: 8px 14px; }
+  .cato_sugestao_mais { width: 20px; height: 20px; font-size: 15px; }
+  .cato_sugestoes button strong { font-size: 12px; }
+  .cato_sugestoes button small { font-size: 10px; }
+  .cato_comecar { padding-top: 8px; }
+  .cato_compositor { min-height: 68px; flex-basis: 68px; }
+  .cato_compositor button { min-width: 38px; min-height: 38px; }
+  .cato_aviso { margin-top: 8px; }
+}
+
+@media (max-width: 1100px) {
+  .cato_corpo { grid-template-columns: clamp(180px, 19.86vw, 286px) minmax(0, 1fr); gap: clamp(24px, 3.5vw, 38px); }
+}
+
+@media (min-width: 851px) and (max-height: 600px) {
+  .pagina-cato > .barra-lateral { padding-top: clamp(16px, 12vh, 72px); }
+  .pagina-cato .barra-lateral_navegacao { gap: clamp(8px, 2.5vh, 14px); }
+  .pagina-cato .barra-lateral_item { gap: 3px; font-size: 10px; }
+  .pagina-cato .barra-lateral_icone { width: 20px; height: 20px; }
+  .pagina-cato .barra-lateral_perfil { margin-top: 14px; }
+}
+
+@media (max-width: 850px) {
+  .pagina-cato { --cato-header: 76px; display: block; height: 100vh; height: 100dvh; min-height: 0; padding: 0 0 72px; transition: padding-bottom 260ms ease; }
+  .pagina-cato > .barra-lateral { position: fixed; z-index: 3; right: 0; bottom: 0; left: 0; width: 100%; min-height: 0; height: 72px; flex-direction: row; padding: 7px 10px; background: #1f1f1f; transition: transform 260ms ease, opacity 180ms ease; }
+  .pagina-cato > .barra-lateral { padding: 7px 10px; }
+  .pagina-cato .barra-lateral_navegacao { display: flex; width: 100%; justify-content: space-around; gap: 2px; }
+  .pagina-cato .barra-lateral_item { width: 58px; gap: 3px; font-size: 11px; }
+  .pagina-cato .barra-lateral_icone { width: 30px; height: 30px; }
+  .pagina-cato .barra-lateral_perfil, .pagina-cato .sidebar_atalhos { display: none; }
+  .cato_painel { height: 100%; min-height: 0; margin: 0; overflow: hidden; border-radius: 0; }
+  .cato_cabecalho { height: 76px; min-height: 76px; gap: 10px; padding: 10px 12px; }
+  .cato_cabecalho h1 { font-size: 16px; }
+  .cato_cabecalho p { max-width: 190px; font-size: 10px; }
+  .cato_corpo { display: flex; height: auto; min-height: 0; flex: 1; padding: 12px; overflow: hidden; border-radius: 16px 16px 0 0; }
+  .cato_historico_reabrir { top: 12px; min-height: 54px; }
+  .cato_historico { position: absolute; z-index: 2; top: 12px; right: 12px; bottom: 12px; left: 12px; }
+  .cato_historico--recolhido { padding: 0; transform: translateX(-110%); }
+  .cato_conversa { min-height: 0; width: 100%; margin-top: 0; }
+  .cato_contexto { min-height: 54px; flex-basis: 54px; gap: 8px; padding: 6px 7px 6px 10px; }
+  .cato_corpo--historico-recolhido .cato_contexto { margin-left: 124px; }
+  .cato_contexto_selecao select { width: 100%; font-size: 12px; }
+  .cato_contexto_valor { font-size: 12px; }
+  .cato_contexto_opcoes { max-height: min(280px, 42vh); }
+  .cato_mensagens { padding: 14px 0; }
+  .cato_mascote { width: 92px; height: 96px; }
+  .cato_ola { font-size: 20px; }
+  .cato_inicio h2 { font-size: 26px; }
+  .cato_descricao { margin: 8px 0 16px; font-size: 12px; }
+  .cato_sugestoes { grid-template-columns: 1fr; gap: 8px; }
+  .cato_sugestoes button { min-height: 68px; padding: 9px 14px; }
+  .cato_sugestao_mais { width: 20px; height: 20px; font-size: 16px; }
+  .cato_compositor { min-height: 62px; flex-basis: 62px; padding: 2px 6px; border-radius: 16px; }
+  .cato_compositor_linha { min-height: 56px; gap: 5px; padding-left: 2px; }
+  .cato_compositor .cato_microfone { width: 34px; min-width: 34px; min-height: 40px; }
+  .cato_compositor .cato_enviar { width: 52px; min-width: 52px; height: 52px; min-height: 52px; border-radius: 14px; }
+  .cato_mensagem { grid-template-columns: minmax(0, 1fr) 48px; gap: 8px; }
+  .cato_mensagem--assistant { grid-template-columns: 48px minmax(0, 1fr); }
+  .cato_mensagem_avatar { width: 48px; height: 48px; }
+  .cato_aviso { font-size: 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pagina-cato, .pagina-cato > .barra-lateral, .cato_mensagens, .cato_historico_reabrir, .cato_contexto_valor svg, .cato_contexto_opcoes { scroll-behavior: auto; transition: none; animation: none; }
+}

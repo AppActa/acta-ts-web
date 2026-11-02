@@ -3,6 +3,9 @@ export const env = {
   apiPgUrl: import.meta.env.VITE_API_PG_URL ?? "",
   apiImportUrl: import.meta.env.VITE_API_IMPORT_URL ?? "",
   apiMongoUrl: import.meta.env.VITE_API_MONGO_URL ?? "",
+  apiCatoUrl: import.meta.env.VITE_API_CATO_URL || (
+    import.meta.env.DEV ? "/api/cato" : "https://acta-ai.34-232-250-240.sslip.io"
+  ),
   firebase: {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY ?? "",
     authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN ?? "",
