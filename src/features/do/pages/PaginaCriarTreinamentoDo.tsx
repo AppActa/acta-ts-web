@@ -1,20 +1,58 @@
-import { useState, type FormEvent } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useCicloDaConta } from "../../ciclo/hooks/useCicloDaConta";
-import { AvisoDadosDemonstrativos } from "../../layout/components/AvisoDadosDemonstrativos";
+import { useAuth } from "../../../auth/AuthProvider";
+import { useOpcoesCriarTarefaDo } from "../hooks/useOpcoesCriarTarefaDo";
+import { criarTreinamentoPg, PdcaWriteError } from "../../../services/api/pg/pdca.write.api";
+import { listarTreinamentosPorCicloPg } from "../../../services/api/pg/dashboard.read.api";
+import { ApiError } from "../../../services/http/client";
 import "../styles/pagina-criar-treinamento-do.css";
 
 export function PaginaCriarTreinamentoDo() {
   const { cicloId } = useParams();
   const resultadoCiclo = useCicloDaConta(cicloId);
+  const { firebaseUser, actaUser } = useAuth();
+  const navigate = useNavigate();
+  const ciclo = resultadoCiclo.estado === "sucesso" ? resultadoCiclo.ciclo : null;
+  const idEmpresa = actaUser?.estadoPerfil === "PERFIL_CRIADO" && actaUser.status === "ATIVO" ? actaUser.idEmpresa : null;
+  const elegivel = Boolean(firebaseUser?.emailVerified && ciclo && idEmpresa === ciclo.idEmpresa
+    && (actaUser?.tipo === "ADMIN" || actaUser?.tipo === "GESTOR") && ciclo.status !== "CONCLUIDO" && ciclo.status !== "CANCELADO");
+  const opcoes = useOpcoesCriarTarefaDo({ uid: elegivel ? firebaseUser?.uid ?? null : null, idEmpresa: elegivel ? idEmpresa : null, idCiclo: elegivel ? ciclo?.id ?? null : null, habilitado: elegivel });
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
   const [validado, setValidado] = useState(false);
-  const [aviso, setAviso] = useState(false);
+  const [data, setData] = useState("");
+  const [responsavel, setResponsavel] = useState("");
+  const [obrigatorio, setObrigatorio] = useState(false);
+  const [enviando, setEnviando] = useState(false);
+  const [incerto, setIncerto] = useState(false);
+  const [mensagem, setMensagem] = useState("");
+  const trava = useRef(false);
+  const controlador = useRef<AbortController | null>(null);
+  useEffect(() => { const c = new AbortController(); controlador.current = c; return () => c.abort(); }, [ciclo?.id, firebaseUser?.uid]);
   function enviar(evento: FormEvent<HTMLFormElement>) {
     evento.preventDefault();
     setValidado(true);
-    if (titulo.trim() && descricao.trim()) setAviso(true);
+    const idResponsavel = Number(responsavel);
+    if (!ciclo || !elegivel || opcoes.estado !== "sucesso" || trava.current || incerto || !controlador.current) return;
+    if (!opcoes.responsaveis.some(p => p.id === idResponsavel) || !titulo.trim() || !descricao.trim() || !data) { setMensagem("Preencha título, descrição, responsável e data."); return; }
+    trava.current = true; setEnviando(true); setMensagem("");
+    const signal = controlador.current.signal;
+    const dados = { titulo: titulo.trim(), descricao: descricao.trim(), dataTreinamento: data, obrigatorio, idResponsavel };
+    void (async () => {
+      try {
+        const id = await criarTreinamentoPg(ciclo.id, dados, signal);
+        const treinamentos = await listarTreinamentosPorCicloPg(ciclo.id, signal);
+        const dataResposta = (v: string) => /^\d{2}\/\d{2}\/\d{4}$/.test(v) ? `${v.slice(6)}-${v.slice(3,5)}-${v.slice(0,2)}` : v;
+        if (!treinamentos.some(t => t.id === id && t.titulo === dados.titulo && t.descricao === dados.descricao && t.idResponsavel === idResponsavel && t.obrigatorio === obrigatorio && dataResposta(t.dataTreinamento) === data)) throw new Error("readback");
+        if (!signal.aborted) navigate(`/do/ciclo/${ciclo.id}/treinamentos/${id}`);
+      } catch (error) {
+        if (signal.aborted) return;
+        if (error instanceof PdcaWriteError && error.code === "INVALID_INPUT") setMensagem("Revise os campos e informe uma data de hoje ou posterior.");
+        else if (error instanceof ApiError && [400, 401, 403, 409, 422].includes(error.status)) setMensagem("O servidor recusou o cadastro. Confira os dados e suas permissões.");
+        else { setIncerto(true); setMensagem("Não foi possível confirmar o cadastro. Confira a lista antes de tentar novamente."); }
+      } finally { if (!signal.aborted) { trava.current = false; setEnviando(false); } }
+    })();
   }
 
   if (resultadoCiclo.estado !== "sucesso") {
@@ -37,27 +75,30 @@ export function PaginaCriarTreinamentoDo() {
           <div><span>ACTA, seu app de PDCA</span><strong>O ciclo da melhoria contínua<br />começa aqui!</strong></div>
         </div>
         <form className="criar-treinamento_formulario" noValidate onSubmit={enviar}>
-          <AvisoDadosDemonstrativos mensagem="Este formulário é demonstrativo; nenhuma informação será enviada ou salva." />
-          <Link className="criar-treinamento_fechar" to={`/do/ciclo/${cicloId}/treinamentos`} aria-label="Fechar">×</Link>
+          <Link className="criar-treinamento_fechar" to={`/do/ciclo/${cicloId}/treinamentos`} aria-label={incerto ? "Conferir treinamentos" : "Fechar"} aria-disabled={enviando}
+            onClick={e => { if (enviando) e.preventDefault(); }}>×</Link>
           <h1 id="criar-treinamento_titulo">Criar treinamento</h1>
-          <label className="criar-treinamento_campo criar-treinamento_campo-titulo">Título<input type="text" name="titulo" value={titulo} onChange={(e) => setTitulo(e.target.value)} aria-invalid={validado && !titulo.trim()} />{validado && !titulo.trim() && <span className="treinamento_validacao">Informe o título.</span>}</label>
-          <label className="criar-treinamento_campo criar-treinamento_campo-descricao">Descrição<textarea name="descricao" value={descricao} onChange={(e) => setDescricao(e.target.value)} aria-invalid={validado && !descricao.trim()} />{validado && !descricao.trim() && <span className="treinamento_validacao">Informe a descrição.</span>}</label>
+          <label className="criar-treinamento_campo criar-treinamento_campo-titulo">Título<input type="text" name="titulo" value={titulo} onChange={(e) => setTitulo(e.target.value)} aria-invalid={validado && !titulo.trim()} disabled={enviando || incerto} maxLength={160} />{validado && !titulo.trim() && <span className="treinamento_validacao">Informe o título.</span>}</label>
+          <label className="criar-treinamento_campo criar-treinamento_campo-descricao">Descrição<textarea name="descricao" value={descricao} onChange={(e) => setDescricao(e.target.value)} aria-invalid={validado && !descricao.trim()} disabled={enviando || incerto} maxLength={1000} />{validado && !descricao.trim() && <span className="treinamento_validacao">Informe a descrição.</span>}</label>
           <div className="criar-treinamento_dupla">
-            <label className="criar-treinamento_campo">Responsável<input type="text" name="responsavel" /></label>
-            <label className="criar-treinamento_campo">Data de início<input type="date" name="dataInicio" /></label>
+            <label className="criar-treinamento_campo">Responsável<select value={responsavel} onChange={e => setResponsavel(e.target.value)} disabled={opcoes.estado !== "sucesso" || enviando || incerto}><option value="">Selecione</option>{opcoes.estado === "sucesso" && opcoes.responsaveis.map(p => <option key={p.id} value={p.id}>{p.nome}</option>)}</select></label>
+            <label className="criar-treinamento_campo">Data do treinamento<input type="date" name="dataInicio" value={data} onChange={e => setData(e.target.value)} disabled={enviando || incerto} /></label>
           </div>
-          <div className="criar-treinamento_obrigatorio"><span>Obrigatório</span><small>Tarefas relacionadas liberadas após conclusão.</small></div>
+          <label><input type="checkbox" checked={obrigatorio} onChange={e => setObrigatorio(e.target.checked)} disabled={enviando || incerto} /> Treinamento obrigatório</label>
           <div className="criar-treinamento_colaboradores">
             <label className="criar-treinamento_campo">Colaboradores<input type="number" value={0} readOnly /></label>
             <button type="button" disabled>{/* # colocar imagem */} Ver todos</button><button type="button" disabled>{/* # colocar imagem */} Adicionar novo</button>
           </div>
+          <p>Participantes e material ainda não podem ser adicionados por este formulário.</p>
           <div className="criar-treinamento_material">
             <label>Material PDF</label><div><button type="button" disabled>{/* # colocar imagem */} Anexar</button><input aria-label="Arquivo PDF anexado" type="text" readOnly /></div>
           </div>
-          <button className="criar-treinamento_concluido" type="submit">Concluído</button>
+          {opcoes.estado === "erro" && <p role="alert">Não foi possível carregar os responsáveis.</p>}
+          {!elegivel && <p role="status">Cadastro disponível para administradores e gestores em ciclos abertos.</p>}
+          {mensagem && <p role="alert">{mensagem}</p>}
+          <button className="criar-treinamento_concluido" type="submit" disabled={!elegivel || enviando || incerto || opcoes.estado !== "sucesso"}>{enviando ? "Salvando..." : "Concluído"}</button>
         </form>
       </section>
-      {aviso && <div className="treinamento_aviso_fundo"><section className="treinamento_aviso_modal" role="alertdialog" aria-modal="true" aria-labelledby="treinamento-aviso-titulo"><h2 id="treinamento-aviso-titulo">Não foi possível criar o treinamento</h2><p>A criação de treinamentos ainda não está disponível.</p><button type="button" onClick={() => setAviso(false)}>Voltar ao formulário</button></section></div>}
     </main>
   );
 }
