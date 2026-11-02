@@ -1,0 +1,1411 @@
+/* Semantic dark theme based on ACTA Figma tokens. Profile styles are intentionally excluded. */
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_painel {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_cabecalho h1 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_metrica,
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_grafico,
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_tabela-secao,
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_estado {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_metrica h2 {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_metrica p span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_grafico header p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_barras li {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_legenda {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_nota {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_mensagem {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_tabela-rolagem thead th {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_tabela-rolagem tbody tr {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_tabela-rolagem tbody th {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_tabela-rolagem tbody td {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .act-todos-ciclos_estado p {
+  color: var(--acta-color-text-secondary);
+}
+@media (max-width: 850px) {
+  body[data-tema-aplicativo="escuro"] .act-todos-ciclos > .sidebar {
+    background: var(--acta-color-background-page);
+  }
+  body[data-tema-aplicativo="escuro"] .pagina-cato > .barra-lateral {
+    background: var(--acta-color-background-page);
+  }
+  body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_metrica h2 {
+    color: var(--acta-color-text-secondary);
+  }
+  body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos > .barra-lateral {
+    background: var(--acta-color-background-page);
+  }
+  body[data-tema-aplicativo="escuro"] .pagina-web-listas > .barra-lateral {
+    background: var(--acta-color-background-page);
+  }
+}
+body[data-tema-aplicativo="escuro"] .act-aprendizados {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .act-aprendizados input {
+  background: var(--acta-color-background-field);
+}
+body[data-tema-aplicativo="escuro"] .act-aprendizados article {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-act .painel-ciclo-plan-do_identificacao p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-act .painel-ciclo-plan-do_aba.ativa {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-act .ciclo-act_metrica {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-act .ciclo-act_metrica-titulo {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-act .ciclo-act_conteudo:not([data-estado="sucesso"]) .ciclo-act_metrica-valor {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-act .ciclo-act_card {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-act .ciclo-act_descricao {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-act .ciclo-act_estado {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-login {
+  color-scheme: dark;
+  background: var(--acta-color-background-page);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .layout-login {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .cabecalho-login p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .formulario-login input {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .divisor-login {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .botao-login-google {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .botao-login-google:hover {
+  border-color: var(--acta-color-border-default);
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .esqueci-senha {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .modal-recuperar h2 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .modal-recuperar_descricao {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .modal-recuperar_formulario label {
+  color: var(--acta-color-text-primary);
+}
+@media (max-width: 760px) {
+  body[data-tema-aplicativo="escuro"] .layout-login {
+    background: var(--acta-color-background-page);
+  }
+  body[data-tema-aplicativo="escuro"] .pagina-ciclo-plan-do > .barra-lateral {
+    background: var(--acta-color-background-page);
+  }
+  body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-tarefas .barra-lateral {
+    background: var(--acta-color-background-page);
+  }
+  body[data-tema-aplicativo="escuro"] .pagina-treinamento-especifico .barra-lateral {
+    background: var(--acta-color-background-page);
+  }
+  body[data-tema-aplicativo="escuro"] .pagina-treinamentos .barra-lateral {
+    background: var(--acta-color-background-page);
+  }
+  body[data-tema-aplicativo="escuro"] .layout-simples .barra-lateral {
+    background: var(--acta-color-background-page);
+  }
+}
+body[data-tema-aplicativo="escuro"] .pagina-cato {
+  --cato-bg: var(--acta-color-background-page);
+  --cato-surface: var(--acta-color-background-surface);
+  --cato-field: var(--acta-color-background-field);
+  --cato-line: var(--acta-color-border-default);
+  --cato-text: var(--acta-color-text-primary);
+  --cato-muted: var(--acta-color-text-secondary);
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .cato_cabecalho {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .cato_cabecalho h1 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .cato_cabecalho p {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .cato_historico_reabrir {
+  background: var(--acta-color-background-page);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .cato_historico li button:hover,
+body[data-tema-aplicativo="escuro"] .cato_historico li button.ativo {
+  border-color: var(--acta-color-border-default);
+}
+body[data-tema-aplicativo="escuro"] .cato_perfil_seta {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .cato_contexto_opcao small {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .cato_contexto_selecao label {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .cato_mensagem--user .cato_mensagem_conteudo {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .cato_mensagem--assistant .cato_mensagem_conteudo {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .cato_mensagem p {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .cato_mensagem--audio .cato_mensagem_conteudo {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .cato_compositor {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .cato_compositor:focus-within {
+  border-color: var(--acta-color-border-default);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_cabecalho h1 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_metrica,
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_grafico,
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_tabela-secao,
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_vazio {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_metrica p > span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_grafico figcaption > p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_eixo {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_legenda li {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_nota-grafico {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_rosca-total > span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_legenda-metas li > span:last-child {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_base-grafico {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_tabela thead th {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_tabela tbody tr {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_tabela tbody th {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_tabela tbody td {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_tabela-nota {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_nota-rodape {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_vazio p,
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_grafico-vazio,
+body[data-tema-aplicativo="escuro"] .check-todos-ciclos .check-todos-ciclos_tabela-vazia {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .painel-ciclo-plan-do_identificacao p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .painel-ciclo-plan-do_aba.ativa {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .ciclo-check_conteudo {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .ciclo-check_metrica {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .ciclo-check_metrica-titulo {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .ciclo-check_conteudo:not([data-estado="sucesso"]) .ciclo-check_metrica-valor {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .ciclo-check_metrica-contexto {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .ciclo-check_resultados,
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .ciclo-check_verificacoes,
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .ciclo-check_comparacao {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .ciclo-check_titulo {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .ciclo-check_descricao {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .ciclo-check_item {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .ciclo-check_detalhe {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .ciclo-check_badge {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .ciclo-check_legenda {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-check .ciclo-check_estado {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-detalhe-indicador {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .check-detalhe-indicador .detalhe-indicador_modal {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .check-detalhe-indicador .detalhe-indicador_serie,
+body[data-tema-aplicativo="escuro"] .check-detalhe-indicador .detalhe-indicador_leitura {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .check-detalhe-indicador .detalhe-indicador_subtitulo {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .check-detalhe-indicador .detalhe-indicador_descricao {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-detalhe-verificacao {
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .check-detalhe-verificacao .detalhe-verificacao_modal {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .check-detalhe-verificacao .detalhe-verificacao_resultado,
+body[data-tema-aplicativo="escuro"] .check-detalhe-verificacao .detalhe-verificacao_consultas {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .check-detalhe-verificacao .detalhe-verificacao_status {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-detalhe-verificacao .detalhe-verificacao_subtitulo {
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .check-detalhe-verificacao .detalhe-verificacao_texto {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao {
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_modal {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_campo label,
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_periodo legend {
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_campo input,
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_campo textarea,
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_campo select {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_campo input::placeholder,
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_campo textarea::placeholder {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_campo input:disabled {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_campo select:disabled,
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_campo textarea:disabled {
+  border-color: var(--acta-color-border-default);
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_campo input:disabled::placeholder {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_ajuda {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_concluir:disabled {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_fechar a[aria-disabled="true"] {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .check-registrar-verificacao .registrar-verificacao_estado {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-plan-do {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .painel-ciclo-plan-do {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .painel-ciclo-plan-do_cabecalho {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .painel-ciclo-plan-do_titulo-linha h1 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .painel-ciclo-plan-do_identificacao p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .painel-ciclo-plan-do_identificacao p strong {
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .painel-ciclo-plan-do_aba.ativa {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .pagina-todos-ciclos .web-listas_titulo > a:first-child {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .pagina-todos-ciclos .web-listas_titulo h1 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-todos-ciclos .web-listas_titulo > button {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .lista-ciclos_primeiro-ciclo h2 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .lista-ciclos_primeiro-ciclo p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .lista-ciclos_busca input {
+  background: var(--acta-color-background-field);
+}
+body[data-tema-aplicativo="escuro"] .lista-ciclos_busca input::placeholder {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .lista-ciclos_tabs button {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .lista-ciclos_item {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .lista-ciclos_identificacao p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .lista-ciclos_progresso > span {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .lista-ciclos_mais {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .lista-ciclos_vazio {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-criar_modal {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-criar_cabecalho p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-criar_fechar {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-criar_modal input,
+body[data-tema-aplicativo="escuro"] .ciclo-criar_modal textarea {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-criar_cancelar {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-criar_aviso {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-criar_colaboradores-cabecalho p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-criar_colaboradores-cabecalho > span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-criar_painel-seletor {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-criar_opcao-colaborador {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-criar_usuarios-estado {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .home-page .home-page_saudacao,
+body[data-tema-aplicativo="escuro"] .home-page .home-page_pendencias,
+body[data-tema-aplicativo="escuro"] .home-page .home-page_ciclos,
+body[data-tema-aplicativo="escuro"] .home-page .home-page_etapas,
+body[data-tema-aplicativo="escuro"] .home-page .home-page_vazio {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .home-page .home-page_saudacao {
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .home-page .home-page_metrica {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .home-page .home-page_metrica h2 {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .home-page .home-page_metrica p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .home-page .home-page_pendencias-descricao {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .home-page .home-page_pendencia {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .home-page .home-page_pendencia-texto strong {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .home-page .home-page_pendencia-texto small {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .home-page .home-page_ciclo {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .home-page .home-page_ciclo:hover {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .home-page .home-page_ciclo h3 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .home-page .home-page_ciclo-progresso {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .home-page .home-page_ciclo-progresso-indisponivel {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .home-page .home-page_vazio p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-sucesso-do {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .sucesso-do_cartao {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .sucesso-do_titulo {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .sucesso-do_descricao {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .cronograma-gantt {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .cronograma-datas {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .cronograma-tarefa {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .cronograma-bloqueio {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .cronograma-linha > small {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-equipe .ciclo-do-equipe_pessoas,
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-equipe .ciclo-do-equipe_convidar {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-equipe .ciclo-do-equipe_pessoas-cabecalho p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-equipe .ciclo-do-equipe_tabela thead th {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-equipe .ciclo-do-equipe_tabela tbody td:last-child {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-equipe .ciclo-do-equipe_tabela [data-estado] {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-equipe .ciclo-do-equipe_tabela [data-estado="neutra"] {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-equipe .ciclo-do-equipe_vazio {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-equipe .ciclo-do-equipe_convidar label {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-equipe .ciclo-do-equipe_convidar input,
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-equipe .ciclo-do-equipe_convidar select {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-tarefas {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_tarefas_painel {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_tarefas_cabecalho {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_tarefas_cabecalho p {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_tarefas_cabecalho p span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_tarefas_aba-do {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_kanban {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_kanban_instrucao {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_coluna {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_tarefa {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_tarefa span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_resumo_lateral {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_rotulo_progresso {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_contadores article {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_contadores article span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_dica {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_treinamentos article,
+body[data-tema-aplicativo="escuro"] .ciclo-do_prazos article {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_treinamentos article p,
+body[data-tema-aplicativo="escuro"] .ciclo-do_prazos article p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_prazos article p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-tarefas .ciclo-do_coluna h3 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-tarefas .ciclo-do_tarefa_status {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-tarefas .ciclo-do_tarefa_status[data-estado="CANCELADA"] {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do-tarefas .ciclo-do_filtros button {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-treinamento-especifico {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .treinamento-especifico_painel {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .treinamento-especifico_cabecalho {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .treinamento-especifico_cabecalho p {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .treinamento-especifico_cabecalho p span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .treinamento-especifico_aba-do {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .treinamento-equipe {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .treinamento-equipe_metrica span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .treinamento-equipe_metrica small {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .treinamento-selecionado,
+body[data-tema-aplicativo="escuro"] .treinamento-atencao,
+body[data-tema-aplicativo="escuro"] .treinamento-modulos {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .treinamento-selecionado ul {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .treinamento-atencao p small {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .treinamento-modulos article p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .treinamento-modulos article small {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .treinamento-modulo_barra {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .pagina-treinamentos {
+  background: var(--acta-color-background-page);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .treinamentos_painel {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .treinamentos_cabecalho {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .treinamentos_cabecalho p {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .treinamentos_cabecalho p span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .treinamentos_aba-do {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .treinamentos_busca input {
+  background: var(--acta-color-background-field);
+}
+body[data-tema-aplicativo="escuro"] .treinamentos_busca input::placeholder {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .treinamentos_tabs button {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .treinamento_card {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .treinamento_detalhes h3 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .treinamento_detalhes p {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .treinamentos_vazio {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_painel {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_cabecalho {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_identificacao p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_identificacao p strong {
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_aba-visao,
+body[data-tema-aplicativo="escuro"] .ciclo-do_aba-visao-ativa {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_etapas {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_etapa_texto {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_etapa_percentual {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_etapa_barra {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_membros {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_card_tarefas,
+body[data-tema-aplicativo="escuro"] .ciclo-do_card_indicador,
+body[data-tema-aplicativo="escuro"] .ciclo-do_card_decisoes {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_card_tarefas>span,
+body[data-tema-aplicativo="escuro"] .ciclo-do_card_indicador>span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .ciclo-do_card_decisoes small {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do .ciclo-do_card_tarefas > p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-do .ciclo-do_tarefas_contagens dt {
+  color: var(--acta-color-text-secondary);
+}
+@media (max-width:760px) {
+  body[data-tema-aplicativo="escuro"] .pagina-ciclo-do .barra-lateral {
+    background: var(--acta-color-background-page);
+  }
+}
+body[data-tema-aplicativo="escuro"] .do-criar-tarefa {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .do-criar-tarefa .criar-tarefa-do_modal {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .do-criar-tarefa .criar-tarefa-do_campo {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .do-criar-tarefa .criar-tarefa-do_campo input,
+body[data-tema-aplicativo="escuro"] .do-criar-tarefa .criar-tarefa-do_campo textarea,
+body[data-tema-aplicativo="escuro"] .do-criar-tarefa .criar-tarefa-do_campo select {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .do-criar-tarefa .criar-tarefa-do_campo input:disabled,
+body[data-tema-aplicativo="escuro"] .do-criar-tarefa .criar-tarefa-do_campo select:disabled {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .do-criar-tarefa .criar-tarefa-do_ajuda {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .do-criar-tarefa .criar-tarefa-do_estado {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .do-tarefa-sucesso {
+  background: var(--acta-color-background-page);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .do-tarefa-sucesso p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-criar-treinamento-do {
+  background: var(--acta-color-background-page);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .criar-treinamento_modal {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .criar-treinamento_fechar {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .criar-treinamento_campo {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .criar-treinamento_campo input,
+body[data-tema-aplicativo="escuro"] .criar-treinamento_campo textarea,
+body[data-tema-aplicativo="escuro"] .criar-treinamento_material input {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .criar-treinamento_obrigatorio small {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .criar-treinamento_material {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .treinamento_aviso_modal {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .treinamento_aviso_modal p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .do-detalhe-tarefa .detalhe-tarefa-do_modal {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .do-detalhe-tarefa .detalhe-tarefa-do_vinculo {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .do-detalhe-tarefa .detalhe-tarefa-do_campo dd {
+  background: var(--acta-color-background-field);
+}
+body[data-tema-aplicativo="escuro"] .do-detalhe-tarefa .detalhe-tarefa-do_campo dd[data-estado="CANCELADA"] {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .do-detalhe-tarefa .detalhe-tarefa-do_vinculos {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .do-detalhe-tarefa .detalhe-tarefa-do_vinculos p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .do-detalhe-tarefa .detalhe-tarefa-do_estado {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos {
+  background: var(--acta-color-background-page);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_painel {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_cabecalho h1 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_metrica,
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_grafico,
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_tabela-secao,
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_vazio {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_metrica h2 {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_metrica p > span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_grafico figcaption > p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_eixo {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_legenda li {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_nota-grafico {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_rosca-total > span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_legenda-situacao li > span:last-child {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_base-grafico {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_tabela thead th {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_tabela tbody tr {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_tabela tbody th {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_tabela tbody td {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_vazio p,
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_grafico-vazio,
+body[data-tema-aplicativo="escuro"] .pagina-do-todos-ciclos .do-todos-ciclos_tabela-vazia {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .onboarding {
+  background: var(--acta-color-background-page);
+  color: var(--acta-color-text-primary);
+  color-scheme: dark;
+}
+body[data-tema-aplicativo="escuro"] .onboarding-cabecalho p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .onboarding-progresso span {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .onboarding-campo input,
+body[data-tema-aplicativo="escuro"] .onboarding-campo select {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .onboarding-campo input[readonly] {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .onboarding-cep-status {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .layout-simples {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .layout-simples_painel {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .barra-lateral {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .sidebar {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .sidebar_atalhos {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .sidebar_atalhos a,
+body[data-tema-aplicativo="escuro"] .sidebar_atalhos button {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-web-listas {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .web-listas_painel {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .web-listas_topo > span,
+body[data-tema-aplicativo="escuro"] .web-listas_topo > a {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .modal-erro-plan {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .modal-erro-plan p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-plan .plan-indicador,
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-plan .plan-progresso {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-plan .plan-indicador p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-plan .plan-progresso_texto p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-ciclo-plan .plan-progresso_legenda {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-aviso-coleta_dialogo h1 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-aviso-coleta_dialogo > p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-coleta-conteudo {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-coleta_subtitulo {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-coleta_painel {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .plan-coleta_painel p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-coleta_acao-secundaria {
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .plan-coleta_cartao {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .plan-coleta_cartao p,
+body[data-tema-aplicativo="escuro"] .plan-coleta_respostas li {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-formulario_modal {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-formulario_mensagem {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-formulario_fechar {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-formulario_campos label,
+body[data-tema-aplicativo="escuro"] .plan-criar-formulario_campo-extra label {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-formulario_automacoes {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-formulario_adicionar {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-formulario_campo-acoes button {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-formulario_concluir {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-problema {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_modal {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_campo label {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_campo input,
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_campo textarea,
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_campo select {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_campo input::placeholder,
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_campo textarea::placeholder {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_campo input:disabled,
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_campo textarea:disabled,
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_campo select:disabled {
+  border-color: var(--acta-color-border-default);
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_campo input:disabled::placeholder,
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_campo textarea:disabled::placeholder {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_ajuda {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_concluir:disabled {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_fechar a[aria-disabled="true"] {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_estado {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .plan-criar-problema .plan-criar-problema_estado p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-detalhe-problema {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-detalhe-problema_subtitulo {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-detalhe-problema_cartao {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .plan-detalhe-problema_cartao dt {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-detalhe-problema_acoes > p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-detalhe-problema_acoes a {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-editar-problema_campos label {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-editar-problema_campos input,
+body[data-tema-aplicativo="escuro"] .plan-editar-problema_campos textarea,
+body[data-tema-aplicativo="escuro"] .plan-editar-problema_campos select {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-editar-problema_aviso {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-editar-problema_acoes a,
+body[data-tema-aplicativo="escuro"] .plan-editar-problema_acoes button {
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .pagina-plan-identificacao .plan-identificacao_vazio h3 {
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .pagina-plan-identificacao .plan-identificacao_vazio p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-investigacao {
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .plan-investigacao_subtitulo {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-investigacao_cartao {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .plan-investigacao_categorias section {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .plan-investigacao_problema span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-investigacao_porques span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-investigacao_editor-campo-acoes button {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .plan-investigacao_editor input,
+body[data-tema-aplicativo="escuro"] .plan-investigacao_editor select {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .plan-investigacao_editor > p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-investigacao_editor-acoes button {
+  color: var(--acta-color-text-on-brand);
+}
+body[data-tema-aplicativo="escuro"] .pagina-plan-problemas-registrados .plan-problemas-registrados_conteudo {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-plan-problemas-registrados .plan-problemas-registrados_busca input {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-plan-problemas-registrados .plan-problemas-registrados_busca input::placeholder {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-plan-problemas-registrados .plan-problemas-registrados_cartao {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .pagina-plan-problemas-registrados .plan-problemas-registrados_detalhes h3 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-plan-problemas-registrados .plan-problemas-registrados_descricao {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-plan-problemas-registrados .plan-problemas-registrados_subproblemas {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-plan-problemas-registrados .plan-problemas-registrados_sem-subproblemas {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-plan-problemas-registrados .plan-problemas-registrados_menu {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-plan-problemas-registrados .plan-problemas-registrados_estado,
+body[data-tema-aplicativo="escuro"] .pagina-plan-problemas-registrados .plan-problemas-registrados_vazio {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-plan-ciclos {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_cabecalho h1 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_metrica,
+body[data-tema-aplicativo="escuro"] .plan-ciclos_grafico,
+body[data-tema-aplicativo="escuro"] .plan-ciclos_tabela-secao,
+body[data-tema-aplicativo="escuro"] .plan-ciclos_vazio {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_metrica h2 {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_metrica p > span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_grafico figcaption > p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_eixo {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_legenda li {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_nota-grafico {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_donut-total > span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_legenda-planos li > span:last-child {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_base-grafico {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_tabela thead th {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_tabela tbody tr {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_tabela tbody th {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_tabela tbody td {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_planos-api > header h2 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_planos-api > header p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_etapas-card {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_etapas-anel > span {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_etapas-conteudo h3 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_etapas-conteudo p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_etapas-conteudo ul {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_etapas-conteudo li b {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_etapas-conteudo li > span:last-child {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_plano-api {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_plano-api_topo h3 {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_plano-api_status-cancelado {
+  background: var(--acta-color-background-page);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_plano-api_ciclo {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_plano-api_resumo {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .plan-ciclos_vazio p,
+body[data-tema-aplicativo="escuro"] .plan-ciclos_grafico-vazio,
+body[data-tema-aplicativo="escuro"] .plan-ciclos_tabela-vazia {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .pagina-relatorios {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .relatorios_painel {
+  background: var(--acta-color-background-page);
+}
+body[data-tema-aplicativo="escuro"] .relatorios_subtitulo,
+body[data-tema-aplicativo="escuro"] .relatorios_estado p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .relatorios_busca input,
+body[data-tema-aplicativo="escuro"] .relatorios_formulario input,
+body[data-tema-aplicativo="escuro"] .relatorios_formulario select,
+body[data-tema-aplicativo="escuro"] .relatorios_formulario textarea {
+  background: var(--acta-color-background-field);
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .relatorios_secundario {
+  color: var(--acta-color-text-primary);
+}
+body[data-tema-aplicativo="escuro"] .relatorios_formulario {
+  background: var(--acta-color-background-surface);
+}
+body[data-tema-aplicativo="escuro"] .relatorios_fechar {
+  background: var(--acta-color-background-surface);
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .relatorios_aviso {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] .relatorios_aviso_modal p {
+  color: var(--acta-color-text-secondary);
+}
+body[data-tema-aplicativo="escuro"] {
+  --acta-color-background-canvas: #16191a;
+  --acta-color-background-page: #202426;
+  --acta-color-background-subtle: #202426;
+  --acta-color-background-surface: #2a3033;
+  --acta-color-background-field: #363f43;
+  --acta-color-border-default: #505b60;
+  --acta-color-text-primary: #d6dcdd;
+  --acta-color-text-secondary: #a6b0b4;
+  --acta-color-text-accent: #7acfd4;
+  --acta-color-text-on-brand: #16191a;
+  --acta-color-text-inverse: #ffffff;
+  --acta-color-action-primary: #0ac2ca;
+  --acta-color-stage-plan: #025a8a;
+  --acta-color-stage-do: #0ac2ca;
+  --acta-color-stage-check: #44ad84;
+  --acta-color-stage-act: #04a69e;
+  --acta-color-status-success: #44ad84;
+  --acta-color-status-warning: #ffd342;
+  --acta-color-status-danger: #d55144;
+}
+body[data-tema-aplicativo="escuro"] .app-footer { background: var(--acta-color-background-page); color: var(--acta-color-text-secondary); }
+body[data-tema-aplicativo="escuro"] { color-scheme: dark; background: var(--acta-color-background-page); color: var(--acta-color-text-primary); }

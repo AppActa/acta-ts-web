@@ -1,0 +1,43 @@
+/* Alto contraste aplicado fora das telas de perfil. */
+body[data-contraste-aplicativo="alto"] {
+  color-scheme: dark;
+  background: #000 !important;
+  color: #fff !important;
+}
+
+body[data-contraste-aplicativo="alto"] :not(img, svg, path, circle, rect, line, polyline, polygon, video, canvas),
+body[data-contraste-aplicativo="alto"] :not(img, svg, path, circle, rect, line, polyline, polygon, video, canvas)::before,
+body[data-contraste-aplicativo="alto"] :not(img, svg, path, circle, rect, line, polyline, polygon, video, canvas)::after {
+  background-color: #000 !important;
+  background-image: none !important;
+  color: #fff !important;
+  border-color: #fff !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+body[data-contraste-aplicativo="alto"] a,
+body[data-contraste-aplicativo="alto"] a * {
+  color: #ffeb3b !important;
+  text-decoration-color: #ffeb3b !important;
+}
+
+body[data-contraste-aplicativo="alto"] :is(button, input, select, textarea, [role="button"], [role="switch"]) {
+  border: 2px solid #fff !important;
+}
+
+body[data-contraste-aplicativo="alto"] :is(button, input, select, textarea, a, [role="button"], [role="switch"]):focus-visible {
+  outline: 3px solid #ffeb3b !important;
+  outline-offset: 3px;
+}
+
+body[data-contraste-aplicativo="alto"] :is(input, textarea)::placeholder {
+  color: #ddd !important;
+  opacity: 1;
+}
+
+body[data-contraste-aplicativo="alto"] :is(button, input, select, textarea):disabled {
+  color: #aaa !important;
+  border-color: #aaa !important;
+  opacity: 1;
+}

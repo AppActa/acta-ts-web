@@ -277,6 +277,24 @@ export async function criarPlanoPg(idCiclo: number, nome: string, prioridade: Pr
   return value.id;
 }
 
+export async function criarCausaRaizPg(idCiclo: number, idProblema: number, descricao: string, principal: boolean, signal: AbortSignal): Promise<number> {
+  const ciclo = readId(idCiclo);
+  readId(idProblema);
+  if (!descricao.trim() || descricao !== descricao.trim() || descricao.length > 1000 || typeof principal !== "boolean") throw new PdcaWriteError("INVALID_INPUT");
+  const value = await post(`/ciclos/${ciclo}/causas-raiz`, { descricao, origem: "MANUAL", principal, idProblema, id5PorquesMongo: null }, signal);
+  if (!isRecord(value) || !positiveId(value.id) || value.idCiclo !== ciclo || value.idProblema !== idProblema || value.descricao !== descricao || value.principal !== principal || value.origem !== "MANUAL") throw new PdcaWriteError("INVALID_RESPONSE");
+  return value.id;
+}
+
+export async function atualizarStatusPlanoPg(idPlano: number, idCiclo: number, status: "APROVADO" | "EM_EXECUCAO" | "CONCLUIDO" | "CANCELADO", signal: AbortSignal): Promise<void> {
+  readId(idPlano); readId(idCiclo);
+  if (!["APROVADO", "EM_EXECUCAO", "CONCLUIDO", "CANCELADO"].includes(status)) throw new PdcaWriteError("INVALID_INPUT");
+  const url = endpointUrl(`/plano-acao/${idPlano}/status`);
+  url.searchParams.set("status", status);
+  const value: unknown = await httpClient(url, { method: "PATCH", signal, retryOnUnauthorized: false });
+  if (!isRecord(value) || value.id !== idPlano || value.idCiclo !== idCiclo || value.status !== status) throw new PdcaWriteError("INVALID_RESPONSE");
+}
+
 function validarPlano5W2H(dados: NovoPlano5W2HPg, exigirDatasFuturas: boolean): void {
   const dataValida = (valor: string) => exigirDatasFuturas ? dataIsoFuturaValida(valor) : /^\d{4}-\d{2}-\d{2}$/.test(valor);
   const textos = [dados.whatAcao, dados.whyJustificativa, dados.whereLocal, dados.howModoExecucao];
