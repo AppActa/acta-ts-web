@@ -46,7 +46,7 @@
 
 .plan-ciclos_cabecalho p {
   margin: 4px 0 24px;
-  color: #003654;
+  color: #449BA2;
   font-size: 12px;
   line-height: 1.5;
 }
@@ -320,6 +320,10 @@
 .plan-ciclos_tabela th:nth-child(4) { width: 23%; }
 .plan-ciclos_tabela th:nth-child(5) { width: 21%; }
 .plan-ciclos_tabela tbody tr { background: #fff; box-shadow: 0 1px 10px rgb(0 0 0 / 3%); }
+.plan-ciclos_tabela tbody tr { cursor: pointer; }
+.plan-ciclos_link-ciclo { color: inherit; text-decoration: none; }
+.plan-ciclos_link-ciclo:hover { color: #087d83; text-decoration: underline; text-underline-offset: 2px; }
+.plan-ciclos_link-ciclo:focus-visible { border-radius: 3px; outline: 3px solid #07608f; outline-offset: 2px; }
 .plan-ciclos_tabela tbody th { height: 56px; border-radius: 20px 0 0 20px; color: #253132; font-size: 11px; font-weight: 400; }
 .plan-ciclos_tabela tbody td { color: #5e686b; font-size: 10px; line-height: 1.5; }
 .plan-ciclos_tabela tbody td:last-child { border-radius: 0 20px 20px 0; }
@@ -327,6 +331,37 @@
 .plan-ciclos_status-andamento { background: #fff3dc; color: #875300; }
 .plan-ciclos_status-atencao { background: #e1f5f7; color: #025a8a; }
 .plan-ciclos_status-revisao { background: #e6f5ee; color: #22764e; }
+.plan-ciclos_planos-api { margin-top: 18px; }
+.plan-ciclos_planos-api > header { margin: 0 0 14px; }
+.plan-ciclos_planos-api > header h2 { margin: 0; color: #253132; font: 700 20px/1.4 "Plan Jakarta", sans-serif; }
+.plan-ciclos_planos-api > header p { margin: 4px 0 0; color: #52666a; font-size: 13px; }
+.plan-ciclos_planos-lista { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.plan-ciclos_etapas-card { display: flex; min-width: 0; min-height: 210px; align-items: center; gap: 28px; border-radius: 18px; padding: 24px 30px; background: #fff; box-shadow: 0 2px 12px rgb(0 0 0 / 4%); }
+.plan-ciclos_etapas-anel { position: relative; display: flex; width: 142px; height: 142px; flex: 0 0 142px; flex-direction: column; align-items: center; justify-content: center; border-radius: 50%; background: radial-gradient(circle closest-side, #fff 84%, transparent 85%), conic-gradient(#05699d 0 80%, #dce6e9 80% 100%); }
+.plan-ciclos_etapas-anel strong { color: #008596; font: 600 22px/1 "Plan Jakarta", sans-serif; }
+.plan-ciclos_etapas-anel > span { margin-top: 4px; color: #52666a; font-size: 9px; }
+.plan-ciclos_etapas-conteudo { display: grid; min-width: 0; gap: 12px; }
+.plan-ciclos_etapas-conteudo h3 { margin: 0; color: #253132; font: 700 18px/1.4 "Plan Jakarta", sans-serif; }
+.plan-ciclos_etapas-conteudo > strong { color: #078b97; font: 600 14px/1.4 "Plan Jakarta", sans-serif; }
+.plan-ciclos_etapas-conteudo p { margin: 0; color: #7b858d; font-size: 13px; line-height: 1.5; }
+.plan-ciclos_etapas-conteudo ul { display: flex; flex-wrap: wrap; gap: 16px; margin: 5px 0 0; padding: 0; color: #7b858d; font-size: 11px; list-style: none; }
+.plan-ciclos_etapas-conteudo li { display: flex; align-items: center; gap: 5px; }
+.plan-ciclos_etapas-conteudo li b { margin-left: 2px; color: #253132; font: 700 11px/1.4 "Plan Jakarta", sans-serif; }
+.plan-ciclos_etapas-conteudo li > span:last-child { color: #7b858d; font-size: 10px; }
+.plan-ciclos_etapas-ponto { width: 8px; height: 8px; border-radius: 50%; background: #05699d; }
+.plan-ciclos_etapas-ponto.pendente { background: #aeb9be; }
+.plan-ciclos_plano-api { display: flex; min-width: 0; min-height: 174px; flex-direction: column; border-radius: 18px; padding: 20px; background: #fff; box-shadow: 0 2px 12px rgb(0 0 0 / 4%); }
+.plan-ciclos_plano-api_topo { display: flex; min-width: 0; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.plan-ciclos_plano-api_topo h3 { min-width: 0; margin: 0; color: #253132; font: 700 17px/1.4 "Plan Jakarta", sans-serif; overflow-wrap: anywhere; }
+.plan-ciclos_plano-api_status { flex: 0 0 auto; border-radius: 18px; padding: 5px 14px; background: #e1f5f7; color: #025a8a; font-size: 11px; font-weight: 600; }
+.plan-ciclos_plano-api_status-rascunho { background: #fff3dc; color: #875300; }
+.plan-ciclos_plano-api_status-aprovado,
+.plan-ciclos_plano-api_status-concluido { background: #e6f5ee; color: #22764e; }
+.plan-ciclos_plano-api_status-cancelado { background: #f0eeee; color: #66707a; }
+.plan-ciclos_plano-api_ciclo { margin: 9px 0 0; color: #66707a; font-size: 13px; }
+.plan-ciclos_plano-api_resumo { margin: 13px 0 18px; color: #66707a; font-size: 13px; line-height: 1.5; }
+.plan-ciclos_plano-api > a { margin-top: auto; color: #025a8a; font-size: 13px; font-weight: 600; text-decoration: none; }
+.plan-ciclos_plano-api > a:hover { text-decoration: underline; }
 .plan-ciclos_vazio { padding: 28px; }
 .plan-ciclos_vazio h2 { margin: 0 0 12px; font-size: 20px; }
 .plan-ciclos_vazio p, .plan-ciclos_grafico-vazio, .plan-ciclos_tabela-vazia { color: #52666a; font-size: 14px; line-height: 1.6; }
@@ -351,6 +386,18 @@
   .plan-ciclos_cabecalho h1 { font-size: clamp(24px, 4vw, 30px); }
   .plan-ciclos_metricas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .plan-ciclos_grafico { padding: 22px 18px; }
+  .plan-ciclos_planos-lista { grid-template-columns: minmax(0, 1fr); }
+  .plan-ciclos_etapas-card { gap: 20px; padding: 22px; }
+}
+
+@media (max-width: 520px) {
+  .plan-ciclos_etapas-card { align-items: flex-start; gap: 16px; padding: 18px; }
+  .plan-ciclos_etapas-anel { width: 96px; height: 96px; flex-basis: 96px; }
+  .plan-ciclos_etapas-conteudo { gap: 8px; }
+  .plan-ciclos_etapas-conteudo h3 { font-size: 16px; }
+  .plan-ciclos_etapas-conteudo > strong { font-size: 12px; }
+  .plan-ciclos_etapas-conteudo p { font-size: 11px; }
+  .plan-ciclos_etapas-conteudo ul { gap: 8px; }
 }
 
 @media (max-width: 760px) {
