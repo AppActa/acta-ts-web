@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } fr
 import { listarTarefasPorPlanoPg, type PrioridadeTarefaPg, type StatusTarefaPg, type TarefaDoPlanoPg } from "../../../services/api/pg/dashboard.read.api";
 import { atualizarStatusTarefaPg, atualizarTarefaPg, PdcaWriteError, reatribuirTarefaPg } from "../../../services/api/pg/pdca.write.api";
 import { ApiError } from "../../../services/http/client";
+import { CarregandoConteudo } from "../../layout/CarregandoConteudo";
 
 export type DetalheTarefaDoProps = {
   tarefa: TarefaDoPlanoPg;
@@ -145,11 +146,11 @@ export function DetalheTarefaDo({ tarefa: inicial, nomePlano, tituloCiclo, acaoF
         </form>}
         {podeReatribuir && !editando && !["CONCLUIDA", "CANCELADA"].includes(tarefa.status) && <form className="detalhe-tarefa-do_status-form" onSubmit={salvarResponsavel}>
           <label htmlFor={`${id}-responsavel`}>Alterar responsável</label>
-          {estadoResponsaveis === "carregando" && <p role="status">Carregando responsáveis...</p>}
+          {estadoResponsaveis === "carregando" && <CarregandoConteudo compacto mensagem="Carregando responsáveis" />}
           {(estadoResponsaveis === "erro" || estadoResponsaveis === "indisponivel") && <p role="alert">Não foi possível carregar os responsáveis.</p>}
           {estadoResponsaveis === "sucesso" && <><select id={`${id}-responsavel`} value={novoResponsavel} onChange={e => setNovoResponsavel(e.target.value)} disabled={enviando || incerto} required>
             <option value="">Selecione</option>{opcoesResponsaveis.filter(item => item.id !== tarefa.idResponsavel).map(item => <option key={item.id} value={item.id}>{item.nome}</option>)}
-          </select><p>A pessoa selecionada pode receber uma notificação.</p>
+          </select>
           <button type="submit" disabled={enviando || incerto || !novoResponsavel}>{enviando ? "Salvando..." : "Salvar responsável"}</button></>}
         </form>}
         {!editando && mensagem && <p role="status">{mensagem}</p>}

@@ -1,4 +1,5 @@
 import { useId, useState, type FormEvent } from "react";
+import { CarregandoConteudo } from "../../layout/CarregandoConteudo";
 import type { DadosEnvioCriarTarefaDo, FeedbackCriarTarefaDo, FormularioCriarTarefaDoProps, PlanoOpcaoCriarTarefaDo, PrioridadeTarefaPg, ResponsavelOpcaoCriarTarefaDo } from "../../../types/do";
 export type { DadosEnvioCriarTarefaDo, FeedbackCriarTarefaDo, FormularioCriarTarefaDoProps, PlanoOpcaoCriarTarefaDo, ResponsavelOpcaoCriarTarefaDo } from "../../../types/do";
 
@@ -69,15 +70,13 @@ export function FormularioCriarTarefaDo({ planos, responsaveis, estadoOpcoes, po
 
   return (
     <section className="criar-tarefa-do_modal" aria-labelledby={`${id}-titulo`}>
-      <div className="criar-tarefa-do_banner"><span>Acta, seu app de PDCA</span><strong>O ciclo da melhoria começa aqui!</strong></div>
       <div className="criar-tarefa-do_conteudo">
         <div className="criar-tarefa-do_fechar">{acaoFechar}</div>
         <h1 className="criar-tarefa-do_titulo" id={`${id}-titulo`}>Criar tarefa</h1>
-        <p className="criar-tarefa-do_aviso" id={`${id}-aviso`}>A pessoa atribuída pode receber uma notificação sobre esta tarefa.</p>
         {mensagemElegibilidade && <p className="criar-tarefa-do_ajuda" role="status">{mensagemElegibilidade}</p>}
-        {mensagemOpcoes && <p className="criar-tarefa-do_estado" role={estadoOpcoes === "erro" ? "alert" : "status"} aria-live="polite">{mensagemOpcoes}</p>}
+        {mensagemOpcoes && (estadoOpcoes === "carregando" ? <CarregandoConteudo compacto mensagem={mensagemOpcoes} /> : <p className="criar-tarefa-do_estado" role={estadoOpcoes === "erro" ? "alert" : "status"} aria-live="polite">{mensagemOpcoes}</p>)}
         {feedback && <p className={feedback.tipo === "erro" ? "criar-tarefa-do_erro" : "criar-tarefa-do_ajuda"} role={feedback.tipo === "erro" ? "alert" : "status"} aria-live="polite">{feedback.mensagem}</p>}
-        <form className="criar-tarefa-do_campos" noValidate aria-label="Dados da tarefa" aria-describedby={`${id}-aviso`} onSubmit={enviar}>
+        <form className="criar-tarefa-do_campos" noValidate aria-label="Dados da tarefa" onSubmit={enviar}>
           <label className="criar-tarefa-do_campo" htmlFor={`${id}-titulo-input`}>Título
             <input id={`${id}-titulo-input`} name="titulo" type="text" required value={campos.titulo} {...propsCampo("titulo", `${id}-titulo-ajuda`)} onChange={(event) => atualizar("titulo", event.target.value)} />
             <span className="criar-tarefa-do_ajuda" id={`${id}-titulo-ajuda`}>Obrigatório. Até 160 caracteres.</span>{erroVisivel("titulo")}

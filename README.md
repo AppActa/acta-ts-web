@@ -1,6 +1,6 @@
 # 🌐 ACTA Web
 
-Aplicação web do ACTA para apoiar a gestão de ciclos de melhoria contínua com o método PDCA. O frontend reúne autenticação, onboarding, ciclos, atividades de Plan/Do/Check/Act, perfil e relatórios.
+Aplicação web do ACTA para apoiar a gestão de ciclos de melhoria contínua com o método PDCA. O frontend reúne autenticação, onboarding, ciclos, atividades de Plan/Do/Check/Act, perfil e conversas com o Cato.
 
 ## Funcionalidades
 
@@ -13,7 +13,7 @@ Aplicação web do ACTA para apoiar a gestão de ciclos de melhoria contínua co
 | Check | Verificações e indicadores |
 | Act | Acompanhamento da etapa Act |
 | Perfil | Preferências e edição do perfil |
-| Cato e relatórios | Conversas com o Cato e tela de relatórios com aviso de indisponibilidade |
+| Cato | Conversas com o assistente Cato |
 
 ## Tecnologias
 

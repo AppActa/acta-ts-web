@@ -41,9 +41,6 @@ export function FormularioRegistrarVerificacao({ acaoFechar, podeEnviar, enviand
 
   return (
     <section className="registrar-verificacao_modal" aria-labelledby={`${id}-titulo`}>
-      <aside className="registrar-verificacao_banner" aria-label="ACTA">
-        <div className="registrar-verificacao_mensagem"><p>Acta, seu app de PDCA</p><p>O ciclo da melhoria começa aqui!</p></div>
-      </aside>
       <div className="registrar-verificacao_conteudo">
         <div className="registrar-verificacao_fechar">{acaoFechar}</div>
         <h1 className="registrar-verificacao_titulo" id={`${id}-titulo`}>Registrar verificação</h1>
