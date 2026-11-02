@@ -2,14 +2,8 @@ import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
 import { useCicloDaConta, rotuloStatusCiclo } from "../../ciclo/hooks/useCicloDaConta";
-import { AvisoDadosDemonstrativos } from "../../layout/components/AvisoDadosDemonstrativos";
+import { useTreinamentosDoCiclo } from "../hooks/useTreinamentosDoCiclo";
 import "../styles/pagina-ciclo-do-treinamentos.css";
-
-type StatusFiltro = "todos" | "andamento" | "concluidos";
-type Treinamento = { id: string; titulo: string; responsavel: string; data: string; material: string; status: Exclude<StatusFiltro, "todos"> };
-
-// A API de treinamentos ainda não está integrada; não apresentar dados de exemplo como dados do ciclo.
-export const treinamentosDoCiclo: Treinamento[] = [];
 
 function AbasTreinamentos({ cicloId }: { cicloId: string | undefined }) {
   return (
@@ -26,12 +20,10 @@ function AbasTreinamentos({ cicloId }: { cicloId: string | undefined }) {
 export function PaginaCicloDoTreinamentos() {
   const { cicloId } = useParams();
   const resultadoCiclo = useCicloDaConta(cicloId);
+  const resultadoTreinamentos = useTreinamentosDoCiclo(resultadoCiclo.estado === "sucesso" ? resultadoCiclo.ciclo.id : null);
   const [busca, setBusca] = useState("");
-  const [filtro] = useState<StatusFiltro>("todos");
-  const listaVisivel = useMemo(() => treinamentosDoCiclo.filter((item) => {
-    const correspondeTexto = `${item.titulo} ${item.responsavel} ${item.material}`.toLocaleLowerCase("pt-BR").includes(busca.toLocaleLowerCase("pt-BR"));
-    return correspondeTexto && (filtro === "todos" || item.status === filtro);
-  }), [busca, filtro]);
+  const listaVisivel = useMemo(() => (resultadoTreinamentos.dados ?? []).filter((item) =>
+    `${item.titulo} ${item.nomeResponsavel} ${item.descricao}`.toLocaleLowerCase("pt-BR").includes(busca.toLocaleLowerCase("pt-BR"))), [busca, resultadoTreinamentos.dados]);
 
   if (resultadoCiclo.estado !== "sucesso") {
     const carregando = resultadoCiclo.estado === "carregando";
@@ -59,7 +51,6 @@ export function PaginaCicloDoTreinamentos() {
           <div><h1>{ciclo.titulo}</h1><span className="treinamentos_status">Status: {rotuloStatusCiclo(ciclo.status)}</span><p><span>Responsável pelo ciclo:</span> Não informado</p><p><span>Iniciado em:</span> {ciclo.dataInicio ?? "Não informado"}</p><p><span>Prazo final:</span> {ciclo.dataEstimadaFim ?? "Não informado"}</p></div>
         </header>
         <AbasTreinamentos cicloId={cicloId} />
-        <AvisoDadosDemonstrativos mensagem="A consulta de treinamentos ainda não está disponível." />
         <div className="treinamentos_conteudo">
           <div className="treinamentos_titulo_linha">
             <Link to={`/do/ciclo/${cicloId}/tarefas`} className="treinamentos_voltar" aria-label="Voltar às tarefas">‹</Link>
@@ -69,21 +60,23 @@ export function PaginaCicloDoTreinamentos() {
           <div className="treinamentos_filtros">
             <label className="treinamentos_busca"><span className="visually-hidden">Buscar treinamento</span><input value={busca} onChange={(event) => setBusca(event.target.value)} placeholder="Buscar treinamento" /></label>
             <div className="treinamentos_tabs" aria-label="Filtrar treinamentos">
-              <button type="button" disabled>Todos</button>
-              <button type="button" disabled>Em andamento</button>
-              <button type="button" disabled>Concluídos</button>
+              <button type="button" aria-pressed="true">Todos</button>
+              <button type="button" disabled title="A API não fornece status geral">Em andamento</button>
+              <button type="button" disabled title="A API não fornece status geral">Concluídos</button>
             </div>
           </div>
           {listaVisivel.length > 0 ? (
             <div className="treinamentos_lista">
               {listaVisivel.map((treinamento) => (
                 <Link className="treinamento_card" key={treinamento.id} to={`/do/ciclo/${cicloId}/treinamentos/${treinamento.id}`} aria-label={`Ver treinamento ${treinamento.titulo}`}>
-                  <div className="treinamento_cartao_topo"><span className="treinamento_cartao_icone" aria-hidden="true" /><span className="treinamento_baixar_material" aria-label={`Material ${treinamento.material}`}><span aria-hidden="true">{/* # colocar imagem */}</span>&nbsp; Baixar material</span></div>
-                  <div className="treinamento_detalhes"><h3>{treinamento.titulo}</h3><p><strong>Responsável:</strong> {treinamento.responsavel} · {treinamento.data}</p><p><strong>Material:</strong> {treinamento.material}</p><p><strong>Ciclo:</strong> Reduzir retrabalho na separação</p></div>
+                  <div className="treinamento_cartao_topo"><span className="treinamento_cartao_icone" aria-hidden="true" /></div>
+                  <div className="treinamento_detalhes"><h3>{treinamento.titulo}</h3><p><strong>Responsável:</strong> {treinamento.nomeResponsavel} · {treinamento.dataTreinamento}</p><p><strong>Participantes:</strong> {treinamento.participantes.length}</p><p><strong>Ciclo:</strong> {ciclo.titulo}</p></div>
                 </Link>
               ))}
             </div>
-          ) : <p className="treinamentos_vazio" role="status">Não é possível consultar os treinamentos deste ciclo no momento.</p>}
+          ) : <p className="treinamentos_vazio" role={resultadoTreinamentos.estado === "erro" || resultadoTreinamentos.estado === "indisponivel" ? "alert" : "status"}>
+            {resultadoTreinamentos.estado === "carregando" ? "Carregando treinamentos..." : resultadoTreinamentos.estado !== "sucesso" ? "Não foi possível consultar os treinamentos deste ciclo." : busca ? "Nenhum treinamento encontrado para esta busca." : "Nenhum treinamento cadastrado neste ciclo."}
+          </p>}
         </div>
       </div>
     </main>

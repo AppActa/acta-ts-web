@@ -1,0 +1,8 @@
+.act-aprendizados { padding: 36px clamp(20px, 3vw, 45px) 48px; color: #253132; }
+.act-aprendizados header { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+.act-aprendizados header a { display: grid; width: 46px; height: 46px; flex: none; place-items: center; border-radius: 50%; background: #253132; color: #79ced3; font-size: 36px; line-height: 1; text-decoration: none; }
+.act-aprendizados h2 { margin: 0; font-size: 24px; }
+.act-aprendizados input { box-sizing: border-box; width: 100%; height: 42px; padding: 0 14px; border: 1px solid #dbe4e8; border-radius: 9px; background: #fff; font: inherit; }
+.act-aprendizados article { margin-top: 18px; padding: 22px; border-radius: 18px; background: #fff; overflow-wrap: anywhere; }
+.act-aprendizados h3 { margin: 0 0 10px; font-size: 17px; }.act-aprendizados article p { margin: 8px 0 0; font-size: 14px; }.act-aprendizados .act-aprendizados_tags { color: #008998; font-size: 12px; }
+.act-aprendizados a:focus-visible, .act-aprendizados input:focus-visible { outline: 3px solid #025a8a; outline-offset: 3px; }

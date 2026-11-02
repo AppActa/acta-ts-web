@@ -12,7 +12,7 @@ export type CausaIshikawaMongo = { id: string; categoria: CategoriaIshikawaMongo
 export type IshikawaMongo = { id: string; idEmpresa: number; idCiclo: number; problema: string; causas: CausaIshikawaMongo[] };
 export type PorqueMongo = { ordem: number; pergunta: string; resposta: string };
 export type CincoPorquesMongo = { id: string; idIshikawa: string; idCausaIshikawa: string | null; hipotese: string; porques: PorqueMongo[] };
-export type LicaoAprendidaMongo = { id: string; idEmpresa: number; idCiclo: number; titulo: string; licao: string; tags: string[] | null };
+export type LicaoAprendidaMongo = { id: string; idEmpresa: number; idCiclo: number; titulo: string; licao: string; tags: string[] | null; resultado: string | null; area: string | null };
 
 export class MongoReadError extends Error {
   constructor(readonly code: "INVALID_CONFIGURATION" | "INVALID_INPUT" | "INVALID_RESPONSE" | "UNAVAILABLE") {
@@ -129,7 +129,8 @@ function parseCincoPorques(value: unknown): CincoPorquesMongo {
 
 function parseLicao(value: unknown): LicaoAprendidaMongo {
   if (!isRecord(value) || !validUuid(value.id) || !positiveId(value.idEmpresa) || !positiveId(value.idCiclo) || !requiredText(value.titulo) || !requiredText(value.licao)) throw new MongoReadError("INVALID_RESPONSE");
-  return { id: value.id, idEmpresa: value.idEmpresa, idCiclo: value.idCiclo, titulo: value.titulo, licao: value.licao, tags: parseNullableStringArray(value.tags) };
+  if (value.resultado != null && typeof value.resultado !== "string" || value.area != null && typeof value.area !== "string") throw new MongoReadError("INVALID_RESPONSE");
+  return { id: value.id, idEmpresa: value.idEmpresa, idCiclo: value.idCiclo, titulo: value.titulo, licao: value.licao, tags: parseNullableStringArray(value.tags), resultado: value.resultado ?? null, area: value.area ?? null };
 }
 
 export async function listarFormulariosMongo(idCiclo: number, signal?: AbortSignal): Promise<FormularioMongo[]> {

@@ -40,6 +40,7 @@ import { PaginaRegistrarVerificacao } from "../../features/check/pages/PaginaReg
 import { PaginaDetalheIndicador } from "../../features/check/pages/PaginaDetalheIndicador";
 import { PaginaDetalheVerificacao } from "../../features/check/pages/PaginaDetalheVerificacao";
 import { PaginaCicloAct } from "../../features/act/pages/PaginaCicloAct";
+import { PaginaAprendizadosAct } from "../../features/act/pages/PaginaAprendizadosAct";
 import { PaginaActTodosCiclos } from "../../features/act/pages/PaginaActTodosCiclos";
 import { PaginaTodosCiclos } from "../../features/ciclos/pages/PaginaTodosCiclos";
 import { PaginaRelatorios } from "../../features/relatorios/pages/PaginaRelatorios";
@@ -111,11 +112,11 @@ function RotaPrivada() {
 
 export const router = createBrowserRouter([
   { path: "/login", element: <PaginaLogin /> },
+  { path: "/criar-conta", element: <PaginaCadastroConta /> },
   {
     path: "/",
     element: <RotaAutenticada />,
     children: [
-      { path: "criar-conta", element: <PaginaCadastroConta /> },
       { path: "onboarding", element: <RotaOnboarding /> },
       {
         element: <RotaPrivada />,
@@ -131,6 +132,7 @@ export const router = createBrowserRouter([
           { path: "do/ciclo/:cicloId/check/verificacoes/:verificacaoId", element: <PaginaDetalheVerificacao /> },
           { path: "do/ciclo/:cicloId/check/indicadores/:indicadorId", element: <PaginaDetalheIndicador /> },
           { path: "do/ciclo/:cicloId/act", element: <PaginaCicloAct /> },
+          { path: "do/ciclo/:cicloId/act/aprendizados", element: <PaginaAprendizadosAct /> },
           { path: "ciclos", element: <PaginaTodosCiclos /> },
           { path: "relatorios", element: <PaginaRelatorios /> },
           { path: "relatorios/criar", element: <PaginaRelatorios /> },

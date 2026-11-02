@@ -1,4 +1,5 @@
 import { useId } from "react";
+import { Link } from "react-router-dom";
 
 export type DetalheCicloAct = { destaque: string; descricao: string | null };
 export type ProgressoCicloAct = { concluidos: number; total: number };
@@ -19,7 +20,7 @@ export type EstadoConteudoCicloAct =
   | { estado: "vazio" }
   | { estado: "indisponivel" }
   | { estado: "sucesso"; dados: DadosCicloAct };
-export type ConteudoCicloActProps = { resultado?: EstadoConteudoCicloAct };
+export type ConteudoCicloActProps = { resultado?: EstadoConteudoCicloAct; cicloId?: number };
 
 const formatadorNumero = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 });
 const formatadorData = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" });
@@ -43,7 +44,7 @@ function Detalhe({ dados, mensagem }: { dados: DetalheCicloAct | null | undefine
   </> : <p className="ciclo-act_estado">{mensagem}</p>;
 }
 
-export function ConteudoCicloAct({ resultado = { estado: "indisponivel" } }: ConteudoCicloActProps) {
+export function ConteudoCicloAct({ resultado = { estado: "indisponivel" }, cicloId }: ConteudoCicloActProps) {
   const id = useId();
   const dados = resultado.estado === "sucesso" ? resultado.dados : null;
   const mensagem = resultado.estado === "carregando" ? "Carregando dados de Act."
@@ -89,8 +90,8 @@ export function ConteudoCicloAct({ resultado = { estado: "indisponivel" } }: Con
         </section>
         <section className="ciclo-act_card ciclo-act_licoes" aria-labelledby={`${id}-licoes`}>
           <h2 className="ciclo-act_titulo" id={`${id}-licoes`}>Lições aprendidas</h2>
-          <Detalhe dados={dados?.licoesAprendidas} mensagem={mensagemCard} />
-          <button className="ciclo-act_acao" type="button" disabled aria-describedby={`${id}-acoes`}>Abrir aprendizados</button>
+          <Detalhe dados={dados?.licoesAprendidas} mensagem={dados?.metricas.licoes === 0 ? "Nenhuma lição registrada neste ciclo." : mensagemCard} />
+          {cicloId ? <Link className="ciclo-act_acao" to={`/do/ciclo/${cicloId}/act/aprendizados`}>Abrir aprendizados</Link> : <button className="ciclo-act_acao" type="button" disabled>Abrir aprendizados</button>}
         </section>
         <section className="ciclo-act_card ciclo-act_progresso" aria-labelledby={`${id}-progresso`}>
           <h2 className="ciclo-act_titulo" id={`${id}-progresso`}>Padronização do ciclo</h2>
@@ -102,7 +103,7 @@ export function ConteudoCicloAct({ resultado = { estado: "indisponivel" } }: Con
           </> : <p className="ciclo-act_estado">{mensagemCard}</p>}
         </section>
       </div>
-      <p className="ciclo-act_aviso" id={`${id}-acoes`}>Ações de padronização, auditoria e aprendizados indisponíveis nesta etapa.</p>
+      <p className="ciclo-act_aviso" id={`${id}-acoes`}>Ações de padronização e auditoria indisponíveis nesta etapa.</p>
     </div>
   );
 }

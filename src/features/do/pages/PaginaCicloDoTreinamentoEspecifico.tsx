@@ -1,98 +1,50 @@
 import { Link, useParams } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
 import { useCicloDaConta, rotuloStatusCiclo } from "../../ciclo/hooks/useCicloDaConta";
-import { AvisoDadosDemonstrativos } from "../../layout/components/AvisoDadosDemonstrativos";
-import { treinamentosDoCiclo } from "./PaginaCicloDoTreinamentos";
+import { useTreinamentosDoCiclo } from "../hooks/useTreinamentosDoCiclo";
 import "../styles/pagina-ciclo-do-treinamento-especifico.css";
-
-function AbasTreinamento({ cicloId }: { cicloId: string | undefined }) {
-  return (
-    <nav className="treinamento-especifico_abas" aria-label="Etapas do ciclo">
-      <Link to={`/do/ciclo/${cicloId}/visao-geral`} className="treinamento-especifico_aba treinamento-especifico_aba-visao"><span aria-hidden="true">{/* # colocar imagem */}</span>Visão geral</Link>
-      <Link to={`/do/ciclo/${cicloId}/plan`} className="treinamento-especifico_aba treinamento-especifico_aba-plan"><span aria-hidden="true">{/* # colocar imagem */}</span>Plan</Link>
-      <Link to={`/do/ciclo/${cicloId}/tarefas`} aria-current="page" className="treinamento-especifico_aba treinamento-especifico_aba-do"><span aria-hidden="true">{/* # colocar imagem */}</span>Do</Link>
-      <button type="button" className="treinamento-especifico_aba treinamento-especifico_aba-check" disabled><span aria-hidden="true">{/* # colocar imagem */}</span>Checar</button>
-      <button type="button" className="treinamento-especifico_aba treinamento-especifico_aba-act" disabled><span aria-hidden="true">{/* # colocar imagem */}</span>Agir</button>
-    </nav>
-  );
-}
 
 export function PaginaCicloDoTreinamentoEspecifico() {
   const { cicloId, treinamentoId } = useParams();
   const resultadoCiclo = useCicloDaConta(cicloId);
-
-  if (resultadoCiclo.estado !== "sucesso") {
-    const carregando = resultadoCiclo.estado === "carregando";
-    const naoEncontrado = resultadoCiclo.estado === "nao-encontrado";
-    return (
-      <main className="pagina-treinamento-especifico">
-        <Sidebar />
-        <div className="treinamento-especifico_painel">
-          <section className="treinamento-especifico_estado" role={carregando ? "status" : "alert"} aria-live="polite">
-            <h1>{carregando ? "Carregando ciclo" : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
-            {!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}
-          </section>
-        </div>
-      </main>
-    );
-  }
-  const ciclo = resultadoCiclo.ciclo;
-  const treinamento = treinamentosDoCiclo.find((item) => item.id === treinamentoId);
-
-  return (
-    <main className="pagina-treinamento-especifico">
-      <Sidebar />
-      <div className="treinamento-especifico_painel">
-        <header className="treinamento-especifico_cabecalho">
-          <div className="treinamento-especifico_icone" aria-hidden="true">{/* # colocar imagem */}</div>
-          <div><h1>{ciclo.titulo}</h1><span className="treinamento-especifico_status">Status: {rotuloStatusCiclo(ciclo.status)}</span><p><span>Responsável pelo ciclo:</span> Não informado</p><p><span>Iniciado em:</span> {ciclo.dataInicio ?? "Não informado"}</p><p><span>Prazo final:</span> {ciclo.dataEstimadaFim ?? "Não informado"}</p></div>
-        </header>
-        <AbasTreinamento cicloId={cicloId} />
-        {!treinamento ? (
-          <section className="treinamento-especifico_conteudo" role="status" aria-live="polite">
-            <h2>Treinamento indisponível</h2>
-            <p>Não é possível consultar os dados deste treinamento no momento.</p>
-            <Link to={`/do/ciclo/${cicloId}/treinamentos`}>Voltar aos treinamentos</Link>
-          </section>
-        ) : <>
-        <AvisoDadosDemonstrativos />
-        <div className="treinamento-especifico_conteudo">
-          <div className="treinamento-especifico_titulo_linha"><Link to={`/do/ciclo/${cicloId}/treinamentos`} aria-label="Voltar aos treinamentos">{/* # colocar imagem */}</Link><h2>Treinamentos / {treinamento.titulo}</h2></div>
-
-          <section className="treinamento-equipe">
-            <h3>Acompanhamento da equipe</h3>
-            <div className="treinamento-equipe_metrica"><span>Atribuídos</span><strong>12</strong><small>pessoas × módulos</small></div>
-            <div className="treinamento-equipe_metrica"><span>Concluídos</span><strong>8</strong><small>67% do total</small></div>
-            <div className="treinamento-equipe_metrica"><span>Pendentes</span><strong>4</strong><small>2 vencem nesta semana</small></div>
-          </section>
-
-          <section className="treinamento-selecionado">
-            <h3>Treinamento selecionado</h3>
-            <h4>{treinamento.titulo}</h4>
-            <p><strong>Responsável:</strong> {treinamento.responsavel} · {treinamento.data}</p>
-            <p><strong>Material:</strong> {treinamento.material}</p>
-            <p><strong>Ciclo:</strong> Reduzir retrabalho na separação</p>
-            <span className="treinamento-obrigatorio">Obrigatório · liberar tarefas</span>
-            <ul><li>Lucas Nunes · pendente</li><li>Paulo Mendes · pendente</li></ul>
-          </section>
-
-          <section className="treinamento-atencao">
-            <h3>Atenção necessária</h3>
-            <div><span /><p><strong>Lucas Nunes</strong><small>Não iniciou o módulo de conferência.</small></p></div>
-            <div><span /><p><strong>Paulo Mendes</strong><small>Prazo termina em 20 out.</small></p></div>
-            <div><span /><p><strong>Paulo Mendes</strong><small>Prazo termina em 20 out.</small></p></div>
-            <Link to={`/do/ciclo/${cicloId}/treinamentos/${treinamentoId}/lembrete/sucesso`} className="treinamento-atencao_lembrete">Simular lembrete</Link>
-          </section>
-
-          <section className="treinamento-modulos">
-            <h3>Módulos de treinamento</h3>
-            <article><div><strong>Conferência dupla de pedidos</strong><span className="treinamento-modulo_badge treinamento-modulo_pendente">2 pendentes</span></div><p>6 de 8 concluíram</p><small>Prazo 20 out</small><div className="treinamento-modulo_barra"><span style={{ width: "75%" }} /></div></article>
-            <article><div><strong>Leitura e validação de etiquetas</strong><span className="treinamento-modulo_badge treinamento-modulo_pendente">2 pendentes</span></div><p>2 de 4 concluíram</p><small>Prazo 23 out</small><div className="treinamento-modulo_barra"><span style={{ width: "50%" }} /></div></article>
-            <article><div><strong>Registro de divergências</strong><span className="treinamento-modulo_badge treinamento-modulo_concluido">Concluído</span></div><p>5 de 5 concluíram</p><small>Prazo 16 out</small><div className="treinamento-modulo_barra"><span style={{ width: "100%" }} /></div></article>
-          </section>
-        </div>
-        </>}
+  const resultado = useTreinamentosDoCiclo(resultadoCiclo.estado === "sucesso" ? resultadoCiclo.ciclo.id : null);
+  const ciclo = resultadoCiclo.estado === "sucesso" ? resultadoCiclo.ciclo : null;
+  const treinamento = resultado.estado === "sucesso" ? resultado.dados.find(item => String(item.id) === treinamentoId) : undefined;
+  return <main className="pagina-treinamento-especifico">
+    <Sidebar />
+    <div className="treinamento-especifico_painel">
+      {ciclo && <><header className="treinamento-especifico_cabecalho">
+        <div className="treinamento-especifico_icone" aria-hidden="true" />
+        <div><h1>{ciclo.titulo}</h1><span className="treinamento-especifico_status">Status: {rotuloStatusCiclo(ciclo.status)}</span><p><span>Iniciado em:</span> {ciclo.dataInicio ?? "Não informado"}</p><p><span>Prazo final:</span> {ciclo.dataEstimadaFim ?? "Não informado"}</p></div>
+      </header>
+      <nav className="treinamento-especifico_abas" aria-label="Etapas do ciclo">
+        <Link className="treinamento-especifico_aba treinamento-especifico_aba-visao" to={`/do/ciclo/${ciclo.id}/visao-geral`}>Visão geral</Link>
+        <Link className="treinamento-especifico_aba treinamento-especifico_aba-plan" to={`/do/ciclo/${ciclo.id}/plan`}>Plan</Link>
+        <Link className="treinamento-especifico_aba treinamento-especifico_aba-do" to={`/do/ciclo/${ciclo.id}/tarefas`} aria-current="page">Do</Link>
+        <Link className="treinamento-especifico_aba treinamento-especifico_aba-check" to={`/do/ciclo/${ciclo.id}/check`}>Checar</Link>
+        <Link className="treinamento-especifico_aba treinamento-especifico_aba-act" to={`/do/ciclo/${ciclo.id}/act`}>Agir</Link>
+      </nav></>}
+      <div className="treinamento-especifico_conteudo">
+        <Link to={ciclo ? `/do/ciclo/${ciclo.id}/treinamentos` : "/ciclos"}>Voltar aos treinamentos</Link>
+        {!ciclo ? <p role="status">{resultadoCiclo.estado === "carregando" ? "Carregando ciclo..." : "Ciclo indisponível."}</p>
+          : resultado.estado === "carregando" ? <p role="status">Carregando treinamento...</p>
+          : resultado.estado !== "sucesso" ? <p role="alert">Não foi possível consultar os treinamentos deste ciclo.</p>
+          : !treinamento ? <p role="status">Treinamento não encontrado neste ciclo.</p>
+          : <>
+            <div className="treinamento-especifico_titulo_linha"><h2>Treinamentos / {treinamento.titulo}</h2></div>
+            <section className="treinamento-selecionado">
+              <h3>Treinamento selecionado</h3><p>{treinamento.descricao}</p>
+              <p><strong>Responsável:</strong> {treinamento.nomeResponsavel}</p>
+              <p><strong>Data:</strong> {treinamento.dataTreinamento}</p>
+              <p><strong>Ciclo:</strong> {ciclo.titulo}</p>
+              <p>{treinamento.obrigatorio ? "Obrigatório" : "Opcional"}</p>
+            </section>
+            <section className="treinamento-equipe">
+              <h3>Participantes</h3>
+              {treinamento.participantes.length ? <ul>{treinamento.participantes.map(p => <li key={p.idUsuario}>{p.nomeUsuario} · {p.status.toLocaleLowerCase("pt-BR")}</li>)}</ul> : <p>Nenhum participante cadastrado.</p>}
+            </section>
+          </>}
       </div>
-    </main>
-  );
+    </div>
+  </main>;
 }
