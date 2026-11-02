@@ -10,9 +10,44 @@
   box-sizing: border-box;
 }
 
+/* ACTA scrollbars: quiet teal thumb, transparent track, consistent across browsers. */
+* {
+  scrollbar-color: #9bbfc1 transparent;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: #9bbfc1;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #128c94;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 :where(a, button, input, select, textarea, [tabindex]):focus-visible {
   outline: 3px solid #025a8a;
   outline-offset: 3px;
+}
+
+html[data-acta-fonte="grande"] body * {
+  font-size: calc(var(--acta-tamanho-fonte-base, 1rem) * 1.2) !important;
 }
 
 body {
@@ -20,6 +55,49 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+.acta-loading {
+  display: grid;
+  min-height: 100vh;
+  min-height: 100dvh;
+  place-items: center;
+  background: #f4f7fb;
+}
+
+.acta-loading-conteudo {
+  display: grid;
+  width: 100%;
+  min-height: 4rem;
+  place-items: center;
+}
+
+.acta-loading__spinner,
+.acta-loading-conteudo__indicador {
+  display: block;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 3px solid #cde7e7;
+  border-top-color: #128c94;
+  border-right-color: #128c94;
+  border-radius: 50%;
+  animation: acta-loading-giro 0.8s linear infinite;
+}
+
+.acta-loading-conteudo--compacto {
+  display: inline-grid;
+  width: auto;
+  min-height: 1.75rem;
+  margin: 0.2rem 0;
+  vertical-align: middle;
+}
+
+@keyframes acta-loading-giro { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .acta-loading__spinner,
+  .acta-loading-conteudo__indicador { animation: none; }
+}
+
 
 .app-footer {
   padding: 0.75rem 1rem;
@@ -102,4 +180,72 @@ body {
 .barra-lateral_item:focus-visible {
   outline: 3px solid #71cbd4;
   outline-offset: 4px;
+}
+
+/* Shared desktop shell: keep the navigation rail beside a full-page workspace. */
+@media (min-width: 851px) {
+  html:has(main > .barra-lateral.sidebar),
+  body:has(main > .barra-lateral.sidebar),
+  body:has(main > .barra-lateral.sidebar) #root { width: 100%; height: 100%; min-height: 0; }
+
+  body #root main:has(> .barra-lateral.sidebar) {
+    display: grid !important;
+    width: 100%;
+    height: 100dvh !important;
+    min-height: 0 !important;
+    grid-template-columns: 119px minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 1fr);
+    overflow: hidden !important;
+    background: #1f2526 !important;
+  }
+
+  body #root main:has(> .barra-lateral.sidebar) > .barra-lateral.sidebar {
+    position: sticky;
+    top: 0;
+    grid-column: 1;
+    grid-row: 1;
+    background: #1f2526;
+  }
+
+  body #root main:has(> .barra-lateral.sidebar) > :not(.barra-lateral.sidebar) {
+    width: 100%;
+    height: 100dvh !important;
+    min-height: 0 !important;
+    max-height: none;
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0 !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  body #root .layout-simples {
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+    grid-template-columns: 119px minmax(0, 1fr);
+    overflow: hidden;
+    background: #1f2526;
+  }
+
+  body #root .layout-simples > .barra-lateral.sidebar { grid-column: 1; grid-row: 1; background: #1f2526; }
+  body #root .layout-simples > .layout-simples_painel {
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 0;
+    background: #f6f8f8;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 850px) {
+  body #root main:has(> .barra-lateral.sidebar) { background: #f6f8f8 !important; }
 }

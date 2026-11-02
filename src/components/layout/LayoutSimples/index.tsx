@@ -4,9 +4,9 @@ import "../../../../features/layout/styles/layout-simples.css";
 
 export function LayoutSimples({ children }: LayoutSimplesProps) {
   return (
-    <main className="layout-simples">
+    <div className="layout-simples">
       <Sidebar />
       <div className="layout-simples_painel">{children}</div>
-    </main>
+    </div>
   );
 }

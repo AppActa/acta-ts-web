@@ -5,6 +5,157 @@
   background: #1f1f1f;
 }
 
+/* Shared workspace surface for authenticated flows that used to look like standalone pop-ups. */
+.layout-simples:has(.plan-criar-problema, .plan-criar-formulario, .do-criar-tarefa, .pagina-criar-treinamento-do, .check-registrar-verificacao, .plan-aviso-coleta, .pagina-sucesso-do) {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+}
+
+body:has(.layout-simples) .app-footer { display: none; }
+
+.layout-simples:has(.plan-criar-problema, .plan-criar-formulario, .do-criar-tarefa, .pagina-criar-treinamento-do, .check-registrar-verificacao, .plan-aviso-coleta, .pagina-sucesso-do) .layout-simples_painel {
+  display: flex;
+  height: calc(100vh - 58px);
+  height: calc(100dvh - 58px);
+  min-height: 0;
+  flex-direction: column;
+  overflow: auto;
+  background: #f4f7f7;
+}
+
+.layout-simples_painel > .plan-criar-problema,
+.layout-simples_painel > .plan-criar-formulario,
+.layout-simples_painel > .do-criar-tarefa,
+.layout-simples_painel > .pagina-criar-treinamento-do,
+.layout-simples_painel > .check-registrar-verificacao,
+.layout-simples_painel > .plan-aviso-coleta,
+.layout-simples_painel > .pagina-sucesso-do {
+  box-sizing: border-box;
+  display: grid;
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  align-content: start;
+  justify-items: stretch;
+  overflow: visible;
+  padding: clamp(20px, 3vw, 42px);
+  background: transparent;
+  color: #172d35;
+}
+
+.layout-simples_painel > .plan-criar-problema .plan-criar-problema_modal,
+.layout-simples_painel > .check-registrar-verificacao .registrar-verificacao_modal,
+.layout-simples_painel > .do-criar-tarefa .criar-tarefa-do_modal,
+.layout-simples_painel > .pagina-criar-treinamento-do .criar-treinamento_modal,
+.layout-simples_painel > .plan-criar-formulario .plan-criar-formulario_modal {
+  box-sizing: border-box;
+  width: min(960px, 100%);
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  align-self: start;
+  justify-self: center;
+  overflow: visible;
+  border: 1px solid #dce8e8;
+  border-radius: 16px;
+  padding: 0;
+  background: #fff;
+  box-shadow: 0 8px 28px rgb(31 72 75 / 6%);
+}
+
+.layout-simples_painel > .plan-criar-problema .plan-criar-problema_banner,
+.layout-simples_painel > .do-criar-tarefa .criar-tarefa-do_banner,
+.layout-simples_painel > .pagina-criar-treinamento-do .criar-treinamento_mensagem,
+.layout-simples_painel > .check-registrar-verificacao .registrar-verificacao_banner,
+.layout-simples_painel > .plan-criar-formulario .plan-criar-formulario_banner {
+  display: none;
+}
+
+.layout-simples_painel > .plan-criar-problema .plan-criar-problema_conteudo,
+.layout-simples_painel > .do-criar-tarefa .criar-tarefa-do_conteudo,
+.layout-simples_painel > .pagina-criar-treinamento-do .criar-treinamento_formulario,
+.layout-simples_painel > .check-registrar-verificacao .registrar-verificacao_conteudo,
+.layout-simples_painel > .plan-criar-formulario .plan-criar-formulario_conteudo {
+  box-sizing: border-box;
+  width: min(780px, 100%);
+  margin: 0 auto;
+  padding: 28px clamp(20px, 4vw, 42px) 36px;
+  overflow: visible;
+}
+
+.layout-simples_painel > .do-criar-tarefa .criar-tarefa-do_titulo { font-size: 28px; line-height: 1.25; }
+.layout-simples_painel > .do-criar-tarefa .criar-tarefa-do_campo { font-size: 15px; line-height: 1.4; }
+.layout-simples_painel > .pagina-criar-treinamento-do .criar-treinamento_formulario h1,
+.layout-simples_painel > .check-registrar-verificacao .registrar-verificacao_titulo,
+.layout-simples_painel > .plan-criar-formulario .plan-criar-formulario_conteudo h2 { font-size: 26px; }
+
+.layout-simples_painel > .plan-criar-problema .plan-criar-problema_estado,
+.layout-simples_painel > .do-criar-tarefa .criar-tarefa-do_estado {
+  width: min(780px, 100%);
+  align-self: start;
+  justify-self: center;
+  border: 1px solid #dce8e8;
+  box-shadow: 0 8px 28px rgb(31 72 75 / 6%);
+}
+
+.layout-simples_painel > .plan-aviso-coleta .plan-aviso-coleta_dialogo {
+  width: min(620px, 100%);
+  min-height: 0;
+  align-self: start;
+  justify-self: center;
+  border: 1px solid #dce8e8;
+  border-radius: 16px;
+  padding: 34px;
+  background: #fff;
+  box-shadow: 0 8px 28px rgb(31 72 75 / 6%);
+}
+
+.layout-simples_painel > .plan-aviso-coleta .plan-aviso-coleta_icone {
+  position: static;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  transform: none;
+  clip-path: none;
+  border-radius: 50%;
+  margin-bottom: 18px;
+  padding: 0;
+  background: #fff4d6;
+  color: #8a5a00;
+}
+
+.layout-simples_painel > .plan-aviso-coleta .plan-aviso-coleta_dialogo h1,
+.layout-simples_painel > .plan-aviso-coleta .plan-aviso-coleta_dialogo > p { max-width: none; text-align: left; }
+.layout-simples_painel > .plan-aviso-coleta .plan-aviso-coleta_dialogo h1 { font-size: 20px; }
+.layout-simples_painel > .plan-aviso-coleta .plan-aviso-coleta_dialogo > p { font-size: 14px; }
+.layout-simples_painel > .plan-aviso-coleta .plan-aviso-coleta_acoes { width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+.layout-simples_painel > .pagina-sucesso-do {
+  position: static;
+  z-index: auto;
+  inset: auto;
+  place-items: start center;
+  font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif;
+}
+
+.layout-simples_painel > .pagina-sucesso-do .sucesso-do_modal { width: min(520px, 100%); height: 360px; margin-top: 12px; }
+.layout-simples_painel > .pagina-sucesso-do .sucesso-do_cartao { left: 50%; width: min(100%, 480px); transform: translateX(-50%); border: 1px solid #dce8e8; box-shadow: 0 8px 28px rgb(31 72 75 / 6%); }
+
+@media (max-width: 760px) {
+  .layout-simples:has(.plan-criar-problema, .plan-criar-formulario, .do-criar-tarefa, .pagina-criar-treinamento-do, .check-registrar-verificacao, .plan-aviso-coleta, .pagina-sucesso-do) { height: auto; min-height: 100dvh; }
+  .layout-simples:has(.plan-criar-problema, .plan-criar-formulario, .do-criar-tarefa, .pagina-criar-treinamento-do, .check-registrar-verificacao, .plan-aviso-coleta, .pagina-sucesso-do) .layout-simples_painel { height: auto; min-height: calc(100dvh - 72px); overflow: visible; }
+  .layout-simples_painel > .plan-criar-problema,
+  .layout-simples_painel > .plan-criar-formulario,
+  .layout-simples_painel > .do-criar-tarefa,
+  .layout-simples_painel > .pagina-criar-treinamento-do,
+  .layout-simples_painel > .check-registrar-verificacao,
+  .layout-simples_painel > .plan-aviso-coleta,
+  .layout-simples_painel > .pagina-sucesso-do { min-height: calc(100dvh - 72px); padding: 18px 14px; }
+}
+
 .layout-simples_painel {
   min-width: 0;
   min-height: calc(100vh - 58px);
