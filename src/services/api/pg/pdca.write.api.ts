@@ -1,6 +1,6 @@
 import { env } from "../../../config/env";
 import { ApiError, httpClient } from "../../http/client";
-import type { PrioridadeTarefaPg, StatusVerificacaoPg } from "./dashboard.read.api";
+import type { PrioridadeTarefaPg, StatusTarefaPg, StatusVerificacaoPg } from "./dashboard.read.api";
 
 const PG_ORIGIN = "https://acta-pg-api.34-232-250-240.sslip.io";
 const STATUS_VERIFICACAO = ["NAO_VERIFICADO", "APROVADO", "PARCIAL", "REPROVADO"] as const;
@@ -10,6 +10,9 @@ export type AlteracaoProblemaPg = { titulo: string; descricao: string; pesoPerce
 export type NovaMetaPg = { objetivo: string; valorBase: number | null; valorAlvo: number | null; unidadeMedida: string | null; prazo: string; prioridade: PrioridadeTarefaPg; area: string | null; categoria: string | null; responsaveis: number[] };
 export type NovaVerificacaoPg = { status: StatusVerificacaoPg; resumo: string; observacao: string };
 export type NovaTarefaPg = { titulo: string; descricao: string; prioridade: PrioridadeTarefaPg; dataFimPrevista: string; idResponsavel: number };
+export type EdicaoTarefaPg = Pick<NovaTarefaPg, "titulo" | "descricao" | "prioridade" | "dataFimPrevista">;
+export type NovoTreinamentoPg = { titulo: string; descricao: string; dataTreinamento: string; obrigatorio: boolean; idResponsavel: number };
+export type NovoPlano5W2HPg = { whatAcao: string; whyJustificativa: string; whereLocal: string; howModoExecucao: string; whenInicio: string | null; whenFim: string; howMuchCusto: number; idWhoResponsavel: number };
 export type TarefaCriadaPg = NovaTarefaPg & { id: number; idPlanoAcao: number; status: "PENDENTE" };
 export type ProblemaCriadoPg = {
   id: number;
@@ -68,6 +71,21 @@ function dataRespostaConfere(value: unknown, dataIso: string): boolean {
   return value === dataIso || value === `${dia}/${mes}/${ano}`;
 }
 
+export async function criarTreinamentoPg(idCiclo: number, dados: NovoTreinamentoPg, signal: AbortSignal): Promise<number> {
+  const id = readId(idCiclo);
+  const hoje = new Date();
+  const hojeIso = `${hoje.getFullYear()}-${String(hoje.getMonth() + 1).padStart(2, "0")}-${String(hoje.getDate()).padStart(2, "0")}`;
+  if (!dados.titulo.trim() || dados.titulo !== dados.titulo.trim() || dados.titulo.length > 160
+    || !dados.descricao.trim() || dados.descricao !== dados.descricao.trim() || dados.descricao.length > 1000
+    || !(dados.dataTreinamento === hojeIso || dataIsoFuturaValida(dados.dataTreinamento))
+    || typeof dados.obrigatorio !== "boolean" || !positiveId(dados.idResponsavel)) throw new PdcaWriteError("INVALID_INPUT");
+  const value = await post(`/ciclo/${id}/treinamento`, dados, signal);
+  if (!isRecord(value) || !positiveId(value.id) || value.idCiclo !== id || value.titulo !== dados.titulo
+    || value.descricao !== dados.descricao || value.obrigatorio !== dados.obrigatorio || value.idResponsavel !== dados.idResponsavel
+    || !dataRespostaConfere(value.dataTreinamento, dados.dataTreinamento)) throw new PdcaWriteError("INVALID_RESPONSE");
+  return value.id;
+}
+
 function validBaseUrl(): URL {
   try {
     const configured = env.apiPgUrl;
@@ -91,6 +109,39 @@ function endpointUrl(path: string): URL {
   const url = new URL(`/api/v1${path}`, base.origin);
   if (url.origin !== PG_ORIGIN || url.pathname !== `/api/v1${path}` || url.search || url.hash) throw new PdcaWriteError("INVALID_INPUT");
   return url;
+}
+
+export async function atualizarTarefaPg(id: number, idPlano: number, dados: EdicaoTarefaPg, signal: AbortSignal): Promise<void> {
+  readId(id); readId(idPlano);
+  if (!dados.titulo.trim() || dados.titulo !== dados.titulo.trim() || dados.titulo.length > 160
+    || !dados.descricao.trim() || dados.descricao !== dados.descricao.trim() || dados.descricao.length > 1000
+    || !isPrioridadeTarefa(dados.prioridade) || !dataIsoFuturaValida(dados.dataFimPrevista)) throw new PdcaWriteError("INVALID_INPUT");
+  const value = await httpClient<unknown>(endpointUrl(`/tarefa/${id}`), {
+    method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(dados), signal, retryOnUnauthorized: false,
+  });
+  if (!isRecord(value) || value.id !== id || value.idPlanoAcao !== idPlano || value.titulo !== dados.titulo
+    || value.descricao !== dados.descricao || value.prioridade !== dados.prioridade
+    || !dataRespostaConfere(value.dataFimPrevista, dados.dataFimPrevista)) throw new PdcaWriteError("INVALID_RESPONSE");
+}
+
+export async function atualizarStatusTarefaPg(id: number, idPlano: number, status: StatusTarefaPg, data: string, signal: AbortSignal): Promise<void> {
+  readId(id); readId(idPlano);
+  if (!["EM_ANDAMENTO", "BLOQUEADA", "CONCLUIDA", "CANCELADA"].includes(status)
+    || !/^\d{4}-\d{2}-\d{2}$/.test(data)) throw new PdcaWriteError("INVALID_INPUT");
+  const body = status === "EM_ANDAMENTO" ? { status, dataInicioReal: data }
+    : status === "CONCLUIDA" ? { status, dataFimReal: data } : { status };
+  const value = await httpClient<unknown>(endpointUrl(`/tarefa/${id}/status`), {
+    method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal, retryOnUnauthorized: false,
+  });
+  if (!isRecord(value) || value.id !== id || value.idPlanoAcao !== idPlano || value.status !== status) throw new PdcaWriteError("INVALID_RESPONSE");
+}
+
+export async function reatribuirTarefaPg(id: number, idPlano: number, idResponsavel: number, signal: AbortSignal): Promise<void> {
+  readId(id); readId(idPlano); readId(idResponsavel);
+  const url = endpointUrl(`/tarefa/${id}/reatribuir`);
+  url.searchParams.set("idResponsavel", String(idResponsavel));
+  const value = await httpClient<unknown>(url, { method: "PATCH", signal, retryOnUnauthorized: false });
+  if (!isRecord(value) || value.id !== id || value.idPlanoAcao !== idPlano || value.idResponsavel !== idResponsavel) throw new PdcaWriteError("INVALID_RESPONSE");
 }
 
 async function post(path: string, body: unknown, signal: AbortSignal): Promise<unknown> {
@@ -211,6 +262,46 @@ export async function criarMetaPg(idPlano: number, idCiclo: number, dados: NovaM
     || value.valorBase !== dados.valorBase || value.valorAlvo !== dados.valorAlvo || value.unidadeMedida !== dados.unidadeMedida || value.area !== dados.area || value.categoria !== dados.categoria || !dataRespostaConfere(value.prazo, dados.prazo) || value.prioridade !== dados.prioridade
     || !Array.isArray(value.responsaveis) || value.responsaveis.length !== dados.responsaveis.length || !value.responsaveis.every((item) => isRecord(item) && positiveId(item.id) && dados.responsaveis.includes(item.id)) || new Set(value.responsaveis.map((item) => isRecord(item) ? item.id : null)).size !== dados.responsaveis.length) throw new PdcaWriteError("INVALID_RESPONSE");
   return value.id;
+}
+
+export async function criarPlanoPg(idCiclo: number, nome: string, prioridade: PrioridadeTarefaPg, signal: AbortSignal): Promise<number> {
+  const id = readId(idCiclo);
+  if (!nome.trim() || nome !== nome.trim() || nome.length > 160 || !isPrioridadeTarefa(prioridade)) throw new PdcaWriteError("INVALID_INPUT");
+  const value = await post(`/ciclo/${id}/plano-acao`, { nome, objetivo: null, prioridade, origem: "MANUAL" }, signal);
+  if (!isRecord(value) || !positiveId(value.id) || value.idCiclo !== id || value.nome !== nome || value.prioridade !== prioridade || value.origem !== "MANUAL" || value.status !== "RASCUNHO") throw new PdcaWriteError("INVALID_RESPONSE");
+  return value.id;
+}
+
+export async function criarPlano5W2HPg(idPlano: number, dados: NovoPlano5W2HPg, signal: AbortSignal): Promise<void> {
+  const id = readId(idPlano);
+  const textos = [dados.whatAcao, dados.whyJustificativa, dados.whereLocal, dados.howModoExecucao];
+  if (textos.some((texto) => !texto.trim() || texto !== texto.trim() || texto.length > 1000) || !dataIsoFuturaValida(dados.whenFim)
+    || (dados.whenInicio !== null && (!dataIsoFuturaValida(dados.whenInicio) || dados.whenInicio > dados.whenFim))
+    || !Number.isFinite(dados.howMuchCusto) || dados.howMuchCusto < 0 || dados.howMuchCusto >= 1e10
+    || Math.abs(dados.howMuchCusto * 100 - Math.round(dados.howMuchCusto * 100)) > 1e-7 || !positiveId(dados.idWhoResponsavel)) throw new PdcaWriteError("INVALID_INPUT");
+  const value = await post(`/plano-acao/${id}/5w2h`, dados, signal);
+  if (!isRecord(value) || !positiveId(value.id) || value.idPlanoAcao !== id || value.whatAcao !== dados.whatAcao
+    || value.whyJustificativa !== dados.whyJustificativa || value.whereLocal !== dados.whereLocal
+    || value.howModoExecucao !== dados.howModoExecucao || value.howMuchCusto !== dados.howMuchCusto
+    || value.idWhoResponsavel !== dados.idWhoResponsavel) throw new PdcaWriteError("INVALID_RESPONSE");
+}
+
+export async function atualizarPlano5W2HPg(id5w2h: number, idPlano: number, dados: NovoPlano5W2HPg, signal: AbortSignal): Promise<void> {
+  const id = readId(id5w2h); readId(idPlano);
+  const textos = [dados.whatAcao, dados.whyJustificativa, dados.whereLocal, dados.howModoExecucao];
+  if (textos.some((texto) => !texto.trim() || texto !== texto.trim() || texto.length > 1000)
+    || !/^\d{4}-\d{2}-\d{2}$/.test(dados.whenFim) || (dados.whenInicio !== null && (!/^\d{4}-\d{2}-\d{2}$/.test(dados.whenInicio) || dados.whenInicio > dados.whenFim))
+    || !Number.isFinite(dados.howMuchCusto) || dados.howMuchCusto < 0 || dados.howMuchCusto >= 1e10
+    || Math.abs(dados.howMuchCusto * 100 - Math.round(dados.howMuchCusto * 100)) > 1e-7 || !positiveId(dados.idWhoResponsavel)) throw new PdcaWriteError("INVALID_INPUT");
+  const { whenInicio, ...restante } = dados;
+  const corpo = whenInicio === null ? restante : { ...restante, whenInicio };
+  const value: unknown = await httpClient<unknown>(endpointUrl(`/plano-acao/5w2h/${id}`), {
+    method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(corpo), signal, retryOnUnauthorized: false,
+  });
+  if (!isRecord(value) || value.id !== id || value.idPlanoAcao !== idPlano || value.whatAcao !== dados.whatAcao
+    || value.whyJustificativa !== dados.whyJustificativa || value.whereLocal !== dados.whereLocal
+    || value.howModoExecucao !== dados.howModoExecucao || value.howMuchCusto !== dados.howMuchCusto
+    || value.idWhoResponsavel !== dados.idWhoResponsavel) throw new PdcaWriteError("INVALID_RESPONSE");
 }
 
 export async function criarVerificacaoPg(idCiclo: number, dados: NovaVerificacaoPg, signal: AbortSignal): Promise<VerificacaoCriadaPg> {
