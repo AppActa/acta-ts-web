@@ -1,0 +1,17 @@
+.plan-detalhe-problema { padding: 0 55px 40px; color: #253132; font-family: "Plus Jakarta Sans", "Segoe UI", sans-serif; }
+.plan-detalhe-problema_voltar { color: #087c86; text-decoration: none; font-size: 14px; }
+.plan-detalhe-problema h2 { margin: 16px 0 4px; font-size: 24px; }
+.plan-detalhe-problema_subtitulo { margin: 0 0 26px; color: #66707a; font-size: 14px; }
+.plan-detalhe-problema_colunas { display: grid; grid-template-columns: minmax(0, 740fr) minmax(0, 418fr); gap: 24px; align-items: start; }
+.plan-detalhe-problema_cartao { min-width: 0; padding: 24px; border-radius: 18px; background: #fff; }
+.plan-detalhe-problema_cartao h3 { margin: 0 0 16px; font-size: 20px; }
+.plan-detalhe-problema_cartao dl { display: grid; gap: 16px; margin: 0; }
+.plan-detalhe-problema_cartao dt { color: #66707a; font-size: 12px; }
+.plan-detalhe-problema_cartao dd { margin: 5px 0 0; font-size: 15px; overflow-wrap: anywhere; }
+.plan-detalhe-problema_acoes > p { color: #66707a; font-size: 14px; }
+.plan-detalhe-problema_acoes .plan-detalhe-problema_status { color: #48b3c6; font-size: 32px; font-weight: 700; margin: 0; }
+.plan-detalhe-problema_acoes button, .plan-detalhe-problema_acoes a { box-sizing: border-box; display: grid; width: 100%; min-height: 40px; margin-top: 12px; border: 0; border-radius: 10px; place-items: center; background: #48b3c6; color: #fff; font: inherit; font-size: 14px; text-decoration: none; }
+.plan-detalhe-problema_acoes a { background: #7acfd4; color: #253132; }
+.plan-detalhe-problema_acoes a.plan-detalhe-problema_editar { background: #48b3c6; color: #fff; }
+.plan-detalhe-problema_acoes button:disabled { opacity: .65; cursor: not-allowed; }
+@media (max-width: 760px) { .plan-detalhe-problema { padding: 0 14px 30px; } .plan-detalhe-problema_colunas { grid-template-columns: 1fr; } }

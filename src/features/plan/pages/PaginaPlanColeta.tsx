@@ -1,48 +1,31 @@
-import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { PainelCicloPlanDo } from "../../ciclo/components/PainelCicloPlanDo";
-import "../../perfil/styles/pagina-perfil.css";
-import "../../ciclo/styles/painel-ciclo-plan-do.css";
 import "../styles/pagina-plan-coleta.css";
 
 export function PaginaPlanColeta() {
   const { cicloId } = useParams();
-  const [avisoEnvio, setAvisoEnvio] = useState(false);
-
-  return (
-    <main className="pagina-ciclo-plan-do pagina-ciclo-plan pagina-plan-coleta">
-      <PainelCicloPlanDo cicloId={cicloId} etapaAtiva="plan">
-        <section className="plan-coleta-conteudo" aria-labelledby="plan-coleta-titulo">
-          <div className="plan-coleta_titulo-linha">
-            <Link className="plan-coleta_voltar" to={`/do/ciclo/${cicloId}/plan`} aria-label="Voltar ao resumo Plan">‹</Link>
-            <h2 id="plan-coleta-titulo">Coleta de dados</h2>
-          </div>
-
-          <div className="plan-coleta_cartoes">
-            <article className="plan-coleta_cartao plan-coleta_participantes">
-              <div className="plan-coleta_cartao-cabecalho">
-                <h3>Participantes e respostas</h3>
-                <span>Enviada · 8/8</span>
-              </div>
-              <p>8 colaboradores selecionados · 8 notificações enviadas</p>
-            </article>
-
-            <article className="plan-coleta_cartao plan-coleta_respostas">
-              <h3>Respostas recebidas</h3>
-              <ul>
-                <li>5 concluídas</li>
-                <li>2 pendentes · reenvio automático</li>
-                <li>1 convite não entregue · reenviar</li>
-              </ul>
-              <button type="button" className="plan-coleta_reenviar" aria-describedby="plan-coleta-aviso" onClick={() => setAvisoEnvio(true)}>
-                Reenviar aos pendentes
-              </button>
-              {avisoEnvio && <p className="plan-coleta_privacidade" role="status">O reenvio estará disponível em breve.</p>}
-              <p className="plan-coleta_privacidade" id="plan-coleta-aviso">Respostas ficam vinculadas ao ciclo e à empresa.</p>
-            </article>
-          </div>
-        </section>
-      </PainelCicloPlanDo>
-    </main>
-  );
+  const base = `/do/ciclo/${cicloId}/plan`;
+  return <main className="pagina-ciclo-plan-do pagina-ciclo-plan pagina-plan-coleta">
+    <PainelCicloPlanDo cicloId={cicloId} etapaAtiva="plan" exibirAvisoDemonstrativo={false}>
+      <section className="plan-coleta-conteudo" aria-labelledby="plan-coleta-titulo">
+        <Link className="plan-coleta_link-voltar" to={base}>← Voltar ao Plan</Link>
+        <h2 id="plan-coleta-titulo">Coleta de dados</h2>
+        <p className="plan-coleta_subtitulo">Plan</p>
+        <div className="plan-coleta_colunas">
+          <section className="plan-coleta_painel" aria-labelledby="plan-coleta-serie">
+            <h3 id="plan-coleta-serie">Série de acompanhamento</h3>
+            <p role="status">Leituras de acompanhamento indisponíveis.</p>
+            <button className="plan-coleta_acao" type="button" disabled>Adicionar leitura</button>
+          </section>
+          <aside className="plan-coleta_painel plan-coleta_acompanhamento" aria-labelledby="plan-coleta-acompanhamento">
+            <h3 id="plan-coleta-acompanhamento">Acompanhamento</h3>
+            <p className="plan-coleta_total">Registros indisponíveis</p>
+            <p>Consulte os dados do ciclo e mantenha as informações atualizadas.</p>
+            <button className="plan-coleta_acao" type="button" disabled>Editar coleta de dados</button>
+            <Link className="plan-coleta_acao plan-coleta_acao-secundaria" to={`${base}/coleta/nova`}>Criar coleta de dados</Link>
+          </aside>
+        </div>
+      </section>
+    </PainelCicloPlanDo>
+  </main>;
 }

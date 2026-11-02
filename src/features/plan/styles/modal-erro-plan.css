@@ -1,0 +1,9 @@
+.modal-erro-plan { box-sizing: border-box; width: min(433px, calc(100vw - 40px)); max-width: none; margin: auto; overflow: visible; border: 0; border-radius: 20px; padding: 80px 32px 28px; background: #fff; color: #253132; text-align: center; font-family: "Plus Jakarta Sans", "Segoe UI", sans-serif; }
+.modal-erro-plan::backdrop { background: rgb(20 38 40 / 35%); backdrop-filter: blur(6px); }
+.modal-erro-plan_icone { position: absolute; top: -53px; left: 50%; width: 112.099px; height: 100px; transform: translateX(-50%); }
+.modal-erro-plan_icone img:first-child { display: block; }
+.modal-erro-plan_icone img:last-child { position: absolute; top: 35px; left: 50%; transform: translateX(-50%); }
+.modal-erro-plan h2 { margin: 0 auto; max-width: 309px; font-size: 20px; line-height: 1.25; }
+.modal-erro-plan p { margin: 8px 0 24px; color: #66707a; font-size: 13px; line-height: 1.5; }
+.modal-erro-plan button { width: min(285px, 100%); min-height: 44px; border: 0; border-radius: 10px; background: #48b3c6; box-shadow: 0 0 25px rgb(72 179 198 / 35%); color: #fff; font: inherit; cursor: pointer; }
+.modal-erro-plan button:focus-visible { outline: 3px solid #025a8a; outline-offset: 3px; }

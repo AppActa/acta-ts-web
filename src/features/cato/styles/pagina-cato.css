@@ -26,10 +26,11 @@ html:has(.pagina-cato), body:has(.pagina-cato), body:has(.pagina-cato) #root { w
 .pagina-cato > .barra-lateral { min-height: 0; justify-content: flex-start; padding: clamp(72px, 16vh, 150px) 0 16px; }
 .pagina-cato .barra-lateral_navegacao { gap: clamp(18px, 3.7vh, 34px); }
 .pagina-cato .barra-lateral_item { width: 100%; gap: 4px; font-size: 12px; }
-.pagina-cato .barra-lateral_icone { width: 25px; height: 25px; }
+.pagina-cato .sidebar__arte { max-width: 42px; }
 .pagina-cato .barra-lateral_perfil { margin-top: clamp(18px, 3.5vh, 32px); }
 .pagina-cato .barra-lateral_avatar { display: grid; width: 40px; height: 40px; overflow: hidden; place-items: center; border-radius: 14px; background: #dcebed; }
 .pagina-cato .barra-lateral_avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.pagina-cato .barra-lateral_avatar > span { display: grid; width: 100%; height: 100%; place-items: center; border-radius: inherit; background: linear-gradient(145deg, #529da1, #276a70); color: #fff; font-size: 12px; font-weight: 700; }
 .cato_painel { display: flex; min-width: 0; min-height: 0; flex-direction: column; margin: 29px 27px 0 0; overflow: hidden; border-radius: 20px 20px 0 0; }
 .cato_cabecalho { position: relative; z-index: 1; display: flex; height: var(--cato-header); min-height: var(--cato-header); align-items: center; gap: clamp(10px, 1.25vw, 18px); padding: clamp(12px, 1.67vw, 24px); background: linear-gradient(105deg, #76ccd1 0%, #80d4d5 100%); color: #1f292b; }
 .cato_cabecalho h1 { margin: 0; color: #1f292b; font-size: clamp(14px, 1.53vw, 22px); font-weight: 700; line-height: 1.2; }
@@ -173,7 +174,7 @@ html:has(.pagina-cato), body:has(.pagina-cato), body:has(.pagina-cato) #root { w
   .pagina-cato > .barra-lateral { padding-top: clamp(16px, 12vh, 72px); }
   .pagina-cato .barra-lateral_navegacao { gap: clamp(8px, 2.5vh, 14px); }
   .pagina-cato .barra-lateral_item { gap: 3px; font-size: 10px; }
-  .pagina-cato .barra-lateral_icone { width: 20px; height: 20px; }
+  .pagina-cato .sidebar__arte { max-width: 34px; }
   .pagina-cato .barra-lateral_perfil { margin-top: 14px; }
 }
 

@@ -1,0 +1,33 @@
+.plan-investigacao { padding: 0 55px 40px; color: #253132; font-family: "Plus Jakarta Sans", "Segoe UI", sans-serif; }
+.plan-investigacao_voltar { color: #087c86; text-decoration: none; font-size: 14px; }
+.plan-investigacao h2 { margin: 16px 0 4px; font-size: 24px; }
+.plan-investigacao_subtitulo { margin: 0 0 26px; color: #66707a; font-size: 14px; }
+.plan-investigacao_cartao { margin-bottom: 20px; padding: 24px; border-radius: 18px; background: #fff; }
+.plan-investigacao_cartao h3 { margin: 0 0 24px; font-size: 20px; }
+.plan-investigacao_diagrama { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(140px, 205px); align-items: center; gap: 40px; }
+.plan-investigacao_diagrama::before { position: absolute; z-index: 0; top: 50%; right: 0; left: 0; height: 2px; background: #48b3c6; content: ""; }
+.plan-investigacao_categorias { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 112px 32px; }
+.plan-investigacao_categorias section { position: relative; z-index: 1; min-width: 0; min-height: 96px; border-radius: 12px; padding: 14px; background: #f5f7f8; overflow-wrap: anywhere; }
+.plan-investigacao_categorias section::after { position: absolute; z-index: -1; left: 50%; width: 2px; height: 79px; background: #48b3c6; content: ""; }
+.plan-investigacao_categorias section:nth-child(-n+3)::after { top: 100%; transform: rotate(-48deg); transform-origin: top; }
+.plan-investigacao_categorias section:nth-child(n+4)::after { bottom: 100%; transform: rotate(48deg); transform-origin: bottom; }
+.plan-investigacao_problema { position: relative; z-index: 1; border-radius: 12px; padding: 16px; background: #7acfd4; overflow-wrap: anywhere; }
+.plan-investigacao_problema span { color: #526a6e; font-size: 11px; text-transform: uppercase; }
+.plan-investigacao_problema p { margin: 8px 0 0; font-size: 15px; font-weight: 600; }
+.plan-investigacao_categorias h4 { margin: 0 0 8px; color: #48b3c6; font-size: 15px; }
+.plan-investigacao_categorias ul { margin: 0; padding-left: 18px; font-size: 13px; }
+.plan-investigacao_porques { display: grid; gap: 36px; padding: 0; list-style: none; }
+.plan-investigacao_porques li { display: flex; gap: 18px; }
+.plan-investigacao_porques strong { color: #48b3c6; font-size: 22px; }
+.plan-investigacao_porques span { color: #66707a; font-size: 12px; }
+.plan-investigacao_porques p { margin: 5px 0 0; }
+.plan-investigacao_editor { display: grid; gap: 16px; }
+.plan-investigacao_editor label { display: grid; gap: 8px; font-size: 13px; }
+.plan-investigacao_editor input, .plan-investigacao_editor select { box-sizing: border-box; width: 100%; min-height: 42px; border: 1px solid #d8e2e5; border-radius: 8px; padding: 10px; background: #f5f7f8; color: #253132; font: inherit; }
+.plan-investigacao_editor > p { margin: 0; color: #66707a; font-size: 13px; }
+.plan-investigacao_editor-acoes { display: flex; flex-wrap: wrap; gap: 16px; }
+.plan-investigacao_editor-acoes button { min-height: 40px; border: 0; border-radius: 10px; padding: 0 24px; background: #7acfd4; color: #253132; font: inherit; cursor: pointer; }
+.plan-investigacao_editor-acoes button:disabled { background: #48b3c6; color: #fff; opacity: .65; cursor: not-allowed; }
+.plan-investigacao_acao { display: inline-block; border-radius: 10px; padding: 12px 20px; background: #48b3c6; color: #fff; text-decoration: none; }
+@media (max-width: 760px) { .plan-investigacao { padding: 0 14px 30px; } .plan-investigacao_diagrama { grid-template-columns: 1fr; gap: 16px; } .plan-investigacao_diagrama::before, .plan-investigacao_categorias section::after { display: none; } .plan-investigacao_categorias { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } }
+@media (max-width: 420px) { .plan-investigacao_categorias { grid-template-columns: 1fr; } }

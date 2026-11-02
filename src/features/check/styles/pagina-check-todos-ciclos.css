@@ -1,0 +1,183 @@
+@font-face {
+  font-family: "Check Jakarta";
+  src: url("../../../styles/fonts/plus-jakarta-600.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Check Jakarta";
+  src: url("../../../styles/fonts/plus-jakarta-700.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+.check-todos-ciclos { color: #253132; font-family: "Segoe UI", Arial, sans-serif; }
+.check-todos-ciclos .check-todos-ciclos_painel { position: relative; }
+.check-todos-ciclos .sr-only,
+.check-todos-ciclos .check-todos-ciclos_metrica h2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.check-todos-ciclos .check-todos-ciclos_conteudo { min-width: 0; padding: 35px 43px 15px 41px; }
+.check-todos-ciclos .check-todos-ciclos_cabecalho { min-height: 82px; padding-left: 61px; padding-right: 290px; }
+.check-todos-ciclos .check-todos-ciclos_cabecalho h1 { margin: 0; color: #1f1f1f; font-size: 36px; font-weight: 600; letter-spacing: -.035em; line-height: 1.2; }
+.check-todos-ciclos .check-todos-ciclos_cabecalho p { margin: 4px 0 18px; color: #338162; font-size: 12px; line-height: 1.5; }
+
+.check-todos-ciclos .check-todos-ciclos_metricas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.check-todos-ciclos .check-todos-ciclos_metrica,
+.check-todos-ciclos .check-todos-ciclos_grafico,
+.check-todos-ciclos .check-todos-ciclos_tabela-secao,
+.check-todos-ciclos .check-todos-ciclos_vazio { min-width: 0; border-radius: 20px; background: #fff; box-shadow: 0 2px 12px rgb(0 0 0 / 4%); }
+.check-todos-ciclos .check-todos-ciclos_metrica { min-height: 84px; padding: 31px 15px 21px; }
+.check-todos-ciclos .check-todos-ciclos_metrica p { display: flex; align-items: center; margin: 0; }
+.check-todos-ciclos .check-todos-ciclos_metrica strong { min-width: 61px; color: #27825c; font: 700 24px/32px "Check Jakarta", sans-serif; }
+.check-todos-ciclos .check-todos-ciclos_metrica-metas strong { color: #347f70; }
+.check-todos-ciclos .check-todos-ciclos_metrica-verificacoes strong { color: #9b6200; }
+.check-todos-ciclos .check-todos-ciclos_metrica-efeitos strong { color: #c44a43; }
+.check-todos-ciclos .check-todos-ciclos_metrica p > span { min-width: 0; transform: translateY(4px); color: #626970; font-size: 11px; line-height: 20px; overflow-wrap: anywhere; }
+
+.check-todos-ciclos .check-todos-ciclos_graficos { display: grid; grid-template-columns: minmax(0, 733fr) minmax(0, 458fr); gap: 19px; margin-top: 18px; }
+.check-todos-ciclos .check-todos-ciclos_grafico { min-height: 360px; margin: 0; padding: 22px 24px 18px; }
+.check-todos-ciclos .check-todos-ciclos_grafico h2 { margin: 0; font: 700 18px/1.4 "Check Jakarta", sans-serif; }
+.check-todos-ciclos .check-todos-ciclos_grafico figcaption > p { margin: 7px 0 0; color: #52666a; font-size: 12px; line-height: 1.5; }
+.check-todos-ciclos .check-todos-ciclos_barras {
+  display: grid;
+  gap: 15px;
+  margin: 28px 0 0;
+  padding: 0 0 15px;
+  list-style: none;
+  background-image: linear-gradient(to right, #e3ebec 0 1px, transparent 1px calc(25% - .5px), #e3ebec calc(25% - .5px) calc(25% + .5px), transparent calc(25% + .5px) calc(50% - .5px), #e3ebec calc(50% - .5px) calc(50% + .5px), transparent calc(50% + .5px) calc(75% - .5px), #e3ebec calc(75% - .5px) calc(75% + .5px), transparent calc(75% + .5px) calc(100% - 1px), #e3ebec calc(100% - 1px) 100%);
+  background-position: 194px 0;
+  background-size: calc(100% - 247px) 100%;
+  background-repeat: no-repeat;
+}
+.check-todos-ciclos .check-todos-ciclos_barra-linha { display: grid; min-width: 0; grid-template-columns: 180px minmax(0, 1fr); align-items: center; gap: 14px; padding-right: 53px; }
+.check-todos-ciclos .check-todos-ciclos_barra-ciclo { font: 700 12px/1.4 "Check Jakarta", sans-serif; overflow-wrap: anywhere; }
+.check-todos-ciclos .check-todos-ciclos_barra-trilho { position: relative; display: flex; min-width: 0; height: 23px; }
+.check-todos-ciclos .check-todos-ciclos_barra-segmento { display: grid; width: var(--check-largura-segmento, 0%); min-width: 0; height: 100%; flex-shrink: 0; place-items: center; overflow: hidden; border-radius: 3px; font: 700 11px/1 "Check Jakarta", sans-serif; }
+.check-todos-ciclos .check-todos-ciclos_barra-segmento-aprovadas { background: #338162; color: #fff; }
+.check-todos-ciclos .check-todos-ciclos_barra-segmento-parciais { background: #ba9a5a; color: #302500; }
+.check-todos-ciclos .check-todos-ciclos_barra-segmento-reprovadas { background: #c87982; color: #3b2024; }
+.check-todos-ciclos .check-todos-ciclos_barra-total { position: absolute; top: 50%; left: var(--check-posicao-total-percentual, 0%); margin-left: 8px; transform: translateY(-50%); font: 700 12px/1 "Check Jakarta", sans-serif; }
+.check-todos-ciclos .check-todos-ciclos_eixo { display: flex; justify-content: space-between; margin: 10px 53px 0 194px; padding: 0; color: #52666a; font-size: 11px; line-height: 16px; list-style: none; }
+.check-todos-ciclos .check-todos-ciclos_eixo li { width: 0; text-align: center; }
+.check-todos-ciclos .check-todos-ciclos_legenda { display: flex; flex-wrap: wrap; gap: 12px 30px; margin: 53px 0 0; padding: 0; list-style: none; }
+.check-todos-ciclos .check-todos-ciclos_legenda li { display: flex; align-items: center; gap: 6px; min-width: 140px; color: #52666a; font-size: 11px; line-height: 16px; }
+.check-todos-ciclos .check-todos-ciclos_amostra { display: inline-block; width: 9px; height: 9px; flex: 0 0 9px; border-radius: 3px; }
+.check-todos-ciclos .check-todos-ciclos_amostra-aprovadas,
+.check-todos-ciclos .check-todos-ciclos_amostra-atingidas { background: #338162; }
+.check-todos-ciclos .check-todos-ciclos_amostra-parciais { background: #ba9a5a; }
+.check-todos-ciclos .check-todos-ciclos_amostra-reprovadas,
+.check-todos-ciclos .check-todos-ciclos_amostra-nao-atingidas { background: #c87982; }
+.check-todos-ciclos .check-todos-ciclos_amostra-andamento { background: #44ad84; }
+.check-todos-ciclos .check-todos-ciclos_nota-grafico { margin: 12px 0 0; color: #52666a; font-size: 10px; line-height: 1.5; }
+
+.check-todos-ciclos .check-todos-ciclos_grafico-metas { display: grid; grid-template-columns: 154px minmax(0, 1fr); grid-template-rows: auto minmax(190px, 1fr) auto; column-gap: 26px; }
+.check-todos-ciclos .check-todos-ciclos_grafico-metas figcaption,
+.check-todos-ciclos .check-todos-ciclos_base-grafico,
+.check-todos-ciclos .check-todos-ciclos_grafico-metas .check-todos-ciclos_grafico-vazio { grid-column: 1 / -1; }
+.check-todos-ciclos .check-todos-ciclos_rosca { position: relative; grid-column: 1; grid-row: 2; align-self: center; width: 154px; height: 154px; transform: translateY(-2px); }
+.check-todos-ciclos .check-todos-ciclos_rosca-grafico {
+  --check-fim-atingidas: var(--check-percentual-atingidas, 0%);
+  --check-fim-andamento: calc(var(--check-fim-atingidas) + var(--check-percentual-andamento, 0%));
+  --check-fim-nao-atingidas: calc(var(--check-fim-andamento) + var(--check-percentual-nao-atingidas, 0%));
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle closest-side, #fff 76%, transparent calc(76% + 1px)), conic-gradient(#338162 0 var(--check-fim-atingidas), #44ad84 0 var(--check-fim-andamento), #c87982 0 var(--check-fim-nao-atingidas), #e3ebec 0 100%);
+}
+.check-todos-ciclos .check-todos-ciclos_rosca-total { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; text-align: center; }
+.check-todos-ciclos .check-todos-ciclos_rosca-total strong { font: 700 30px/1.2 "Check Jakarta", sans-serif; }
+.check-todos-ciclos .check-todos-ciclos_rosca-total > span { color: #52666a; font-size: 11px; }
+.check-todos-ciclos .check-todos-ciclos_legenda-metas { display: grid; grid-column: 2; grid-row: 2; align-self: start; gap: 14px; margin: 32px 0 0; padding: 0; list-style: none; }
+.check-todos-ciclos .check-todos-ciclos_legenda-metas li { display: grid; min-width: 0; grid-template-columns: 9px minmax(0, 1fr) auto; align-items: center; column-gap: 8px; font-size: 12px; line-height: 1.4; }
+.check-todos-ciclos .check-todos-ciclos_legenda-metas strong { font: 700 13px/1.4 "Check Jakarta", sans-serif; }
+.check-todos-ciclos .check-todos-ciclos_legenda-metas li > span:last-child { grid-column: 3; color: #52666a; font-size: 10px; text-align: right; }
+.check-todos-ciclos .check-todos-ciclos_base-grafico { margin: 0; border-top: 1px solid #e3ebec; padding-top: 16px; color: #52666a; font-size: 11px; line-height: 1.5; }
+
+.check-todos-ciclos .check-todos-ciclos_tabela-secao { min-height: 338px; margin-top: 20px; padding: 11px 11px 20px; }
+.check-todos-ciclos .check-todos-ciclos_tabela-secao > h2 { margin: 0 6px 4px; font: 600 14px/20px "Check Jakarta", sans-serif; }
+.check-todos-ciclos .check-todos-ciclos_tabela-rolagem { max-width: 100%; overflow-x: auto; border-radius: 16px; }
+.check-todos-ciclos .check-todos-ciclos_tabela { width: 100%; min-width: 700px; border-collapse: separate; border-spacing: 0 7px; table-layout: fixed; }
+.check-todos-ciclos .check-todos-ciclos_tabela th,
+.check-todos-ciclos .check-todos-ciclos_tabela td { padding: 10px 12px; text-align: left; overflow-wrap: anywhere; }
+.check-todos-ciclos .check-todos-ciclos_tabela thead th { padding-block: 0 8px; color: #626970; font-size: 9px; font-weight: 400; line-height: 12px; text-transform: uppercase; }
+.check-todos-ciclos .check-todos-ciclos_tabela th:first-child { width: 24%; }
+.check-todos-ciclos .check-todos-ciclos_tabela th:nth-child(2),
+.check-todos-ciclos .check-todos-ciclos_tabela th:nth-child(3) { width: 19%; }
+.check-todos-ciclos .check-todos-ciclos_tabela th:nth-child(4) { width: 13.5%; }
+.check-todos-ciclos .check-todos-ciclos_tabela th:nth-child(5) { width: 24.5%; }
+.check-todos-ciclos .check-todos-ciclos_tabela tbody tr { background: #fff; box-shadow: 0 0 10px rgb(0 0 0 / 4%); }
+.check-todos-ciclos .check-todos-ciclos_tabela tbody th { height: 47px; border-radius: 20px 0 0 20px; color: #253132; font-size: 11px; font-weight: 400; line-height: 1.5; }
+.check-todos-ciclos .check-todos-ciclos_tabela tbody tr { cursor: pointer; }
+.check-todos-ciclos .check-todos-ciclos_link-ciclo { color: inherit; text-decoration: none; }
+.check-todos-ciclos .check-todos-ciclos_link-ciclo:hover { color: #087d83; text-decoration: underline; text-underline-offset: 2px; }
+.check-todos-ciclos .check-todos-ciclos_link-ciclo:focus-visible { border-radius: 3px; outline: 3px solid #338162; outline-offset: 2px; }
+.check-todos-ciclos .check-todos-ciclos_tabela tbody td { color: #626970; font-size: 10px; line-height: 1.5; }
+.check-todos-ciclos .check-todos-ciclos_tabela tbody td:last-child { border-radius: 0 20px 20px 0; }
+.check-todos-ciclos .check-todos-ciclos_status { display: inline-flex; min-width: 118px; min-height: 23px; align-items: center; justify-content: center; border-radius: 14px; padding: 3px 10px; font-size: 11px; text-align: center; }
+.check-todos-ciclos .check-todos-ciclos_status-acompanhar { background: #fff5de; color: #8a5700; }
+.check-todos-ciclos .check-todos-ciclos_status-atingida { background: #e3f7f7; color: #247553; }
+.check-todos-ciclos .check-todos-ciclos_tabela-nota { margin: 56px 0 0 -11px; color: #626970; font-size: 9px; line-height: 14px; }
+.check-todos-ciclos .check-todos-ciclos_nota-rodape { margin: 0 0 0 -18px; color: #626970; font-size: 9px; line-height: 14px; }
+.check-todos-ciclos .check-todos-ciclos_vazio { padding: 28px; }
+.check-todos-ciclos .check-todos-ciclos_vazio h2 { margin: 0 0 12px; font-size: 20px; }
+.check-todos-ciclos .check-todos-ciclos_vazio p,
+.check-todos-ciclos .check-todos-ciclos_grafico-vazio,
+.check-todos-ciclos .check-todos-ciclos_tabela-vazia { color: #52666a; font-size: 14px; line-height: 1.6; }
+.check-todos-ciclos .check-todos-ciclos_grafico-vazio { align-self: center; margin: 28px 0; }
+.check-todos-ciclos .check-todos-ciclos_tabela-vazia { padding: 12px; }
+.check-todos-ciclos .check-todos-ciclos_conteudo :focus-visible,
+.check-todos-ciclos .check-todos-ciclos_tabela-rolagem:focus-visible,
+.check-todos-ciclos .check-todos-ciclos_tabela-rolagem:focus { outline: 3px solid #338162; outline-offset: -3px; }
+
+@media (max-width: 1250px) {
+  .check-todos-ciclos .check-todos-ciclos_conteudo { padding-inline: 24px; }
+  .check-todos-ciclos .check-todos-ciclos_cabecalho { min-height: 120px; padding-left: 20px; padding-right: 290px; }
+  .check-todos-ciclos .check-todos-ciclos_cabecalho h1 { font-size: 30px; }
+  .check-todos-ciclos .check-todos-ciclos_metricas { gap: 14px; }
+  .check-todos-ciclos .check-todos-ciclos_metrica { padding-inline: 14px; }
+  .check-todos-ciclos .check-todos-ciclos_metrica strong { min-width: 48px; }
+  .check-todos-ciclos .check-todos-ciclos_graficos { grid-template-columns: minmax(0, 1fr); }
+  .check-todos-ciclos .check-todos-ciclos_grafico-metas { grid-template-columns: 154px minmax(0, 300px); justify-content: space-between; }
+  .check-todos-ciclos .check-todos-ciclos_nota-rodape { margin-left: 0; }
+}
+@media (max-width: 850px) {
+  .check-todos-ciclos { height: 100dvh; min-height: 0; overflow-y: auto; }
+  .check-todos-ciclos .check-todos-ciclos_conteudo { padding: 140px 18px 28px; }
+  .check-todos-ciclos .check-todos-ciclos_cabecalho { min-height: 0; padding: 0; }
+  .check-todos-ciclos .check-todos-ciclos_metricas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .check-todos-ciclos .check-todos-ciclos_metrica { padding: 16px; }
+  .check-todos-ciclos .check-todos-ciclos_metrica h2 { position: static; width: auto; height: auto; margin: 0 0 6px; overflow: visible; clip: auto; clip-path: none; color: #626970; font-size: 10px; font-weight: 400; line-height: 1.4; white-space: normal; }
+  .check-todos-ciclos .check-todos-ciclos_metrica p > span { transform: none; }
+  .check-todos-ciclos .check-todos-ciclos_tabela-secao { min-height: 0; }
+  .check-todos-ciclos .check-todos-ciclos_tabela-nota { margin-top: 24px; margin-left: 0; }
+}
+@media (max-width: 760px) {
+  .check-todos-ciclos .check-todos-ciclos_conteudo { padding-top: 24px; }
+}
+@media (max-width: 520px) {
+  .check-todos-ciclos .check-todos-ciclos_conteudo { padding-inline: 12px; }
+  .check-todos-ciclos .check-todos-ciclos_cabecalho h1 { font-size: 26px; }
+  .check-todos-ciclos .check-todos-ciclos_metrica p { align-items: flex-start; flex-direction: column; gap: 4px; }
+  .check-todos-ciclos .check-todos-ciclos_grafico { padding: 22px 16px; }
+  .check-todos-ciclos .check-todos-ciclos_grafico h2 { font-size: 17px; }
+  .check-todos-ciclos .check-todos-ciclos_barra-linha { grid-template-columns: 96px minmax(0, 1fr); gap: 8px; padding-right: 24px; }
+  .check-todos-ciclos .check-todos-ciclos_barra-ciclo,
+  .check-todos-ciclos .check-todos-ciclos_barra-total { font-size: 10px; }
+  .check-todos-ciclos .check-todos-ciclos_barra-segmento { font-size: 10px; }
+  .check-todos-ciclos .check-todos-ciclos_eixo { margin-left: 104px; margin-right: 24px; }
+  .check-todos-ciclos .check-todos-ciclos_barras { background-position-x: 104px; background-size: calc(100% - 128px) 100%; }
+  .check-todos-ciclos .check-todos-ciclos_legenda { gap: 12px 18px; margin-top: 28px; }
+  .check-todos-ciclos .check-todos-ciclos_legenda li { min-width: 0; }
+  .check-todos-ciclos .check-todos-ciclos_grafico-metas { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto auto; justify-items: center; }
+  .check-todos-ciclos .check-todos-ciclos_grafico-metas figcaption { width: 100%; }
+  .check-todos-ciclos .check-todos-ciclos_rosca { grid-column: 1; grid-row: 2; margin-top: 24px; transform: none; }
+  .check-todos-ciclos .check-todos-ciclos_legenda-metas { grid-column: 1; grid-row: 3; width: 100%; margin: 24px 0; }
+  .check-todos-ciclos .check-todos-ciclos_base-grafico { width: 100%; }
+}

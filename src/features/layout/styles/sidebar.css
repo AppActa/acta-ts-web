@@ -1,21 +1,58 @@
+.barra-lateral {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  display: flex;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: clamp(12px, calc((100dvh - 500px) * 0.38), 198px);
+  color: #606162;
+}
+
+.barra-lateral_navegacao {
+  display: grid;
+  gap: clamp(12px, calc((100dvh - 500px) * 0.08), 43px);
+}
+
+.barra-lateral_item {
+  display: flex;
+  width: 82px;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.sidebar__arte {
+  display: block;
+  width: auto;
+  max-width: 56px;
+  height: auto;
+  object-fit: contain;
+}
+
+.sidebar__arte--perfil {
+  max-width: 57px;
+}
+
 .sidebar {
+  z-index: 21;
   color: #5d5d5d;
 }
 
 .sidebar .barra-lateral_item[aria-current="page"] {
-  color: #73e2e7;
-}
-
-.sidebar .barra-lateral_perfil {
-  color: #5d5d5d;
-}
-
-.sidebar .barra-lateral_perfil[aria-current="page"] {
-  color: #73e2e7;
-}
-
-.sidebar .barra-lateral_item[aria-current="page"] > img {
-  filter: brightness(0) saturate(100%) invert(80%) sepia(25%) saturate(659%) hue-rotate(130deg);
+  color: #00b8c7;
 }
 
 .sidebar .barra-lateral_item:disabled {
@@ -34,7 +71,7 @@
   top: 0;
   right: 0;
   display: grid;
-  width: 486px;
+  width: min(486px, calc(100vw - 119px));
   height: 125px;
   grid-template-columns: repeat(4, 1fr);
   align-items: start;
@@ -75,6 +112,48 @@
   color: #91c5c7;
 }
 
+@media (min-width: 851px) {
+  main:has(> .sidebar) {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  main:has(> .sidebar) > :not(.sidebar) {
+    height: calc(100vh - 58px);
+    height: calc(100dvh - 58px);
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
 @media (max-width: 760px) {
+  .sidebar__arte {
+    max-width: 40px;
+    max-height: 54px;
+  }
+
   .sidebar_atalhos { display: none; }
+}
+
+@media (max-height: 520px) and (min-width: 761px) {
+  .sidebar__arte {
+    max-width: 40px;
+    max-height: 48px;
+  }
+
+  .sidebar__arte--perfil {
+    max-width: 38px;
+  }
+
+  .barra-lateral_navegacao {
+    gap: 5px;
+  }
+
+  .barra-lateral {
+    padding-block: 12px;
+  }
 }
