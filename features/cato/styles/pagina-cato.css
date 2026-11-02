@@ -22,7 +22,7 @@
 }
 
 html:has(.pagina-cato), body:has(.pagina-cato), body:has(.pagina-cato) #root { width: 100%; height: 100%; min-height: 0; overflow: hidden; }
-.pagina-cato .sidebar_atalhos a, .pagina-cato .sidebar_atalhos button { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; line-height: 18px; }
+.pagina-cato .sidebar_atalhos a { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
 .cato_painel { display: flex; min-width: 0; min-height: 0; flex-direction: column; margin: 29px 27px 0 0; overflow: hidden; border-radius: 20px 20px 0 0; }
 .cato_cabecalho { position: relative; z-index: 1; display: flex; height: var(--cato-header); min-height: var(--cato-header); align-items: center; gap: clamp(10px, 1.25vw, 18px); padding: clamp(12px, 1.67vw, 24px); background: linear-gradient(105deg, #76ccd1 0%, #80d4d5 100%); color: #1f292b; }
 .cato_cabecalho h1 { margin: 0; color: #1f292b; font-size: clamp(14px, 1.53vw, 22px); font-weight: 700; line-height: 1.2; }
@@ -169,7 +169,7 @@ html:has(.pagina-cato), body:has(.pagina-cato), body:has(.pagina-cato) #root { w
   .pagina-cato .barra-lateral_navegacao { display: flex; width: 100%; justify-content: space-around; gap: 2px; }
   .pagina-cato .barra-lateral_item { width: 58px; gap: 3px; font-size: 11px; }
   .pagina-cato .sidebar__arte { max-width: 40px; max-height: 54px; }
-  .pagina-cato .barra-lateral_perfil, .pagina-cato .sidebar_atalhos { display: none; }
+  .pagina-cato .barra-lateral_perfil { display: none; }
   .cato_painel { height: 100%; min-height: 0; margin: 0; overflow: hidden; border-radius: 0; }
   .cato_cabecalho { height: 60px; min-height: 60px; gap: 8px; padding: 8px 12px; }
   .cato_cabecalho h1 { font-size: 14px; }
@@ -204,4 +204,114 @@ html:has(.pagina-cato), body:has(.pagina-cato), body:has(.pagina-cato) #root { w
 
 @media (prefers-reduced-motion: reduce) {
   .pagina-cato, .pagina-cato > .barra-lateral, .cato_mensagens, .cato_historico_reabrir, .cato_contexto_valor svg, .cato_contexto_opcoes { scroll-behavior: auto; transition: none; animation: none; }
+}
+
+/* Layout refinado da conversa */
+.pagina-cato {
+  --cato-accent: #078f95;
+  --cato-bg: #f4f7f7;
+  --cato-field: #f1f5f5;
+  grid-template-columns: var(--cato-rail) minmax(0, 1fr);
+  background: #e9eeee;
+}
+.pagina-cato > .barra-lateral { background: #1f2526; color: #f5f8f8; }
+.cato_painel { margin: 16px 18px 16px 0; border: 1px solid #dce5e5; border-radius: 18px; background: var(--cato-bg); box-shadow: 0 8px 28px rgb(25 48 50 / 8%); }
+.cato_cabecalho { height: 76px; min-height: 76px; gap: 12px; padding: 12px 22px; background: #fff; color: var(--cato-text); }
+.cato_cabecalho_avatar { display: grid; width: 42px; height: 42px; flex: 0 0 42px; place-items: center; overflow: hidden; border: 1px solid #d8e9e9; border-radius: 13px; background: #e9f6f6; }
+.cato_cabecalho_avatar img { width: 38px; height: 38px; object-fit: contain; }
+.cato_cabecalho h1 { color: #203638; font-size: 18px; }
+.cato_cabecalho p { margin-top: 3px; color: #68797b; font-size: 11px; }
+.cato_cabecalho_selo { display: inline-flex; align-items: center; gap: 7px; margin-left: auto; border: 1px solid #dceaea; border-radius: 99px; padding: 7px 11px; background: #f5fafa; color: #516b6d; font-size: 11px; font-weight: 600; }
+.cato_cabecalho_selo i { width: 7px; height: 7px; border-radius: 50%; background: #43a976; }
+.cato_corpo { grid-template-columns: clamp(220px, 23vw, 280px) minmax(0, 1fr); gap: 18px; padding: 16px; border-radius: 0 0 18px 18px; background: #f4f7f7; }
+.cato_corpo--historico-recolhido { grid-template-columns: 0 minmax(0, 1fr); gap: 0; }
+.cato_historico { padding: 16px; border-color: #e0e8e8; border-radius: 14px; box-shadow: 0 2px 8px rgb(32 63 65 / 3%); }
+.cato_historico_titulo { flex-basis: 32px; }
+.cato_historico_titulo h2 { color: #213638; font-size: 15px; }
+.cato_nova { min-height: 40px; margin-top: 8px; border-radius: 9px; background: #087e84; font-size: 12px; }
+.cato_busca { min-height: 38px; margin-top: 10px; border: 1px solid #e3ebeb; background: #f7f9f9; }
+.cato_busca > span { font-size: 17px; }
+.cato_busca input { font-size: 12px; }
+.cato_rotulo { margin: 16px 0 8px; font-size: 10px; }
+.cato_historico ul { gap: 5px; scrollbar-width: thin; scrollbar-color: #b7cccc transparent; }
+.cato_historico ul::-webkit-scrollbar, .cato_mensagens::-webkit-scrollbar { display: block; width: 7px; }
+.cato_historico ul::-webkit-scrollbar-thumb, .cato_mensagens::-webkit-scrollbar-thumb { border-radius: 99px; background: #b7cccc; }
+.cato_historico li button { min-height: 60px; padding: 10px; font-size: 12px; }
+.cato_historico li small { font-size: 10px; }
+.cato_historico_vazio { font-size: 12px; }
+.cato_perfil { min-height: 58px; grid-template-columns: 38px minmax(0, 1fr) 14px; gap: 10px; padding: 7px 10px; border-color: #e7eeee; background: #f5f8f8; }
+.cato_perfil_avatar { --cato-avatar-size: 38px; }
+.cato_perfil_dados strong { font-size: 11px; }
+.cato_perfil_dados small { font-size: 10px; }
+.cato_conversa { gap: 10px; }
+.cato_contexto { min-height: 54px; flex-basis: 54px; border-color: #e1eaea; border-radius: 12px; padding: 7px 12px; box-shadow: 0 2px 8px rgb(32 63 65 / 3%); }
+.cato_contexto > img { width: 20px; height: 20px; }
+.cato_contexto_rotulo { color: #68797b; font-size: 10px; }
+.cato_contexto_valor { color: #203638; font-size: 13px; }
+.cato_mensagens { gap: 14px; border: 1px solid #e1eaea; border-radius: 14px; padding: 16px clamp(16px, 2.4vw, 34px); background: #fff; scrollbar-width: thin; scrollbar-color: #b7cccc transparent; }
+.cato_inicio { min-height: max-content; justify-content: center; padding: 10px 0; }
+.cato_mascote { width: 68px; height: 70px; }
+.cato_ola { margin-top: 7px; color: #087e84; font-size: 16px; }
+.cato_inicio h2 { margin-top: 2px; color: #203638; font-size: clamp(22px, 2vw, 28px); }
+.cato_descricao { margin: 7px 0 16px; color: #68797b; font-size: 13px; }
+.cato_sugestoes { max-width: 850px; gap: 10px; }
+.cato_sugestoes button { min-height: 76px; grid-template-columns: 28px minmax(0, 1fr); grid-template-rows: auto auto; align-content: center; column-gap: 10px; row-gap: 3px; padding: 12px 14px; border-color: #e2eaea; border-radius: 12px; box-shadow: 0 2px 5px rgb(30 62 64 / 3%); }
+.cato_sugestoes button:hover { border-color: #9acbcc; background: #f7fbfb; }
+.cato_sugestao_mais { width: 24px; height: 24px; grid-row: 1 / 3; margin: 0; background: #e4f4f4; color: #087e84; font-size: 16px; }
+.cato_sugestoes button strong { font-size: 12px; }
+.cato_sugestoes button small { font-size: 10px; }
+.cato_comecar { padding-top: 12px; color: #7a898b; font-size: 11px; }
+.cato_lista_mensagens { width: min(100%, 900px); align-self: center; gap: 18px; }
+.cato_mensagem { grid-template-columns: minmax(0, 1fr) 42px; gap: 10px; }
+.cato_mensagem--assistant { grid-template-columns: 42px minmax(0, 1fr); }
+.cato_mensagem--user .cato_mensagem_conteudo, .cato_mensagem--assistant .cato_mensagem_conteudo, .cato_mensagem--audio .cato_mensagem_conteudo { padding: 14px 17px; border-color: #e5ecec; border-radius: 16px; }
+.cato_autor { margin-bottom: 6px; font-size: 11px; }
+.cato_mensagem--assistant .cato_autor { margin-bottom: 6px; }
+.cato_mensagem p, .cato_mensagem--audio p { font-size: 14px; line-height: 1.55; }
+.cato_mensagem_avatar { width: 38px; height: 38px; }
+.cato_mensagem_avatar--cato { background: #e7f5f5; }
+.cato_compositor { min-height: 62px; flex-basis: 62px; border-color: #dce7e7; border-radius: 14px; padding: 3px 7px; box-shadow: 0 3px 10px rgb(26 56 58 / 5%); }
+.cato_compositor_linha { min-height: 54px; gap: 7px; padding-left: 8px; }
+.cato_compositor textarea { font-size: 13px; }
+.cato_compositor .cato_enviar { width: 44px; min-width: 44px; height: 44px; min-height: 44px; border-radius: 11px; }
+.cato_compositor .cato_microfone { width: 38px; min-width: 38px; }
+.cato_compositor button img { width: 19px; height: 19px; }
+.cato_aviso { margin-top: 0; font-size: 10px; }
+.cato_corpo--historico-recolhido .cato_contexto { margin-left: 0; }
+.pagina-cato .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
+
+@media (max-height: 760px) and (min-width: 851px) {
+  .cato_mensagens { gap: 10px; padding-top: 12px; padding-bottom: 12px; }
+  .cato_mascote { width: 50px; height: 52px; }
+  .cato_ola { margin-top: 4px; font-size: 15px; }
+  .cato_inicio h2 { font-size: 23px; }
+  .cato_descricao { margin: 4px 0 8px; font-size: 12px; }
+  .cato_sugestoes { gap: 8px; }
+  .cato_sugestoes button { min-height: 56px; padding: 7px 12px; }
+  .cato_sugestoes { gap: 6px; }
+  .cato_comecar { padding-top: 4px; }
+}
+
+@media (max-width: 850px) {
+  .pagina-cato { padding-bottom: 72px; background: #f4f7f7; }
+  .cato_painel { margin: 0; border: 0; border-radius: 0; box-shadow: none; }
+  .cato_cabecalho { height: 60px; min-height: 60px; padding: 7px 12px; }
+  .cato_cabecalho_avatar { width: 38px; height: 38px; flex-basis: 38px; }
+  .cato_cabecalho_avatar img { width: 34px; height: 34px; }
+  .cato_cabecalho h1 { font-size: 14px; }
+  .cato_cabecalho p { font-size: 10px; }
+  .cato_cabecalho_selo { padding: 6px 8px; font-size: 10px; }
+  .cato_corpo { gap: 10px; padding: 10px; border-radius: 0; }
+  .cato_corpo--historico-recolhido .cato_contexto { margin-left: 112px; }
+  .cato_historico { padding: 14px; }
+  .cato_contexto { min-height: 48px; flex-basis: 48px; }
+  .cato_mensagens { padding: 12px; }
+  .cato_sugestoes { grid-template-columns: 1fr; }
+  .cato_sugestoes button { min-height: 58px; }
+  .cato_mensagem, .cato_mensagem--assistant { grid-template-columns: minmax(0, 1fr) 34px; }
+  .cato_mensagem--assistant { grid-template-columns: 34px minmax(0, 1fr); }
+  .cato_mensagem_avatar { width: 32px; height: 32px; }
+  .cato_compositor_linha { min-height: 50px; }
+  .cato_compositor .cato_enviar { width: 42px; min-width: 42px; height: 42px; min-height: 42px; }
+  .cato_corpo--historico-recolhido .cato_contexto { margin-left: 0; }
 }

@@ -1,0 +1,12 @@
+.pagina-erro-aplicacao { display: grid; width: 100%; min-height: 100dvh; place-items: center; padding: 24px; background: #f3f7f7; color: #203638; font-family: "Plus Jakarta Sans", Inter, Arial, sans-serif; }
+.pagina-erro-aplicacao_cartao { width: min(100%, 520px); border: 1px solid #dce7e7; border-radius: 18px; padding: clamp(24px, 5vw, 42px); background: #fff; box-shadow: 0 8px 28px rgb(31 72 75 / 7%); }
+.pagina-erro-aplicacao_codigo { display: inline-flex; min-width: 48px; min-height: 32px; align-items: center; justify-content: center; border-radius: 99px; padding: 0 12px; background: #e7f5f5; color: #087e84; font-size: 12px; font-weight: 700; }
+.pagina-erro-aplicacao_cartao h1 { margin: 18px 0 8px; color: #203638; font-size: clamp(20px, 3vw, 26px); line-height: 1.3; }
+.pagina-erro-aplicacao_cartao p { margin: 0; color: #66777a; font-size: 14px; line-height: 1.6; }
+.pagina-erro-aplicacao_acoes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.pagina-erro-aplicacao_acoes button, .pagina-erro-aplicacao_acoes a { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; border: 1px solid #087e84; border-radius: 9px; padding: 0 15px; font: inherit; font-size: 13px; font-weight: 650; text-decoration: none; cursor: pointer; }
+.pagina-erro-aplicacao_acoes button { background: #087e84; color: #fff; }
+.pagina-erro-aplicacao_acoes a { background: #fff; color: #087e84; }
+.pagina-erro-aplicacao_acoes button:hover { background: #066c71; }
+.pagina-erro-aplicacao_acoes a:hover { background: #f0f8f8; }
+.pagina-erro-aplicacao :where(button, a):focus-visible { outline: 3px solid #025a8a; outline-offset: 3px; }

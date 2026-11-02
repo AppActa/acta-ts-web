@@ -1,8 +1,15 @@
-import type { ReactNode } from "react";
+import type { FormEvent, ReactNode } from "react";
 
-export type NomeIcone = "acessibilidade" | "alto-contraste" | "equipe" | "notificacao" | "perfil" | "reproduzir" | "sair" | "som" | "sol" | "tarefa" | "tamanho-fonte" | "varinha" | "verificacao";
+export type NomeIcone = "acessibilidade" | "alto-contraste" | "equipe" | "perfil" | "reproduzir" | "sair" | "som" | "sol" | "tarefa" | "tamanho-fonte" | "varinha" | "verificacao";
 export interface AlternadorProps { ativo: boolean; aoMudar: (ativo: boolean) => void; rotulo: string }
-export interface FormularioEditarPerfilProps { aoConcluir: () => void }
+export interface FormularioEditarPerfilProps {
+  nome: string;
+  email: string;
+  erro: string;
+  enviando: boolean;
+  aoAlterarNome: (nome: string) => void;
+  aoSalvar: (evento: FormEvent<HTMLFormElement>) => void;
+}
 export interface IconeProps { nome: NomeIcone; tamanho?: number }
 export interface ItemConfiguracaoProps {
   aoClicar?: () => void;
@@ -11,17 +18,15 @@ export interface ItemConfiguracaoProps {
   destino?: string;
   icone?: NomeIcone;
   imagemIcone?: string;
+  selecionado?: boolean;
   texto: string;
 }
 export interface PreferenciasPerfil {
-  notificacoes: boolean;
   tema: "claro" | "escuro";
   altoContraste: boolean;
-  assistenteLibras: boolean;
-  leitorTela: boolean;
   fonteGrande: boolean;
 }
-export interface PreferenciasPersistidas extends PreferenciasPerfil { _versao: 1 }
+export interface PreferenciasPersistidas extends PreferenciasPerfil { _versao: 3 }
 export type ModalEdicaoPerfilProps =
   | { tipo: "sucesso"; aoConfirmar: () => void; aoCancelar?: never; aguardando?: never; mensagemErro?: never }
   | { tipo: "confirmacao" | "saida"; aoConfirmar: () => void; aoCancelar: () => void; aguardando?: boolean; mensagemErro?: string | null };

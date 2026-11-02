@@ -1,5 +1,6 @@
 import { useId } from "react";
 import { Link } from "react-router-dom";
+import { CarregandoConteudo } from "../../layout/CarregandoConteudo";
 import type { DadosCicloAct, DetalheCicloActProps, EstadoConteudoCicloAct, ProgressoCicloAct, ConteudoCicloActProps } from "../../../types/act";
 export type { DadosCicloAct, DetalheCicloAct, EstadoConteudoCicloAct, ProgressoCicloAct, ConteudoCicloActProps } from "../../../types/act";
 
@@ -40,7 +41,7 @@ export function ConteudoCicloAct({ resultado = { estado: "indisponivel" }, ciclo
 
   return (
     <div className="ciclo-act_conteudo" data-estado={resultado.estado} aria-busy={resultado.estado === "carregando"}>
-      {!dados && <p className="ciclo-act_estado ciclo-act_estado-geral" role={resultado.estado === "erro" ? "alert" : "status"}>{mensagem}</p>}
+      {!dados && (resultado.estado === "carregando" ? <CarregandoConteudo compacto mensagem={mensagem} /> : <p className="ciclo-act_estado ciclo-act_estado-geral" role={resultado.estado === "erro" ? "alert" : "status"}>{mensagem}</p>)}
       <section className="ciclo-act_metricas" aria-label="Resumo de Act">
         <dl className="ciclo-act_metricas-lista">
           <div className="ciclo-act_metrica" data-metrica="itens-padrao">

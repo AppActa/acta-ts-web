@@ -1,11 +1,10 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import iconeAcessibilidade from "../../../../features/perfil/assets/icone-acessibilidade.svg";
 import iconeContraste from "../../../../features/perfil/assets/icone-contraste.svg";
+import iconeAcessibilidade from "../../../../features/perfil/assets/icone-acessibilidade.svg";
 import iconeEditarPerfil from "../../../../features/perfil/assets/icone-editar-perfil.png";
-import iconeEquipes from "../../../../features/perfil/assets/icone-equipes.png";
+import iconeCiclos from "../../../../features/layout/assets/icone-ciclos.svg";
 import iconeLua from "../../../../features/perfil/assets/icone-lua.svg";
-import iconeNotificacoes from "../../../../features/perfil/assets/icone-notificacoes.png";
 import iconeSol from "../../../../features/perfil/assets/icone-sol.svg";
 import iconeVolume from "../../../../features/perfil/assets/icone-volume.svg";
 import { useAuth } from "../../../components/auth/AuthProvider";
@@ -16,15 +15,13 @@ import { Icone } from "../../../components/perfil/Icone";
 import { ItemConfiguracao } from "../../../components/perfil/ItemConfiguracao";
 import { ModalEdicaoPerfil } from "../../../components/perfil/ModalEdicaoPerfil";
 import type { PreferenciasPerfil, PreferenciasPersistidas } from "../../../types/perfil";
+import { aplicarEscalaFonteGlobal } from "../../../utils/escala-fonte-global";
 import "../../../../features/perfil/styles/pagina-perfil.css";
 
 const CHAVE_PREFERENCIAS = "acta:preferencias-perfil";
 const PREFERENCIAS_PADRAO: PreferenciasPerfil = {
-  notificacoes: true,
   tema: "claro",
   altoContraste: true,
-  assistenteLibras: true,
-  leitorTela: true,
   fonteGrande: false,
 };
 
@@ -33,16 +30,13 @@ function ehObjeto(valor: unknown): valor is Record<string, unknown> {
 }
 
 function preferenciaValida(valor: Record<string, unknown>): valor is Record<keyof PreferenciasPerfil, unknown> {
-  return typeof valor.notificacoes === "boolean"
-    && (valor.tema === "claro" || valor.tema === "escuro")
+  return (valor.tema === "claro" || valor.tema === "escuro")
     && typeof valor.altoContraste === "boolean"
-    && typeof valor.assistenteLibras === "boolean"
-    && typeof valor.leitorTela === "boolean"
     && typeof valor.fonteGrande === "boolean";
 }
 
 function preferenciasParaSalvar(preferencias: PreferenciasPerfil): PreferenciasPersistidas {
-  return { ...preferencias, _versao: 1 };
+  return { ...preferencias, _versao: 3 };
 }
 
 function lerPreferencias(): PreferenciasPerfil {
@@ -61,24 +55,18 @@ function lerPreferencias(): PreferenciasPerfil {
       return PREFERENCIAS_PADRAO;
     }
 
-    if (salvas._versao === 1 && preferenciaValida(salvas)) {
+    if ((salvas._versao === 1 || salvas._versao === 2 || salvas._versao === 3) && preferenciaValida(salvas)) {
       return {
-        notificacoes: salvas.notificacoes as boolean,
         tema: salvas.tema as PreferenciasPerfil["tema"],
         altoContraste: salvas.altoContraste as boolean,
-        assistenteLibras: salvas.assistenteLibras as boolean,
-        leitorTela: salvas.leitorTela as boolean,
         fonteGrande: salvas.fonteGrande as boolean,
       };
     }
 
     if (salvas._versao === undefined) {
       const legadas = {
-        notificacoes: typeof salvas.notificacoes === "boolean" ? salvas.notificacoes : PREFERENCIAS_PADRAO.notificacoes,
         tema: salvas.tema === "claro" || salvas.tema === "escuro" ? salvas.tema : PREFERENCIAS_PADRAO.tema,
         altoContraste: typeof salvas.altoContraste === "boolean" ? salvas.altoContraste : PREFERENCIAS_PADRAO.altoContraste,
-        assistenteLibras: typeof salvas.assistenteLibras === "boolean" ? salvas.assistenteLibras : PREFERENCIAS_PADRAO.assistenteLibras,
-        leitorTela: typeof salvas.leitorTela === "boolean" ? salvas.leitorTela : PREFERENCIAS_PADRAO.leitorTela,
         fonteGrande: typeof salvas.fonteGrande === "boolean" ? salvas.fonteGrande : PREFERENCIAS_PADRAO.fonteGrande,
       } satisfies PreferenciasPerfil;
       const temPreferenciaLegadaValida = Object.keys(PREFERENCIAS_PADRAO).some((chave) => {
@@ -108,11 +96,16 @@ export function PaginaPerfil() {
   const [mensagemSalvamento, setMensagemSalvamento] = useState("");
   const [aguardandoSaida, setAguardandoSaida] = useState(false);
   const [erroSaida, setErroSaida] = useState<string | null>(null);
+  const [leituraAtiva, setLeituraAtiva] = useState(false);
+  const [mensagemAcessibilidade, setMensagemAcessibilidade] = useState("");
+  const carregamentoLibras = useRef<Promise<void> | null>(null);
+  useEffect(() => () => window.speechSynthesis?.cancel(), []);
   const navegar = useNavigate();
   const { logout } = useAuth();
 
   function atualizarPreferencias(parcial: Partial<PreferenciasPerfil>) {
     setPreferencias((atuais) => ({ ...atuais, ...parcial }));
+    if (parcial.fonteGrande !== undefined) aplicarEscalaFonteGlobal(parcial.fonteGrande);
     setMensagemSalvamento("");
   }
 
@@ -123,6 +116,74 @@ export function PaginaPerfil() {
       setMensagemSalvamento("Alterações salvas neste navegador.");
     } catch {
       setMensagemSalvamento("Não foi possível salvar as alterações neste navegador.");
+    }
+  }
+
+  function alternarLeituraEmVozAlta() {
+    if (!("speechSynthesis" in window)) {
+      setMensagemAcessibilidade("A leitura em voz alta não é compatível com este navegador.");
+      return;
+    }
+    if (leituraAtiva) {
+      window.speechSynthesis.cancel();
+      setLeituraAtiva(false);
+      setMensagemAcessibilidade("Leitura interrompida.");
+      return;
+    }
+    const texto = document.querySelector(".conteudo-perfil")?.textContent?.trim();
+    if (!texto) return;
+    window.speechSynthesis.cancel();
+    const fala = new SpeechSynthesisUtterance(texto);
+    fala.lang = "pt-BR";
+    fala.onend = () => setLeituraAtiva(false);
+    fala.onerror = () => {
+      setLeituraAtiva(false);
+      setMensagemAcessibilidade("Não foi possível iniciar a leitura.");
+    };
+    window.speechSynthesis.speak(fala);
+    setLeituraAtiva(true);
+    setMensagemAcessibilidade("Leitura em voz alta iniciada.");
+  }
+
+  async function abrirAssistenteLibras() {
+    setMensagemAcessibilidade("Carregando o assistente de Libras…");
+    try {
+      if (!carregamentoLibras.current) {
+        carregamentoLibras.current = new Promise<void>((resolver, rejeitar) => {
+          const urlScript = "https://vlibras.gov.br/app/vlibras-plugin.js";
+          const existente = document.querySelector<HTMLScriptElement>(`script[src="${urlScript}"]`);
+          if (existente) {
+            if ((window as Window & { VLibrasWidget?: { initBtn?: HTMLButtonElement } }).VLibrasWidget?.initBtn) {
+              resolver();
+              return;
+            }
+            existente.addEventListener("load", () => resolver(), { once: true });
+            existente.addEventListener("error", () => rejeitar(new Error("Falha ao carregar VLibras")), { once: true });
+            return;
+          }
+          const script = document.createElement("script");
+          script.src = urlScript;
+          script.async = true;
+          script.onload = () => resolver();
+          script.onerror = () => rejeitar(new Error("Falha ao carregar VLibras"));
+          document.body.appendChild(script);
+        });
+      }
+      await carregamentoLibras.current;
+      const widget = window as Window & { VLibrasWidget?: { initBtn?: HTMLButtonElement } };
+      const prazo = Date.now() + 5000;
+      while (!widget.VLibrasWidget?.initBtn && Date.now() < prazo) {
+        await new Promise((resolver) => window.setTimeout(resolver, 100));
+      }
+      if (widget.VLibrasWidget?.initBtn) {
+        widget.VLibrasWidget.initBtn.click();
+        setMensagemAcessibilidade("Assistente de Libras aberto.");
+      } else {
+        setMensagemAcessibilidade("O assistente carregou, mas não foi possível abrir o painel. Use o botão flutuante do VLibras.");
+      }
+    } catch {
+      carregamentoLibras.current = null;
+      setMensagemAcessibilidade("Não foi possível carregar o assistente de Libras. Verifique sua conexão.");
     }
   }
 
@@ -141,7 +202,6 @@ export function PaginaPerfil() {
   return (
     <main
       className="pagina-perfil"
-      data-fonte={preferencias.fonteGrande ? "grande" : "normal"}
       data-contraste={preferencias.altoContraste ? "alto" : "normal"}
       data-tema={preferencias.tema}
     >
@@ -154,10 +214,10 @@ export function PaginaPerfil() {
             <h2 id="titulo-configuracoes-perfil">Configurações de perfil</h2>
             <div className="cartao-configuracao cartao-configuracao_perfil">
               <ItemConfiguracao destino="/perfil/editar" imagemIcone={iconeEditarPerfil} texto="Editar perfil" />
-              <ItemConfiguracao desabilitado imagemIcone={iconeEquipes} texto="Minhas equipes" />
+              <ItemConfiguracao destino="/ciclos" imagemIcone={iconeCiclos} texto="Meus ciclos" />
               <ItemConfiguracao
                 imagemIcone={iconeSol}
-                texto="Modo claro"
+                texto="Tema"
                 acao={
                   <span className="controle-tema" role="group" aria-label="Tema de cores">
                     <button type="button" aria-label="Usar modo claro" aria-pressed={preferencias.tema === "claro"} onClick={() => atualizarPreferencias({ tema: "claro" })}>
@@ -169,7 +229,6 @@ export function PaginaPerfil() {
                   </span>
                 }
               />
-              <ItemConfiguracao imagemIcone={iconeNotificacoes} texto="Notificações" acao={<Alternador rotulo="Notificações" ativo={preferencias.notificacoes} aoMudar={(notificacoes) => atualizarPreferencias({ notificacoes })} />} />
             </div>
 
             <button className="botao-sair" type="button" onClick={() => { setErroSaida(null); setConfirmandoSaida(true); }}>
@@ -183,15 +242,17 @@ export function PaginaPerfil() {
             <div className="cartao-configuracao cartao-configuracao_acessibilidade">
               <ItemConfiguracao
                 aoClicar={() => atualizarPreferencias({ fonteGrande: !preferencias.fonteGrande })}
+                selecionado={preferencias.fonteGrande}
                 icone="tamanho-fonte"
                 texto="Tamanho da fonte"
                 acao={<span aria-hidden="true">›</span>}
               />
               <ItemConfiguracao imagemIcone={iconeContraste} texto="Alto contraste" acao={<Alternador rotulo="Alto contraste" ativo={preferencias.altoContraste} aoMudar={(altoContraste) => atualizarPreferencias({ altoContraste })} />} />
-              <ItemConfiguracao imagemIcone={iconeAcessibilidade} texto="Assistente de libras" acao={<Alternador rotulo="Assistente de libras" ativo={preferencias.assistenteLibras} aoMudar={(assistenteLibras) => atualizarPreferencias({ assistenteLibras })} />} />
-              <ItemConfiguracao imagemIcone={iconeVolume} texto="Leitor de tela" acao={<Alternador rotulo="Leitor de tela" ativo={preferencias.leitorTela} aoMudar={(leitorTela) => atualizarPreferencias({ leitorTela })} />} />
+              <ItemConfiguracao aoClicar={abrirAssistenteLibras} imagemIcone={iconeAcessibilidade} texto="Assistente de Libras" acao={<span aria-hidden="true">›</span>} />
+              <ItemConfiguracao aoClicar={alternarLeituraEmVozAlta} selecionado={leituraAtiva} imagemIcone={iconeVolume} texto="Leitura em voz alta" acao={<span aria-hidden="true">{leituraAtiva ? "■" : "▶"}</span>} />
               <button className="botao-salvar" type="submit">Salvar alterações</button>
               <p className="perfil_preferencias-salvas" role="status" aria-live="polite">{mensagemSalvamento}</p>
+              <p className="perfil_preferencias-salvas" role="status" aria-live="polite">{mensagemAcessibilidade}</p>
             </div>
           </section>
         </form>

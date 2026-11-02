@@ -1,5 +1,6 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useReducer, useState, type Dispatch, type FormEvent, type SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import type { PaginaOnboardingProps } from "../../../types/empresa";
 import { useAuth } from "../../../components/auth/AuthProvider";
 import { ApiError } from "../../../services/http/client";
@@ -7,80 +8,89 @@ import { getCurrentActaUser } from "../../../services/api/auth/auth.api";
 import { cadastrarGestor, iniciarOnboarding } from "../../../services/api/auth/onboarding.api";
 import type { Empresa, Endereco, Gestor, ResultadoOnboarding } from "../../../types/empresa";
 import { buscarEnderecoPorCep } from "../../../services/api/viacep.api";
-import type { EnderecoViaCep } from "../../../types/empresa";
 import { atualizarUsuarioFirebase, enviarVerificacaoDeEmail, renovarTokenFirebase, solicitarTrocaDeEmail } from "../../../services/api/auth/firebase-auth.api";
+import { digitos, emailValido, hojeLocal, ontemLocal, mascaraCep, mascaraCpf, mascaraCnpj, mascaraTelefone, validarEmpresa, validarEndereco, validarGestor, type CampoEnderecoViaCep, type ErrosOnboarding } from "../../../utils/onboarding-validation";
 import { PainelMarca } from "../../../components/auth/PainelMarca";
 import "../../../../features/empresas/styles/onboarding.css";
 
 type Etapa = "gestor" | "empresa" | "endereco" | "convite" | "espera";
-type Erros = Record<string, string>;
-type CampoEndereco = "uf" | "cidade" | "bairro" | "logradouro";
-const digitos = (value: string) => value.replace(/\D/g, "");
-const mascara = (value: string, grupos: number[]) => {
-  const numeros = digitos(value).slice(0, grupos.reduce((a, b) => a + b, 0));
-  let indice = 0;
-  return grupos.map((tamanho, i) => { const trecho = numeros.slice(indice, indice + tamanho); indice += tamanho; return trecho ? `${i ? (grupos.length === 4 && i === 3 ? "-" : grupos.length === 3 && i === 2 ? "-" : ".") : ""}${trecho}` : ""; }).join("");
-};
-const mascaraCpf = (v: string) => mascara(v, [3,3,3,2]);
-const mascaraCnpj = (v: string) => digitos(v).slice(0,14).replace(/^(\d{2})(\d)/, "$1.$2").replace(/^(\d{2}\.\d{3})(\d)/, "$1.$2").replace(/^(\d{2}\.\d{3}\.\d{3})(\d)/, "$1/$2").replace(/(\d{4})(\d{1,2})$/, "$1-$2");
-const mascaraCep = (v: string) => digitos(v).slice(0,8).replace(/^(\d{5})(\d)/, "$1-$2");
-const mascaraTelefone = (v: string) => { const d = digitos(v).slice(0,11); return d.length <= 10 ? d.replace(/^(\d{2})(\d)/, "($1) $2").replace(/(\d{4})(\d{1,4})$/, "$1-$2") : d.replace(/^(\d{2})(\d)/, "($1) $2").replace(/(\d{5})(\d{1,4})$/, "$1-$2"); };
-const emailValido = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-const hojeLocal = () => {
-  const hoje = new Date();
-  const ano = hoje.getFullYear();
-  const mes = String(hoje.getMonth() + 1).padStart(2, "0");
-  const dia = String(hoje.getDate()).padStart(2, "0");
-  return `${ano}-${mes}-${dia}`;
-};
-const ontemLocal = () => {
-  const ontem = new Date();
-  ontem.setDate(ontem.getDate() - 1);
-  const ano = ontem.getFullYear();
-  const mes = String(ontem.getMonth() + 1).padStart(2, "0");
-  const dia = String(ontem.getDate()).padStart(2, "0");
-  return `${ano}-${mes}-${dia}`;
-};
-const estados = new Set("AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO".split(" "));
-function documentoValido(value: string, tamanho: number) {
-  const d = digitos(value);
-  if (d.length !== tamanho || /^(\d)\1+$/.test(d)) return false;
-  const calcular = (base: string, pesos: number[]) => {
-    const resto = base.split("").reduce((s, n, i) => s + Number(n) * pesos[i], 0) % 11;
-    return resto < 2 ? 0 : 11 - resto;
-  };
-  if (tamanho === 11) return Number(d[9]) === calcular(d.slice(0, 9), [10,9,8,7,6,5,4,3,2]) && Number(d[10]) === calcular(d.slice(0, 10), [11,10,9,8,7,6,5,4,3,2]);
-  return Number(d[12]) === calcular(d.slice(0, 12), [5,4,3,2,9,8,7,6,5,4,3,2]) && Number(d[13]) === calcular(d.slice(0, 13), [6,5,4,3,2,9,8,7,6,5,4,3,2]);
-}
-function dataValida(value: string, passado: boolean) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
-  const date = new Date(`${value}T12:00:00`);
-  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value && (passado ? value < hojeLocal() : value <= hojeLocal());
-}
+type CampoEndereco = CampoEnderecoViaCep;
+type Erros = ErrosOnboarding;
 const gestorInicial: Gestor = { cpf: "", nome: "", cargo: "", area: "", dataNascimento: "", dataContratacao: "", email: "" };
 const empresaInicial: Empresa = { cnpj: "", nome: "", tamanhoEmpresa: "PEQUENA", setorEmpresa: "", emailEmpresa: "", telefoneEmpresa: "" };
 const enderecoInicial: Endereco = { cep: "", uf: "", cidade: "", bairro: "", logradouro: "", numeroEndereco: "", complemento: null };
 
+type EstadoOnboarding = {
+  etapa: Etapa;
+  ultimaEtapaFormulario: "gestor" | "empresa";
+  gestor: Gestor;
+  empresa: Empresa;
+  endereco: Endereco;
+  erros: Erros;
+  mensagem: string;
+  trocandoEmail: boolean;
+  novoEmail: string;
+  emailVerificado: boolean;
+  mensagemCep: string;
+  camposViaCep: Partial<Record<CampoEndereco, boolean>>;
+};
+
+type AcaoOnboarding =
+  | { type: "ATUALIZAR"; atualizar: (estado: EstadoOnboarding) => EstadoOnboarding }
+  | { type: "EMAIL_VERIFICADO"; confirmado: boolean };
+
+function reduzirOnboarding(estado: EstadoOnboarding, acao: AcaoOnboarding): EstadoOnboarding {
+  switch (acao.type) {
+    case "ATUALIZAR": return acao.atualizar(estado);
+    case "EMAIL_VERIFICADO": return { ...estado, emailVerificado: acao.confirmado };
+  }
+}
+
+function criarSetter<K extends keyof EstadoOnboarding>(
+  dispatch: Dispatch<AcaoOnboarding>,
+  chave: K,
+): Dispatch<SetStateAction<EstadoOnboarding[K]>> {
+  return (valor) => dispatch({
+    type: "ATUALIZAR",
+    atualizar: (estado) => ({
+      ...estado,
+      [chave]: typeof valor === "function"
+        ? (valor as (anterior: EstadoOnboarding[K]) => EstadoOnboarding[K])(estado[chave])
+        : valor,
+    }),
+  });
+}
+
 export function PaginaOnboarding({ pendente = false }: PaginaOnboardingProps) {
   const { firebaseUser, refreshActaUser, logout } = useAuth();
   const navigate = useNavigate();
-  const [etapa, setEtapa] = useState<Etapa>(pendente ? "espera" : "gestor");
-  const [ultimaEtapaFormulario, setUltimaEtapaFormulario] = useState<"gestor" | "empresa">(pendente ? "gestor" : "gestor");
-  const [gestor, setGestor] = useState<Gestor>({ ...gestorInicial, email: firebaseUser?.email ?? "" });
-  const [empresa, setEmpresa] = useState<Empresa>(empresaInicial);
-  const [endereco, setEndereco] = useState<Endereco>(enderecoInicial);
-  const [erros, setErros] = useState<Erros>({});
-  const [mensagem, setMensagem] = useState("");
+  const [estado, dispatch] = useReducer(reduzirOnboarding, {
+    etapa: pendente ? "espera" : "gestor",
+    ultimaEtapaFormulario: "gestor",
+    gestor: { ...gestorInicial, email: firebaseUser?.email ?? "" },
+    empresa: empresaInicial,
+    endereco: enderecoInicial,
+    erros: {}, mensagem: "", trocandoEmail: false, novoEmail: "",
+    emailVerificado: Boolean(firebaseUser?.emailVerified), mensagemCep: "", camposViaCep: {},
+  });
+  const { etapa, ultimaEtapaFormulario, gestor, empresa, endereco, erros, mensagem, trocandoEmail, novoEmail, emailVerificado, mensagemCep, camposViaCep } = estado;
+  const setEtapa = criarSetter(dispatch, "etapa");
+  const setUltimaEtapaFormulario = criarSetter(dispatch, "ultimaEtapaFormulario");
+  const setGestor = criarSetter(dispatch, "gestor");
+  const setEmpresa = criarSetter(dispatch, "empresa");
+  const setEndereco = criarSetter(dispatch, "endereco");
+  const setErros = criarSetter(dispatch, "erros");
+  const setMensagem = criarSetter(dispatch, "mensagem");
+  const setTrocandoEmail = criarSetter(dispatch, "trocandoEmail");
+  const setNovoEmail = criarSetter(dispatch, "novoEmail");
+  const setEmailVerificado = (confirmado: boolean) => dispatch({ type: "EMAIL_VERIFICADO", confirmado });
+  const setMensagemCep = criarSetter(dispatch, "mensagemCep");
+  const setCamposViaCep = criarSetter(dispatch, "camposViaCep");
   const [enviando, setEnviando] = useState(false);
   const [verificando, setVerificando] = useState(false);
   const [reenviando, setReenviando] = useState(false);
-  const [trocandoEmail, setTrocandoEmail] = useState(false);
-  const [novoEmail, setNovoEmail] = useState("");
   const [atualizandoEmail, setAtualizandoEmail] = useState(false);
-  const [emailVerificado, setEmailVerificado] = useState(Boolean(firebaseUser?.emailVerified));
   const [buscandoCep, setBuscandoCep] = useState(false);
-  const [mensagemCep, setMensagemCep] = useState("");
-  const [camposViaCep, setCamposViaCep] = useState<Partial<Record<CampoEndereco, boolean>>>({});
   const cepNumeros = digitos(endereco.cep);
 
   useEffect(() => {
@@ -177,40 +187,13 @@ export function PaginaOnboarding({ pendente = false }: PaginaOnboardingProps) {
       return false;
     } finally { setEnviando(false); }
   };
-  const validarGestor = () => {
-    const e: Erros = {};
-    if (!documentoValido(gestor.cpf, 11)) e.cpf = "Informe um CPF válido.";
-    for (const [key, limit] of [["nome",160],["cargo",100],["area",100]] as const) if (!gestor[key].trim() || gestor[key].length > limit) e[key] = `Campo obrigatório, até ${limit} caracteres.`;
-    if (!dataValida(gestor.dataNascimento, true)) e.dataNascimento = "Informe uma data de nascimento passada.";
-    if (!dataValida(gestor.dataContratacao, false)) e.dataContratacao = "A contratação deve ser hoje ou anterior.";
-    if (!emailValido(firebaseUser?.email ?? "") || (firebaseUser?.email?.length ?? 0) > 254) e.email = "Informe um endereço de e-mail válido para sua conta.";
-    if (!documentoValido(empresa.cnpj, 14)) e.cnpj = "Informe um CNPJ válido.";
-    setErros(e); return Object.keys(e).length === 0;
-  };
-  const validarEmpresa = () => {
-    const e: Erros = {};
-    if (!documentoValido(empresa.cnpj, 14)) e.cnpj = "Informe um CNPJ válido.";
-    for (const [key, limit] of [["nome",160],["setorEmpresa",100]] as const) if (!empresa[key].trim() || empresa[key].length > limit) e[key] = `Campo obrigatório, até ${limit} caracteres.`;
-    if (!emailValido(empresa.emailEmpresa) || empresa.emailEmpresa.length > 254) e.emailEmpresa = "Informe um e-mail válido de até 254 caracteres.";
-    if (![10,11].includes(digitos(empresa.telefoneEmpresa).length)) e.telefoneEmpresa = "Informe 10 ou 11 dígitos.";
-    setErros(e); return Object.keys(e).length === 0;
-  };
-  const validarEndereco = () => {
-    const e: Erros = {};
-    for (const [key, limit] of [["cidade",100],["bairro",100],["logradouro",180],["numeroEndereco",20]] as const) {
-      if (!endereco[key].trim() || endereco[key].length > limit) e[key] = `Campo obrigatório, até ${limit} caracteres.`;
-    }
-    if (digitos(endereco.cep).length !== 8) e.cep = "Informe 8 dígitos.";
-    if (!estados.has(endereco.uf.toUpperCase())) e.uf = "Informe uma sigla de estado válida.";
-    if ((endereco.complemento?.length ?? 0) > 1000) e.complemento = "Máximo de 1000 caracteres.";
-    setErros(e); return Object.keys(e).length === 0;
-  };
   const enviar = async (event: FormEvent) => {
     event.preventDefault();
     if (enviando || !emailVerificado) return;
-    setMensagem(""); if (etapa === "gestor" && !validarGestor()) return;
-    if (etapa === "empresa" && !validarEmpresa()) return;
-    if (etapa === "endereco" && !validarEndereco()) return;
+    setMensagem("");
+    if (etapa === "gestor") { const proximosErros = validarGestor(gestor, empresa.cnpj, firebaseUser?.email ?? ""); setErros(proximosErros); if (Object.keys(proximosErros).length) return; }
+    if (etapa === "empresa") { const proximosErros = validarEmpresa(empresa); setErros(proximosErros); if (Object.keys(proximosErros).length) return; }
+    if (etapa === "endereco") { const proximosErros = validarEndereco(endereco); setErros(proximosErros); if (Object.keys(proximosErros).length) return; }
     if (etapa === "empresa") { setEtapa("endereco"); setMensagem(""); setErros({}); return; }
     setEnviando(true); setErros({});
     try {
@@ -272,6 +255,6 @@ export function PaginaOnboarding({ pendente = false }: PaginaOnboardingProps) {
     {etapa === "espera" || etapa === "convite" ? <div className="onboarding-acoes">{etapa === "espera" && <button type="button" disabled={enviando} onClick={() => { setEtapa(ultimaEtapaFormulario); setMensagem(""); }}>{"Voltar ao formulário"}</button>}<button type="button" disabled={enviando} onClick={() => void confirmarPerfilAtivo()}>{enviando ? "Consultando…" : "Consultar situação"}</button><button type="button" onClick={() => void logout()}>Sair</button></div> : <form onSubmit={(e) => void enviar(e)} noValidate>
       {etapa === "gestor" && <><h2>Gestor</h2><div className="onboarding-grade">{campo("cpf", "CPF", gestor.cpf, v => setGestor({ ...gestor, cpf: mascaraCpf(v) }), { max: 14 })}{campo("nome", "Nome completo", gestor.nome, v => setGestor({ ...gestor, nome: v }), { max: 160 })}{campo("cargo", "Cargo", gestor.cargo, v => setGestor({ ...gestor, cargo: v }), { max: 100 })}{campo("area", "Área", gestor.area, v => setGestor({ ...gestor, area: v }), { max: 100 })}{campo("dataNascimento", "Data de nascimento", gestor.dataNascimento, v => setGestor({ ...gestor, dataNascimento: v }), { type: "date", maxDate: ontemLocal() })}{campo("dataContratacao", "Data de contratação", gestor.dataContratacao, v => setGestor({ ...gestor, dataContratacao: v }), { type: "date", maxDate: hojeLocal() })}{campo("email", "E-mail do gestor", firebaseUser?.email ?? "", () => {}, { type: "email", max: 254, readOnly: true })}{campo("cnpj", "CNPJ da empresa", empresa.cnpj, v => setEmpresa({ ...empresa, cnpj: mascaraCnpj(v) }), { max: 18 })}</div></>}
     {etapa === "empresa" && <><h2>Empresa</h2><div className="onboarding-grade">{campo("cnpj", "CNPJ", empresa.cnpj, v => setEmpresa({ ...empresa, cnpj: mascaraCnpj(v) }), { max: 18 })}{campo("nome", "Nome da empresa", empresa.nome, v => setEmpresa({ ...empresa, nome: v }), { max: 160 })}<label htmlFor="dad-pages-empresas-paginaonboarding-index-272-290" className="onboarding-campo">Porte<select id="dad-pages-empresas-paginaonboarding-index-272-290" value={empresa.tamanhoEmpresa} onChange={e => setEmpresa({ ...empresa, tamanhoEmpresa: e.target.value as Empresa["tamanhoEmpresa"] })}><option value="PEQUENA">Pequena</option><option value="MEDIA">Média</option><option value="GRANDE">Grande</option></select></label>{campo("setorEmpresa", "Setor", empresa.setorEmpresa, v => setEmpresa({ ...empresa, setorEmpresa: v }), { max: 100 })}{campo("emailEmpresa", "E-mail da empresa", empresa.emailEmpresa, v => setEmpresa({ ...empresa, emailEmpresa: v }), { type: "email", max: 254 })}{campo("telefoneEmpresa", "Telefone", empresa.telefoneEmpresa, v => setEmpresa({ ...empresa, telefoneEmpresa: mascaraTelefone(v) }), { max: 15 })}</div></>}
-    {etapa === "endereco" && <><h2>Endereço</h2><div className="onboarding-grade"><label className="onboarding-campo" htmlFor="cep">CEP<input id="cep" name="cep" type="text" inputMode="numeric" autoComplete="postal-code" maxLength={9} placeholder="00000-000" value={endereco.cep} aria-describedby="cep-ajuda" onChange={e => { const cep = mascaraCep(e.target.value); setEndereco(atual => ({ ...atual, cep, ...(digitos(cep) !== cepNumeros ? { uf: "", cidade: "", bairro: "", logradouro: "" } : {}) })); setCamposViaCep({}); setMensagemCep(""); }} />{erros.cep && <small>{erros.cep}</small>}</label>{(buscandoCep || mensagemCep) && <p className="onboarding-cep-status" id="cep-ajuda" role="status" aria-live="polite">{buscandoCep ? "Buscando endereço pelo CEP…" : mensagemCep}</p>}{([ ["uf","UF",2], ["cidade","Cidade",100], ["bairro","Bairro",100], ["logradouro","Logradouro",180], ["numeroEndereco","Número",20], ["complemento","Complemento",1000] ] as const).map(([key,label,max]) => campo(key,label,endereco[key] ?? "",v => setEndereco(atual => ({ ...atual, [key]: v })),{ max, readOnly: key in camposViaCep && camposViaCep[key as CampoEndereco], required: key !== "complemento" }))}</div></>}      <div className="onboarding-acoes">{etapa === "empresa" && <button type="button" disabled={enviando} onClick={() => { setEtapa("gestor"); setMensagem(""); }}>Voltar</button>}{etapa === "endereco" && <button type="button" disabled={enviando} onClick={() => { setEtapa("empresa"); setMensagem(""); }}>Voltar</button>}<button type="submit" disabled={enviando || !emailVerificado}>{enviando ? "Enviando…" : etapa === "gestor" || etapa === "empresa" ? "Continuar" : "Enviar cadastro"}</button></div></form>}
+    {etapa === "endereco" && <><h2>Endereço</h2><div className="onboarding-grade"><label className="onboarding-campo" htmlFor="cep">CEP<input id="cep" name="cep" type="text" inputMode="numeric" autoComplete="postal-code" maxLength={9} placeholder="00000-000" value={endereco.cep} aria-describedby="cep-ajuda" onChange={e => { const cep = mascaraCep(e.target.value); setEndereco(atual => ({ ...atual, cep, ...(digitos(cep) !== cepNumeros ? { uf: "", cidade: "", bairro: "", logradouro: "" } : {}) })); setCamposViaCep({}); setMensagemCep(""); }} />{erros.cep && <small>{erros.cep}</small>}</label>{(buscandoCep || mensagemCep) && (buscandoCep ? <CarregandoConteudo compacto mensagem="Buscando endereço pelo CEP" /> : <p className="onboarding-cep-status" id="cep-ajuda" role="status" aria-live="polite">{mensagemCep}</p>)}{([ ["uf","UF",2], ["cidade","Cidade",100], ["bairro","Bairro",100], ["logradouro","Logradouro",180], ["numeroEndereco","Número",20], ["complemento","Complemento",1000] ] as const).map(([key,label,max]) => campo(key,label,endereco[key] ?? "",v => setEndereco(atual => ({ ...atual, [key]: v })),{ max, readOnly: key in camposViaCep && camposViaCep[key as CampoEndereco], required: key !== "complemento" }))}</div></>}      <div className="onboarding-acoes">{etapa === "empresa" && <button type="button" disabled={enviando} onClick={() => { setEtapa("gestor"); setMensagem(""); }}>Voltar</button>}{etapa === "endereco" && <button type="button" disabled={enviando} onClick={() => { setEtapa("empresa"); setMensagem(""); }}>Voltar</button>}<button type="submit" disabled={enviando || !emailVerificado}>{enviando ? "Enviando…" : etapa === "gestor" || etapa === "empresa" ? "Continuar" : "Enviar cadastro"}</button></div></form>}
   </div></section></main>;
 }

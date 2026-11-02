@@ -1,33 +1,34 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useAuth } from "../../auth/AuthProvider";
-import inicioInativo from "../../../../features/layout/assets/sidebar/inicio-inativo.png";
-import inicioSelecionado from "../../../../features/layout/assets/sidebar/inicio-selecionado.png";
-import planoInativo from "../../../../features/layout/assets/sidebar/plano-inativo.png";
-import planoSelecionado from "../../../../features/layout/assets/sidebar/plano-selecionado.png";
-import fazerInativo from "../../../../features/layout/assets/sidebar/fazer-inativo.png";
-import fazerSelecionado from "../../../../features/layout/assets/sidebar/fazer-selecionado.png";
-import checarInativo from "../../../../features/layout/assets/sidebar/checar-inativo.png";
-import checarSelecionado from "../../../../features/layout/assets/sidebar/checar-selecionado.png";
-import agirInativo from "../../../../features/layout/assets/sidebar/agir-inativo.png";
-import agirSelecionado from "../../../../features/layout/assets/sidebar/agir-selecionado.png";
-import perfilInativo from "../../../../features/layout/assets/sidebar/perfil-inativo.png";
-import perfilSelecionado from "../../../../features/layout/assets/sidebar/perfil-selecionado.png";
-import iconeNotificacoes from "../../../../features/perfil/assets/icone-notificacoes.png";
-import iconeCiclos from "../../../../features/layout/assets/icone-ciclos.svg";
-import iconeCato from "../../../../features/layout/assets/icone-cato.png";
 import "../../../../features/layout/styles/sidebar.css";
+
+type NomeIconeSidebar = "inicio" | "plano" | "fazer" | "checar" | "agir" | "ciclos" | "cato" | "perfil";
+
+function IconeSidebar({ nome }: { nome: NomeIconeSidebar }) {
+  const conteudo: Record<NomeIconeSidebar, ReactNode> = {
+    inicio: <><path d="m3 10 9-7 9 7" /><path d="M5 9v11h14V9M9 20v-6h6v6" /></>,
+    plano: <><rect x="5" y="4" width="14" height="17" rx="2" /><path d="M9 4V3h6v1M8 10h8M8 14h8M8 18h4" /></>,
+    fazer: <><circle cx="12" cy="12" r="9" /><path d="m10 8 6 4-6 4z" /></>,
+    checar: <><rect x="3.5" y="3.5" width="17" height="17" rx="3" /><path d="m7.5 12 3 3 6-6" /></>,
+    agir: <><path d="m3 17 6-6 4 4 8-9" /><path d="M15 6h6v6" /></>,
+    ciclos: <><path d="M20 7v5h-5M4 17v-5h5" /><path d="M5.6 9A7 7 0 0 1 18 6l2 6M4 12l2 6a7 7 0 0 0 12.4-3" /></>,
+    cato: <><path d="M4 10 3 4l6 3a10 10 0 0 1 6 0l6-3-1 6a8 8 0 1 1-16 0Z" /><path d="M8.5 11h.01M15.5 11h.01M9 15c2 1.5 4 1.5 6 0M3 12l3 1M21 12l-3 1" /></>,
+    perfil: <><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></>,
+  };
+
+  return <svg className="sidebar__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">{conteudo[nome]}</svg>;
+}
 
 type ItemSidebarProps = {
   ativo: boolean;
-  imagemAtiva: string;
-  imagemInativa: string;
+  icone: NomeIconeSidebar;
   nome: string;
   destino: string | null;
 };
 
-function ItemSidebar({ ativo, imagemAtiva, imagemInativa, nome, destino }: ItemSidebarProps) {
-  const conteudo = <img className="sidebar__arte" src={ativo ? imagemAtiva : imagemInativa} alt="" />;
+function ItemSidebar({ ativo, icone, nome, destino }: ItemSidebarProps) {
+  const conteudo = <><IconeSidebar nome={icone} /><span className="barra-lateral_rotulo">{nome}</span></>;
 
   if (!destino) {
     return (
@@ -64,24 +65,24 @@ export function Sidebar() {
   return (
     <aside className="barra-lateral sidebar" aria-label="Navegação principal">
       <nav className="barra-lateral_navegacao" aria-label="Etapas do ACTA">
-        <ItemSidebar nome="Início" destino="/" ativo={estaEmInicio} imagemAtiva={inicioSelecionado} imagemInativa={inicioInativo} />
-        <ItemSidebar nome="Plano" destino="/plan/ciclos" ativo={estaEmPlano} imagemAtiva={planoSelecionado} imagemInativa={planoInativo} />
-        <ItemSidebar nome="Fazer" destino="/do" ativo={estaEmFazer} imagemAtiva={fazerSelecionado} imagemInativa={fazerInativo} />
-        <ItemSidebar nome="Checar" destino="/check" ativo={estaEmChecar} imagemAtiva={checarSelecionado} imagemInativa={checarInativo} />
-        <ItemSidebar nome="Agir" destino={rotaAgir} ativo={estaEmAgir} imagemAtiva={agirSelecionado} imagemInativa={agirInativo} />
+        <ItemSidebar nome="Início" icone="inicio" destino="/" ativo={estaEmInicio} />
+        <ItemSidebar nome="Plan" icone="plano" destino="/plan/ciclos" ativo={estaEmPlano} />
+        <ItemSidebar nome="Do" icone="fazer" destino="/do" ativo={estaEmFazer} />
+        <ItemSidebar nome="Check" icone="checar" destino="/check" ativo={estaEmChecar} />
+        <ItemSidebar nome="Act" icone="agir" destino={rotaAgir} ativo={estaEmAgir} />
+      </nav>
+
+      <nav className="sidebar_atalhos" aria-label="Acesso rápido">
+        <Link to="/ciclos" aria-current={pathname === "/ciclos" || pathname.startsWith("/ciclos/") ? "page" : undefined}><IconeSidebar nome="ciclos" /><span>Ciclos</span></Link>
+        <Link to="/cato" aria-current={estaEmCato ? "page" : undefined}><IconeSidebar nome="cato" /><span>Cato</span></Link>
       </nav>
 
       <Link className="barra-lateral_item barra-lateral_perfil" to="/perfil" aria-label="Perfil" aria-current={estaEmPerfil ? "page" : undefined}>
         {fotoPerfil && !fotoPerfilFalhou
-          ? <img className="sidebar__arte sidebar__arte--perfil-foto" src={fotoPerfil} alt="" onError={() => setFotoPerfilFalhou(true)} />
-          : <img className="sidebar__arte sidebar__arte--perfil" src={estaEmPerfil ? perfilSelecionado : perfilInativo} alt="" />}
+          ? <img className="sidebar__arte--perfil-foto" src={fotoPerfil} alt="" onError={() => setFotoPerfilFalhou(true)} />
+          : <span className="barra-lateral_perfil-fallback"><IconeSidebar nome="perfil" /></span>}
       </Link>
 
-      <nav className="sidebar_atalhos" aria-label="Acesso rápido">
-        <button type="button" disabled title="Notificações ainda não possui página"><img src={iconeNotificacoes} alt="" /><span>Notificações</span></button>
-        <Link to="/ciclos" aria-current={pathname === "/ciclos" ? "page" : undefined}><img src={iconeCiclos} alt="" /><span>Ciclos</span></Link>
-        <Link to="/cato" aria-current={estaEmCato ? "page" : undefined}><img src={iconeCato} alt="" /><span>Cato</span></Link>
-      </nav>
     </aside>
   );
 }

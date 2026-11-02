@@ -106,6 +106,25 @@
 .home-page .home-page_ciclos-lista:focus-visible,
 .home-page .home-page_ciclos-lista:focus { outline: 3px solid #056196; outline-offset: -3px; }
 
+@media (min-width: 1151px) and (max-height: 850px) {
+  .home-page { padding-top: 12px; padding-bottom: 20px; }
+  .home-page .home-page_cabecalho { min-height: 84px; }
+  .home-page .home-page_resumo { grid-template-rows: minmax(120px, auto) minmax(120px, auto); gap: 16px; }
+  .home-page .home-page_saudacao { min-height: 120px; padding: 16px 24px; }
+  .home-page .home-page_saudacao h1 { font-size: clamp(24px, 2.2vw, 32px); }
+  .home-page .home-page_saudacao p { font-size: clamp(16px, 1.5vw, 21px); }
+  .home-page .home-page_metrica { min-height: 120px; padding: 10px; }
+  .home-page .home-page_metrica h2 { font-size: 15px; line-height: 20px; }
+  .home-page .home-page_metrica > strong { min-height: 48px; font-size: 32px; }
+  .home-page .home-page_metrica p { margin-top: 0; font-size: 12px; line-height: 18px; }
+  .home-page .home-page_linha-inferior { margin-top: 16px; }
+  .home-page .home-page_ciclos,
+  .home-page .home-page_etapas { height: clamp(260px, 42vh, 340px); min-height: 0; padding-top: 24px; padding-bottom: 20px; }
+  .home-page .home-page_ciclo { min-height: 190px; padding: 9px; }
+  .home-page .home-page_ciclo-icone { width: 120px; height: 108px; }
+  .home-page .home-page_pendencias { min-height: 0; padding-top: 24px; padding-bottom: 18px; }
+}
+
 @media (max-width: 1250px) {
   .home-page { padding-right: 24px; padding-left: 24px; }
   .home-page .home-page_pendencias { padding-right: 24px; padding-left: 24px; }

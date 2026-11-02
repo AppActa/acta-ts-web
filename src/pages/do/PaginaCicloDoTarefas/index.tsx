@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import type { AbasDoCicloProps } from "../../../types/do";
+import type { StatusTarefaPg, TarefaDoPlanoPg } from "../../../types/pdca";
+import { useAuth } from "../../../components/auth/AuthProvider";
+import { atualizarStatusTarefaPg } from "../../../services/api/pg/pdca.write.api";
+import { listarTarefasPorPlanoPg } from "../../../services/api/pg/dashboard.read.api";
+import { ApiError } from "../../../services/http/client";
 import { Sidebar } from "../../../components/layout/Sidebar";
-import { useCicloDaConta, rotuloStatusCiclo } from "../../../features/ciclo/hooks/useCicloDaConta";
+import { CabecalhoNavegacaoCiclo } from "../../../components/ciclo/CabecalhoNavegacaoCiclo";
+import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
 import { useTarefasDoCiclo } from "../../../features/do/hooks/useTarefasDoCiclo";
-import iconeVisaoGeral from "../../../../features/do/assets/ciclo-visao-geral/063c5.svg";
-import iconePlan from "../../../../features/do/assets/ciclo-visao-geral/47893.svg";
-import iconeDo from "../../../../features/do/assets/ciclo-visao-geral/d01c2.svg";
-import iconeCheck from "../../../../features/do/assets/ciclo-visao-geral/fe2f6.svg";
-import iconeAct from "../../../../features/do/assets/ciclo-visao-geral/a51ff.svg";
-import relogio from "../../../../features/do/assets/ciclo-do/relogio.svg";
 import iconeMais from "../../../../features/do/assets/ciclo-do/mais.svg";
 import "../../../../features/do/styles/pagina-ciclo-do-tarefas.css";
 
@@ -28,23 +28,69 @@ function rotuloStatusTarefa(status: StatusTarefa): string {
   return statusTarefa.find((item) => item.valor === status)?.titulo ?? "Status indisponível";
 }
 
-function AbasDoCiclo({ cicloId }: AbasDoCicloProps) {
-  return (
-    <nav className="ciclo-do_tarefas_abas" aria-label="Etapas do ciclo">
-      <Link to={`/do/ciclo/${cicloId}/visao-geral`} className="ciclo-do_tarefas_aba ciclo-do_tarefas_aba-visao"><img src={iconeVisaoGeral} alt="" />Visão geral</Link>
-      <Link to={`/do/ciclo/${cicloId}/plan`} className="ciclo-do_tarefas_aba ciclo-do_tarefas_aba-plan"><img src={iconePlan} alt="" />Plan</Link>
-      <Link to={`/do/ciclo/${cicloId}/tarefas`} aria-current="page" className="ciclo-do_tarefas_aba ciclo-do_tarefas_aba-do"><span className="ciclo-do_tarefas_icone-do"><img src={iconeDo} alt="" /></span>Do</Link>
-      <Link to={`/do/ciclo/${cicloId}/check`} className="ciclo-do_tarefas_aba ciclo-do_tarefas_aba-check"><img src={iconeCheck} alt="" />Checar</Link>
-      <Link to={`/do/ciclo/${cicloId}/act`} className="ciclo-do_tarefas_aba ciclo-do_tarefas_aba-act"><img src={iconeAct} alt="" />Agir</Link>
-    </nav>
-  );
-}
-
 export function PaginaCicloDoTarefas() {
   const { cicloId } = useParams();
+  const { firebaseUser, actaUser } = useAuth();
   const resultadoCiclo = useCicloDaConta(cicloId);
   const resultadoTarefas = useTarefasDoCiclo(resultadoCiclo.estado === "sucesso" ? resultadoCiclo.ciclo.id : null);
   const [filtro, setFiltro] = useState<"todas" | "atrasadas">("todas");
+  const [tarefasConfirmadas, setTarefasConfirmadas] = useState<ReadonlyMap<number, TarefaDoPlanoPg>>(() => new Map());
+  const [tarefaEmMovimento, setTarefaEmMovimento] = useState<number | null>(null);
+  const [tarefaArrastada, setTarefaArrastada] = useState<number | null>(null);
+  const [colunaAlvo, setColunaAlvo] = useState<StatusTarefa | null>(null);
+  const [mensagemMovimento, setMensagemMovimento] = useState("");
+  const kanbanColunasRef = useRef<HTMLDivElement>(null);
+  const controllerMovimento = useRef<AbortController | null>(null);
+  const transicoes: Partial<Record<StatusTarefa, readonly StatusTarefa[]>> = {
+    PENDENTE: ["EM_ANDAMENTO", "CANCELADA"],
+    BLOQUEADA: ["EM_ANDAMENTO", "CANCELADA"],
+    EM_ANDAMENTO: ["BLOQUEADA", "CONCLUIDA", "CANCELADA"],
+    ATRASADA: ["EM_ANDAMENTO", "CONCLUIDA", "CANCELADA"],
+  };
+  const cicloAtual = resultadoCiclo.estado === "sucesso" ? resultadoCiclo.ciclo : null;
+  const dadosDisponiveis = resultadoTarefas.estado === "sucesso" || resultadoTarefas.estado === "vazio";
+  const podeAlterarStatus = Boolean(firebaseUser?.emailVerified && actaUser?.estadoPerfil === "PERFIL_CRIADO" && actaUser.status === "ATIVO"
+    && cicloAtual && actaUser.idEmpresa === cicloAtual.idEmpresa && ["ADMIN", "GESTOR", "COLABORADOR"].includes(actaUser.tipo)
+    && cicloAtual.status !== "CONCLUIDO" && cicloAtual.status !== "CANCELADO");
+
+  useEffect(() => () => controllerMovimento.current?.abort(), []);
+  useEffect(() => {
+    if (dadosDisponiveis) kanbanColunasRef.current?.scrollTo({ left: 0 });
+  }, [cicloId, dadosDisponiveis]);
+
+  async function moverTarefa(tarefa: TarefaDoPlanoPg, statusDestino: StatusTarefa) {
+    if (!podeAlterarStatus || tarefaEmMovimento !== null || statusDestino === tarefa.status
+      || !transicoes[tarefa.status]?.includes(statusDestino)) return;
+    const controller = new AbortController();
+    controllerMovimento.current?.abort();
+    controllerMovimento.current = controller;
+    setTarefaEmMovimento(tarefa.id);
+    setMensagemMovimento("");
+    const agora = new Date();
+    const data = `${agora.getFullYear()}-${String(agora.getMonth() + 1).padStart(2, "0")}-${String(agora.getDate()).padStart(2, "0")}`;
+    try {
+      await atualizarStatusTarefaPg(tarefa.id, tarefa.idPlanoAcao, statusDestino, data, controller.signal);
+      const listaConfirmada = await listarTarefasPorPlanoPg(tarefa.idPlanoAcao, controller.signal);
+      const tarefaConfirmada = listaConfirmada.find((item) => item.id === tarefa.id && item.idPlanoAcao === tarefa.idPlanoAcao && item.status === statusDestino);
+      if (!tarefaConfirmada) throw new Error("A API não confirmou a alteração do status.");
+      if (!controller.signal.aborted) {
+        setTarefasConfirmadas((atuais) => new Map(atuais).set(tarefa.id, tarefaConfirmada));
+        setMensagemMovimento(`Tarefa movida para ${rotuloStatusTarefa(statusDestino)}.`);
+      }
+    } catch (erro) {
+      if (controller.signal.aborted) return;
+      if (erro instanceof ApiError && [400, 401, 403, 409, 422].includes(erro.status)) {
+        setMensagemMovimento("A API não permitiu a mudança de status. A tarefa permaneceu na coluna atual.");
+      } else {
+        setMensagemMovimento("Não foi possível confirmar a mudança. Recarregue o quadro para conferir o status da tarefa.");
+      }
+    } finally {
+      if (!controller.signal.aborted) {
+        setTarefaEmMovimento(null);
+        controllerMovimento.current = null;
+      }
+    }
+  }
 
   if (resultadoCiclo.estado !== "sucesso") {
     const carregando = resultadoCiclo.estado === "carregando";
@@ -54,7 +100,7 @@ export function PaginaCicloDoTarefas() {
         <Sidebar />
         <div className="ciclo-do_tarefas_painel">
           <section className="ciclo-do_tarefas_estado" role={carregando ? "status" : "alert"} aria-live="polite">
-            <h1>{carregando ? "Carregando ciclo" : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
+            <h1>{carregando ? <CarregandoConteudo compacto mensagem="Carregando ciclo" /> : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
             {!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}
           </section>
         </div>
@@ -62,8 +108,8 @@ export function PaginaCicloDoTarefas() {
     );
   }
   const ciclo = resultadoCiclo.ciclo;
-  const dadosDisponiveis = resultadoTarefas.estado === "sucesso" || resultadoTarefas.estado === "vazio";
-  const tarefas = dadosDisponiveis ? resultadoTarefas.dados.tarefas : [];
+  const tarefasBase = dadosDisponiveis ? resultadoTarefas.dados.tarefas : [];
+  const tarefas = tarefasBase.map((tarefa) => tarefasConfirmadas.get(tarefa.id) ?? tarefa);
   const tarefasVisiveis = filtro === "atrasadas" ? tarefas.filter((tarefa) => tarefa.status === "ATRASADA") : tarefas;
   const contagemPorStatus = (status: StatusTarefa) => tarefas.filter((tarefa) => tarefa.status === status).length;
 
@@ -71,31 +117,83 @@ export function PaginaCicloDoTarefas() {
     <main className="pagina-ciclo-do-tarefas">
       <Sidebar />
       <div className="ciclo-do_tarefas_painel">
-        <header className="ciclo-do_tarefas_cabecalho">
-          <div className="ciclo-do_tarefas_icone" aria-hidden="true"><img src={relogio} alt="" /></div>
-          <div className="ciclo-do_tarefas_identificacao"><div className="ciclo-do_tarefas_linha"><h1>{ciclo.titulo}</h1><span className="ciclo-do_tarefas_status">Status: {rotuloStatusCiclo(ciclo.status)}</span></div><p><span>Responsável pelo ciclo:</span> Não informado</p><p><span>Iniciado em:</span> {ciclo.dataInicio ?? "Não informado"}</p><p><span>Prazo final:</span> {ciclo.dataEstimadaFim ?? "Não informado"}</p></div>
-        </header>
-        <AbasDoCiclo cicloId={ciclo.id} />
+        <CabecalhoNavegacaoCiclo ciclo={ciclo} etapaAtiva="do" />
         <div className="ciclo-do_tarefas_conteudo">
           <section className="ciclo-do_quadro">
             <div className="ciclo-do_tarefas_titulo"><h2>Quadro de tarefas</h2><Link className="ciclo-do_tarefas_criar" to={`/do/ciclo/${ciclo.id}/tarefas/criar`}><img src={iconeMais} alt="" />Criar nova</Link></div>
             {dadosDisponiveis && <div className="ciclo-do_filtros" aria-label="Filtrar tarefas"><button type="button" aria-pressed={filtro === "todas"} onClick={() => setFiltro("todas")}>Todas ({tarefas.length})</button><button type="button" aria-pressed={filtro === "atrasadas"} onClick={() => setFiltro("atrasadas")}>Atrasadas ({contagemPorStatus("ATRASADA")})</button></div>}
             <div className="ciclo-do_kanban">
-              <p className="ciclo-do_kanban_instrucao">Organize as ações por etapa de execução.</p>
-              {dadosDisponiveis ? statusTarefa.map((coluna) => (
-                <section className={`ciclo-do_coluna ciclo-do_coluna-${coluna.classe}`} key={coluna.valor} aria-labelledby={`tarefas-status-${coluna.valor}`}>
+              <p className="ciclo-do_kanban_instrucao" id="ciclo-do_kanban-instrucao">{podeAlterarStatus ? "Arraste uma tarefa para outra coluna ou use o seletor em cada cartão para mudar a etapa." : "As tarefas estão organizadas por etapa de execução."}</p>
+              {mensagemMovimento && <p className="ciclo-do_kanban_feedback" role="status" aria-live="polite">{mensagemMovimento}</p>}
+              {dadosDisponiveis ? <div ref={kanbanColunasRef} className="ciclo-do_kanban_colunas" role="region" aria-label="Colunas do quadro de tarefas" tabIndex={0}>{statusTarefa.map((coluna) => (
+                <section
+                  className={`ciclo-do_coluna ciclo-do_coluna-${coluna.classe}${colunaAlvo === coluna.valor ? " ciclo-do_coluna--alvo" : ""}`}
+                  key={coluna.valor}
+                  aria-labelledby={`tarefas-status-${coluna.valor}`}
+                  onDragOver={(event) => {
+                    if (!podeAlterarStatus || tarefaArrastada === null) return;
+                    const origem = tarefas.find((item) => item.id === tarefaArrastada);
+                    if (origem && transicoes[origem.status]?.includes(coluna.valor)) {
+                      event.preventDefault();
+                      event.dataTransfer.dropEffect = "move";
+                      setColunaAlvo((atual) => atual === coluna.valor ? atual : coluna.valor);
+                    }
+                  }}
+                  onDragLeave={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setColunaAlvo(null);
+                  }}
+                  onDrop={(event) => {
+                    event.preventDefault();
+                    const id = Number(event.dataTransfer.getData("application/x-acta-tarefa-id") || event.dataTransfer.getData("text/plain"));
+                    const tarefa = tarefas.find((item) => item.id === id);
+                    setTarefaArrastada(null);
+                    setColunaAlvo(null);
+                    if (tarefa) void moverTarefa(tarefa, coluna.valor);
+                  }}
+                >
                   <h3 id={`tarefas-status-${coluna.valor}`}>{coluna.titulo} · {tarefasVisiveis.filter((tarefa) => tarefa.status === coluna.valor).length}</h3>
                   {tarefasVisiveis.filter((tarefa) => tarefa.status === coluna.valor).map((tarefa) => (
-                    <Link className="ciclo-do_tarefa ciclo-do_tarefa_link" key={tarefa.id} to={`/do/ciclo/${ciclo.id}/tarefas/${tarefa.id}`} aria-label={`${tarefa.titulo}. Status: ${rotuloStatusTarefa(tarefa.status)}. Abrir detalhes`}>
-                      <strong>{tarefa.titulo}</strong>
-                      <span>{tarefa.nomeResponsavel?.trim() || "Não informado"}</span>
-                      <time>{tarefa.dataFimPrevista ?? "Prazo não informado"}</time>
-                      <span className="ciclo-do_tarefa_status" data-estado={tarefa.status}>{rotuloStatusTarefa(tarefa.status)}</span>
-                    </Link>
+                    <article
+                      className={`ciclo-do_tarefa${tarefaArrastada === tarefa.id ? " ciclo-do_tarefa--arrastando" : ""}${tarefaEmMovimento === tarefa.id ? " ciclo-do_tarefa--salvando" : ""}`}
+                      key={tarefa.id}
+                      draggable={podeAlterarStatus && Boolean(transicoes[tarefa.status]?.length) && tarefaEmMovimento === null}
+                      onDragStart={(event) => {
+                        if (!podeAlterarStatus || !transicoes[tarefa.status]?.length) { event.preventDefault(); return; }
+                        event.dataTransfer.effectAllowed = "move";
+                        event.dataTransfer.setData("application/x-acta-tarefa-id", String(tarefa.id));
+                        event.dataTransfer.setData("text/plain", String(tarefa.id));
+                        setTarefaArrastada(tarefa.id);
+                      }}
+                      onDragEnd={() => { setTarefaArrastada(null); setColunaAlvo(null); }}
+                    >
+                      <Link className="ciclo-do_tarefa_link" to={`/do/ciclo/${ciclo.id}/tarefas/${tarefa.id}`} aria-label={`${tarefa.titulo}. Status: ${rotuloStatusTarefa(tarefa.status)}. Abrir detalhes`}>
+                        <strong>{tarefa.titulo}</strong>
+                        <span>{tarefa.nomeResponsavel?.trim() || "Não informado"}</span>
+                        <time>{tarefa.dataFimPrevista ?? "Prazo não informado"}</time>
+                        <span className="ciclo-do_tarefa_status" data-estado={tarefa.status}>{rotuloStatusTarefa(tarefa.status)}</span>
+                      </Link>
+                      {podeAlterarStatus && transicoes[tarefa.status]?.length ? <>
+                        <label className="sr-only" htmlFor={`mover-tarefa-${tarefa.id}`}>Mover {tarefa.titulo} para outra etapa</label>
+                        <select
+                          className="ciclo-do_tarefa_mover"
+                          id={`mover-tarefa-${tarefa.id}`}
+                          value=""
+                          disabled={tarefaEmMovimento !== null}
+                          onChange={(event) => {
+                            const destino = event.target.value as StatusTarefa;
+                            if (transicoes[tarefa.status]?.includes(destino)) void moverTarefa(tarefa, destino);
+                          }}
+                        >
+                          <option value="" disabled>Mover para…</option>
+                          {transicoes[tarefa.status]?.map((destino) => <option key={destino} value={destino}>{rotuloStatusTarefa(destino)}</option>)}
+                        </select>
+                      </> : null}
+                      {tarefaEmMovimento === tarefa.id && <span className="sr-only" role="status">Salvando mudança de etapa para {tarefa.titulo}.</span>}
+                    </article>
                   ))}
                 </section>
-              )) : <p className="ciclo-do_tarefas_estado" role={resultadoTarefas.estado === "erro" || resultadoTarefas.estado === "indisponivel" ? "alert" : "status"} aria-live="polite">
-                {resultadoTarefas.estado === "carregando" ? "Carregando tarefas do ciclo."
+              ))}</div> : <p className="ciclo-do_tarefas_estado" role={resultadoTarefas.estado === "erro" || resultadoTarefas.estado === "indisponivel" ? "alert" : "status"} aria-live="polite">
+                {resultadoTarefas.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando tarefas do ciclo." />
                   : resultadoTarefas.estado === "erro" ? "Não foi possível carregar todas as tarefas deste ciclo. O quadro está indisponível."
                     : "As tarefas deste ciclo estão indisponíveis para esta conta."}
               </p>}

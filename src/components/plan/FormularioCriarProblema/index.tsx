@@ -40,12 +40,6 @@ export function FormularioCriarProblema({ acaoFechar, podeEnviar, enviando, mens
 
   return (
     <section className="plan-criar-problema_modal" aria-labelledby={`${id}-titulo`}>
-      <aside className="plan-criar-problema_banner" aria-label="ACTA">
-        <div className="plan-criar-problema_mensagem">
-          <p>Acta, seu app de PDCA</p>
-          <p>O ciclo da melhoria começa aqui!</p>
-        </div>
-      </aside>
       <div className="plan-criar-problema_conteudo">
         <div className="plan-criar-problema_fechar">{acaoFechar}</div>
         <h1 className="plan-criar-problema_titulo" id={`${id}-titulo`}>Criar problema</h1>

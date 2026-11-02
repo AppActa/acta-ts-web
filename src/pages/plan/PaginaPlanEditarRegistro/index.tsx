@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../../components/auth/AuthProvider";
@@ -109,13 +110,12 @@ function Editor({ cicloId, registroId, tipo, cicloAberto }: { cicloId: number; r
       } finally { if (!sinal.aborted) { enviandoRef.current = false; setEnviando(false); } }
     })();
   }
-  if (resultado.estado !== "pronto") return <section className="plan-criar-problema_estado" role={resultado.estado === "erro" ? "alert" : "status"}><p>{resultado.estado === "carregando" ? "Carregando dados..." : "Registro não encontrado ou indisponível."}</p><Link to={voltar}>Voltar</Link></section>;
+  if (resultado.estado !== "pronto") return <section className="plan-criar-problema_estado" role={resultado.estado === "erro" ? "alert" : "status"}><p>{resultado.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando dados..." /> : "Registro não encontrado ou indisponível."}</p><Link to={voltar}>Voltar</Link></section>;
   const registro = resultado.registro;
   const meta = tipo === "meta" ? registro as MetaPg : null;
   const causa = tipo === "causa" ? registro as CausaRaizPg : null;
   const plano = tipo === "plano" ? registro as PlanoAcaoPg : null;
   return <><section className="plan-criar-problema_modal plan-editar-problema" aria-labelledby="plan-editar-registro-titulo">
-    <aside className="plan-criar-problema_banner" aria-label="ACTA"><div className="plan-criar-problema_mensagem"><p>Acta, seu app de PDCA</p><p>O ciclo da melhoria começa aqui!</p></div></aside>
     <div className="plan-criar-problema_conteudo"><h1 className="plan-criar-problema_titulo" id="plan-editar-registro-titulo">Editar {tipo === "plano" ? "plano de ação" : tipo}</h1><p className="plan-criar-problema_aviso">Campos com * são obrigatórios.</p>
       <form className="plan-editar-problema_campos" onSubmit={salvar}>
         {causa && <><label>Categoria 6M<input value="Não informada nesta causa raiz" readOnly /></label><label>Descrição *<input name="descricao" defaultValue={causa.descricao} maxLength={1000} required disabled={enviando || incerto} /></label></>}
@@ -130,7 +130,7 @@ function Editor({ cicloId, registroId, tipo, cicloAberto }: { cicloId: number; r
             <label>Quando? · término *<input type="date" name="fim" defaultValue={dataInput(dados5w.plano.whenFim)} required disabled={enviando || incerto} /></label>
             <label>Quem? *<select name="responsavel" defaultValue={String(dados5w.plano.idWhoResponsavel)} required disabled={enviando || incerto}><option value="">Selecione um responsável</option>{dados5w.usuarios.map((p) => <option key={p.idUsuario} value={p.idUsuario}>{p.nomeUsuario}</option>)}</select></label>
             <label>Quanto custa? *<input type="number" min="0" step="0.01" name="custo" defaultValue={dados5w.plano.howMuchCusto} required disabled={enviando || incerto} /></label>
-          </> : <p className="plan-editar-problema_aviso" role={dados5w.estado === "erro" ? "alert" : "status"}>{dados5w.estado === "carregando" ? "Carregando 5W2H..." : dados5w.estado === "vazio" ? "Este plano não possui 5W2H para editar." : "Não foi possível carregar o 5W2H."}</p>}
+          </> : <p className="plan-editar-problema_aviso" role={dados5w.estado === "erro" ? "alert" : "status"}>{dados5w.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando 5W2H..." /> : dados5w.estado === "vazio" ? "Este plano não possui 5W2H para editar." : "Não foi possível carregar o 5W2H."}</p>}
         </>}
         {tipo === "meta" && <p className="plan-editar-problema_aviso">Nesta tela, é possível alterar o objetivo e o valor alvo. Os demais campos estão em consulta.</p>}
         {tipo === "plano" && <p className="plan-editar-problema_aviso">As alterações do nome e do 5W2H são enviadas separadamente.</p>}
@@ -143,5 +143,5 @@ function Editor({ cicloId, registroId, tipo, cicloAberto }: { cicloId: number; r
 
 export function PaginaPlanEditarRegistro({ tipo }: { tipo: Tipo }) {
   const { cicloId, registroId } = useParams(); const ciclo = useCicloDaConta(cicloId); const id = Number(registroId);
-  return <main className="plan-criar-problema">{ciclo.estado === "sucesso" && Number.isSafeInteger(id) && id > 0 ? <Editor key={`${ciclo.ciclo.id}:${id}:${tipo}`} cicloId={ciclo.ciclo.id} registroId={id} tipo={tipo} cicloAberto={ciclo.ciclo.status !== "CONCLUIDO" && ciclo.ciclo.status !== "CANCELADO"} /> : <section className="plan-criar-problema_estado" role="status"><p>{ciclo.estado === "carregando" ? "Carregando ciclo..." : "Ciclo ou registro indisponível."}</p><Link to="/ciclos">Voltar aos ciclos</Link></section>}</main>;
+  return <main className="plan-criar-problema">{ciclo.estado === "sucesso" && Number.isSafeInteger(id) && id > 0 ? <Editor key={`${ciclo.ciclo.id}:${id}:${tipo}`} cicloId={ciclo.ciclo.id} registroId={id} tipo={tipo} cicloAberto={ciclo.ciclo.status !== "CONCLUIDO" && ciclo.ciclo.status !== "CANCELADO"} /> : <section className="plan-criar-problema_estado" role="status"><p>{ciclo.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando ciclo..." /> : "Ciclo ou registro indisponível."}</p><Link to="/ciclos">Voltar aos ciclos</Link></section>}</main>;
 }

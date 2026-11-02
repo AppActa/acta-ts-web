@@ -1,29 +1,60 @@
-.cronograma-conteudo { padding: 36px 43px 40px 37px; }
-.cronograma-titulo { display: flex; height: 46px; align-items: center; gap: 13px; margin-bottom: 42px; }
-.cronograma-titulo a { display: grid; width: 46px; height: 46px; place-items: center; border-radius: 50%; background: #26393b; color: #29c0c8; font-size: 36px; line-height: .7; text-decoration: none; }
-.cronograma-titulo h2 { margin: 0; color: #141c29; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 24px; font-weight: 700; }
-.cronograma-gantt { position: relative; display: grid; width: calc(100% - 6px); max-width: 1198px; min-height: 396px; grid-template-columns: 280px minmax(500px, 780px); grid-template-rows: 32px 42px repeat(4, 60px) 48px; column-gap: 30px; overflow-x: auto; margin-left: 6px; border-radius: 14px; padding: 16px 20px 0; background: #fff; }
-.cronograma-gantt h3 { grid-column: 1 / -1; grid-row: 1; margin: 0; color: #141c29; font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-size: 16px; font-weight: 700; }
-.cronograma-datas { display: flex; grid-column: 2; grid-row: 2; align-items: end; justify-content: space-between; padding: 0 0 2px; color: #66707a; font-size: 12px; }
-.cronograma-linha { display: contents; }
-.cronograma-tarefa { display: grid; grid-column: 1; align-content: center; gap: 4px; color: #66707a; font-size: 12px; }
-.cronograma-tarefa small { font-size: 11px; }
-.cronograma-trilho { position: relative; grid-column: 2; align-self: center; height: 7px; border-radius: 4px; background: #f7f9fa; }
-.cronograma-trilho span { display: block; height: 100%; border-radius: inherit; background: #05adb8; }
-.cronograma-bloqueio { grid-column: 1 / -1; align-self: center; margin: 0; color: #66707a; font-size: 11px; }
-.cronograma-gantt { display: block; box-sizing: border-box; padding-bottom: 20px; }
-.cronograma-gantt h3 { margin-bottom: 18px; }
-.cronograma-datas { min-width: 500px; margin-left: 310px; }
-.cronograma-linha { display: grid; min-width: 810px; min-height: 60px; grid-template-columns: 280px minmax(500px, 1fr); column-gap: 30px; }
-.cronograma-linha > small { grid-column: 2; align-self: center; color: #66707a; }
-.cronograma-titulo a:focus-visible { outline: 3px solid #056196; outline-offset: 3px; }
-@media (max-width: 1100px) {
-  .cronograma-conteudo { padding: 30px 20px; }
-  .cronograma-gantt { grid-template-columns: 230px minmax(500px, 1fr); column-gap: 20px; }
-}
+.pagina-ciclo-do-cronograma .cronograma-conteudo { padding: 28px 32px 38px; }
+.pagina-ciclo-do-cronograma .cronograma-titulo { display: flex; min-height: 54px; align-items: center; gap: 14px; margin: 0 0 22px; }
+.pagina-ciclo-do-cronograma .cronograma-titulo > a { display: grid; width: 40px; height: 40px; flex: 0 0 auto; place-items: center; border: 1px solid #d5e2e3; border-radius: 12px; background: #fff; color: #17666b; font-size: 22px; text-decoration: none; }
+.pagina-ciclo-do-cronograma .cronograma-titulo > a:hover { background: #eaf7f7; }
+.pagina-ciclo-do-cronograma .cronograma-titulo > a:focus-visible, .pagina-ciclo-do-cronograma select:focus-visible, .pagina-ciclo-do-cronograma .cronograma-rolagem:focus-visible { outline: 3px solid #056196; outline-offset: 3px; }
+.pagina-ciclo-do-cronograma .cronograma-titulo h2 { margin: 0; color: #172033; font: 700 21px/1.3 "Plus Jakarta Sans", "Inter", Arial, sans-serif; }
+.pagina-ciclo-do-cronograma .cronograma-titulo p { margin: 3px 0 0; color: #68797d; font-size: 12px; }
+.pagina-ciclo-do-cronograma .cronograma-gantt { position: relative; box-sizing: border-box; width: 100%; max-width: 1280px; min-height: 200px; margin: 0; overflow: hidden; border: 1px solid #e2e9e9; border-radius: 14px; padding: 20px; background: #fff; }
+.pagina-ciclo-do-cronograma .cronograma-cabecalho { display: flex; min-height: 44px; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.pagina-ciclo-do-cronograma .cronograma-cabecalho h3 { margin: 0; color: #172033; font: 700 16px/1.4 "Plus Jakarta Sans", "Inter", Arial, sans-serif; }
+.pagina-ciclo-do-cronograma .cronograma-cabecalho p { margin: 3px 0 0; color: #718084; font-size: 11px; }
+.pagina-ciclo-do-cronograma .cronograma-cabecalho label { display: flex; align-items: center; gap: 8px; color: #526367; font-size: 12px; }
+.pagina-ciclo-do-cronograma .cronograma-cabecalho select { min-height: 36px; border: 1px solid #d4e0e1; border-radius: 8px; padding: 0 10px; background: #fff; color: #20383c; font: inherit; }
+.pagina-ciclo-do-cronograma .cronograma-rolagem { max-width: 100%; overflow: auto; border: 1px solid #e8eeee; border-radius: 10px; scrollbar-color: #91bfc0 #f8fafa; scrollbar-width: thin; }
+.pagina-ciclo-do-cronograma .cronograma-rolagem::-webkit-scrollbar { width: 8px; height: 8px; }
+.pagina-ciclo-do-cronograma .cronograma-rolagem::-webkit-scrollbar-track { background: #f8fafa; }
+.pagina-ciclo-do-cronograma .cronograma-rolagem::-webkit-scrollbar-thumb { border-radius: 99px; background: #91bfc0; }
+.pagina-ciclo-do-cronograma .cronograma-grade { position: relative; min-width: 920px; }
+.pagina-ciclo-do-cronograma .cronograma-eixo, .pagina-ciclo-do-cronograma .cronograma-linha { display: grid; grid-template-columns: 280px minmax(600px, 1fr); column-gap: 18px; }
+.pagina-ciclo-do-cronograma .cronograma-eixo { position: sticky; z-index: 3; top: 0; min-height: 44px; align-items: stretch; border-bottom: 1px solid #e0e9e9; background: #f8fafa; }
+.pagina-ciclo-do-cronograma .cronograma-eixo_rotulo { display: flex; align-items: center; padding-left: 14px; color: #647478; font-size: 11px; font-weight: 700; }
+.pagina-ciclo-do-cronograma .cronograma-eixo_tempo { position: relative; overflow: hidden; }
+.pagina-ciclo-do-cronograma .cronograma-eixo_tempo span { position: absolute; top: 15px; color: #647478; font-size: 10px; font-weight: 650; white-space: nowrap; }
+.pagina-ciclo-do-cronograma .cronograma-linha { min-height: 66px; border-bottom: 1px solid #edf1f1; }
+.pagina-ciclo-do-cronograma .cronograma-linha:last-child { border-bottom: 0; }
+.pagina-ciclo-do-cronograma .cronograma-tarefa { position: relative; display: flex; min-width: 0; flex-direction: column; align-items: flex-start; justify-content: center; gap: 3px; overflow: hidden; padding: 8px 12px; }
+.pagina-ciclo-do-cronograma .cronograma-tarefa > a { max-width: 100%; overflow: hidden; color: #19373c; font-size: 12px; font-weight: 650; text-decoration: none; text-overflow: ellipsis; white-space: nowrap; }
+.pagina-ciclo-do-cronograma .cronograma-tarefa > a:hover { color: #087f84; text-decoration: underline; }
+.pagina-ciclo-do-cronograma .cronograma-tarefa small { max-width: 100%; overflow: hidden; color: #788689; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.pagina-ciclo-do-cronograma .cronograma-status { position: absolute; right: 8px; top: 8px; border-radius: 99px; padding: 2px 6px; background: #eff3f3; color: #56696c; font-size: 9px; white-space: nowrap; }
+.pagina-ciclo-do-cronograma .cronograma-status-em-andamento { background: #e4f4f3; color: #087e7b; }
+.pagina-ciclo-do-cronograma .cronograma-status-concluida { background: #e6f4ed; color: #24784e; }
+.pagina-ciclo-do-cronograma .cronograma-status-atrasada, .pagina-ciclo-do-cronograma .cronograma-status-bloqueada { background: #fff0e9; color: #a24c27; }
+.pagina-ciclo-do-cronograma .cronograma-trilho { position: relative; align-self: stretch; min-width: 0; margin: 0; background: repeating-linear-gradient(to bottom, transparent 0, transparent 32px, #f6f8f8 32px, #f6f8f8 33px); }
+.pagina-ciclo-do-cronograma .cronograma-mes-linha { position: absolute; z-index: 0; top: 0; bottom: 0; width: 1px; background: #e9eeee; }
+.pagina-ciclo-do-cronograma .cronograma-barra { position: absolute; z-index: 1; top: 29px; display: block; min-width: 7px; height: 8px; border-radius: 99px; background: #08aeb5; }
+.pagina-ciclo-do-cronograma .cronograma-barra-em-andamento { background: #078f94; }
+.pagina-ciclo-do-cronograma .cronograma-barra-concluida { background: #47a97c; }
+.pagina-ciclo-do-cronograma .cronograma-barra-atrasada, .pagina-ciclo-do-cronograma .cronograma-barra-bloqueada { background: #d87549; }
+.pagina-ciclo-do-cronograma .cronograma-marco { position: absolute; z-index: 1; top: 27px; display: block; width: 11px; height: 11px; transform: translateX(-50%) rotate(45deg); border: 2px solid #087f84; border-radius: 2px; background: #fff; }
+.pagina-ciclo-do-cronograma .cronograma-marco-atrasada, .pagina-ciclo-do-cronograma .cronograma-marco-bloqueada { border-color: #c9683c; }
+.pagina-ciclo-do-cronograma .cronograma-marco-cancelada { border-color: #8a9698; }
+.pagina-ciclo-do-cronograma .cronograma-hoje { position: absolute; z-index: 2; top: 0; bottom: 0; width: 1px; pointer-events: none; background: #d05b48; }
+.pagina-ciclo-do-cronograma .cronograma-hoje span { position: sticky; top: 5px; display: block; width: max-content; transform: translateX(5px); border-radius: 4px; padding: 3px 5px; background: #fff3ef; color: #a44232; font-size: 9px; font-weight: 700; }
+.pagina-ciclo-do-cronograma .cronograma-legenda { display: flex; flex-wrap: wrap; gap: 12px 20px; margin-top: 14px; color: #66777a; font-size: 10px; }
+.pagina-ciclo-do-cronograma .cronograma-legenda span { display: inline-flex; align-items: center; gap: 6px; }
+.pagina-ciclo-do-cronograma .cronograma-legenda i { display: inline-block; }
+.pagina-ciclo-do-cronograma .cronograma-legenda_barra { width: 18px; height: 6px; border-radius: 99px; background: #08aeb5; }
+.pagina-ciclo-do-cronograma .cronograma-legenda_marco { width: 8px; height: 8px; transform: rotate(45deg); border: 1px solid #087f84; border-radius: 2px; }
+.pagina-ciclo-do-cronograma .cronograma-legenda_hoje { width: 2px; height: 12px; background: #d05b48; }
 @media (max-width: 760px) {
-  .cronograma-conteudo { padding: 24px 14px; }
-  .cronograma-titulo { margin-bottom: 20px; }
-  .cronograma-titulo h2 { font-size: 20px; }
-  .cronograma-gantt { grid-template-columns: 180px 500px; column-gap: 16px; padding-right: 16px; }
+  .pagina-ciclo-do-cronograma .cronograma-conteudo { padding: 20px 14px 28px; }
+  .pagina-ciclo-do-cronograma .cronograma-titulo { margin-bottom: 16px; }
+  .pagina-ciclo-do-cronograma .cronograma-titulo h2 { font-size: 18px; }
+  .pagina-ciclo-do-cronograma .cronograma-gantt { padding: 14px; }
+  .pagina-ciclo-do-cronograma .cronograma-cabecalho { align-items: flex-start; }
+  .pagina-ciclo-do-cronograma .cronograma-cabecalho label { flex-direction: column; align-items: flex-start; gap: 4px; font-size: 10px; }
+  .pagina-ciclo-do-cronograma .cronograma-cabecalho select { max-width: 155px; min-height: 32px; font-size: 10px; }
 }
+@media (prefers-reduced-motion: reduce) { .pagina-ciclo-do-cronograma * { scroll-behavior: auto !important; } }

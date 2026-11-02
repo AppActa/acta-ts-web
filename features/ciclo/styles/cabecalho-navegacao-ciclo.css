@@ -1,0 +1,171 @@
+.cabecalho-navegacao-ciclo {
+  min-width: 0;
+  background: #f8fafa;
+  color: #172d35;
+  font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif;
+}
+
+.cabecalho-navegacao-ciclo_resumo {
+  display: grid;
+  min-width: 0;
+  min-height: 132px;
+  grid-template-columns: 76px minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+  padding: 18px 28px;
+  background: #fff;
+}
+
+.cabecalho-navegacao-ciclo_icone {
+  display: grid;
+  width: 76px;
+  height: 76px;
+  place-items: center;
+  border-radius: 17px;
+  background: #0baeb6;
+}
+
+.cabecalho-navegacao-ciclo_icone img {
+  display: block;
+  width: 62px;
+  height: 62px;
+  object-fit: contain;
+}
+
+.cabecalho-navegacao-ciclo_dados { min-width: 0; }
+
+.cabecalho-navegacao-ciclo_titulo-linha {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-bottom: 5px;
+}
+
+.cabecalho-navegacao-ciclo_titulo-linha h1 {
+  min-width: 0;
+  margin: 0;
+  color: #172033;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.cabecalho-navegacao-ciclo_status {
+  display: inline-flex;
+  min-height: 25px;
+  align-items: center;
+  border-radius: 99px;
+  padding: 4px 12px;
+  background: #e3f4f3;
+  color: #146d6b;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.cabecalho-navegacao-ciclo_metadados {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 3px 24px;
+}
+
+.cabecalho-navegacao-ciclo_metadados p {
+  margin: 0;
+  color: #6c7b80;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.cabecalho-navegacao-ciclo_metadados strong {
+  color: #172033;
+  font-weight: 600;
+}
+
+.cabecalho-navegacao-ciclo_etapas {
+  display: flex;
+  min-width: 0;
+  height: 56px;
+  align-items: stretch;
+  gap: 4px;
+  overflow-x: auto;
+  border-bottom: 1px solid #dce5e6;
+  padding: 0 24px;
+  background: #f8fafa;
+}
+
+.cabecalho-navegacao-ciclo_etapas::-webkit-scrollbar { height: 5px; }
+.cabecalho-navegacao-ciclo_etapas::-webkit-scrollbar-track { background: #f8fafa; }
+.cabecalho-navegacao-ciclo_etapas::-webkit-scrollbar-thumb { border-radius: 99px; background: #91bfc0; }
+.cabecalho-navegacao-ciclo_etapas { scrollbar-color: #91bfc0 #f8fafa; scrollbar-width: thin; }
+
+.cabecalho-navegacao-ciclo_etapa {
+  display: inline-flex;
+  min-width: 112px;
+  height: 49px;
+  flex: 0 0 140px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  align-self: end;
+  border-bottom: 3px solid transparent;
+  border-radius: 10px 10px 0 0;
+  color: #56686c;
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: none;
+  transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease;
+}
+
+.cabecalho-navegacao-ciclo_etapa img {
+  display: block;
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  filter: grayscale(1) saturate(0) opacity(.72);
+}
+
+.cabecalho-navegacao-ciclo_etapa:hover { background: #eef4f4; color: #31575a; }
+
+.cabecalho-navegacao-ciclo_etapa[aria-current="page"] {
+  border-bottom-color: #078c91;
+  background: #fff;
+  color: #087b80;
+}
+
+.cabecalho-navegacao-ciclo_etapa[aria-current="page"] img {
+  filter: brightness(0) saturate(100%) invert(33%) sepia(60%) saturate(800%) hue-rotate(137deg) brightness(90%) contrast(95%);
+}
+
+.cabecalho-navegacao-ciclo_etapa:focus-visible { outline: 3px solid #025a8a; outline-offset: -4px; }
+
+@media (max-width: 760px) {
+  .cabecalho-navegacao-ciclo_resumo {
+    min-height: 108px;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 13px;
+    padding: 14px;
+  }
+
+  .cabecalho-navegacao-ciclo_icone { width: 56px; height: 56px; border-radius: 13px; }
+  .cabecalho-navegacao-ciclo_icone img { width: 46px; height: 46px; }
+  .cabecalho-navegacao-ciclo_titulo-linha { gap: 5px 8px; }
+  .cabecalho-navegacao-ciclo_titulo-linha h1 { font-size: 16px; }
+  .cabecalho-navegacao-ciclo_status { min-height: 22px; padding: 3px 8px; font-size: 10px; }
+  .cabecalho-navegacao-ciclo_metadados { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 10px; }
+  .cabecalho-navegacao-ciclo_metadados p { font-size: 10px; }
+  .cabecalho-navegacao-ciclo_metadados p:first-child { grid-column: 1 / -1; }
+  .cabecalho-navegacao-ciclo_etapas { height: 50px; gap: 2px; padding: 0 8px; }
+  .cabecalho-navegacao-ciclo_etapa { min-width: 96px; height: 44px; flex-basis: 104px; gap: 5px; font-size: 11px; }
+  .cabecalho-navegacao-ciclo_etapa img { width: 17px; height: 17px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cabecalho-navegacao-ciclo_etapa { transition: none; }
+}

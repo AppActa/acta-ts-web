@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState, type ChangeEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { useBlocker, useLocation, useNavigate } from "react-router-dom";
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useAuth } from "../../../components/auth/AuthProvider";
-import { FotoPerfilUploadError, enviarFotoPerfilCloudinary } from "../../../services/api/cloudinary/fotoPerfil.api";
-import { atualizarFotoUsuarioPg } from "../../../services/api/pg/usuario.api";
+import { enviarFotoPerfilCloudinary } from "../../../services/api/cloudinary/fotoPerfil.api";
+import { atualizarFotoUsuarioPg, atualizarNomeUsuarioPg } from "../../../services/api/pg/usuario.api";
 import { LayoutSimples } from "../../../components/layout/LayoutSimples";
 import { FormularioEditarPerfil } from "../../../components/perfil/FormularioEditarPerfil";
 import { ModalEdicaoPerfil } from "../../../components/perfil/ModalEdicaoPerfil";
@@ -12,6 +13,9 @@ type EstadoModal = "confirmacao" | null;
 
 export function PaginaEditarPerfil() {
   const [estadoModal, setEstadoModal] = useState<EstadoModal>(null);
+  const [nome, setNome] = useState("");
+  const [erroNome, setErroNome] = useState("");
+  const [salvandoNome, setSalvandoNome] = useState(false);
   const [fotoSelecionada, setFotoSelecionada] = useState("");
   const [erroFoto, setErroFoto] = useState("");
   const [enviandoFoto, setEnviandoFoto] = useState(false);
@@ -20,10 +24,16 @@ export function PaginaEditarPerfil() {
   const navegar = useNavigate();
   const localizacao = useLocation();
   const pularBloqueio = useRef(false);
+  const nomeOriginal = actaUser?.nome ?? "";
+  const nomeAlterado = nome.trim() !== nomeOriginal;
   const bloqueador = useBlocker(
     ({ currentLocation, nextLocation }) =>
-      !pularBloqueio.current && currentLocation.pathname !== nextLocation.pathname,
+      !pularBloqueio.current && (nomeAlterado || enviandoFoto) && currentLocation.pathname !== nextLocation.pathname,
   );
+
+  useEffect(() => {
+    setNome(nomeOriginal);
+  }, [nomeOriginal]);
 
   useEffect(() => {
     if (bloqueador.state === "blocked") {
@@ -70,7 +80,33 @@ export function PaginaEditarPerfil() {
     }
   }
 
-  function concluirEdicao() {
+  async function salvarNome(evento: FormEvent<HTMLFormElement>) {
+    evento.preventDefault();
+    const nomeValidado = nome.trim();
+    if (!nomeValidado || nomeValidado.length > 160) {
+      setErroNome("Informe um nome com até 160 caracteres.");
+      return;
+    }
+    if (actaUser?.estadoPerfil !== "PERFIL_CRIADO") {
+      setErroNome("Não foi possível identificar seu perfil ACTA.");
+      return;
+    }
+
+    setErroNome("");
+    setSalvandoNome(true);
+    try {
+      await atualizarNomeUsuarioPg(actaUser.idUsuario, nomeValidado);
+      await refreshActaUser();
+      pularBloqueio.current = true;
+      navegar("/perfil", { replace: true });
+    } catch (cause) {
+      setErroNome(cause instanceof Error ? cause.message : "Não foi possível salvar seu nome. Tente novamente.");
+    } finally {
+      setSalvandoNome(false);
+    }
+  }
+
+  function voltarAoPerfil() {
     pularBloqueio.current = true;
     navegar("/perfil", { replace: true });
   }
@@ -105,12 +141,15 @@ export function PaginaEditarPerfil() {
             <label className="botao-editar-foto" htmlFor="foto-perfil" title={enviandoFoto ? "Enviando foto" : "Alterar foto do perfil"} aria-disabled={enviandoFoto}>
               <span className="texto-acessivel">Alterar foto do perfil</span>
             </label>
-            <input className="entrada-foto-perfil" id="foto-perfil" name="foto-perfil" type="file" accept="image/*" onChange={selecionarFoto} disabled={enviandoFoto} />
-            {enviandoFoto && <p className="erro-foto-perfil" role="status">Enviando foto…</p>}
-            {erroFoto && <p className={`erro-foto-perfil${erroFoto.includes("sucesso") ? " erro-foto-perfil--sucesso" : ""}`} role={erroFoto.includes("sucesso") ? "status" : "alert"}>{erroFoto}</p>}
+            <input className="entrada-foto-perfil" id="foto-perfil" name="foto-perfil" type="file" accept="image/*" onChange={selecionarFoto} disabled={enviandoFoto} aria-describedby={erroFoto ? "estado-foto-perfil" : undefined} aria-invalid={Boolean(erroFoto && !erroFoto.includes("sucesso"))} />
+            {enviandoFoto && <CarregandoConteudo compacto mensagem="Enviando foto" />}
+            {erroFoto && <p id="estado-foto-perfil" className={`erro-foto-perfil${erroFoto.includes("sucesso") ? " erro-foto-perfil--sucesso" : ""}`} role={erroFoto.includes("sucesso") ? "status" : "alert"}>{erroFoto}</p>}
           </div>
 
-          <FormularioEditarPerfil aoConcluir={concluirEdicao} />
+          <div className="dados-perfil-edicao">
+            <button className="botao-voltar-edicao" type="button" onClick={voltarAoPerfil}>Voltar ao perfil</button>
+            <FormularioEditarPerfil nome={nome} email={actaUser?.email ?? firebaseUser?.email ?? ""} erro={erroNome} enviando={salvandoNome} aoAlterarNome={setNome} aoSalvar={salvarNome} />
+          </div>
         </section>
 
         {estadoModal === "confirmacao" && (

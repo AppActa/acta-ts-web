@@ -10,8 +10,8 @@ export function Alternador({ ativo, aoMudar, rotulo }: AlternadorProps) {
       aria-label={rotulo}
       onClick={() => aoMudar(!ativo)}
     >
-      <span className={ativo ? "alternador_opcao alternador_opcao-ativa" : "alternador_opcao"}>ON</span>
-      <span className={!ativo ? "alternador_opcao alternador_opcao-ativa" : "alternador_opcao"}>OFF</span>
+      <span className="alternador_status">{ativo ? "ON" : "OFF"}</span>
+      <span className="alternador_indicador" aria-hidden="true" />
     </button>
   );
 }

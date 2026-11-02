@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import { Link } from "react-router-dom";
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { ApiError } from "../../../services/http/client";
 import { useAuth } from "../../../components/auth/AuthProvider";
 import { lerIdRotaPositivo } from "../../../utils/route-params";
@@ -252,7 +253,9 @@ export function PaginaCato() {
       <Sidebar />
       <div className="cato_painel">
         <header className="cato_cabecalho">
+          <span className="cato_cabecalho_avatar" aria-hidden="true"><img src={mascoteCato} alt="" /></span>
           <div><h1>Cato AI</h1><p>Seu parceiro em cada etapa do PDCA</p></div>
+          <span className="cato_cabecalho_selo"><i aria-hidden="true" /> Assistente ACTA</span>
         </header>
         <div className={`cato_corpo${historicoAberto ? "" : " cato_corpo--historico-recolhido"}`}>
           {!historicoAberto && <button ref={reabrirHistoricoRef} className="cato_historico_reabrir" type="button" onClick={() => setHistoricoAberto(true)} aria-expanded="false" aria-controls="cato-historico"><span aria-hidden="true">☰</span><span>Conversas</span></button>}
@@ -279,6 +282,7 @@ export function PaginaCato() {
                   <span id="cato-ciclo-valor">{cicloAtivo ? ciclos.find((ciclo) => String(ciclo.id) === cicloAtivo)?.title || "Ciclo selecionado" : "Todos os ciclos"}</span>
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9 12 15 18 9" /></svg>
                 </button>
+                {carregandoCiclos && <CarregandoConteudo compacto mensagem="Carregando ciclos" />}
                 {cicloMenuAberto && <div className="cato_contexto_opcoes" id="cato-ciclo-opcoes" role="listbox" aria-labelledby="cato-ciclo-label">
                   <button ref={(node) => { cicloOpcaoRefs.current[0] = node; }} className="cato_contexto_opcao" type="button" role="option" aria-selected={!cicloAtivo} tabIndex={cicloSelecionadoIndex === 0 ? 0 : -1} onClick={() => selecionarCiclo("")}>Todos os ciclos</button>
                   {ciclos.map((ciclo, index) => <button ref={(node) => { cicloOpcaoRefs.current[index + 1] = node; }} className="cato_contexto_opcao" type="button" role="option" aria-selected={String(ciclo.id) === cicloAtivo} tabIndex={cicloSelecionadoIndex === index + 1 ? 0 : -1} key={ciclo.id} onClick={() => selecionarCiclo(String(ciclo.id))}><span>{ciclo.title}</span>{ciclo.status && <small>{ciclo.status}</small>}</button>)}
@@ -302,7 +306,7 @@ export function PaginaCato() {
                   {mensagem.role === "assistant" ? <img src={mascoteCato} alt="" /> : fotoPerfil ? <img src={fotoPerfil} alt="" onError={() => setFotoPerfilFalhou(true)} /> : <span>{iniciais}</span>}
                 </span>
               </li>)}</ol>}
-              {carregando && <p className="cato_respondendo" role="status">O Cato está pensando…</p>}
+              {carregando && <CarregandoConteudo compacto mensagem="O Cato está pensando" />}
               {erro && <div className="cato_erro" role="alert"><p>{erro}</p><button type="button" onClick={() => void enviar(undefined, [...mensagens].reverse().find((m) => m.role === "user")?.content)}>Tentar novamente</button></div>}
               {erroAudio && <p className="cato_audio_erro" role="alert">{erroAudio}</p>}
               {gravandoAudio && <p className="cato_gravando" role="status">Gravando… toque no microfone novamente para encerrar.</p>}

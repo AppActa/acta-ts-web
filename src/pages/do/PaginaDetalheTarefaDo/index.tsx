@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../../../components/auth/AuthProvider";
 import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
@@ -30,7 +31,7 @@ export function PaginaDetalheTarefaDo() {
   if (resultadoCiclo.estado !== "sucesso") {
     const carregando = resultadoCiclo.estado === "carregando";
     return <main className="do-detalhe-tarefa"><section className="detalhe-tarefa-do_estado" role={carregando ? "status" : "alert"} aria-live="polite">
-      <h1>{carregando ? "Carregando ciclo" : resultadoCiclo.estado === "nao-encontrado" ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
+      <h1>{carregando ? <CarregandoConteudo compacto mensagem="Carregando ciclo" /> : resultadoCiclo.estado === "nao-encontrado" ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
       {!carregando && <p>{resultadoCiclo.estado === "nao-encontrado" ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}
       <Link to="/ciclos">Voltar para ciclos</Link>
     </section></main>;
@@ -39,7 +40,7 @@ export function PaginaDetalheTarefaDo() {
   const ciclo = resultadoCiclo.ciclo;
   const linkCiclo = <Link to={`/do/ciclo/${ciclo.id}/tarefas`}>Voltar ao quadro de tarefas</Link>;
   if (idTarefa === null) return <main className="do-detalhe-tarefa"><section className="detalhe-tarefa-do_estado" role="alert"><h1>Tarefa não encontrada</h1>{linkCiclo}</section></main>;
-  if (resultadoDados.estado === "carregando") return <main className="do-detalhe-tarefa"><section className="detalhe-tarefa-do_estado" role="status" aria-live="polite"><h1>Carregando tarefa</h1></section></main>;
+  if (resultadoDados.estado === "carregando") return <main className="do-detalhe-tarefa"><section className="detalhe-tarefa-do_estado" role="status" aria-live="polite"><h1>{<CarregandoConteudo compacto mensagem="Carregando tarefa" />}</h1></section></main>;
   if (resultadoDados.estado === "indisponivel" || resultadoDados.estado === "erro") return <main className="do-detalhe-tarefa"><section className="detalhe-tarefa-do_estado" role="alert"><h1>Detalhe indisponível</h1><p>Não foi possível validar esta tarefa dentro dos planos do ciclo.</p>{linkCiclo}</section></main>;
 
   const tarefa = resultadoDados.dados.tarefas.find((item) => item.id === idTarefa && resultadoDados.dados.planos.some((plano) => plano.id === item.idPlanoAcao && plano.idCiclo === ciclo.id));

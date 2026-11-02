@@ -4,6 +4,7 @@ import { AuthenticatedRoute } from "../../components/auth/AuthenticatedRoute";
 import { OnboardingRoute } from "../../components/auth/OnboardingRoute";
 import { PrivateRoute } from "../../components/auth/PrivateRoute";
 import { CarregandoPagina } from "../../components/layout/CarregandoPagina";
+import { PaginaErroAplicacao } from "../../pages/layout/PaginaErroAplicacao";
 const PaginaLogin = lazy(() => import("../../pages/auth/PaginaLogin").then((mod) => ({ default: mod.PaginaLogin })));
 const PaginaCadastroConta = lazy(() => import("../../pages/auth/PaginaCadastroConta").then((mod) => ({ default: mod.PaginaCadastroConta })));
 const PaginaEditarPerfil = lazy(() => import("../../pages/perfil/PaginaEditarPerfil").then((mod) => ({ default: mod.PaginaEditarPerfil })));
@@ -51,11 +52,12 @@ const PaginaTodosCiclos = lazy(() => import("../../pages/ciclos/PaginaTodosCiclo
 const PaginaNaoEncontrada = lazy(() => import("../../pages/layout/PaginaNaoEncontrada").then((mod) => ({ default: mod.PaginaNaoEncontrada })));
 const PaginaCato = lazy(() => import("../../pages/cato/PaginaCato").then((mod) => ({ default: mod.PaginaCato })));
 export const router = createBrowserRouter([
-  { path: "/login", element: <Suspense fallback={<CarregandoPagina />} ><PaginaLogin /></Suspense> },
-  { path: "/criar-conta", element: <Suspense fallback={<CarregandoPagina />} ><PaginaCadastroConta /></Suspense> },
+  { path: "/login", element: <Suspense fallback={<CarregandoPagina />} ><PaginaLogin /></Suspense>, errorElement: <PaginaErroAplicacao /> },
+  { path: "/criar-conta", element: <Suspense fallback={<CarregandoPagina />} ><PaginaCadastroConta /></Suspense>, errorElement: <PaginaErroAplicacao /> },
   {
     path: "/",
     element: <AuthenticatedRoute />,
+    errorElement: <PaginaErroAplicacao />,
     children: [
       { path: "onboarding", element: <OnboardingRoute /> },
       {

@@ -165,6 +165,10 @@
   opacity: 0.85;
 }
 
+.formulario-login_botao--carregando {
+  font-size: 0;
+}
+
 .formulario-login_spinner {
   width: 16px;
   height: 16px;

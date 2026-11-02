@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useEffect, useState } from "react";
 import type { ConteudoInvestigacaoPlanProps, PaginaPlanInvestigacaoProps } from "../../../types/plan";
 import { Link, useParams } from "react-router-dom";
@@ -34,7 +35,7 @@ function Conteudo({ cicloId, tipo }: ConteudoInvestigacaoPlanProps) {
   return <section className="plan-investigacao" aria-labelledby="investigacao-titulo"><Link to={`${base}/causas`} className="plan-investigacao_voltar">← Voltar à análise de causas</Link>
     <h2 id="investigacao-titulo">{tipo === "ishikawa" ? "Diagrama de Ishikawa" : "5 Porquês"}</h2><p className="plan-investigacao_subtitulo">Análise de causas</p>
     {tipo === "porques" && <p><Link className="plan-investigacao_acao" to={`${base}/porques/criar`}>Criar investigação</Link></p>}
-    {dados.estado !== "sucesso" ? <p role={dados.estado === "erro" ? "alert" : "status"}>{dados.estado === "erro" ? "Não foi possível carregar os dados." : "Carregando dados..."}</p> : tipo === "ishikawa" ? dados.diagramas.length ? dados.diagramas.map((diagrama) => <article className="plan-investigacao_cartao" key={diagrama.id}>
+    {dados.estado !== "sucesso" ? <p role={dados.estado === "erro" ? "alert" : "status"}>{dados.estado === "erro" ? "Não foi possível carregar os dados." : <CarregandoConteudo compacto mensagem="Carregando dados..." />}</p> : tipo === "ishikawa" ? dados.diagramas.length ? dados.diagramas.map((diagrama) => <article className="plan-investigacao_cartao" key={diagrama.id}>
       <h3>Possíveis causas: {diagrama.problema}</h3>
       <div className="plan-investigacao_diagrama">
         <div className="plan-investigacao_categorias">{categorias.map((categoria) => <section key={categoria.id}>

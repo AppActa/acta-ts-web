@@ -15,6 +15,7 @@ import type { CicloPg, PlanoAcaoPg, TarefaDoPlanoPg, CausaRaizPg, ProblemaPg, Me
 import { listarFormulariosMongo } from "../../../services/api/mongo/dashboard.read.api";
 import type { FormularioMongo } from "../../../types/mongo";
 import { Sidebar } from "../../../components/layout/Sidebar";
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import "../../../../features/layout/styles/web-listas.css";
 import "../../../../features/plan/styles/pagina-plan-todos-ciclos.css";
 
@@ -205,9 +206,7 @@ export function PaginaPlanTodosCiclos() {
           </header>
 
           {estado === "carregando" ? (
-            <section className="plan-ciclos_vazio" role="status" aria-live="polite" aria-busy="true">
-              <h2>Carregando dados do Plan</h2>
-            </section>
+            <CarregandoConteudo mensagem="Carregando dados do Plan" />
           ) : estado === "erro" ? (
             <section className="plan-ciclos_vazio" role="alert">
               <h2>Não foi possível carregar os dados do Plan</h2>

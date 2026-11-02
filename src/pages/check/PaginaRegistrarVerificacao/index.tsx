@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../../components/auth/AuthProvider";
@@ -94,7 +95,7 @@ export function PaginaRegistrarVerificacao() {
       <div className="registrar-verificacao_fechar"><Link to="/ciclos">Voltar para ciclos</Link></div>
       <section className="registrar-verificacao_estado" role={carregando ? "status" : "alert"}>
         <h1>Registrar verificação</h1>
-        <p>{carregando ? "Carregando ciclo." : resultado.estado === "nao-encontrado" ? "Ciclo não encontrado para esta conta." : "Não foi possível carregar o ciclo. Tente novamente mais tarde."}</p>
+        <p>{carregando ? <CarregandoConteudo compacto mensagem="Carregando ciclo." /> : resultado.estado === "nao-encontrado" ? "Ciclo não encontrado para esta conta." : "Não foi possível carregar o ciclo. Tente novamente mais tarde."}</p>
       </section>
     </main>;
   }

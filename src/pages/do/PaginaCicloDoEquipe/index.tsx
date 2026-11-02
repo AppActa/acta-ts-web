@@ -1,23 +1,13 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { Link, useParams } from "react-router-dom";
 import type { PaginaCicloDoEquipeProps } from "../../../types/do";
 import { Sidebar } from "../../../components/layout/Sidebar";
-import { useCicloDaConta, rotuloStatusCiclo } from "../../../features/ciclo/hooks/useCicloDaConta";
-import iconeVisaoGeral from "../../../../features/do/assets/ciclo-visao-geral/063c5.svg";
-import iconePlanAba from "../../../../features/do/assets/ciclo-visao-geral/47893.svg";
-import iconeDo from "../../../../features/do/assets/ciclo-visao-geral/d01c2.svg";
-import iconeCheckAba from "../../../../features/do/assets/ciclo-visao-geral/fe2f6.svg";
-import iconeActAba from "../../../../features/do/assets/ciclo-visao-geral/a51ff.svg";
+import { CabecalhoNavegacaoCiclo } from "../../../components/ciclo/CabecalhoNavegacaoCiclo";
+import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
 import voltarMoldura from "../../../../features/ciclos/assets/voltar-moldura.svg";
 import voltarSeta from "../../../../features/ciclos/assets/voltar-seta.svg";
 import "../../../../features/do/styles/pagina-ciclo-do.css";
 import "../../../../features/do/styles/pagina-ciclo-do-equipe.css";
-
-const etapas = [
-  { nome: "Plan", classe: "plan", icone: iconePlanAba, destino: "plan" },
-  { nome: "Do", classe: "do", icone: iconeDo, destino: "tarefas" },
-  { nome: "Check", classe: "check", icone: iconeCheckAba, destino: null },
-  { nome: "Act", classe: "act", icone: iconeActAba, destino: null },
-] as const;
 
 export function PaginaCicloDoEquipe({ pessoas }: PaginaCicloDoEquipeProps) {
   const { cicloId } = useParams();
@@ -32,7 +22,7 @@ export function PaginaCicloDoEquipe({ pessoas }: PaginaCicloDoEquipeProps) {
         <Sidebar />
         <div className="ciclo-do_painel">
           <section className="ciclo-do-equipe_estado" role={carregando ? "status" : "alert"} aria-live="polite">
-            <h1>{carregando ? "Carregando ciclo" : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
+            <h1>{carregando ? <CarregandoConteudo compacto mensagem="Carregando ciclo" /> : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
             {!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}
           </section>
         </div>
@@ -45,33 +35,7 @@ export function PaginaCicloDoEquipe({ pessoas }: PaginaCicloDoEquipeProps) {
     <main className="pagina-ciclo-do pagina-ciclo-do-equipe">
       <Sidebar />
       <div className="ciclo-do_painel">
-        <header className="ciclo-do_cabecalho">
-          <span className="ciclo-do_cabecalho_icone" aria-hidden="true" />
-          <div className="ciclo-do_identificacao">
-            <div className="ciclo-do_titulo_linha">
-              <h1>{ciclo.titulo}</h1>
-              <span className="ciclo-do_status">Status: {rotuloStatusCiclo(ciclo.status)}</span>
-            </div>
-            <p><span>Responsável pelo ciclo:</span> <strong>Não informado</strong></p>
-            <p><span>Iniciado em:</span> <strong>{ciclo.dataInicio ?? "Não informado"}</strong></p>
-            <p><span>Prazo final:</span> <strong>{ciclo.dataEstimadaFim ?? "Não informado"}</strong></p>
-          </div>
-        </header>
-
-        <nav className="ciclo-do_abas" aria-label="Etapas do ciclo">
-          <Link className="ciclo-do_aba ciclo-do_aba-visao ciclo-do_aba-visao-ativa" to={`/do/ciclo/${cicloId}/visao-geral`}>
-            <img src={iconeVisaoGeral} alt="" />Visão geral
-          </Link>
-          {etapas.map((etapa) => etapa.destino ? (
-            <Link className={`ciclo-do_aba ciclo-do_aba-${etapa.classe}`} to={`/do/ciclo/${cicloId}/${etapa.destino}`} key={etapa.nome}>
-              <img src={etapa.icone} alt="" />{etapa.nome}
-            </Link>
-          ) : (
-            <span className={`ciclo-do_aba ciclo-do_aba-${etapa.classe}`} aria-disabled="true" key={etapa.nome}>
-              <img src={etapa.icone} alt="" />{etapa.nome}
-            </span>
-          ))}
-        </nav>
+        <CabecalhoNavegacaoCiclo ciclo={ciclo} etapaAtiva="do" />
 
         <div className="ciclo-do-equipe_conteudo">
           <header className="ciclo-do-equipe_titulo-linha">
@@ -144,3 +108,4 @@ export function PaginaCicloDoEquipe({ pessoas }: PaginaCicloDoEquipeProps) {
     </main>
   );
 }
+

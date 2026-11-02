@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useLayoutEffect, useRef, useState, type FormEvent } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
@@ -46,15 +47,12 @@ export function PaginaPlanCriarFormulario() {
   if (resultadoCiclo.estado !== "sucesso") {
     const carregando = resultadoCiclo.estado === "carregando";
     const naoEncontrado = resultadoCiclo.estado === "nao-encontrado";
-    return <main className="plan-criar-formulario" role={carregando ? "status" : "alert"} aria-live="polite"><h1>{carregando ? "Carregando ciclo" : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>{!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}</main>;
+    return <main className="plan-criar-formulario" role={carregando ? "status" : "alert"} aria-live="polite"><h1>{carregando ? <CarregandoConteudo compacto mensagem="Carregando ciclo" /> : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>{!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}</main>;
   }
 
   return (
     <main className="plan-criar-formulario">
       <section className="plan-criar-formulario_modal" aria-labelledby="plan-criar-formulario-titulo">
-        <aside className="plan-criar-formulario_banner">
-          <div className="plan-criar-formulario_mensagem"><p>ACTA, seu app de PDCA</p><h1>O ciclo da melhoria contínua<br />começa aqui!</h1></div>
-        </aside>
 
         <Link className="plan-criar-formulario_fechar" to={`/do/ciclo/${cicloId}/plan/coleta`} aria-label="Fechar criação de formulário">{/* # colocar imagem */}</Link>
         <form className="plan-criar-formulario_conteudo" onSubmit={concluir}>
