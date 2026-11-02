@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import type { CicloHome, DadosHomePage, EtapaHome, HomePageProps, IconeCicloHome, MetricaHome, PendenciaHome, VarianteMetricaHome, VariantePendenciaHome } from "../../../types/dashboard";
 import { Link } from "react-router-dom";
 import { LayoutSimples } from "../../../components/layout/LayoutSimples";
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import "../../../../features/dashboard/styles/home-page.css";
 import logoActaSimbolo from "../../../../features/dashboard/assets/home/logo-acta-simbolo.png";
 import logoActaPalavra from "../../../../features/dashboard/assets/home/logo-acta-palavra.png";
@@ -47,9 +48,7 @@ export function HomePage({ dados, estado }: HomePageProps) {
         </header>
 
         {estado === "carregando" ? (
-          <section className="home-page_vazio" role="status" aria-live="polite" aria-busy="true">
-            <h1>Carregando dados da Home</h1>
-          </section>
+          <CarregandoConteudo mensagem="Carregando dados da Home" />
         ) : estado === "erro" ? (
           <section className="home-page_vazio" role="alert">
             <h1>Não foi possível carregar os dados da Home</h1>

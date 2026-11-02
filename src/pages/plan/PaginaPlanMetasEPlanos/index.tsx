@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { listarMetasPorCicloPg, listarPlanosPorCicloPg, listarUsuariosDoCicloPg, obterPlano5W2HPg, type MetaPg, type PlanoAcaoPg, type Plano5W2HPg } from "../../../services/api/pg/dashboard.read.api";
@@ -23,7 +24,7 @@ function Detalhes5W2H({ planoId, cicloId }: { planoId: number; cicloId: number }
     }).catch(() => { if (!controller.signal.aborted) setDados({ estado: "erro" }); });
     return () => controller.abort();
   }, [planoId, cicloId]);
-  if (dados.estado !== "sucesso") return <p role={dados.estado === "erro" ? "alert" : "status"}>{dados.estado === "carregando" ? "Carregando 5W2H..." : dados.estado === "vazio" ? "Este plano ainda não possui 5W2H." : "Não foi possível carregar o 5W2H deste plano."}</p>;
+  if (dados.estado !== "sucesso") return <p role={dados.estado === "erro" ? "alert" : "status"}>{dados.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando 5W2H..." /> : dados.estado === "vazio" ? "Este plano ainda não possui 5W2H." : "Não foi possível carregar o 5W2H deste plano."}</p>;
   const p = dados.plano;
   return <dl aria-label="Detalhes do 5W2H"><div><dt>O quê?</dt><dd>{p.whatAcao}</dd><dt>Por quê?</dt><dd>{p.whyJustificativa}</dd><dt>Onde?</dt><dd>{p.whereLocal}</dd><dt>Como?</dt><dd>{p.howModoExecucao}</dd><dt>Início</dt><dd>{p.whenInicio ?? "Não informado"}</dd><dt>Término</dt><dd>{p.whenFim}</dd><dt>Responsável</dt><dd>{dados.responsavel ?? `ID ${p.idWhoResponsavel}`}</dd><dt>Quanto custa?</dt><dd>{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(p.howMuchCusto)}</dd></div></dl>;
 }
@@ -50,7 +51,7 @@ function Conteudo({ cicloId, tipo }: { cicloId: number; tipo: Tipo }) {
     <h2 id="plan-dados-titulo">{titulo}</h2><p className="plan-detalhe-problema_subtitulo">Plan</p>
     <div className="plan-detalhe-problema_colunas"><section className="plan-detalhe-problema_cartao">
       <h3>{tipo === "metas" ? "Informações registradas" : "Planos de ação"}</h3>
-      {dados.estado !== "sucesso" ? <p role={dados.estado === "erro" ? "alert" : "status"}>{dados.estado === "erro" ? "Não foi possível carregar os dados." : "Carregando dados..."}</p>
+      {dados.estado !== "sucesso" ? <p role={dados.estado === "erro" ? "alert" : "status"}>{dados.estado === "erro" ? "Não foi possível carregar os dados." : <CarregandoConteudo compacto mensagem="Carregando dados..." />}</p>
         : tipo === "metas" ? dados.metas.length ? <dl>{dados.metas.map((meta) => <div key={meta.id}><dt>Objetivo</dt><dd>{meta.objetivo}</dd><dt>Valor base → valor alvo</dt><dd>{valor(meta.valorBase, meta.unidadeMedida)} → {valor(meta.valorAlvo, meta.unidadeMedida)}</dd><dt>Prazo</dt><dd>{meta.prazo ?? "Não informado"}</dd><dt>Situação</dt><dd>{statusMeta[meta.status]}</dd><dd><Link to={`/do/ciclo/${cicloId}/plan/metas/${meta.id}/editar`}>Editar meta</Link></dd></div>)}</dl> : <p>Nenhuma meta registrada neste ciclo.</p>
           : dados.planos.length ? <div>{dados.planos.map((plano) => <article key={plano.id}><h4>{plano.nome}</h4><p>Situação: {statusPlano[plano.status]}</p><Detalhes5W2H planoId={plano.id} cicloId={cicloId} /><Link to={`/do/ciclo/${cicloId}/plan/planos/${plano.id}/editar`}>Editar plano de ação</Link></article>)}</div> : <p>Nenhum plano de ação registrado neste ciclo.</p>}
     </section><aside className="plan-detalhe-problema_cartao plan-detalhe-problema_acoes"><h3>{tipo === "metas" ? "Resultado esperado" : "Acompanhamento"}</h3>

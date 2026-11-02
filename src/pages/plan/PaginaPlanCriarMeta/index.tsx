@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { FormularioMetaProps } from "../../../types/plan";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -53,7 +54,6 @@ function FormularioMeta({ cicloId, cicloAberto }: FormularioMetaProps) {
   }
   const pronto = dados.estado !== "carregando" && dados.estado !== "erro";
   return <><section className="plan-criar-problema_modal plan-editar-problema" aria-labelledby="criar-meta-titulo">
-    <aside className="plan-criar-problema_banner" aria-label="ACTA"><div className="plan-criar-problema_mensagem"><p>Acta, seu app de PDCA</p><p>O ciclo da melhoria começa aqui!</p></div></aside>
     <div className="plan-criar-problema_conteudo"><h1 className="plan-criar-problema_titulo" id="criar-meta-titulo">Criar meta</h1><p className="plan-criar-problema_aviso">Campos com * são obrigatórios.</p>
       <form className="plan-editar-problema_campos" onSubmit={salvar}>
         <label htmlFor="dad-pages-plan-paginaplancriarmeta-index-58-9">Plano de ação *<select id="dad-pages-plan-paginaplancriarmeta-index-58-9" name="plano" required defaultValue="" disabled={!pronto || enviando || incerto}><option value="" disabled>Selecione um plano</option>{dados.planos.map((item) => <option key={item.id} value={item.id}>{item.nome}</option>)}</select></label>
@@ -66,7 +66,7 @@ function FormularioMeta({ cicloId, cicloAberto }: FormularioMetaProps) {
         <label htmlFor="dad-pages-plan-paginaplancriarmeta-index-65-9">Responsáveis *<select id="dad-pages-plan-paginaplancriarmeta-index-65-9" name="responsaveis" multiple required disabled={!pronto || enviando || incerto}>{dados.usuarios.map((item) => <option key={item.idUsuario} value={item.idUsuario}>{item.nomeUsuario}</option>)}</select></label>
         <label htmlFor="dad-pages-plan-paginaplancriarmeta-index-66-9">Área<input id="dad-pages-plan-paginaplancriarmeta-index-66-9" name="area" maxLength={100} placeholder="Preencha este campo" disabled={enviando || incerto} /></label>
         <label htmlFor="dad-pages-plan-paginaplancriarmeta-index-67-9">Categoria<input id="dad-pages-plan-paginaplancriarmeta-index-67-9" name="categoria" maxLength={100} placeholder="Preencha este campo" disabled={enviando || incerto} /></label>
-        <p className="plan-editar-problema_aviso" role="status">{dados.estado === "carregando" ? "Carregando planos e participantes..." : dados.estado === "erro" ? "Não foi possível carregar planos e participantes." : !dados.planos.length ? "Cadastre um plano de ação antes de criar uma meta." : !dados.usuarios.length ? "O ciclo precisa ter participantes para atribuir a meta." : !autorizado ? "O cadastro está disponível para gestores e administradores em ciclos ativos." : "Selecione um ou mais responsáveis do ciclo."}</p>
+        <p className="plan-editar-problema_aviso" role="status">{dados.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando planos e participantes..." /> : dados.estado === "erro" ? "Não foi possível carregar planos e participantes." : !dados.planos.length ? "Cadastre um plano de ação antes de criar uma meta." : !dados.usuarios.length ? "O ciclo precisa ter participantes para atribuir a meta." : !autorizado ? "O cadastro está disponível para gestores e administradores em ciclos ativos." : "Selecione um ou mais responsáveis do ciclo."}</p>
         <div className="plan-editar-problema_acoes"><Link to={voltar} onClick={(evento) => { if (enviando) evento.preventDefault(); }}>Cancelar</Link><button type="submit" disabled={!autorizado || !pronto || !dados.planos.length || !dados.usuarios.length || enviando || incerto}>{enviando ? "Salvando..." : "Criar meta"}</button></div>
       </form>
     </div>
@@ -75,5 +75,5 @@ function FormularioMeta({ cicloId, cicloAberto }: FormularioMetaProps) {
 
 export function PaginaPlanCriarMeta() {
   const { cicloId } = useParams(); const ciclo = useCicloDaConta(cicloId);
-  return <main className="plan-criar-problema">{ciclo.estado === "sucesso" ? <FormularioMeta key={ciclo.ciclo.id} cicloId={ciclo.ciclo.id} cicloAberto={ciclo.ciclo.status !== "CONCLUIDO" && ciclo.ciclo.status !== "CANCELADO"} /> : <section className="plan-criar-problema_estado" role="status"><p>{ciclo.estado === "carregando" ? "Carregando ciclo..." : "Ciclo indisponível."}</p><Link to="/ciclos">Voltar aos ciclos</Link></section>}</main>;
+  return <main className="plan-criar-problema">{ciclo.estado === "sucesso" ? <FormularioMeta key={ciclo.ciclo.id} cicloId={ciclo.ciclo.id} cicloAberto={ciclo.ciclo.status !== "CONCLUIDO" && ciclo.ciclo.status !== "CANCELADO"} /> : <section className="plan-criar-problema_estado" role="status"><p>{ciclo.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando ciclo..." /> : "Ciclo indisponível."}</p><Link to="/ciclos">Voltar aos ciclos</Link></section>}</main>;
 }

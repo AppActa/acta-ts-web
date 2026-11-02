@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useState } from "react";
 import type { ConteudoProblemasRegistradosProps, ProblemaPlan, ProblemasDoCicloValidadoProps } from "../../../types/plan";
 import { Link, useParams } from "react-router-dom";
@@ -91,7 +92,7 @@ function ConteudoProblemasRegistrados({ resultado, cicloId }: ConteudoProblemasR
 
           {dados === null ? (
             <p className="plan-problemas-registrados_estado" data-estado={resultado.estado} role={resultado.estado === "erro" ? "alert" : "status"} aria-live="polite">
-              {resultado.estado === "carregando" ? "Carregando problemas do ciclo." : resultado.estado === "erro" ? "Não foi possível carregar os problemas. Tente novamente mais tarde." : "Dados de problemas indisponíveis para este ciclo."}
+              {resultado.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando problemas do ciclo." /> : resultado.estado === "erro" ? "Não foi possível carregar os problemas. Tente novamente mais tarde." : "Dados de problemas indisponíveis para este ciclo."}
             </p>
           ) : !problemasFiltrados?.length ? (
             <p className="plan-problemas-registrados_vazio" role="status" aria-live="polite">

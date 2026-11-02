@@ -11,6 +11,7 @@ import type { CicloPg, PlanoAcaoPg, TarefaDoPlanoPg } from "../../../types/pdca"
 import { listarFormulariosMongo, listarLicoesAprendidasMongo } from "../../../services/api/mongo/dashboard.read.api";
 import type { FormularioMongo, LicaoAprendidaMongo } from "../../../types/mongo";
 import { Sidebar } from "../../../components/layout/Sidebar";
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import "../../../../features/act/styles/pagina-act-todos-ciclos.css";
 
 type EstadoAct = "carregando" | "sucesso" | "erro" | "indisponivel";
@@ -122,7 +123,7 @@ export function PaginaActTodosCiclos() {
           </header>
 
           {estado === "carregando" ? (
-            <section className="act-todos-ciclos_estado" role="status" aria-live="polite" aria-busy="true"><h2>Carregando dados de Act</h2></section>
+            <CarregandoConteudo mensagem="Carregando dados de Act" />
           ) : estado === "erro" ? (
             <section className="act-todos-ciclos_estado" role="alert"><h2>Não foi possível carregar os dados de Act</h2><p>Tente novamente mais tarde.</p></section>
           ) : estado === "indisponivel" ? (

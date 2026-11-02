@@ -1,4 +1,5 @@
 import { useId, type CSSProperties } from "react";
+import { CarregandoConteudo } from "../../layout/CarregandoConteudo";
 import type { ConteudoCicloCheckProps, ComparacaoCicloCheckProps, DadosCicloCheck, MetaCicloCheck, MetricaCicloCheck, ResultadoIndicadorCheck, SituacaoIndicadorCheck, VerificacaoCicloCheck, ComparacaoCicloCheck, EstadoConteudoCicloCheck } from "../../../types/check";
 export type { ConteudoCicloCheckProps, DadosCicloCheck, MetaCicloCheck, MetricaCicloCheck, ResultadoIndicadorCheck, SituacaoIndicadorCheck, VerificacaoCicloCheck, ComparacaoCicloCheck, EstadoConteudoCicloCheck } from "../../../types/check";
 
@@ -66,7 +67,7 @@ export function ConteudoCicloCheck({ resultado = { estado: "indisponivel" }, aca
 
   return (
     <div className="ciclo-check_conteudo" data-estado={resultado.estado} aria-busy={resultado.estado === "carregando"}>
-      {(!dados || resultado.estado === "vazio") && <p className="ciclo-check_estado ciclo-check_estado-geral" role={resultado.estado === "erro" ? "alert" : "status"}>{mensagem}</p>}
+      {resultado.estado === "carregando" ? <CarregandoConteudo compacto mensagem={mensagem} /> : (!dados || resultado.estado === "vazio") && <p className="ciclo-check_estado ciclo-check_estado-geral" role={resultado.estado === "erro" ? "alert" : "status"}>{mensagem}</p>}
       <section className="ciclo-check_metricas" aria-label="Resumo de Check">
         <dl className="ciclo-check_metricas-lista">
           {metricas.map(([chave, titulo]) => {

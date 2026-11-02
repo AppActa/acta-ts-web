@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../../components/auth/AuthProvider";
@@ -95,7 +96,7 @@ export function PaginaPlanCriarProblema() {
     const naoEncontrado = resultado.estado === "nao-encontrado";
     return <main className="plan-criar-problema">
       <section className="plan-criar-problema_estado" role={carregando ? "status" : "alert"}>
-        <h1>{carregando ? "Carregando ciclo" : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
+        <h1>{carregando ? <CarregandoConteudo compacto mensagem="Carregando ciclo" /> : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
         {!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}
       </section>
     </main>;

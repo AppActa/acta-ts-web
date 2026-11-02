@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { Link, useParams } from "react-router-dom";
 import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
 import "../../../../features/plan/styles/pagina-plan-criar-problema.css";
@@ -6,10 +7,9 @@ import "../../../../features/plan/styles/pagina-plan-editar-problema.css";
 export function PaginaPlanNovaColeta() {
   const { cicloId } = useParams();
   const ciclo = useCicloDaConta(cicloId);
-  if (ciclo.estado !== "sucesso") return <main className="plan-criar-problema"><section className="plan-criar-problema_estado" role="status"><p>{ciclo.estado === "carregando" ? "Carregando ciclo..." : "Ciclo indisponível."}</p><Link to="/ciclos">Voltar aos ciclos</Link></section></main>;
+  if (ciclo.estado !== "sucesso") return <main className="plan-criar-problema"><section className="plan-criar-problema_estado" role="status"><p>{ciclo.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando ciclo..." /> : "Ciclo indisponível."}</p><Link to="/ciclos">Voltar aos ciclos</Link></section></main>;
   const voltar = `/do/ciclo/${ciclo.ciclo.id}/plan/coleta`;
   return <main className="plan-criar-problema"><section className="plan-criar-problema_modal plan-editar-problema" aria-labelledby="nova-coleta-titulo">
-    <aside className="plan-criar-problema_banner" aria-label="ACTA"><div className="plan-criar-problema_mensagem"><p>Acta, seu app de PDCA</p><p>O ciclo da melhoria começa aqui!</p></div></aside>
     <div className="plan-criar-problema_conteudo"><h1 className="plan-criar-problema_titulo" id="nova-coleta-titulo">Criar coleta de dados</h1><p className="plan-criar-problema_aviso">Campos com * são obrigatórios.</p>
       <form className="plan-editar-problema_campos" onSubmit={(evento) => evento.preventDefault()}>
         <label htmlFor="dad-pages-plan-paginaplannovacoleta-index-15-9">Nome da coleta *<input id="dad-pages-plan-paginaplannovacoleta-index-15-9" name="nome" required placeholder="Preencha este campo" /></label>

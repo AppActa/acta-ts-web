@@ -1,4 +1,5 @@
 import { useId } from "react";
+import { CarregandoConteudo } from "../../layout/CarregandoConteudo";
 import type { DadosDetalheVerificacao, ResultadoDetalheVerificacao, DetalheVerificacaoProps } from "../../../types/check";
 export type { DadosDetalheVerificacao, ResultadoDetalheVerificacao, DetalheVerificacaoProps } from "../../../types/check";
 
@@ -20,7 +21,7 @@ export function DetalheVerificacao({ acaoFechar, resultado = { estado: "indispon
     <section className="detalhe-verificacao_modal" aria-labelledby={`${id}-titulo`} data-estado={resultado.estado} aria-busy={resultado.estado === "carregando"}>
       <div className="detalhe-verificacao_fechar">{acaoFechar}</div>
       <h1 className="detalhe-verificacao_titulo" id={`${id}-titulo`}>Detalhes da verificação</h1>
-      {!dados ? <p className="detalhe-verificacao_estado" role={resultado.estado === "erro" || resultado.estado === "nao-encontrado" ? "alert" : "status"}>{mensagem}</p> :
+      {!dados ? resultado.estado === "carregando" ? <CarregandoConteudo compacto mensagem={mensagem} /> : <p className="detalhe-verificacao_estado" role={resultado.estado === "erro" || resultado.estado === "nao-encontrado" ? "alert" : "status"}>{mensagem}</p> :
         <div className="detalhe-verificacao_cards">
           <section className="detalhe-verificacao_resultado" aria-labelledby={`${id}-resumo`}>
             <p className="detalhe-verificacao_status" data-estado={dados.status}>Resultado · {rotulos[dados.status]}</p>

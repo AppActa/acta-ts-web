@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../../components/auth/AuthProvider";
@@ -122,7 +123,7 @@ export function PaginaCriarTarefaDo() {
   if (resultadoCiclo.estado !== "sucesso") {
     const carregando = resultadoCiclo.estado === "carregando";
     return <main className="do-criar-tarefa"><section className="criar-tarefa-do_estado" role={carregando ? "status" : "alert"} aria-live="polite">
-      <h1>{carregando ? "Carregando ciclo" : resultadoCiclo.estado === "nao-encontrado" ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
+      <h1>{carregando ? <CarregandoConteudo compacto mensagem="Carregando ciclo" /> : resultadoCiclo.estado === "nao-encontrado" ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
       {!carregando && <p>{resultadoCiclo.estado === "nao-encontrado" ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}
       <Link to="/ciclos">Voltar para ciclos</Link>
     </section></main>;

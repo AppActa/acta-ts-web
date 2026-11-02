@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useEffect, useState } from "react";
 import type { CausasDoCicloProps } from "../../../types/plan";
 import { Link, useParams } from "react-router-dom";
@@ -31,7 +32,7 @@ function CausasDoCiclo({ cicloId }: CausasDoCicloProps) {
     <div className="plan-detalhe-problema_colunas">
       <section className="plan-detalhe-problema_cartao" aria-labelledby="plan-causas-lista">
         <h3 id="plan-causas-lista">Causas levantadas</h3>
-        {causas ? causas.length ? <dl>{causas.map((causa) => <div key={causa.id}><dt>{causa.aceita === null ? "Aguardando validação" : causa.aceita ? "Aceita" : "Não aceita"}</dt><dd>{causa.descricao}</dd><dd><Link to={`/do/ciclo/${cicloId}/plan/causas/${causa.id}/editar`}>Editar causa</Link></dd></div>)}</dl> : <p role="status">Nenhuma causa registrada neste ciclo.</p> : <p role={dados.estado === "erro" ? "alert" : "status"}>{dados.estado === "carregando" ? "Carregando causas..." : "Não foi possível carregar as causas."}</p>}
+        {causas ? causas.length ? <dl>{causas.map((causa) => <div key={causa.id}><dt>{causa.aceita === null ? "Aguardando validação" : causa.aceita ? "Aceita" : "Não aceita"}</dt><dd>{causa.descricao}</dd><dd><Link to={`/do/ciclo/${cicloId}/plan/causas/${causa.id}/editar`}>Editar causa</Link></dd></div>)}</dl> : <p role="status">Nenhuma causa registrada neste ciclo.</p> : <p role={dados.estado === "erro" ? "alert" : "status"}>{dados.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando causas..." /> : "Não foi possível carregar as causas."}</p>}
       </section>
       <aside className="plan-detalhe-problema_cartao plan-detalhe-problema_acoes" aria-labelledby="plan-causas-acompanhamento">
         <h3 id="plan-causas-acompanhamento">Acompanhamento</h3>

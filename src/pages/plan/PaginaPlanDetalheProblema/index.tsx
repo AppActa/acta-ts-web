@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { Link, useParams } from "react-router-dom";
 import type { DetalheProblemaProps } from "../../../types/plan";
 import { PainelCicloPlanDo } from "../../../components/ciclo/PainelCicloPlanDo";
@@ -10,7 +11,7 @@ function DetalheProblema({ cicloId, problemaId }: DetalheProblemaProps) {
   const listaHref = `/do/ciclo/${cicloId}/plan/identificacao-problema`;
   if (resultado.estado !== "sucesso" && resultado.estado !== "vazio") {
     return <section className="plan-detalhe-problema" role={resultado.estado === "erro" ? "alert" : "status"}>
-      <p>{resultado.estado === "carregando" ? "Carregando problema..." : "Não foi possível carregar o problema."}</p>
+      <p>{resultado.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando problema..." /> : "Não foi possível carregar o problema."}</p>
       <Link to={listaHref}>Voltar aos problemas</Link>
     </section>;
   }

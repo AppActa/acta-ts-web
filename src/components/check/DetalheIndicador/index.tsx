@@ -1,4 +1,5 @@
 import { useId } from "react";
+import { CarregandoConteudo } from "../../layout/CarregandoConteudo";
 import type { DetalheIndicadorProps } from "../../../types/check";
 export type { DetalheIndicadorProps } from "../../../types/check";
 
@@ -12,7 +13,7 @@ export function DetalheIndicador({ acaoFechar, estado = "indisponivel" }: Detalh
     <section className="detalhe-indicador_modal" aria-labelledby={`${id}-titulo`} data-estado={estado} aria-busy={estado === "carregando"}>
       <div className="detalhe-indicador_fechar">{acaoFechar}</div>
       <h1 className="detalhe-indicador_titulo" id={`${id}-titulo`}>Detalhes do indicador</h1>
-      <p className="detalhe-indicador_estado" role={estado === "erro" || estado === "nao-encontrado" ? "alert" : "status"}>{mensagem}</p>
+      {estado === "carregando" ? <CarregandoConteudo compacto mensagem={mensagem} /> : <p className="detalhe-indicador_estado" role={estado === "erro" || estado === "nao-encontrado" ? "alert" : "status"}>{mensagem}</p>}
       <div className="detalhe-indicador_cards">
         <section className="detalhe-indicador_serie" aria-labelledby={`${id}-serie`}>
           <h2 className="detalhe-indicador_subtitulo" id={`${id}-serie`}>Acompanhamento do indicador</h2>

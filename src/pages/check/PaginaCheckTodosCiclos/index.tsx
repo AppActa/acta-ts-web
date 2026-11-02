@@ -5,6 +5,7 @@ import { useAuth } from "../../../components/auth/AuthProvider";
 import { listarCiclosPg, listarMetasPorCicloPg, listarVerificacoesPorCicloPg } from "../../../services/api/pg/dashboard.read.api";
 import type { CicloPg, MetaPg, VerificacaoPg } from "../../../types/pdca";
 import { Sidebar } from "../../../components/layout/Sidebar";
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import "../../../../features/layout/styles/web-listas.css";
 import "../../../../features/check/styles/pagina-check-todos-ciclos.css";
 
@@ -179,9 +180,7 @@ export function PaginaCheckTodosCiclos() {
           </header>
 
           {estado === "carregando" ? (
-            <section className="check-todos-ciclos_vazio" role="status" aria-live="polite" aria-busy="true">
-              <h2>Carregando dados de Check</h2>
-            </section>
+            <CarregandoConteudo mensagem="Carregando dados de Check" />
           ) : estado === "erro" ? (
             <section className="check-todos-ciclos_vazio" role="alert">
               <h2>Não foi possível carregar os dados de Check</h2>

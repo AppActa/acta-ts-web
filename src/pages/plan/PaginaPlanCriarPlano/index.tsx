@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../../components/auth/AuthProvider";
@@ -59,7 +60,6 @@ function FormularioPlano({ idCiclo, aberto }: { idCiclo: number; aberto: boolean
     })();
   }
   return <><section className="plan-criar-problema_modal plan-editar-problema" aria-labelledby="criar-plano-titulo">
-    <aside className="plan-criar-problema_banner" aria-label="ACTA"><div className="plan-criar-problema_mensagem"><p>Acta, seu app de PDCA</p><p>O ciclo da melhoria começa aqui!</p></div></aside>
     <div className="plan-criar-problema_conteudo"><h1 className="plan-criar-problema_titulo" id="criar-plano-titulo">Criar plano de ação</h1><p className="plan-criar-problema_aviso">Campos com * são obrigatórios.</p>
       <form className="plan-editar-problema_campos" onSubmit={enviar}>
         <label>O quê? *<input name="oQue" maxLength={160} required disabled={ocupado || incerto} placeholder="Preencha este campo" /></label>
@@ -71,7 +71,7 @@ function FormularioPlano({ idCiclo, aberto }: { idCiclo: number; aberto: boolean
         <label>Quem? *<select name="responsavel" required defaultValue="" disabled={!usuarios || ocupado || incerto}><option value="" disabled>Selecione um responsável</option>{usuarios?.map((p) => <option key={p.idUsuario} value={p.idUsuario}>{p.nomeUsuario}</option>)}</select></label>
         <label>Prioridade *<select name="prioridade" required defaultValue="" disabled={ocupado || incerto}><option value="" disabled>Selecione a prioridade</option><option value="BAIXA">Baixa</option><option value="MEDIA">Média</option><option value="ALTA">Alta</option><option value="CRITICA">Crítica</option></select></label>
         <label>Quanto custa? *<input name="custo" type="number" min="0" step="0.01" required disabled={ocupado || incerto} placeholder="Preencha este campo" /></label>
-        <p className="plan-editar-problema_aviso" role="status">{erroUsuarios ? "Não foi possível carregar os responsáveis." : !usuarios ? "Carregando responsáveis..." : !usuarios.length ? "Nenhum responsável disponível neste ciclo." : !autorizado ? "Cadastro disponível para gestores e administradores em ciclos ativos." : incerto ? "Confira a lista antes de tentar novamente." : "O plano e o 5W2H serão registrados em sequência."}</p>
+        <p className="plan-editar-problema_aviso" role="status">{erroUsuarios ? "Não foi possível carregar os responsáveis." : !usuarios ? <CarregandoConteudo compacto mensagem="Carregando responsáveis..." /> : !usuarios.length ? "Nenhum responsável disponível neste ciclo." : !autorizado ? "Cadastro disponível para gestores e administradores em ciclos ativos." : incerto ? "Confira a lista antes de tentar novamente." : "O plano e o 5W2H serão registrados em sequência."}</p>
         <div className="plan-editar-problema_acoes"><Link to={voltar} onClick={(e) => { if (ocupado) e.preventDefault(); }}>Cancelar</Link><button type="submit" disabled={!autorizado || !usuarios?.length || ocupado || incerto}>{ocupado ? "Salvando..." : "Criar plano de ação"}</button></div>
       </form>
     </div>
@@ -81,6 +81,6 @@ function FormularioPlano({ idCiclo, aberto }: { idCiclo: number; aberto: boolean
 export function PaginaPlanCriarPlano() {
   const { cicloId } = useParams();
   const ciclo = useCicloDaConta(cicloId);
-  if (ciclo.estado !== "sucesso") return <main className="plan-criar-problema"><section className="plan-criar-problema_estado" role="status"><p>{ciclo.estado === "carregando" ? "Carregando ciclo..." : "Ciclo indisponível."}</p><Link to="/ciclos">Voltar aos ciclos</Link></section></main>;
+  if (ciclo.estado !== "sucesso") return <main className="plan-criar-problema"><section className="plan-criar-problema_estado" role="status"><p>{ciclo.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando ciclo..." /> : "Ciclo indisponível."}</p><Link to="/ciclos">Voltar aos ciclos</Link></section></main>;
   return <main className="plan-criar-problema"><FormularioPlano key={ciclo.ciclo.id} idCiclo={ciclo.ciclo.id} aberto={ciclo.ciclo.status !== "CONCLUIDO" && ciclo.ciclo.status !== "CANCELADO"} /></main>;
 }

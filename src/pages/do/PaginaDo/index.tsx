@@ -5,6 +5,7 @@ import { useAuth } from "../../../components/auth/AuthProvider";
 import { listarCiclosPg, listarPlanosPorCicloPg, listarTarefasPorPlanoPg } from "../../../services/api/pg/dashboard.read.api";
 import type { CicloPg, TarefaDoPlanoPg } from "../../../types/pdca";
 import { Sidebar } from "../../../components/layout/Sidebar";
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import "../../../../features/do/styles/pagina-do.css";
 
 const formatadorPercentual = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 2 });
@@ -164,9 +165,7 @@ export function PaginaDo() {
           </header>
 
           {estado === "carregando" ? (
-            <section className="do-todos-ciclos_vazio" role="status" aria-live="polite" aria-busy="true">
-              <h2>Carregando dados do Do</h2>
-            </section>
+            <CarregandoConteudo mensagem="Carregando dados do Do" />
           ) : estado === "erro" ? (
             <section className="do-todos-ciclos_vazio" role="alert">
               <h2>Não foi possível carregar os dados do Do</h2>

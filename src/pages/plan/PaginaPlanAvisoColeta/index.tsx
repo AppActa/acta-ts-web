@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { Link, useParams } from "react-router-dom";
 import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
 import { AvisoDadosDemonstrativos } from "../../../components/layout/AvisoDadosDemonstrativos";
@@ -12,7 +13,7 @@ export function PaginaPlanAvisoColeta() {
   if (resultadoCiclo.estado !== "sucesso") {
     const carregando = resultadoCiclo.estado === "carregando";
     const naoEncontrado = resultadoCiclo.estado === "nao-encontrado";
-    return <main className="plan-aviso-coleta" role={carregando ? "status" : "alert"} aria-live="polite"><h1>{carregando ? "Carregando ciclo" : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>{!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}</main>;
+    return <main className="plan-aviso-coleta" role={carregando ? "status" : "alert"} aria-live="polite"><h1>{carregando ? <CarregandoConteudo compacto mensagem="Carregando ciclo" /> : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>{!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}</main>;
   }
 
   return (

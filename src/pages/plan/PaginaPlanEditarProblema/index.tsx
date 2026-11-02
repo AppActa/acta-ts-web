@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { EditorDadosProblemaProps, FormularioEdicaoProblemaProps } from "../../../types/plan";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -16,7 +17,7 @@ import { lerIdRotaPositivo } from "../../../utils/route-params";
 function FormularioEdicao({ cicloId, problemaId, cicloAberto }: FormularioEdicaoProblemaProps) {
   const resultado = useProblemasDoCiclo(cicloId);
   const voltar = `/do/ciclo/${cicloId}/plan/identificacao-problema/${problemaId}`;
-  if (resultado.estado !== "sucesso" && resultado.estado !== "vazio") return <section className="plan-criar-problema_estado" role="status"><p>{resultado.estado === "carregando" ? "Carregando problema..." : "Não foi possível carregar o problema."}</p><Link to={voltar}>Voltar</Link></section>;
+  if (resultado.estado !== "sucesso" && resultado.estado !== "vazio") return <section className="plan-criar-problema_estado" role="status"><p>{resultado.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando problema..." /> : "Não foi possível carregar o problema."}</p><Link to={voltar}>Voltar</Link></section>;
   const problema = resultado.dados.find((item) => item.id === problemaId);
   if (!problema) return <section className="plan-criar-problema_estado" role="alert"><p>Problema não encontrado neste ciclo.</p><Link to={`/do/ciclo/${cicloId}/plan/identificacao-problema`}>Voltar aos problemas</Link></section>;
   return <EditorDados key={problema.id} problema={problema} cicloId={cicloId} voltar={voltar} cicloAberto={cicloAberto} />;
@@ -62,7 +63,6 @@ function EditorDados({ problema, cicloId, voltar, cicloAberto }: EditorDadosProb
     })();
   }
   return <><section className="plan-criar-problema_modal plan-editar-problema" aria-labelledby="editar-problema-titulo">
-    <aside className="plan-criar-problema_banner" aria-label="ACTA"><div className="plan-criar-problema_mensagem"><p>Acta, seu app de PDCA</p><p>O ciclo da melhoria começa aqui!</p></div></aside>
     <div className="plan-criar-problema_conteudo">
       <h1 className="plan-criar-problema_titulo" id="editar-problema-titulo">Editar problema</h1>
       <p className="plan-criar-problema_aviso">Campos com * são obrigatórios.</p>
@@ -85,5 +85,5 @@ export function PaginaPlanEditarProblema() {
   const idProblema = lerIdRotaPositivo(problemaId);
   return <main className="plan-criar-problema">{ciclo.estado === "sucesso" && idProblema !== null
     ? <FormularioEdicao key={`${ciclo.ciclo.id}:${idProblema}`} cicloId={ciclo.ciclo.id} problemaId={idProblema} cicloAberto={ciclo.ciclo.status !== "CONCLUIDO" && ciclo.ciclo.status !== "CANCELADO"} />
-    : <section className="plan-criar-problema_estado" role="status"><p>{ciclo.estado === "carregando" ? "Carregando ciclo..." : "Ciclo ou problema indisponível."}</p><Link to="/ciclos">Voltar aos ciclos</Link></section>}</main>;
+    : <section className="plan-criar-problema_estado" role="status"><p>{ciclo.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando ciclo..." /> : "Ciclo ou problema indisponível."}</p><Link to="/ciclos">Voltar aos ciclos</Link></section>}</main>;
 }

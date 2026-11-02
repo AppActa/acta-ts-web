@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
@@ -61,7 +62,7 @@ export function PaginaCriarTreinamentoDo() {
     return (
       <main className="pagina-criar-treinamento-do">
         <section className="criar-treinamento_modal" role={carregando ? "status" : "alert"} aria-live="polite">
-          <h1>{carregando ? "Carregando ciclo" : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
+          <h1>{carregando ? <CarregandoConteudo compacto mensagem="Carregando ciclo" /> : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
           {!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}
         </section>
       </main>
@@ -71,9 +72,6 @@ export function PaginaCriarTreinamentoDo() {
   return (
     <main className="pagina-criar-treinamento-do">
       <section className="criar-treinamento_modal" aria-labelledby="criar-treinamento_titulo">
-        <div className="criar-treinamento_mensagem">
-          <div><span>ACTA, seu app de PDCA</span><strong>O ciclo da melhoria contínua<br />começa aqui!</strong></div>
-        </div>
         <form className="criar-treinamento_formulario" noValidate onSubmit={enviar}>
           <Link className="criar-treinamento_fechar" to={`/do/ciclo/${cicloId}/treinamentos`} aria-label={incerto ? "Conferir treinamentos" : "Fechar"} aria-disabled={enviando}
             onClick={e => { if (enviando) e.preventDefault(); }}>×</Link>

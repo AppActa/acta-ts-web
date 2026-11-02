@@ -1,3 +1,4 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useEffect, useLayoutEffect, useRef, useState, type FormEvent } from "react";
 import type { FormularioInvestigacaoProps } from "../../../types/plan";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -122,7 +123,7 @@ function Formulario({ cicloId, investigacaoId, cicloAberto }: FormularioInvestig
     <Link className="plan-investigacao_voltar" to={voltar} onClick={(evento) => { if (enviando) evento.preventDefault(); }}>← Voltar aos 5 Porquês</Link>
     <h2 id="editor-investigacao-titulo">{investigacaoId ? "Editar investigação" : "Criar investigação"}</h2>
     <p className="plan-investigacao_subtitulo">Aprofunde uma causa do Ishikawa. Adicione quantos porquês forem necessários.</p>
-    {estado !== "pronto" ? <p role={estado === "erro" ? "alert" : "status"}>{estado === "erro" ? "Não foi possível carregar os dados desta investigação." : "Carregando dados..."}</p> :
+    {estado !== "pronto" ? <p role={estado === "erro" ? "alert" : "status"}>{estado === "erro" ? "Não foi possível carregar os dados desta investigação." : <CarregandoConteudo compacto mensagem="Carregando dados..." />}</p> :
       <form className="plan-investigacao_cartao plan-investigacao_editor" onSubmit={salvar}>
         <label htmlFor="dad-pages-plan-paginaplaneditarinvestigacao-index-92-9">Causa do Ishikawa *<select id="dad-pages-plan-paginaplaneditarinvestigacao-index-92-9" value={selecao} onChange={(evento) => setFormulario((atual) => ({ ...atual, selecao: evento.target.value }))} required disabled={Boolean(investigacaoId) || enviando || incerto}><option value="">Selecione uma causa</option>{diagramas.flatMap((diagrama) => diagrama.causas.map((causa) => <option key={`${diagrama.id}:${causa.id}`} value={`${diagrama.id}:${causa.id}`}>{diagrama.problema} · {causa.descricao}</option>))}</select></label>
         {!diagramas.some((item) => item.causas.length) && <p role="status">Este ciclo ainda não tem causas no Ishikawa para investigar.</p>}
@@ -139,5 +140,5 @@ export function PaginaPlanEditarInvestigacao() {
   const { cicloId, investigacaoId } = useParams(); const id = lerIdRotaPositivo(cicloId);
   const investigacaoValida = investigacaoId === undefined || /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(investigacaoId);
   const ciclo = useCicloDaConta(cicloId);
-  return <main className="pagina-ciclo-plan-do pagina-ciclo-plan"><PainelCicloPlanDo cicloId={cicloId} etapaAtiva="plan" exibirAvisoDemonstrativo={false}>{id !== null && investigacaoValida && ciclo.estado === "sucesso" ? <Formulario key={`${id}:${investigacaoId ?? "nova"}`} cicloId={id} investigacaoId={investigacaoId} cicloAberto={ciclo.ciclo.status !== "CONCLUIDO" && ciclo.ciclo.status !== "CANCELADO"} /> : <p role={ciclo.estado === "carregando" ? "status" : "alert"}>{ciclo.estado === "carregando" ? "Carregando ciclo..." : !investigacaoValida ? "Investigação inválida." : "Ciclo indisponível."}</p>}</PainelCicloPlanDo></main>;
+  return <main className="pagina-ciclo-plan-do pagina-ciclo-plan"><PainelCicloPlanDo cicloId={cicloId} etapaAtiva="plan" exibirAvisoDemonstrativo={false}>{id !== null && investigacaoValida && ciclo.estado === "sucesso" ? <Formulario key={`${id}:${investigacaoId ?? "nova"}`} cicloId={id} investigacaoId={investigacaoId} cicloAberto={ciclo.ciclo.status !== "CONCLUIDO" && ciclo.ciclo.status !== "CANCELADO"} /> : <p role={ciclo.estado === "carregando" ? "status" : "alert"}>{ciclo.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando ciclo..." /> : !investigacaoValida ? "Investigação inválida." : "Ciclo indisponível."}</p>}</PainelCicloPlanDo></main>;
 }
