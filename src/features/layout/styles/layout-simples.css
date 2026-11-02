@@ -22,7 +22,7 @@
 .layout-simples_painel .pagina-editar-perfil {
   min-height: calc(100vh - 58px);
   padding: 24px;
-  background: transparent;
+  background: #3b5657;
 }
 
 .layout-simples_painel .cartao-editar-perfil {
@@ -35,7 +35,7 @@
   .layout-simples .barra-lateral { position: fixed; z-index: 3; right: 0; bottom: 0; left: 0; width: 100%; min-height: 0; height: 72px; flex-direction: row; padding: 7px 10px; background: #1f1f1f; }
   .layout-simples .barra-lateral_navegacao { display: flex; width: 100%; justify-content: space-around; gap: 2px; }
   .layout-simples .barra-lateral_item { width: 58px; gap: 3px; font-size: 11px; }
-  .layout-simples .barra-lateral_icone { width: 30px; height: 30px; }
+  .layout-simples .sidebar__arte { max-width: 40px; max-height: 54px; }
   .layout-simples .barra-lateral_perfil { display: none; }
   .layout-simples_painel { min-height: calc(100vh - 72px); margin: 0; border-radius: 0; }
 }

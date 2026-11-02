@@ -11,7 +11,7 @@ export type FormularioMongo = { id: string; idEmpresa: number; idCiclo: number; 
 export type CausaIshikawaMongo = { id: string; categoria: CategoriaIshikawaMongo; descricao: string };
 export type IshikawaMongo = { id: string; idEmpresa: number; idCiclo: number; problema: string; causas: CausaIshikawaMongo[] };
 export type PorqueMongo = { ordem: number; pergunta: string; resposta: string };
-export type CincoPorquesMongo = { id: string; idIshikawa: string; hipotese: string; porques: PorqueMongo[] };
+export type CincoPorquesMongo = { id: string; idIshikawa: string; idCausaIshikawa: string | null; hipotese: string; porques: PorqueMongo[] };
 export type LicaoAprendidaMongo = { id: string; idEmpresa: number; idCiclo: number; titulo: string; licao: string; tags: string[] | null };
 
 export class MongoReadError extends Error {
@@ -123,8 +123,8 @@ function parsePorque(value: unknown): PorqueMongo {
 }
 
 function parseCincoPorques(value: unknown): CincoPorquesMongo {
-  if (!isRecord(value) || !validUuid(value.id) || !validUuid(value.idIshikawa) || !requiredText(value.hipotese)) throw new MongoReadError("INVALID_RESPONSE");
-  return { id: value.id, idIshikawa: value.idIshikawa, hipotese: value.hipotese, porques: parseArray(value.porques, parsePorque) };
+  if (!isRecord(value) || !validUuid(value.id) || !validUuid(value.idIshikawa) || !requiredText(value.hipotese) || (value.idCausaIshikawa != null && !validUuid(value.idCausaIshikawa))) throw new MongoReadError("INVALID_RESPONSE");
+  return { id: value.id, idIshikawa: value.idIshikawa, idCausaIshikawa: value.idCausaIshikawa ?? null, hipotese: value.hipotese, porques: parseArray(value.porques, parsePorque) };
 }
 
 function parseLicao(value: unknown): LicaoAprendidaMongo {
@@ -150,6 +150,21 @@ export async function listarIshikawasMongo(idCiclo: number, signal?: AbortSignal
 export async function listarCincoPorquesMongo(idIshikawa: string, signal?: AbortSignal): Promise<CincoPorquesMongo[]> {
   const id = readUuid(idIshikawa);
   return parseArray(await get(`/ishikawas/${id}/cinco-porques`, signal), parseCincoPorques);
+}
+
+export async function salvarCincoPorquesMongo(dados: { idIshikawa: string; idCausaIshikawa: string; idInvestigacao?: string; hipotese: string; porques: PorqueMongo[] }, signal: AbortSignal): Promise<CincoPorquesMongo> {
+  const idIshikawa = readUuid(dados.idIshikawa);
+  const idCausaIshikawa = readUuid(dados.idCausaIshikawa);
+  const idInvestigacao = dados.idInvestigacao === undefined ? null : readUuid(dados.idInvestigacao);
+  if (!requiredText(dados.hipotese) || dados.hipotese !== dados.hipotese.trim() || !dados.porques.length
+    || dados.porques.some((item, indice) => item.ordem !== indice + 1 || !requiredText(item.pergunta) || item.pergunta !== item.pergunta.trim() || !requiredText(item.resposta) || item.resposta !== item.resposta.trim())) throw new MongoReadError("INVALID_INPUT");
+  const corpo = idInvestigacao ? { hipotese: dados.hipotese, porques: dados.porques } : { idCausaIshikawa, hipotese: dados.hipotese, porques: dados.porques };
+  const caminho = idInvestigacao ? `/cinco-porques/${idInvestigacao}` : `/ishikawas/${idIshikawa}/cinco-porques`;
+  const resposta = await httpClient<unknown>(endpointUrl(caminho), { method: idInvestigacao ? "PATCH" : "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(corpo), signal, retryOnUnauthorized: false, ...(idInvestigacao ? {} : { expectedStatus: 201 as const }) });
+  const item = parseCincoPorques(resposta);
+  if ((idInvestigacao && item.id !== idInvestigacao) || item.idIshikawa !== idIshikawa || item.idCausaIshikawa !== idCausaIshikawa || item.hipotese !== dados.hipotese || item.porques.length !== dados.porques.length
+    || item.porques.some((porque, indice) => porque.ordem !== dados.porques[indice].ordem || porque.pergunta !== dados.porques[indice].pergunta || porque.resposta !== dados.porques[indice].resposta)) throw new MongoReadError("INVALID_RESPONSE");
+  return item;
 }
 
 export async function listarLicoesAprendidasMongo(idCiclo: number, signal?: AbortSignal): Promise<LicaoAprendidaMongo[]> {

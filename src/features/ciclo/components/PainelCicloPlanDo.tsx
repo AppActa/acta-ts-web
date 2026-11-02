@@ -8,7 +8,7 @@ import "../styles/painel-ciclo-plan-do.css";
 
 type PainelCicloPlanDoProps = {
   cicloId: string | undefined;
-  etapaAtiva: "plan" | "do" | "check";
+  etapaAtiva: "plan" | "do" | "check" | "act";
   exibirAvisoDemonstrativo?: boolean;
   children: ReactNode;
 };
@@ -43,7 +43,7 @@ export function PainelCicloPlanDo({ cicloId, etapaAtiva, exibirAvisoDemonstrativ
       <div className={`painel-ciclo-plan-do painel-ciclo-plan-do-${etapaAtiva}`}>
         <header className="painel-ciclo-plan-do_cabecalho">
           <div className="painel-ciclo-plan-do_icone" aria-hidden="true">
-            {isDo && <img src={relogioCiclo} alt="" />}
+            {(isPlan || isDo) && <img src={relogioCiclo} alt="" />}
           </div>
           <div className="painel-ciclo-plan-do_identificacao">
             <div className="painel-ciclo-plan-do_titulo-linha"><h1>{ciclo.titulo}</h1><span>Status: {rotuloStatusCiclo(ciclo.status)}</span></div>
@@ -58,9 +58,9 @@ export function PainelCicloPlanDo({ cicloId, etapaAtiva, exibirAvisoDemonstrativ
           <Link to={etapaHref("plan")} aria-current={isPlan ? "page" : undefined} className={`painel-ciclo-plan-do_aba painel-ciclo-plan-do_aba-plan${isPlan ? " ativa" : ""}`}><span aria-hidden="true">{/* # colocar imagem */}</span>Plan</Link>
           <Link to={etapaHref("do")} aria-current={isDo ? "page" : undefined} className={`painel-ciclo-plan-do_aba painel-ciclo-plan-do_aba-do${isDo ? " ativa" : ""}`}><span aria-hidden="true">{/* # colocar imagem */}</span>Do</Link>
           <Link to={`${cicloHref}/check`} aria-current={etapaAtiva === "check" ? "page" : undefined} className={`painel-ciclo-plan-do_aba painel-ciclo-plan-do_aba-check${etapaAtiva === "check" ? " ativa" : ""}`}><span aria-hidden="true">{/* # colocar imagem */}</span>Checar</Link>
-          <button type="button" className="painel-ciclo-plan-do_aba painel-ciclo-plan-do_aba-act" disabled><span aria-hidden="true">{/* # colocar imagem */}</span>Agir</button>
+          <Link to={`${cicloHref}/act`} aria-current={etapaAtiva === "act" ? "page" : undefined} className={`painel-ciclo-plan-do_aba painel-ciclo-plan-do_aba-act${etapaAtiva === "act" ? " ativa" : ""}`}><span aria-hidden="true">{/* # colocar imagem */}</span>Agir</Link>
         </nav>
-        {(etapaAtiva !== "check" || exibirAvisoDemonstrativo) && <AvisoDadosDemonstrativos />}
+        {exibirAvisoDemonstrativo && <AvisoDadosDemonstrativos />}
         {children}
       </div>
     </>
