@@ -6,7 +6,7 @@ import { Sidebar } from "../../layout/components/Sidebar";
 import voltarMoldura from "../assets/voltar-moldura.svg";
 import voltarSeta from "../assets/voltar-seta.svg";
 import iconeCriar from "../assets/icone-criar.svg";
-import "../../perfil/styles/pagina-perfil.css";
+import gatoPrimeiroCiclo from "../assets/primeiro-ciclo-gato.png";
 import "../../layout/styles/web-listas.css";
 import "../styles/pagina-todos-ciclos.css";
 
@@ -92,6 +92,16 @@ export function PaginaTodosCiclos() {
         <header className="web-listas_cabecalho">
           <div className="web-listas_titulo"><Link to="/do" aria-label="Voltar ao ACTA"><img src={voltarMoldura} alt="" /><img src={voltarSeta} alt="" /></Link><h1>Todos os ciclos</h1><button type="button" disabled title="Disponível em breve"><img src={iconeCriar} alt="" />Criar novo</button></div>
         </header>
+        {estadoAtual === "success" && ciclosDaConta.length === 0 ? (
+          <section className="lista-ciclos_conteudo lista-ciclos_conteudo--vazio" aria-label="Ciclos do ACTA">
+            <div className="lista-ciclos_primeiro-ciclo" role="status">
+              <img src={gatoPrimeiroCiclo} alt="" />
+              <h2>Seu primeiro ciclo começa aqui</h2>
+              <p>Crie um ciclo para organizar problemas, acompanhar ações e compartilhar<br className="lista-ciclos_quebra-descricao" /> aprendizados com a equipe.</p>
+              <button type="button" disabled title="Criação de ciclos ainda não está disponível">Criar ciclo</button>
+            </div>
+          </section>
+        ) : (
         <section className="lista-ciclos_conteudo" aria-label="Ciclos do ACTA">
           <div className="lista-ciclos_filtros">
             <label className="lista-ciclos_busca"><span className="sr-only">Buscar ciclo</span><input value={busca} onChange={(event) => setBusca(event.target.value)} placeholder="Buscar ciclo" /></label>
@@ -109,11 +119,18 @@ export function PaginaTodosCiclos() {
             {estadoAtual === "success" && filtrados.map((ciclo) => {
               const concluido = ciclo.status === "CONCLUIDO";
               const statusAtivo = estaEmExecucao(ciclo.status);
+              const percentualConcluido = 0;
               return (
                 <article className="lista-ciclos_item" key={ciclo.id}>
                   <span className="lista-ciclos_icone ciano" aria-hidden="true" />
-                  <div className="lista-ciclos_identificacao"><div className="lista-ciclos_titulo_linha"><h2>{ciclo.titulo}</h2><span className={`lista-ciclos_estado ${concluido ? "concluido" : statusAtivo ? "andamento" : ""}`}>{rotuloStatus(ciclo.status)}</span></div><p>Responsável: Não informado <span>•</span> Prazo: {ciclo.dataEstimadaFim ?? "Não informado"}</p></div>
-                  <div className="lista-ciclos_progresso" aria-hidden="true" />
+                  <div className="lista-ciclos_identificacao"><h2>{ciclo.titulo}</h2><p>Responsável: Não informado <span>•</span> Prazo: {ciclo.dataEstimadaFim ?? "Não informado"}</p></div>
+                  <span className={`lista-ciclos_estado ${concluido ? "concluido" : statusAtivo ? "andamento" : ""}`}>{rotuloStatus(ciclo.status)}</span>
+                  <div className="lista-ciclos_progresso">
+                    <strong>{percentualConcluido}% concluído</strong>
+                    <span role="progressbar" aria-label={`Progresso de ${ciclo.titulo}`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={percentualConcluido}>
+                      <i style={{ width: `${percentualConcluido}%` }} />
+                    </span>
+                  </div>
                   <Link className="lista-ciclos_abrir ciano" to={`/do/ciclo/${ciclo.id}`}>Abrir ciclo</Link>
                   <button className="lista-ciclos_mais" type="button" aria-label={`Mais ações para ${ciclo.titulo}`} disabled title="Mais ações ainda não estão disponíveis">⋮</button>
                 </article>
@@ -122,6 +139,7 @@ export function PaginaTodosCiclos() {
             {estadoAtual === "success" && filtrados.length === 0 && <p className="lista-ciclos_vazio" role="status">{ciclosDaConta.length === 0 ? "Nenhum ciclo cadastrado." : "Nenhum ciclo corresponde à busca ou ao filtro."}</p>}
           </div>
         </section>
+        )}
       </div>
     </main>
   );
