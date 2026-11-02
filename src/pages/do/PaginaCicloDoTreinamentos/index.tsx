@@ -1,21 +1,11 @@
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Sidebar } from "../../../components/layout/Sidebar";
-import { useCicloDaConta, rotuloStatusCiclo } from "../../../features/ciclo/hooks/useCicloDaConta";
+import { CabecalhoNavegacaoCiclo } from "../../../components/ciclo/CabecalhoNavegacaoCiclo";
+import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
 import { useTreinamentosDoCiclo } from "../../../features/do/hooks/useTreinamentosDoCiclo";
 import "../../../../features/do/styles/pagina-ciclo-do-treinamentos.css";
-
-function AbasTreinamentos({ cicloId }: { cicloId: string | undefined }) {
-  return (
-    <nav className="treinamentos_abas" aria-label="Etapas do ciclo">
-      <Link to={`/do/ciclo/${cicloId}/visao-geral`} className="treinamentos_aba treinamentos_aba-visao"><span aria-hidden="true">{/* # colocar imagem */}</span>Visão geral</Link>
-      <Link to={`/do/ciclo/${cicloId}/plan`} className="treinamentos_aba treinamentos_aba-plan"><span aria-hidden="true">{/* # colocar imagem */}</span>Plan</Link>
-      <Link to={`/do/ciclo/${cicloId}/tarefas`} aria-current="page" className="treinamentos_aba treinamentos_aba-do"><span aria-hidden="true">{/* # colocar imagem */}</span>Do</Link>
-      <Link to={`/do/ciclo/${cicloId}/check`} className="treinamentos_aba treinamentos_aba-check">Checar</Link>
-      <Link to={`/do/ciclo/${cicloId}/act`} className="treinamentos_aba treinamentos_aba-act">Agir</Link>
-    </nav>
-  );
-}
 
 export function PaginaCicloDoTreinamentos() {
   const { cicloId } = useParams();
@@ -33,7 +23,7 @@ export function PaginaCicloDoTreinamentos() {
         <Sidebar />
         <div className="treinamentos_painel">
           <section className="treinamentos_estado" role={carregando ? "status" : "alert"} aria-live="polite">
-            <h1>{carregando ? "Carregando ciclo" : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
+            <h1>{carregando ? <CarregandoConteudo compacto mensagem="Carregando ciclo" /> : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
             {!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}
           </section>
         </div>
@@ -46,11 +36,7 @@ export function PaginaCicloDoTreinamentos() {
     <main className="pagina-treinamentos">
       <Sidebar />
       <div className="treinamentos_painel">
-        <header className="treinamentos_cabecalho">
-          <div className="treinamentos_icone" aria-hidden="true" />
-          <div><h1>{ciclo.titulo}</h1><span className="treinamentos_status">Status: {rotuloStatusCiclo(ciclo.status)}</span><p><span>Responsável pelo ciclo:</span> Não informado</p><p><span>Iniciado em:</span> {ciclo.dataInicio ?? "Não informado"}</p><p><span>Prazo final:</span> {ciclo.dataEstimadaFim ?? "Não informado"}</p></div>
-        </header>
-        <AbasTreinamentos cicloId={cicloId} />
+        <CabecalhoNavegacaoCiclo ciclo={ciclo} etapaAtiva="do" />
         <div className="treinamentos_conteudo">
           <div className="treinamentos_titulo_linha">
             <Link to={`/do/ciclo/${cicloId}/tarefas`} className="treinamentos_voltar" aria-label="Voltar às tarefas">‹</Link>
@@ -75,7 +61,7 @@ export function PaginaCicloDoTreinamentos() {
               ))}
             </div>
           ) : <p className="treinamentos_vazio" role={resultadoTreinamentos.estado === "erro" || resultadoTreinamentos.estado === "indisponivel" ? "alert" : "status"}>
-            {resultadoTreinamentos.estado === "carregando" ? "Carregando treinamentos..." : resultadoTreinamentos.estado !== "sucesso" ? "Não foi possível consultar os treinamentos deste ciclo." : busca ? "Nenhum treinamento encontrado para esta busca." : "Nenhum treinamento cadastrado neste ciclo."}
+            {resultadoTreinamentos.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando treinamentos..." /> : resultadoTreinamentos.estado !== "sucesso" ? "Não foi possível consultar os treinamentos deste ciclo." : busca ? "Nenhum treinamento encontrado para esta busca." : "Nenhum treinamento cadastrado neste ciclo."}
           </p>}
         </div>
       </div>

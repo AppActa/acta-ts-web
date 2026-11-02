@@ -1,16 +1,14 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import type { ResumoTarefasDoCicloProps } from "../../../types/do";
 import { Sidebar } from "../../../components/layout/Sidebar";
-import { useCicloDaConta, rotuloStatusCiclo } from "../../../features/ciclo/hooks/useCicloDaConta";
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
+import { CabecalhoNavegacaoCiclo } from "../../../components/ciclo/CabecalhoNavegacaoCiclo";
+import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
 import { useTarefasDoCiclo } from "../../../features/do/hooks/useTarefasDoCiclo";
-import iconeVisaoGeral from "../../../../features/do/assets/ciclo-visao-geral/063c5.svg";
-import iconePlanAba from "../../../../features/do/assets/ciclo-visao-geral/47893.svg";
-import iconeDo from "../../../../features/do/assets/ciclo-visao-geral/d01c2.svg";
-import iconeCheckAba from "../../../../features/do/assets/ciclo-visao-geral/fe2f6.svg";
-import iconeActAba from "../../../../features/do/assets/ciclo-visao-geral/a51ff.svg";
 import circuloPlan from "../../../../features/do/assets/ciclo-visao-geral/9576b.svg";
 import iconePlan from "../../../../features/do/assets/ciclo-visao-geral/79e34.svg";
 import circuloDo from "../../../../features/do/assets/ciclo-visao-geral/a380d.svg";
+import iconeDo from "../../../../features/do/assets/ciclo-visao-geral/fe2f6.svg";
 import circuloCheck from "../../../../features/do/assets/ciclo-visao-geral/61e69.svg";
 import iconeCheck from "../../../../features/do/assets/ciclo-visao-geral/6c5ca.svg";
 import circuloAct from "../../../../features/do/assets/ciclo-visao-geral/0afc5.svg";
@@ -32,7 +30,7 @@ const statusTarefas = [
 
 function ResumoTarefasDoCiclo({ idCiclo }: ResumoTarefasDoCicloProps) {
   const resultado = useTarefasDoCiclo(idCiclo);
-  if (resultado.estado === "carregando") return <div className="ciclo-do_card_tarefas"><p role="status">Carregando tarefas do ciclo.</p></div>;
+  if (resultado.estado === "carregando") return <div className="ciclo-do_card_tarefas"><CarregandoConteudo compacto mensagem="Carregando tarefas do ciclo" /></div>;
   if (resultado.estado === "erro") return <div className="ciclo-do_card_tarefas"><p role="alert">Contagens de tarefas indisponíveis.</p></div>;
   if (resultado.estado === "indisponivel") return <div className="ciclo-do_card_tarefas"><p role="status">Tarefas indisponíveis para este ciclo.</p></div>;
 
@@ -60,7 +58,7 @@ export function PaginaCicloDo() {
         <Sidebar />
         <div className="ciclo-do_painel">
           <section className="ciclo-do_estado" role={carregando ? "status" : "alert"} aria-live="polite">
-            <h1>{carregando ? "Carregando ciclo" : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
+            <h1>{carregando ? <CarregandoConteudo compacto mensagem="Carregando ciclo" /> : naoEncontrado ? "Ciclo não encontrado" : "Não foi possível carregar o ciclo"}</h1>
             {!carregando && <p>{naoEncontrado ? "Este ciclo não está disponível para sua conta." : "Tente novamente mais tarde."}</p>}
           </section>
         </div>
@@ -68,32 +66,11 @@ export function PaginaCicloDo() {
     );
   }
   const ciclo = resultadoCiclo.ciclo;
-  const cicloHref = `/do/ciclo/${ciclo.id}`;
-
   return (
     <main className="pagina-ciclo-do">
       <Sidebar />
       <div className="ciclo-do_painel">
-        <header className="ciclo-do_cabecalho">
-          <span className="ciclo-do_cabecalho_icone" aria-hidden="true" />
-          <div className="ciclo-do_identificacao">
-            <div className="ciclo-do_titulo_linha">
-              <h1>{ciclo.titulo}</h1>
-              <span className="ciclo-do_status">Status: {rotuloStatusCiclo(ciclo.status)}</span>
-            </div>
-            <p><span>Responsável pelo ciclo:</span> <strong>Não informado</strong></p>
-            <p><span>Iniciado em:</span> <strong>{ciclo.dataInicio ?? "Não informado"}</strong></p>
-            <p><span>Prazo final:</span> <strong>{ciclo.dataEstimadaFim ?? "Não informado"}</strong></p>
-          </div>
-        </header>
-
-        <nav className="ciclo-do_abas" aria-label="Etapas do ciclo">
-          <Link className="ciclo-do_aba ciclo-do_aba-visao" to={`${cicloHref}/visao-geral`} aria-current="page"><img src={iconeVisaoGeral} alt="" />Visão geral</Link>
-          <Link className="ciclo-do_aba ciclo-do_aba-plan" to={`${cicloHref}/plan`}><img src={iconePlanAba} alt="" />Plan</Link>
-          <Link className="ciclo-do_aba ciclo-do_aba-do" to={`${cicloHref}/tarefas`}><img src={iconeDo} alt="" />Do</Link>
-          <Link className="ciclo-do_aba ciclo-do_aba-check" to={`${cicloHref}/check`}><img src={iconeCheckAba} alt="" />Checar</Link>
-          <Link className="ciclo-do_aba ciclo-do_aba-act" to={`${cicloHref}/act`}><img src={iconeActAba} alt="" />Agir</Link>
-        </nav>
+        <CabecalhoNavegacaoCiclo ciclo={ciclo} etapaAtiva="visao-geral" />
 
         <div className="ciclo-do_conteudo">
           <section className="ciclo-do_status_ciclo" aria-labelledby="titulo-status-ciclo">

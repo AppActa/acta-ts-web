@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router-dom";
+import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import type { ConteudoPlanValidadoProps } from "../../../types/plan";
 import { PainelCicloPlanDo } from "../../../components/ciclo/PainelCicloPlanDo";
 import { useResumoCicloPlan } from "../../../features/plan/hooks/useResumoCicloPlan";
@@ -75,7 +76,7 @@ function ConteudoPlanValidado({ idCiclo }: ConteudoPlanValidadoProps) {
   return (
     <section className="plan-resumo-conteudo" aria-label="Etapas do planejamento">
       <article className="plan-indicador">
-        <h2>Identificação do problema</h2><span className="plan-indicador_estado">{resumoProblemas.estado}</span><p>{resumoProblemas.descricao}</p>
+        <h2>Identificação do problema</h2><span className="plan-indicador_estado">{resumoProblemas.estado === "Carregando" ? <CarregandoConteudo compacto mensagem={resumoProblemas.descricao} /> : resumoProblemas.estado}</span><p>{resumoProblemas.estado === "Carregando" ? null : resumoProblemas.descricao}</p>
         {cicloHrefId !== null ? <Link className="plan-indicador_detalhes" to={`/do/ciclo/${cicloHrefId}/plan/identificacao-problema`}>Ver detalhes →</Link> : <span className="plan-indicador_detalhes">Detalhes indisponíveis</span>}
       </article>
       <article className="plan-indicador">
@@ -83,13 +84,13 @@ function ConteudoPlanValidado({ idCiclo }: ConteudoPlanValidadoProps) {
         {cicloHrefId !== null ? <Link className="plan-indicador_detalhes" to={`/do/ciclo/${cicloHrefId}/plan/coleta`}>Ver detalhes →</Link> : <span className="plan-indicador_detalhes">Detalhes indisponíveis</span>}
       </article>
       <article className="plan-indicador">
-        <h2>Análise de causas</h2><span className="plan-indicador_estado">{resumoCausas.estado}</span><p>{resumoCausas.descricao}</p>{cicloHrefId !== null && <Link className="plan-indicador_detalhes" to={`/do/ciclo/${cicloHrefId}/plan/causas`}>Ver detalhes →</Link>}
+        <h2>Análise de causas</h2><span className="plan-indicador_estado">{resumoCausas.estado === "Carregando" ? <CarregandoConteudo compacto mensagem={resumoCausas.descricao} /> : resumoCausas.estado}</span><p>{resumoCausas.estado === "Carregando" ? null : resumoCausas.descricao}</p>{cicloHrefId !== null && <Link className="plan-indicador_detalhes" to={`/do/ciclo/${cicloHrefId}/plan/causas`}>Ver detalhes →</Link>}
       </article>
       <article className="plan-indicador">
-        <h2>Meta e indicador</h2><span className="plan-indicador_estado">{resumoMetas.estado}</span><p>{resumoMetas.descricao}</p>{cicloHrefId !== null && <Link className="plan-indicador_detalhes" to={`/do/ciclo/${cicloHrefId}/plan/metas`}>Ver detalhes →</Link>}
+        <h2>Meta e indicador</h2><span className="plan-indicador_estado">{resumoMetas.estado === "Carregando" ? <CarregandoConteudo compacto mensagem={resumoMetas.descricao} /> : resumoMetas.estado}</span><p>{resumoMetas.estado === "Carregando" ? null : resumoMetas.descricao}</p>{cicloHrefId !== null && <Link className="plan-indicador_detalhes" to={`/do/ciclo/${cicloHrefId}/plan/metas`}>Ver detalhes →</Link>}
       </article>
       <article className="plan-indicador">
-        <h2>Plano de ação 5W2H</h2><span className="plan-indicador_estado">{resumoPlanos.estado}</span><p>{resumoPlanos.descricao}</p>{cicloHrefId !== null && <Link className="plan-indicador_detalhes" to={`/do/ciclo/${cicloHrefId}/plan/planos`}>Ver detalhes →</Link>}
+        <h2>Plano de ação 5W2H</h2><span className="plan-indicador_estado">{resumoPlanos.estado === "Carregando" ? <CarregandoConteudo compacto mensagem={resumoPlanos.descricao} /> : resumoPlanos.estado}</span><p>{resumoPlanos.estado === "Carregando" ? null : resumoPlanos.descricao}</p>{cicloHrefId !== null && <Link className="plan-indicador_detalhes" to={`/do/ciclo/${cicloHrefId}/plan/planos`}>Ver detalhes →</Link>}
       </article>
       <article className="plan-progresso" aria-labelledby="plan-progresso-titulo">
         <div className="plan-progresso_grafico" role="status" aria-label="Progresso indisponível">Indisponível</div>
