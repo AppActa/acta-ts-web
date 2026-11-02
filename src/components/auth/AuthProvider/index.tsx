@@ -3,6 +3,7 @@ import type { User } from "firebase/auth";
 import type { CurrentUser } from "../../../types/auth";
 import { getCurrentActaUser } from "../../../services/api/auth/auth.api";
 import { ApiError } from "../../../services/http/client";
+import { buscarFotoUsuarioPg } from "../../../services/api/pg/usuario.api";
 import { entrarComEmail, entrarComGoogle, observarUsuarioFirebase, sairDaContaFirebase } from "../../../services/api/auth/firebase-auth.api";
 
 type AuthContextValue = {
@@ -18,6 +19,16 @@ type AuthContextValue = {
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
+
+async function carregarPerfilComFoto(): Promise<CurrentUser> {
+  const usuario = await getCurrentActaUser();
+  if (usuario.estadoPerfil !== "PERFIL_CRIADO") return usuario;
+  try {
+    return { ...usuario, fotoPerfilUrl: await buscarFotoUsuarioPg(usuario.idUsuario) };
+  } catch {
+    return usuario;
+  }
+}
 
 function mensagemErroPerfil(cause: unknown) {
   if (!(cause instanceof ApiError)) return "Não foi possível carregar seu acesso ao ACTA. Tente novamente.";
@@ -41,7 +52,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
     setError(null);
     setErrorStatus(null);
     try {
-      const usuario = await getCurrentActaUser();
+      const usuario = await carregarPerfilComFoto();
       setActaUser(usuario);
     } catch (cause) {
       setActaUser(null);
@@ -74,7 +85,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
       setLoading(true);
 
       // busca de usuário na sessao atual
-      void getCurrentActaUser()
+      void carregarPerfilComFoto()
         .then((currentUser) => {
           if (requestId === currentRequestId) setActaUser(currentUser);
         })

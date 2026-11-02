@@ -57,7 +57,8 @@ export function PaginaCato() {
   const nomeCompleto = actaUser?.nome || firebaseUser?.displayName || firebaseUser?.email?.split("@")[0] || "Usuário ACTA";
   const iniciais = nomeCompleto.split(/\s+/).filter(Boolean).slice(0, 2).map((parte) => parte[0]).join("").toLocaleUpperCase("pt-BR");
   const saudacao = nome ? `Olá, ${nome}.` : "Olá.";
-  const fotoPerfil = firebaseUser?.photoURL && !fotoPerfilFalhou ? firebaseUser.photoURL : "";
+  const fotoPerfilUrl = actaUser?.fotoPerfilUrl || firebaseUser?.photoURL || "";
+  const fotoPerfil = fotoPerfilUrl && !fotoPerfilFalhou ? fotoPerfilUrl : "";
   const cargo = actaUser?.permissaoGestor ? "Gestor(a)" : "Colaborador(a)";
 
   const cicloSelecionadoIndex = cicloAtivo ? ciclos.findIndex((ciclo) => String(ciclo.id) === cicloAtivo) + 1 : 0;

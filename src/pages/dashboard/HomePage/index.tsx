@@ -88,10 +88,10 @@ export function HomePage({ dados, estado }: HomePageProps) {
               <section className="home-page_pendencias" aria-labelledby="home-page-pendencias-titulo">
                 <div className="home-page_pendencias-cabecalho">
                   <h2 id="home-page-pendencias-titulo">Minhas pendências</h2>
-                  <button className="home-page_botao home-page_botao-ver-todos" type="button" disabled>
+                  <Link className="home-page_botao home-page_botao-ver-todos" to="/do">
                     <img src={iconeLista} alt="" />
                     <span>Ver todos</span>
-                  </button>
+                  </Link>
                 </div>
                 <p className="home-page_pendencias-descricao">Pontos que podem pedir acompanhamento.</p>
                 {dados.pendencias === null ? (
@@ -122,10 +122,10 @@ export function HomePage({ dados, estado }: HomePageProps) {
                 <div className="home-page_ciclos-cabecalho">
                   <h2 id="home-page-ciclos-titulo">{dados.tituloCiclos ?? "Meus ciclos"}</h2>
                   <div className="home-page_ciclos-acoes">
-                    <button className="home-page_botao" type="button" disabled>
+                    <Link className="home-page_botao" to="/ciclos/criar">
                       <img src={iconeMais} alt="" />
                       <span>Criar novo</span>
-                    </button>
+                    </Link>
                     <Link className="home-page_botao" to="/ciclos">
                       <img src={iconeLista} alt="" />
                       <span>Ver todos</span>
@@ -134,7 +134,8 @@ export function HomePage({ dados, estado }: HomePageProps) {
                 </div>
                 <ul className="home-page_ciclos-lista" tabIndex={0} aria-labelledby="home-page-ciclos-titulo">
                   {dados.ciclos.map((ciclo) => (
-                    <li className="home-page_ciclo" key={ciclo.id}>
+                    <li className="home-page_ciclo-item" key={ciclo.id}>
+                      <Link className="home-page_ciclo" to={`/do/ciclo/${ciclo.id}/visao-geral`} aria-label={`Abrir ciclo ${ciclo.titulo}`}>
                       {ciclo.icone === null ? (
                         <div className="home-page_ciclo-icone home-page_ciclo-icone-indisponivel" aria-hidden="true">
                           {/* # colocar imagem */}
@@ -162,6 +163,7 @@ export function HomePage({ dados, estado }: HomePageProps) {
                           <span>{ciclo.progresso}%</span>
                         </div>
                       )}
+                      </Link>
                     </li>
                   ))}
                   {dados.ciclos.length === 0 && <li className="home-page_ciclos-vazio" role="status">Nenhum ciclo cadastrado para esta empresa.</li>}

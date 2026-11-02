@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
+import { useAuth } from "../../auth/AuthProvider";
 import inicioInativo from "../../../../features/layout/assets/sidebar/inicio-inativo.png";
 import inicioSelecionado from "../../../../features/layout/assets/sidebar/inicio-selecionado.png";
 import planoInativo from "../../../../features/layout/assets/sidebar/plano-inativo.png";
@@ -12,12 +14,17 @@ import agirSelecionado from "../../../../features/layout/assets/sidebar/agir-sel
 import perfilInativo from "../../../../features/layout/assets/sidebar/perfil-inativo.png";
 import perfilSelecionado from "../../../../features/layout/assets/sidebar/perfil-selecionado.png";
 import iconeNotificacoes from "../../../../features/perfil/assets/icone-notificacoes.png";
-import iconeRelatorios from "../../../../features/layout/assets/icone-relatorios.svg";
 import iconeCiclos from "../../../../features/layout/assets/icone-ciclos.svg";
-import iconeCato from "../../../../features/layout/assets/icone-cato.svg";
+import iconeCato from "../../../../features/layout/assets/icone-cato.png";
 import "../../../../features/layout/styles/sidebar.css";
-import { lerIdRotaPositivo } from "../../../utils/route-params";
-import type { ItemSidebarProps } from "../../../types/layout";
+
+type ItemSidebarProps = {
+  ativo: boolean;
+  imagemAtiva: string;
+  imagemInativa: string;
+  nome: string;
+  destino: string | null;
+};
 
 function ItemSidebar({ ativo, imagemAtiva, imagemInativa, nome, destino }: ItemSidebarProps) {
   const conteudo = <img className="sidebar__arte" src={ativo ? imagemAtiva : imagemInativa} alt="" />;
@@ -39,8 +46,10 @@ function ItemSidebar({ ativo, imagemAtiva, imagemInativa, nome, destino }: ItemS
 
 export function Sidebar() {
   const { pathname } = useLocation();
-  const { cicloId: cicloIdParametro } = useParams<{ cicloId: string }>();
-  const cicloId = lerIdRotaPositivo(cicloIdParametro);
+  const { cicloId } = useParams<{ cicloId: string }>();
+  const { actaUser, firebaseUser } = useAuth();
+  const [fotoPerfilFalhou, setFotoPerfilFalhou] = useState(false);
+  const fotoPerfil = actaUser?.fotoPerfilUrl || firebaseUser?.photoURL || "";
   const estaEmPlano = pathname.includes("/plan");
   const estaEmChecar = pathname === "/check" || /^\/do\/ciclo\/\d+\/check(?:\/|$)/.test(pathname);
   const estaEmAgir = pathname === "/act" || /^\/do\/ciclo\/\d+\/act(?:\/|$)/.test(pathname);
@@ -63,12 +72,13 @@ export function Sidebar() {
       </nav>
 
       <Link className="barra-lateral_item barra-lateral_perfil" to="/perfil" aria-label="Perfil" aria-current={estaEmPerfil ? "page" : undefined}>
-        <img className="sidebar__arte sidebar__arte--perfil" src={estaEmPerfil ? perfilSelecionado : perfilInativo} alt="" />
+        {fotoPerfil && !fotoPerfilFalhou
+          ? <img className="sidebar__arte sidebar__arte--perfil-foto" src={fotoPerfil} alt="" onError={() => setFotoPerfilFalhou(true)} />
+          : <img className="sidebar__arte sidebar__arte--perfil" src={estaEmPerfil ? perfilSelecionado : perfilInativo} alt="" />}
       </Link>
 
       <nav className="sidebar_atalhos" aria-label="Acesso rápido">
         <button type="button" disabled title="Notificações ainda não possui página"><img src={iconeNotificacoes} alt="" /><span>Notificações</span></button>
-        <Link to="/relatorios" aria-current={pathname === "/relatorios" ? "page" : undefined}><img src={iconeRelatorios} alt="" /><span>Relatórios</span></Link>
         <Link to="/ciclos" aria-current={pathname === "/ciclos" ? "page" : undefined}><img src={iconeCiclos} alt="" /><span>Ciclos</span></Link>
         <Link to="/cato" aria-current={estaEmCato ? "page" : undefined}><img src={iconeCato} alt="" /><span>Cato</span></Link>
       </nav>

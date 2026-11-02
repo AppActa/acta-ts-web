@@ -1,11 +1,14 @@
 import { useAuth } from "../../auth/AuthProvider";
-import type { FormularioEditarPerfilProps } from "../../../types/perfil";
 
-export function FormularioEditarPerfil({}: FormularioEditarPerfilProps) {
+type PropriedadesFormularioEditarPerfil = {
+  aoConcluir: () => void;
+};
+
+export function FormularioEditarPerfil({ aoConcluir }: PropriedadesFormularioEditarPerfil) {
   const { actaUser } = useAuth();
 
   return (
-    <form className="formulario-editar-perfil" onSubmit={(evento) => evento.preventDefault()}>
+    <form className="formulario-editar-perfil" onSubmit={(evento) => { evento.preventDefault(); aoConcluir(); }}>
       <h1 id="titulo-editar-perfil">Editar perfil</h1>
 
       <div className="campo-editar-perfil">
@@ -24,7 +27,7 @@ export function FormularioEditarPerfil({}: FormularioEditarPerfilProps) {
         />
       </div>
 
-      <button className="botao-concluir-edicao" type="submit" disabled>
+      <button className="botao-concluir-edicao" type="submit">
         Concluído
       </button>
     </form>
