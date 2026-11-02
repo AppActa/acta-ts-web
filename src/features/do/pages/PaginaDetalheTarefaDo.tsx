@@ -1,6 +1,8 @@
 import { Link, useParams } from "react-router-dom";
+import { useAuth } from "../../../auth/AuthProvider";
 import { useCicloDaConta } from "../../ciclo/hooks/useCicloDaConta";
 import { useTarefasDoCiclo } from "../hooks/useTarefasDoCiclo";
+import { useOpcoesCriarTarefaDo } from "../hooks/useOpcoesCriarTarefaDo";
 import { DetalheTarefaDo } from "../components/DetalheTarefaDo";
 import "../styles/pagina-detalhe-tarefa-do.css";
 
@@ -13,8 +15,17 @@ function lerIdTarefa(valor: string | undefined): number | null {
 export function PaginaDetalheTarefaDo() {
   const { cicloId, tarefaId } = useParams();
   const resultadoCiclo = useCicloDaConta(cicloId);
+  const { actaUser, firebaseUser } = useAuth();
   const idTarefa = lerIdTarefa(tarefaId);
   const resultadoDados = useTarefasDoCiclo(resultadoCiclo.estado === "sucesso" && idTarefa !== null ? resultadoCiclo.ciclo.id : null);
+  const cicloParaOpcoes = resultadoCiclo.estado === "sucesso" ? resultadoCiclo.ciclo : null;
+  const idEmpresa = actaUser?.estadoPerfil === "PERFIL_CRIADO" && actaUser.status === "ATIVO" ? actaUser.idEmpresa : null;
+  const podeConsultarResponsaveis = Boolean(firebaseUser?.emailVerified && cicloParaOpcoes && idEmpresa === cicloParaOpcoes.idEmpresa
+    && (actaUser?.tipo === "ADMIN" || actaUser?.tipo === "GESTOR") && cicloParaOpcoes.status !== "CONCLUIDO" && cicloParaOpcoes.status !== "CANCELADO");
+  const opcoes = useOpcoesCriarTarefaDo({
+    uid: podeConsultarResponsaveis ? firebaseUser?.uid ?? null : null, idEmpresa: podeConsultarResponsaveis ? idEmpresa : null,
+    idCiclo: podeConsultarResponsaveis ? cicloParaOpcoes?.id ?? null : null, habilitado: podeConsultarResponsaveis,
+  });
 
   if (resultadoCiclo.estado !== "sucesso") {
     const carregando = resultadoCiclo.estado === "carregando";
@@ -36,5 +47,12 @@ export function PaginaDetalheTarefaDo() {
   const plano = resultadoDados.dados.planos.find((item) => item.id === tarefa.idPlanoAcao && item.idCiclo === ciclo.id);
   if (!plano) return <main className="do-detalhe-tarefa"><section className="detalhe-tarefa-do_estado" role="alert"><h1>Vínculo da tarefa indisponível</h1>{linkCiclo}</section></main>;
 
-  return <main className="do-detalhe-tarefa"><DetalheTarefaDo tarefa={tarefa} nomePlano={plano.nome} tituloCiclo={ciclo.titulo} acaoFechar={linkCiclo} /></main>;
+  const podeEditar = Boolean(firebaseUser?.emailVerified && actaUser?.estadoPerfil === "PERFIL_CRIADO" && actaUser.status === "ATIVO"
+    && actaUser.idEmpresa === ciclo.idEmpresa && (actaUser.tipo === "ADMIN" || actaUser.tipo === "GESTOR")
+    && ciclo.status !== "CONCLUIDO" && ciclo.status !== "CANCELADO" && tarefa.status !== "CONCLUIDA" && tarefa.status !== "CANCELADA" && tarefa.prioridade);
+  const podeAlterarStatus = Boolean(firebaseUser?.emailVerified && actaUser?.estadoPerfil === "PERFIL_CRIADO" && actaUser.status === "ATIVO"
+    && actaUser.idEmpresa === ciclo.idEmpresa && ["ADMIN", "GESTOR", "COLABORADOR"].includes(actaUser.tipo)
+    && ciclo.status !== "CONCLUIDO" && ciclo.status !== "CANCELADO");
+  return <main className="do-detalhe-tarefa"><DetalheTarefaDo key={tarefa.id} tarefa={tarefa} nomePlano={plano.nome} tituloCiclo={ciclo.titulo} acaoFechar={linkCiclo} podeEditar={podeEditar} podeAlterarStatus={podeAlterarStatus}
+    podeReatribuir={podeConsultarResponsaveis} opcoesResponsaveis={opcoes.estado === "sucesso" ? opcoes.responsaveis : []} estadoResponsaveis={opcoes.estado} /></main>;
 }
