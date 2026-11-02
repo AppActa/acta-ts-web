@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useCicloDaConta } from "../../ciclo/hooks/useCicloDaConta";
-import { useAuth } from "../../../auth/AuthProvider";
-import { useOpcoesCriarTarefaDo } from "../hooks/useOpcoesCriarTarefaDo";
+import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
+import { useAuth } from "../../../components/auth/AuthProvider";
+import { useOpcoesCriarTarefaDo } from "../../../features/do/hooks/useOpcoesCriarTarefaDo";
 import { criarTreinamentoPg, PdcaWriteError } from "../../../services/api/pg/pdca.write.api";
 import { listarTreinamentosPorCicloPg } from "../../../services/api/pg/dashboard.read.api";
 import { ApiError } from "../../../services/http/client";
-import "../styles/pagina-criar-treinamento-do.css";
+import "../../../../features/do/styles/pagina-criar-treinamento-do.css";
 
 export function PaginaCriarTreinamentoDo() {
   const { cicloId } = useParams();

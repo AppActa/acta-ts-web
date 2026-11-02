@@ -1,26 +1,7 @@
 import { useId } from "react";
 import { Link } from "react-router-dom";
-
-export type DetalheCicloAct = { destaque: string; descricao: string | null };
-export type ProgressoCicloAct = { concluidos: number; total: number };
-export type DadosCicloAct = {
-  metricas: {
-    itensPadrao: number | null;
-    proximaAuditoria: string | null;
-    licoes: number | null;
-  };
-  documentoPadrao: DetalheCicloAct | null;
-  comunicacaoAuditoria: DetalheCicloAct | null;
-  licoesAprendidas: DetalheCicloAct | null;
-  progresso: ProgressoCicloAct | null;
-};
-export type EstadoConteudoCicloAct =
-  | { estado: "carregando" }
-  | { estado: "erro" }
-  | { estado: "vazio" }
-  | { estado: "indisponivel" }
-  | { estado: "sucesso"; dados: DadosCicloAct };
-export type ConteudoCicloActProps = { resultado?: EstadoConteudoCicloAct; cicloId?: number };
+import type { DadosCicloAct, DetalheCicloActProps, EstadoConteudoCicloAct, ProgressoCicloAct, ConteudoCicloActProps } from "../../../types/act";
+export type { DadosCicloAct, DetalheCicloAct, EstadoConteudoCicloAct, ProgressoCicloAct, ConteudoCicloActProps } from "../../../types/act";
 
 const formatadorNumero = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 });
 const formatadorData = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" });
@@ -37,7 +18,7 @@ function formatarData(valor: string | null | undefined): string {
     ? formatadorData.format(data) : "Indisponível";
 }
 
-function Detalhe({ dados, mensagem }: { dados: DetalheCicloAct | null | undefined; mensagem: string }) {
+function Detalhe({ dados, mensagem }: DetalheCicloActProps) {
   return dados?.destaque.trim() ? <>
     <p className="ciclo-act_destaque">{dados.destaque}</p>
     {dados.descricao?.trim() && <p className="ciclo-act_descricao">{dados.descricao}</p>}
@@ -90,8 +71,8 @@ export function ConteudoCicloAct({ resultado = { estado: "indisponivel" }, ciclo
         </section>
         <section className="ciclo-act_card ciclo-act_licoes" aria-labelledby={`${id}-licoes`}>
           <h2 className="ciclo-act_titulo" id={`${id}-licoes`}>Lições aprendidas</h2>
-          <Detalhe dados={dados?.licoesAprendidas} mensagem={dados?.metricas.licoes === 0 ? "Nenhuma lição registrada neste ciclo." : mensagemCard} />
-          {cicloId ? <Link className="ciclo-act_acao" to={`/do/ciclo/${cicloId}/act/aprendizados`}>Abrir aprendizados</Link> : <button className="ciclo-act_acao" type="button" disabled>Abrir aprendizados</button>}
+          <Detalhe dados={dados?.licoesAprendidas} mensagem={mensagemCard} />
+          {cicloId ? <Link className="ciclo-act_acao" to={`/do/ciclo/${cicloId}/act/aprendizados`}>Abrir aprendizados</Link> : <button className="ciclo-act_acao" type="button" disabled aria-describedby={`${id}-acoes`}>Abrir aprendizados</button>}
         </section>
         <section className="ciclo-act_card ciclo-act_progresso" aria-labelledby={`${id}-progresso`}>
           <h2 className="ciclo-act_titulo" id={`${id}-progresso`}>Padronização do ciclo</h2>

@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef } from "react";
-import triangulo from "../assets/aviso-triangulo.svg";
-import exclamacao from "../assets/aviso-exclamacao.svg";
-import "../styles/modal-erro-plan.css";
+import triangulo from "../../../../features/plan/assets/aviso-triangulo.svg";
+import exclamacao from "../../../../features/plan/assets/aviso-exclamacao.svg";
+import "../../../../features/plan/styles/modal-erro-plan.css";
 
 type PropriedadesModalErroPlan = { titulo: string; mensagem: string; aoFechar: () => void };
 

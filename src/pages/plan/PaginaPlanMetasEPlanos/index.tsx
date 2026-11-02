@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { listarMetasPorCicloPg, listarPlanosPorCicloPg, listarUsuariosDoCicloPg, obterPlano5W2HPg, type MetaPg, type PlanoAcaoPg, type Plano5W2HPg } from "../../../services/api/pg/dashboard.read.api";
-import { PainelCicloPlanDo } from "../../ciclo/components/PainelCicloPlanDo";
-import "../styles/pagina-plan-detalhe-problema.css";
+import { PainelCicloPlanDo } from "../../../components/ciclo/PainelCicloPlanDo";
+import "../../../../features/plan/styles/pagina-plan-detalhe-problema.css";
 
 type Tipo = "metas" | "planos";
 type Dados = { estado: "carregando" | "erro" } | { estado: "sucesso"; metas: MetaPg[]; planos: PlanoAcaoPg[] };

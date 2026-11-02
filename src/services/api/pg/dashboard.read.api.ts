@@ -1,45 +1,14 @@
 import { env } from "../../../config/env";
 import { ApiError, httpClient } from "../../http/client";
-
-export type StatusCicloPg = "PLANEJAMENTO" | "EXECUCAO" | "VERIFICACAO" | "PADRONIZACAO" | "CONCLUIDO" | "CANCELADO" | "PAUSADO";
-export type StatusTarefaPg = "PENDENTE" | "EM_ANDAMENTO" | "BLOQUEADA" | "CONCLUIDA" | "ATRASADA" | "CANCELADA";
-export type StatusPlanoAcaoPg = "RASCUNHO" | "APROVADO" | "EM_EXECUCAO" | "CONCLUIDO" | "CANCELADO";
-export type StatusMetaPg = "NAO_INICIADA" | "EM_ANDAMENTO" | "ATINGIDA" | "PARCIALMENTE_ATINGIDA" | "NAO_ATINGIDA" | "CANCELADA";
-export type StatusVerificacaoPg = "NAO_VERIFICADO" | "APROVADO" | "PARCIAL" | "REPROVADO";
-export type StatusProblemaPg = "ABERTO" | "EM_ANALISE" | "PRIORIZADO" | "RESOLVIDO" | "DESCARTADO";
-export type OrigemProblemaPg = "MANUAL" | "IA" | "FORMULARIO" | "IMPORTACAO" | "SISTEMA";
-export type TipoEfeitoPg = "POSITIVO" | "NEGATIVO";
-export type PrioridadeTarefaPg = "BAIXA" | "MEDIA" | "ALTA" | "CRITICA";
-
-export type CicloPg = { id: number; titulo: string; status: StatusCicloPg; dataInicio: string | null; dataEstimadaFim: string | null; idEmpresa: number };
-export type TarefaPg = { id: number; titulo: string; status: StatusTarefaPg };
-export type TarefaDoPlanoPg = {
-  id: number;
-  prioridade: PrioridadeTarefaPg | null;
-  titulo: string;
-  descricao: string | null;
-  status: StatusTarefaPg;
-  dataInicioReal: string | null;
-  dataFimPrevista: string | null;
-  dataFimReal: string | null;
-  idPlanoAcao: number;
-  idResponsavel: number | null;
-  nomeResponsavel: string | null;
-};
-export type UsuarioDoCicloPg = { idUsuario: number; idCiclo: number; nomeUsuario: string };
-export type ParticipanteTreinamentoPg = { idUsuario: number; nomeUsuario: string; status: "PENDENTE" | "CONFIRMADO" | "CONCLUIDO" | "DISPENSADO" | "CANCELADO"; obrigatorio: boolean };
-export type TreinamentoPg = { id: number; idCiclo: number; titulo: string; descricao: string; dataTreinamento: string; obrigatorio: boolean; idResponsavel: number; nomeResponsavel: string; participantes: ParticipanteTreinamentoPg[] };
-export type UsuarioDaEmpresaPg = { id: number; nome: string; idEmpresa: number; status: "ATIVO" };
-export type TarefaReadbackEsperadaPg = { id: number; titulo: string; descricao: string; prioridade: PrioridadeTarefaPg; dataFimPrevista: string; idResponsavel: number };
-type TarefaReadbackPg = Omit<TarefaReadbackEsperadaPg, "dataFimPrevista"> & { dataFimPrevista: string | null; idPlanoAcao: number; status: StatusTarefaPg; dataInicioReal: string | null; dataFimReal: string | null; nomeResponsavel: string | null };
-export type PlanoAcaoPg = { id: number; nome: string; status: StatusPlanoAcaoPg; idCiclo: number };
-export type Plano5W2HPg = { id: number; idPlanoAcao: number; whatAcao: string; whyJustificativa: string; whereLocal: string; whenInicio: string | null; whenFim: string; howModoExecucao: string; howMuchCusto: number; idWhoResponsavel: number };
-export type MetaPg = { id: number; objetivo: string; status: StatusMetaPg; idCiclo: number; valorBase: number | null; valorAlvo: number | null; unidadeMedida: string | null; prazo: string | null };
-export type EfeitoSecundarioPg = { id: number; descricao: string | null; peso: number | null; impactoEstimado: string | null; idVerificacaoResultado: number; tipo: TipoEfeitoPg | null; criadoEm: string | null; atualizadoEm: string | null };
-export type VerificacaoPg = { id: number; status: StatusVerificacaoPg; idCiclo: number; resumo: string | null; observacao: string | null; criadoEm: string | null; efeitosSecundarios: readonly EfeitoSecundarioPg[] };
-export type ResumoProblemaPg = { id: number; titulo: string; peso: number | null; status: StatusProblemaPg | null; origem: OrigemProblemaPg | null; criadoEm: string | null };
-export type ProblemaPg = ResumoProblemaPg & { descricao: string | null; persistente: boolean | null; idProblemaPai: number | null; idCiclo: number; subProblemas: readonly ResumoProblemaPg[]; atualizadoEm: string | null };
-export type CausaRaizPg = { id: number; descricao: string; aceita: boolean | null; idCiclo: number };
+import type {
+  CausaRaizPg, CicloPg, EfeitoSecundarioPg, MetaPg, OrigemProblemaPg, PlanoAcaoPg,
+  PrioridadeTarefaPg, ProblemaPg, ResumoProblemaPg, StatusCicloPg, StatusMetaPg,
+  StatusPlanoAcaoPg, StatusProblemaPg, StatusTarefaPg, StatusVerificacaoPg, TarefaDoPlanoPg,
+  TarefaPg, TarefaReadbackEsperadaPg, TarefaReadbackPg, TipoEfeitoPg, UsuarioDaEmpresaPg, UsuarioDoCicloPg,
+  ParticipanteTreinamentoPg, TreinamentoPg, Plano5W2HPg,
+  VerificacaoPg,
+} from "../../../types/pdca";
+export type { CausaRaizPg, CicloPg, EfeitoSecundarioPg, MetaPg, OrigemProblemaPg, Plano5W2HPg, PlanoAcaoPg, PrioridadeTarefaPg, ProblemaPg, ResumoProblemaPg, StatusCicloPg, StatusMetaPg, StatusPlanoAcaoPg, StatusProblemaPg, StatusTarefaPg, StatusVerificacaoPg, TarefaDoPlanoPg, TarefaPg, TarefaReadbackEsperadaPg, TarefaReadbackPg, TipoEfeitoPg, TreinamentoPg, UsuarioDaEmpresaPg, UsuarioDoCicloPg, VerificacaoPg } from "../../../types/pdca";
 
 export class PgReadError extends Error {
   constructor(readonly code: "INVALID_CONFIGURATION" | "INVALID_INPUT" | "INVALID_RESPONSE" | "UNAVAILABLE") {
@@ -48,7 +17,6 @@ export class PgReadError extends Error {
   }
 }
 
-const PG_ORIGIN = "https://acta-pg-api.34-232-250-240.sslip.io";
 const CYCLE_STATUSES = ["PLANEJAMENTO", "EXECUCAO", "VERIFICACAO", "PADRONIZACAO", "CONCLUIDO", "CANCELADO", "PAUSADO"] as const;
 const TASK_STATUSES = ["PENDENTE", "EM_ANDAMENTO", "BLOQUEADA", "CONCLUIDA", "ATRASADA", "CANCELADA"] as const;
 const TASK_STATUSES_DO = ["PENDENTE", "EM_ANDAMENTO", "CONCLUIDA", "BLOQUEADA", "ATRASADA", "CANCELADA"] as const;
@@ -115,7 +83,8 @@ function validBaseUrl(): URL {
     const configured = env.apiPgUrl;
     if (!configured || configured.trim() !== configured) throw new Error();
     const url = new URL(configured);
-    if (url.protocol !== "https:" || url.origin !== PG_ORIGIN || url.username || url.password || /[?#]/.test(configured) || url.search || url.hash || (url.pathname !== "/" && url.pathname !== "")) throw new Error();
+    const httpLocalhost = import.meta.env.DEV && url.protocol === "http:" && ["localhost", "127.0.0.1"].includes(url.hostname);
+    if ((url.protocol !== "https:" && !httpLocalhost) || url.username || url.password || /[?#]/.test(configured) || url.search || url.hash || (url.pathname !== "/" && url.pathname !== "")) throw new Error();
     return url;
   } catch {
     throw new PgReadError("INVALID_CONFIGURATION");
@@ -130,7 +99,7 @@ function readId(value: unknown): number {
 function endpointUrl(path: string): URL {
   const base = validBaseUrl();
   const url = new URL(`/api/v1${path}`, base.origin);
-  if (url.origin !== PG_ORIGIN || url.pathname !== `/api/v1${path}` || url.search || url.hash) throw new PgReadError("INVALID_INPUT");
+  if (url.origin !== base.origin || url.pathname !== `/api/v1${path}` || url.search || url.hash) throw new PgReadError("INVALID_INPUT");
   return url;
 }
 
@@ -181,38 +150,18 @@ function parseTarefa(value: unknown): TarefaPg {
 
 function parseTarefaDoPlano(value: unknown): TarefaDoPlanoPg {
   if (!isRecord(value) || !positiveId(value.id) || !requiredText(value.titulo)
+    || !(value.prioridade === undefined || value.prioridade === null || isTaskPriority(value.prioridade))
     || !nullableText(value.descricao) || !TASK_STATUSES_DO.includes(value.status as StatusTarefaPg)
     || !validDataTarefa(value.dataInicioReal) || !validDataTarefa(value.dataFimPrevista) || !validDataTarefa(value.dataFimReal)
     || !positiveId(value.idPlanoAcao) || (value.idResponsavel !== null && !positiveId(value.idResponsavel))
     || !nullableText(value.nomeResponsavel)) throw new PgReadError("INVALID_RESPONSE");
   return {
-    id: value.id, prioridade: isTaskPriority(value.prioridade) ? value.prioridade : null, titulo: value.titulo, descricao: value.descricao, status: value.status as StatusTarefaPg,
+    id: value.id, titulo: value.titulo, prioridade: (value.prioridade ?? null) as PrioridadeTarefaPg | null,
+    descricao: value.descricao, status: value.status as StatusTarefaPg,
     dataInicioReal: value.dataInicioReal, dataFimPrevista: value.dataFimPrevista, dataFimReal: value.dataFimReal,
     idPlanoAcao: value.idPlanoAcao, idResponsavel: value.idResponsavel as number | null,
     nomeResponsavel: value.nomeResponsavel,
   };
-}
-
-export async function listarTreinamentosPorCicloPg(idCiclo: number, signal?: AbortSignal): Promise<TreinamentoPg[]> {
-  const id = readId(idCiclo);
-  const data = await get(`/ciclo/${id}/treinamento`, signal);
-  if (!Array.isArray(data)) throw new PgReadError("INVALID_RESPONSE");
-  const lista = data.map((value): TreinamentoPg => {
-    if (!isRecord(value) || !positiveId(value.id) || value.idCiclo !== id || !requiredText(value.titulo)
-      || !requiredText(value.descricao) || !validDataTarefa(value.dataTreinamento) || value.dataTreinamento === null
-      || typeof value.obrigatorio !== "boolean" || !positiveId(value.idResponsavel) || !requiredText(value.nomeResponsavel)
-      || !Array.isArray(value.participantes)) throw new PgReadError("INVALID_RESPONSE");
-    const participantes = value.participantes.map((p): ParticipanteTreinamentoPg => {
-      if (!isRecord(p) || !positiveId(p.idUsuario) || !requiredText(p.nomeUsuario)
-        || !["PENDENTE", "CONFIRMADO", "CONCLUIDO", "DISPENSADO", "CANCELADO"].includes(String(p.status))
-        || typeof p.obrigatorio !== "boolean") throw new PgReadError("INVALID_RESPONSE");
-      return { idUsuario: p.idUsuario, nomeUsuario: p.nomeUsuario, status: p.status as ParticipanteTreinamentoPg["status"], obrigatorio: p.obrigatorio };
-    });
-    if (new Set(participantes.map(p => p.idUsuario)).size !== participantes.length) throw new PgReadError("INVALID_RESPONSE");
-    return { id: value.id, idCiclo: id, titulo: value.titulo, descricao: value.descricao, dataTreinamento: value.dataTreinamento,
-      obrigatorio: value.obrigatorio, idResponsavel: value.idResponsavel, nomeResponsavel: value.nomeResponsavel, participantes };
-  });
-  return uniqueIds(lista);
 }
 
 function parseTarefaReadback(value: unknown): TarefaReadbackPg {
@@ -287,24 +236,48 @@ export async function listarPlanosPorCicloPg(idCiclo: number, signal?: AbortSign
   }));
 }
 
+export async function listarTreinamentosPorCicloPg(idCiclo: number, signal?: AbortSignal): Promise<TreinamentoPg[]> {
+  const id = readId(idCiclo);
+  const data = await get(`/ciclo/${id}/treinamento`, signal);
+  if (!Array.isArray(data)) throw new PgReadError("INVALID_RESPONSE");
+  const lista = data.map((value): TreinamentoPg => {
+    if (!isRecord(value) || !positiveId(value.id) || value.idCiclo !== id || !requiredText(value.titulo)
+      || !requiredText(value.descricao) || !validDataTarefa(value.dataTreinamento) || value.dataTreinamento === null
+      || typeof value.obrigatorio !== "boolean" || !positiveId(value.idResponsavel) || !requiredText(value.nomeResponsavel)
+      || !Array.isArray(value.participantes)) throw new PgReadError("INVALID_RESPONSE");
+    const participantes = value.participantes.map((p): ParticipanteTreinamentoPg => {
+      if (!isRecord(p) || !positiveId(p.idUsuario) || !requiredText(p.nomeUsuario)
+        || !["PENDENTE", "CONFIRMADO", "CONCLUIDO", "DISPENSADO", "CANCELADO"].includes(String(p.status))
+        || typeof p.obrigatorio !== "boolean") throw new PgReadError("INVALID_RESPONSE");
+      return { idUsuario: p.idUsuario, nomeUsuario: p.nomeUsuario, status: p.status as ParticipanteTreinamentoPg["status"], obrigatorio: p.obrigatorio };
+    });
+    if (new Set(participantes.map((p) => p.idUsuario)).size !== participantes.length) throw new PgReadError("INVALID_RESPONSE");
+    return { id: value.id, idCiclo: id, titulo: value.titulo, descricao: value.descricao, dataTreinamento: value.dataTreinamento,
+      obrigatorio: value.obrigatorio, idResponsavel: value.idResponsavel, nomeResponsavel: value.nomeResponsavel, participantes };
+  });
+  return uniqueIds(lista);
+}
+
 export async function obterPlano5W2HPg(idPlano: number, signal?: AbortSignal): Promise<Plano5W2HPg | null> {
   const id = readId(idPlano);
   let value: unknown;
   try {
     value = await httpClient<unknown>(endpointUrl(`/plano-acao/${id}/5w2h`), { method: "GET", cache: "no-store", ...(signal ? { signal } : {}) });
-  } catch (erro) {
-    if (erro instanceof ApiError && erro.status === 404) return null;
-    throw erro;
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) return null;
+    if (error instanceof DOMException && error.name === "AbortError") throw error;
+    throw new PgReadError("UNAVAILABLE");
   }
   if (!isRecord(value) || !positiveId(value.id) || value.idPlanoAcao !== id || !requiredText(value.whatAcao)
     || !requiredText(value.whyJustificativa) || !requiredText(value.whereLocal) || !requiredText(value.howModoExecucao)
     || !finiteNumber(value.howMuchCusto) || value.howMuchCusto < 0 || !positiveId(value.idWhoResponsavel)
     || !(value.whenInicio === null || typeof value.whenInicio === "string") || typeof value.whenFim !== "string") throw new PgReadError("INVALID_RESPONSE");
-  const data = (v: string) => /^\d{2}\/\d{6}$/.test(v) ? `${v.slice(0, 2)}/${v.slice(3, 5)}/${v.slice(5)}` : v;
-  const inicio = value.whenInicio === null ? null : data(value.whenInicio);
-  const fim = data(value.whenFim);
+  const normalize = (date: string) => /^\d{2}\/\d{6}$/.test(date) ? `${date.slice(0, 2)}/${date.slice(3, 5)}/${date.slice(5)}` : date;
+  const inicio = value.whenInicio === null ? null : normalize(value.whenInicio);
+  const fim = normalize(value.whenFim);
   if (!(inicio === null || validDataCiclo(inicio) || validIsoDate(inicio)) || !(validDataCiclo(fim) || validIsoDate(fim))) throw new PgReadError("INVALID_RESPONSE");
-  return { id: value.id, idPlanoAcao: id, whatAcao: value.whatAcao, whyJustificativa: value.whyJustificativa, whereLocal: value.whereLocal, whenInicio: inicio, whenFim: fim, howModoExecucao: value.howModoExecucao, howMuchCusto: value.howMuchCusto, idWhoResponsavel: value.idWhoResponsavel };
+  return { id: value.id, idPlanoAcao: id, whatAcao: value.whatAcao, whyJustificativa: value.whyJustificativa, whereLocal: value.whereLocal,
+    whenInicio: inicio, whenFim: fim, howModoExecucao: value.howModoExecucao, howMuchCusto: value.howMuchCusto, idWhoResponsavel: value.idWhoResponsavel };
 }
 
 export async function listarTarefasPorPlanoPg(idPlanoAcao: number, signal?: AbortSignal): Promise<TarefaDoPlanoPg[]> {

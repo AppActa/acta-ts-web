@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "../../../auth/AuthProvider";
-import { useCicloDaConta } from "../../ciclo/hooks/useCicloDaConta";
+import { useAuth } from "../../../components/auth/AuthProvider";
+import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
 import { listarCausasRaizPorCicloPg, listarMetasPorCicloPg, listarPlanosPorCicloPg, listarUsuariosDoCicloPg, obterPlano5W2HPg, type CausaRaizPg, type MetaPg, type PlanoAcaoPg, type Plano5W2HPg, type UsuarioDoCicloPg } from "../../../services/api/pg/dashboard.read.api";
 import { atualizarDescricaoCausaPg, atualizarMetaPg, atualizarNomePlanoPg, atualizarPlano5W2HPg, PdcaWriteError, type NovoPlano5W2HPg } from "../../../services/api/pg/pdca.write.api";
 import { ApiError } from "../../../services/http/client";
-import { ModalErroPlan } from "../components/ModalErroPlan";
-import "../styles/pagina-plan-criar-problema.css";
-import "../styles/pagina-plan-editar-problema.css";
+import { ModalErroPlan } from "../../../components/plan/ModalErroPlan";
+import "../../../../features/plan/styles/pagina-plan-criar-problema.css";
+import "../../../../features/plan/styles/pagina-plan-editar-problema.css";
 
 type Tipo = "causa" | "meta" | "plano";
 type Registro = CausaRaizPg | MetaPg | PlanoAcaoPg;

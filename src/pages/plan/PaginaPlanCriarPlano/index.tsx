@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "../../../auth/AuthProvider";
+import { useAuth } from "../../../components/auth/AuthProvider";
 import { ApiError } from "../../../services/http/client";
 import { listarPlanosPorCicloPg, listarUsuariosDoCicloPg, type PrioridadeTarefaPg, type UsuarioDoCicloPg } from "../../../services/api/pg/dashboard.read.api";
 import { criarPlanoPg, criarPlano5W2HPg } from "../../../services/api/pg/pdca.write.api";
-import { useCicloDaConta } from "../../ciclo/hooks/useCicloDaConta";
-import { ModalErroPlan } from "../components/ModalErroPlan";
-import "../styles/pagina-plan-criar-problema.css";
-import "../styles/pagina-plan-editar-problema.css";
+import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
+import { ModalErroPlan } from "../../../components/plan/ModalErroPlan";
+import "../../../../features/plan/styles/pagina-plan-criar-problema.css";
+import "../../../../features/plan/styles/pagina-plan-editar-problema.css";
 
 function FormularioPlano({ idCiclo, aberto }: { idCiclo: number; aberto: boolean }) {
   const { actaUser } = useAuth();

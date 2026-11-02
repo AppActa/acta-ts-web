@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Sidebar } from "../../layout/components/Sidebar";
-import { useCicloDaConta, rotuloStatusCiclo } from "../../ciclo/hooks/useCicloDaConta";
-import { useTreinamentosDoCiclo } from "../hooks/useTreinamentosDoCiclo";
-import "../styles/pagina-ciclo-do-treinamentos.css";
+import { Sidebar } from "../../../components/layout/Sidebar";
+import { useCicloDaConta, rotuloStatusCiclo } from "../../../features/ciclo/hooks/useCicloDaConta";
+import { useTreinamentosDoCiclo } from "../../../features/do/hooks/useTreinamentosDoCiclo";
+import "../../../../features/do/styles/pagina-ciclo-do-treinamentos.css";
 
 function AbasTreinamentos({ cicloId }: { cicloId: string | undefined }) {
   return (

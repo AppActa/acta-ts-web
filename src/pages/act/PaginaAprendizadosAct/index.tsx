@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useAuth } from "../../../auth/AuthProvider";
+import { useAuth } from "../../../components/auth/AuthProvider";
 import { listarLicoesAprendidasMongo, type LicaoAprendidaMongo } from "../../../services/api/mongo/dashboard.read.api";
-import { PainelCicloPlanDo } from "../../ciclo/components/PainelCicloPlanDo";
-import { useCicloDaConta } from "../../ciclo/hooks/useCicloDaConta";
-import "../styles/pagina-aprendizados-act.css";
+import { PainelCicloPlanDo } from "../../../components/ciclo/PainelCicloPlanDo";
+import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
+import "../../../../features/act/styles/pagina-aprendizados-act.css";
 
 type Resultado = { chave: string; estado: "sucesso"; dados: LicaoAprendidaMongo[] } | { chave: string; estado: "erro" };
 

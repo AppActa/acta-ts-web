@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../../auth/AuthProvider";
+import { useAuth } from "../../../components/auth/AuthProvider";
 import { listarTreinamentosPorCicloPg, type TreinamentoPg } from "../../../services/api/pg/dashboard.read.api";
 
 type Resultado = { estado: "carregando" | "indisponivel" | "erro"; dados: null } | { estado: "sucesso"; dados: TreinamentoPg[] };

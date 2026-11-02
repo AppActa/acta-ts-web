@@ -1,10 +1,10 @@
 import { Link, useParams } from "react-router-dom";
-import { useAuth } from "../../../auth/AuthProvider";
-import { useCicloDaConta } from "../../ciclo/hooks/useCicloDaConta";
-import { useTarefasDoCiclo } from "../hooks/useTarefasDoCiclo";
-import { useOpcoesCriarTarefaDo } from "../hooks/useOpcoesCriarTarefaDo";
-import { DetalheTarefaDo } from "../components/DetalheTarefaDo";
-import "../styles/pagina-detalhe-tarefa-do.css";
+import { useAuth } from "../../../components/auth/AuthProvider";
+import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
+import { useTarefasDoCiclo } from "../../../features/do/hooks/useTarefasDoCiclo";
+import { useOpcoesCriarTarefaDo } from "../../../features/do/hooks/useOpcoesCriarTarefaDo";
+import { DetalheTarefaDo } from "../../../components/do/DetalheTarefaDo";
+import "../../../../features/do/styles/pagina-detalhe-tarefa-do.css";
 
 function lerIdTarefa(valor: string | undefined): number | null {
   if (!valor || !/^\d+$/.test(valor)) return null;

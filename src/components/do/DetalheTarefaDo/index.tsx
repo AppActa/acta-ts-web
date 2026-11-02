@@ -23,6 +23,7 @@ function rotuloStatus(status: TarefaDoPlanoPg["status"]): string {
     case "BLOQUEADA": return "Bloqueada";
     case "ATRASADA": return "Atrasada";
     case "CANCELADA": return "Cancelada";
+    default: return "Status desconhecido";
   }
 }
 

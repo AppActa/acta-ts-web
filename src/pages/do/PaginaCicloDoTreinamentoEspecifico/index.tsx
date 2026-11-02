@@ -1,15 +1,17 @@
 import { Link, useParams } from "react-router-dom";
-import { Sidebar } from "../../layout/components/Sidebar";
-import { useCicloDaConta, rotuloStatusCiclo } from "../../ciclo/hooks/useCicloDaConta";
-import { useTreinamentosDoCiclo } from "../hooks/useTreinamentosDoCiclo";
-import "../styles/pagina-ciclo-do-treinamento-especifico.css";
+import { Sidebar } from "../../../components/layout/Sidebar";
+import { useCicloDaConta, rotuloStatusCiclo } from "../../../features/ciclo/hooks/useCicloDaConta";
+import { useTreinamentosDoCiclo } from "../../../features/do/hooks/useTreinamentosDoCiclo";
+import { lerIdRotaPositivo } from "../../../utils/route-params";
+import "../../../../features/do/styles/pagina-ciclo-do-treinamento-especifico.css";
 
 export function PaginaCicloDoTreinamentoEspecifico() {
   const { cicloId, treinamentoId } = useParams();
+  const idTreinamento = lerIdRotaPositivo(treinamentoId);
   const resultadoCiclo = useCicloDaConta(cicloId);
   const resultado = useTreinamentosDoCiclo(resultadoCiclo.estado === "sucesso" ? resultadoCiclo.ciclo.id : null);
   const ciclo = resultadoCiclo.estado === "sucesso" ? resultadoCiclo.ciclo : null;
-  const treinamento = resultado.estado === "sucesso" ? resultado.dados.find(item => String(item.id) === treinamentoId) : undefined;
+  const treinamento = resultado.estado === "sucesso" && idTreinamento !== null ? resultado.dados.find(item => item.id === idTreinamento) : undefined;
   return <main className="pagina-treinamento-especifico">
     <Sidebar />
     <div className="treinamento-especifico_painel">
