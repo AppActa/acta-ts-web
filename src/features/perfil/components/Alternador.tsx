@@ -1,12 +1,21 @@
 type PropriedadesAlternador = {
-  ativo?: boolean;
+  ativo: boolean;
+  aoMudar: (ativo: boolean) => void;
+  rotulo: string;
 };
 
-export function Alternador({ ativo = true }: PropriedadesAlternador) {
+export function Alternador({ ativo, aoMudar, rotulo }: PropriedadesAlternador) {
   return (
-    <span className="alternador" aria-hidden="true">
+    <button
+      className="alternador"
+      type="button"
+      role="switch"
+      aria-checked={ativo}
+      aria-label={rotulo}
+      onClick={() => aoMudar(!ativo)}
+    >
       <span className={ativo ? "alternador_opcao alternador_opcao-ativa" : "alternador_opcao"}>ON</span>
       <span className={!ativo ? "alternador_opcao alternador_opcao-ativa" : "alternador_opcao"}>OFF</span>
-    </span>
+    </button>
   );
 }

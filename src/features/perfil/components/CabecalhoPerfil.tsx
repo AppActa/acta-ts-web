@@ -1,12 +1,13 @@
 import { useAuth } from "../../../auth/AuthProvider";
+import imagemPerfil from "../assets/referencia-perfil.png";
 
 export function CabecalhoPerfil() {
   const { actaUser } = useAuth();
 
   return (
     <header className="cabecalho-perfil">
-      <div className="recorte-foto recorte-foto_grande">
-        {/* # colocar imagem */}
+      <div className="recorte-foto recorte-foto_grande" aria-hidden="true">
+        <img src={imagemPerfil} alt="" />
       </div>
 
       <div className="cabecalho-perfil_identidade">

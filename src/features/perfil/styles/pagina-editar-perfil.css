@@ -3,8 +3,8 @@
   min-height: 100svh;
   place-items: center;
   padding: 48px;
-  background: #232323;
-  color: #000;
+  background: #3b5657;
+  color: #283234;
 }
 
 .cartao-editar-perfil {
@@ -15,9 +15,8 @@
   align-items: center;
   gap: 111px;
   padding: 25px 29px 17px;
-  transform: translate(-6px, -2px);
   border-radius: 29px;
-  background: #fff;
+  background: #f6f6f6;
 }
 
 .foto-editar-perfil {

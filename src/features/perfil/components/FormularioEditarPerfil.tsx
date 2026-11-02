@@ -1,21 +1,14 @@
 import { useAuth } from "../../../auth/AuthProvider";
-import { AvisoDadosDemonstrativos } from "../../layout/components/AvisoDadosDemonstrativos";
 
 type PropriedadesFormularioEditarPerfil = {
   aoConcluir: () => void;
-  aoVoltar: () => void;
 };
 
-export function FormularioEditarPerfil({ aoVoltar }: PropriedadesFormularioEditarPerfil) {
+export function FormularioEditarPerfil({}: PropriedadesFormularioEditarPerfil) {
   const { actaUser } = useAuth();
 
   return (
     <form className="formulario-editar-perfil" onSubmit={(evento) => evento.preventDefault()}>
-      <AvisoDadosDemonstrativos mensagem="O perfil exibido pertence à sua conta; esta edição é demonstrativa e não salva alterações." />
-      <button className="botao-voltar-edicao" type="button" onClick={aoVoltar}>
-        <span aria-hidden="true">{/* # colocar imagem */}</span>
-        Voltar
-      </button>
       <h1 id="titulo-editar-perfil">Editar perfil</h1>
 
       <div className="campo-editar-perfil">
