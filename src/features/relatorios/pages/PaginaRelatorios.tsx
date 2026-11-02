@@ -1,65 +1,60 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, type FormEvent } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
-import { AvisoDadosDemonstrativos } from "../../layout/components/AvisoDadosDemonstrativos";
-import voltarMoldura from "../assets/voltar-moldura.svg";
-import voltarSeta from "../assets/voltar-seta.svg";
-import "../../perfil/styles/pagina-perfil.css";
 import "../../layout/styles/web-listas.css";
 import "../styles/pagina-relatorios.css";
 
-const relatorios = [
-  { tipo: "PDF", ciclo: "Organização do estoque", responsavel: "Catarina Cândido", atualizado: "29/09/2026" },
-  { tipo: "PPTX", ciclo: "Onboarding de novos colaboradores", responsavel: "Mariana Costa", atualizado: "28/09/2026" },
-  { tipo: "PDF", ciclo: "Proteção de dados e acessos", responsavel: "A definir", atualizado: "25/09/2026" },
-  { tipo: "PDF", ciclo: "Redução do tempo de atendimento", responsavel: "A definir", atualizado: "22/09/2026" },
-];
-
 export function PaginaRelatorios() {
+  const { pathname } = useLocation();
+  const criando = pathname === "/relatorios/criar";
+  const detalhe = pathname !== "/relatorios" && !criando;
   const [busca, setBusca] = useState("");
-  const [avisoDownload, setAvisoDownload] = useState("");
-  const filtrados = useMemo(() => relatorios.filter((relatorio) => {
-    return `${relatorio.ciclo} ${relatorio.responsavel}`.toLocaleLowerCase("pt-BR").includes(busca.toLocaleLowerCase("pt-BR"));
-  }), [busca]);
-
-  return (
-    <main className="pagina-web-listas pagina-relatorios">
-      <Sidebar />
-      <div className="web-listas_painel">
-        <header className="web-listas_cabecalho">
-          <div className="web-listas_titulo"><Link to="/do" aria-label="Voltar ao ACTA"><img src={voltarMoldura} alt="" /><img src={voltarSeta} alt="" /></Link><h1>Relatórios</h1></div>
-        </header>
-        <AvisoDadosDemonstrativos />
-        <section className="relatorios_conteudo" aria-label="Relatórios dos ciclos">
-          <div className="relatorios_metricas">
-            <article><span>Relatórios disponíveis</span><strong className="azul">12</strong><p>PDF e PowerPoint</p></article>
-            <article><span>Ciclos concluídos</span><strong className="verde">04</strong><p>No período selecionado</p></article>
-            <article><span>Atualizados nesta semana</span><strong className="ciano">03</strong><p>Novos resultados</p></article>
+  const [titulo, setTitulo] = useState("");
+  const [tipo, setTipo] = useState("");
+  const [validado, setValidado] = useState(false);
+  const [aviso, setAviso] = useState(false);
+  function enviar(evento: FormEvent<HTMLFormElement>) {
+    evento.preventDefault();
+    setValidado(true);
+    if (titulo.trim() && tipo) setAviso(true);
+  }
+  return <main className="pagina-web-listas pagina-relatorios">
+    <Sidebar />
+    <div className="web-listas_painel relatorios_painel">
+      <section className="relatorios_conteudo">
+        {detalhe ? <>
+          <h1>Relatório indisponível</h1>
+          <p>A consulta de relatórios ainda não está disponível.</p>
+          <Link className="relatorios_botao relatorios_secundario" to="/relatorios">Voltar à lista</Link>
+        </> : <>
+          <h1>Todos os relatórios</h1>
+          <p className="relatorios_subtitulo">Consulte os relatórios dos ciclos e acompanhe os resultados da equipe.</p>
+          <div className="relatorios_barra">
+            <label className="relatorios_busca"><span className="sr-only">Buscar por título, ciclo ou responsável</span><input value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Buscar por título, ciclo ou responsável" /></label>
+            <Link className="relatorios_botao" to="/relatorios/criar">Criar relatório</Link>
           </div>
-
-          <form className="relatorios_filtros" onSubmit={(event) => event.preventDefault()}>
-            <label><span className="sr-only">Buscar ciclo ou responsável</span><input value={busca} onChange={(event) => setBusca(event.target.value)} placeholder="Buscar ciclo ou responsável" /></label>
-            <span className="relatorios_filtro_etiqueta relatorios_filtro_periodo">Todos os períodos</span>
-            <span className="relatorios_filtro_etiqueta relatorios_filtro_formato">PDF e PPTX</span>
-            <button type="submit">Filtrar</button>
+          <div className="relatorios_estado" role="status"><h2>Relatórios indisponíveis</h2><p>A consulta de relatórios ainda não está disponível.</p></div>
+        </>}
+      </section>
+    </div>
+    {criando && <div className="relatorios_overlay">
+      <section className="relatorios_formulario" role="dialog" aria-modal="true" aria-labelledby="relatorio-criar-titulo">
+        <aside className="relatorios_banner"><div><p>Acta, seu app de PDCA</p><strong>O ciclo da melhoria<br />começa aqui!</strong></div></aside>
+        <div className="relatorios_formulario_conteudo">
+          <header><h2 id="relatorio-criar-titulo">Criar relatório</h2><Link className="relatorios_fechar" to="/relatorios" aria-label="Fechar">×</Link></header>
+          {validado && (!titulo.trim() || !tipo) && <p className="relatorios_erro" role="alert">Revise os campos obrigatórios para continuar.</p>}
+          <form noValidate onSubmit={enviar}>
+            <label>Título do relatório<input value={titulo} onChange={(e) => setTitulo(e.target.value)} placeholder="Ex.: Desempenho dos ciclos" aria-invalid={validado && !titulo.trim()} />{validado && !titulo.trim() && <span className="relatorios_erro">Informe o título do relatório.</span>}</label>
+            <label>Tipo<select value={tipo} onChange={(e) => setTipo(e.target.value)} aria-invalid={validado && !tipo}><option value="">Selecione o tipo de relatório</option><option value="desempenho">Desempenho dos ciclos</option><option value="execucao">Execução das tarefas</option><option value="verificacoes">Resultados das verificações</option><option value="aprendizados">Aprendizados e padronização</option><option value="treinamentos">Participação em treinamentos</option></select>{validado && !tipo && <span className="relatorios_erro">Informe o tipo de relatório.</span>}</label>
+            <label>Período<input placeholder="Selecione o período" disabled /></label>
+            <label>Ciclos incluídos<select disabled><option>Seleção de ciclos indisponível</option></select></label>
+            <label>Resumo<textarea placeholder="Descreva o objetivo do relatório" rows={2} /></label>
+            <p className="relatorios_aviso">A criação de relatórios ainda não está disponível.</p>
+            <div className="relatorios_acoes"><Link className="relatorios_botao relatorios_secundario" to="/relatorios">Cancelar</Link><button className="relatorios_botao" type="submit">Criar relatório</button></div>
           </form>
-
-          <section className="relatorios_lista" aria-labelledby="relatorios-lista-titulo">
-            <h2 id="relatorios-lista-titulo">Relatórios gerados</h2>
-            <p className="relatorios_lista_descricao">Arquivos consolidados dos ciclos.</p>
-            <div className="relatorios_lista_itens">
-              {filtrados.map((relatorio) => <article className="relatorios_item" key={relatorio.ciclo}>
-                <span className={`relatorios_tipo ${relatorio.tipo.toLowerCase()}`}>{relatorio.tipo}</span>
-                <div className="relatorios_item_info"><h3>{relatorio.ciclo}</h3><p>Responsável: {relatorio.responsavel} <span>•</span> Atualizado em {relatorio.atualizado}</p></div>
-                <span className="relatorios_disponivel">Disponível</span>
-                <button type="button" onClick={() => setAvisoDownload(`O download do relatório de ${relatorio.ciclo} estará disponível em breve.`)}>Baixar</button>
-              </article>)}
-              {filtrados.length === 0 && <p className="relatorios_vazio">Nenhum relatório corresponde aos filtros.</p>}
-            </div>
-            {avisoDownload && <p className="relatorios_aviso" role="status">{avisoDownload}</p>}
-          </section>
-        </section>
-      </div>
-    </main>
-  );
+        </div>
+      </section>
+      {aviso && <div className="relatorios_overlay relatorios_overlay_aviso"><section className="relatorios_aviso_modal" role="alertdialog" aria-modal="true" aria-labelledby="relatorio-aviso-titulo"><h2 id="relatorio-aviso-titulo">Não foi possível criar o relatório</h2><p>A criação de relatórios ainda não está disponível.</p><button className="relatorios_botao" type="button" onClick={() => setAviso(false)}>Voltar ao formulário</button></section></div>}
+    </div>}
+  </main>;
 }
