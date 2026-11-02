@@ -300,7 +300,7 @@ export async function listarUsuariosDoCicloPg(idCiclo: number, signal?: AbortSig
   const id = readId(idCiclo);
   const usuarios = parseArray(await get(`/ciclo/${id}/usuario`, signal), (value): UsuarioDoCicloPg => {
     if (!isRecord(value) || !positiveId(value.idUsuario) || value.idCiclo !== id || !requiredText(value.nomeUsuario)) throw new PgReadError("INVALID_RESPONSE");
-    return { idUsuario: value.idUsuario, idCiclo: id, nomeUsuario: value.nomeUsuario.trim() };
+    return { idUsuario: value.idUsuario, idCiclo: id, nomeUsuario: value.nomeUsuario.trim(), papelCiclo: typeof value.papelCiclo === "string" ? value.papelCiclo : undefined };
   });
   if (new Set(usuarios.map((usuario) => usuario.idUsuario)).size !== usuarios.length) throw new PgReadError("INVALID_RESPONSE");
   return usuarios;

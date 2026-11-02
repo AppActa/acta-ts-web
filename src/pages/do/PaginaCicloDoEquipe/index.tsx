@@ -1,9 +1,12 @@
 import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import type { PaginaCicloDoEquipeProps } from "../../../types/do";
 import { Sidebar } from "../../../components/layout/Sidebar";
 import { CabecalhoNavegacaoCiclo } from "../../../components/ciclo/CabecalhoNavegacaoCiclo";
 import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
+import { useAuth } from "../../../components/auth/AuthProvider";
+import { listarUsuariosDoCicloPg } from "../../../services/api/pg/dashboard.read.api";
 import voltarMoldura from "../../../../features/ciclos/assets/voltar-moldura.svg";
 import voltarSeta from "../../../../features/ciclos/assets/voltar-seta.svg";
 import "../../../../features/do/styles/pagina-ciclo-do.css";
@@ -12,7 +15,21 @@ import "../../../../features/do/styles/pagina-ciclo-do-equipe.css";
 export function PaginaCicloDoEquipe({ pessoas }: PaginaCicloDoEquipeProps) {
   const { cicloId } = useParams();
   const resultadoCiclo = useCicloDaConta(cicloId);
-  const listaPessoas = pessoas ?? [];
+  const { firebaseUser, actaUser } = useAuth();
+  const cicloAtual = resultadoCiclo.estado === "sucesso" ? resultadoCiclo.ciclo : null;
+  const chave = cicloAtual && firebaseUser?.emailVerified && actaUser?.estadoPerfil === "PERFIL_CRIADO" && actaUser.status === "ATIVO" && actaUser.idEmpresa === cicloAtual.idEmpresa ? JSON.stringify([firebaseUser.uid, cicloAtual.idEmpresa, cicloAtual.id]) : null;
+  const [consulta, setConsulta] = useState<{ chave: string; estado: "carregando" | "erro" | "sucesso"; pessoas: NonNullable<PaginaCicloDoEquipeProps["pessoas"]> } | null>(null);
+  useEffect(() => {
+    if (!chave || !cicloAtual) return;
+    const controller = new AbortController();
+    setConsulta({ chave, estado: "carregando", pessoas: [] });
+    void listarUsuariosDoCicloPg(cicloAtual.id, controller.signal).then((usuarios) => {
+      if (!controller.signal.aborted) setConsulta({ chave, estado: "sucesso", pessoas: usuarios.map((usuario) => ({ id: String(usuario.idUsuario), nome: usuario.nomeUsuario, papel: usuario.papelCiclo?.replaceAll("_", " ") ?? "Não informado", participacao: "Integrante", acesso: "Não informado" })) });
+    }).catch(() => { if (!controller.signal.aborted) setConsulta({ chave, estado: "erro", pessoas: [] }); });
+    return () => controller.abort();
+  }, [chave, cicloAtual?.id]);
+  const estado = pessoas != null ? "sucesso" : !chave ? "erro" : consulta?.chave === chave ? consulta.estado : "carregando";
+  const listaPessoas = pessoas ?? (consulta?.chave === chave ? consulta.pessoas : []);
 
   if (resultadoCiclo.estado !== "sucesso") {
     const carregando = resultadoCiclo.estado === "carregando";
@@ -50,7 +67,7 @@ export function PaginaCicloDoEquipe({ pessoas }: PaginaCicloDoEquipeProps) {
             <section className="ciclo-do-equipe_pessoas" aria-labelledby="ciclo-do-equipe-pessoas-titulo">
               <header className="ciclo-do-equipe_pessoas-cabecalho">
                 <h3 id="ciclo-do-equipe-pessoas-titulo">Pessoas do ciclo</h3>
-                <span>{pessoas == null ? "Contagem indisponível" : `${listaPessoas.length} ${listaPessoas.length === 1 ? "pessoa" : "pessoas"}`}</span>
+                <span>{estado !== "sucesso" ? "Contagem indisponível" : `${listaPessoas.length} ${listaPessoas.length === 1 ? "pessoa" : "pessoas"}`}</span>
                 <p>Participantes e permissões do ciclo.</p>
               </header>
 
@@ -85,8 +102,8 @@ export function PaginaCicloDoEquipe({ pessoas }: PaginaCicloDoEquipeProps) {
                   ))}
                 </tbody>
               </table>
-              {pessoas == null ? (
-                <p className="ciclo-do-equipe_vazio" role="status" aria-live="polite">Equipe ainda não consultada.</p>
+              {estado !== "sucesso" ? (
+                <p className="ciclo-do-equipe_vazio" role={estado === "erro" ? "alert" : "status"} aria-live="polite">{estado === "erro" ? "Não foi possível carregar a equipe." : "Carregando equipe..."}</p>
               ) : listaPessoas.length === 0 ? (
                 <p className="ciclo-do-equipe_vazio" role="status" aria-live="polite">Nenhuma pessoa no ciclo.</p>
               ) : null}

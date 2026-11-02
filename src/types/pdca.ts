@@ -23,7 +23,7 @@ export interface TarefaDoPlanoPg {
   idResponsavel: number | null;
   nomeResponsavel: string | null;
 };
-export interface UsuarioDoCicloPg { idUsuario: number; idCiclo: number; nomeUsuario: string }
+export interface UsuarioDoCicloPg { idUsuario: number; idCiclo: number; nomeUsuario: string; papelCiclo?: string }
 export interface ParticipanteTreinamentoPg { idUsuario: number; nomeUsuario: string; status: "PENDENTE" | "CONFIRMADO" | "CONCLUIDO" | "DISPENSADO" | "CANCELADO"; obrigatorio: boolean }
 export interface TreinamentoPg { id: number; idCiclo: number; titulo: string; descricao: string; dataTreinamento: string; obrigatorio: boolean; idResponsavel: number; nomeResponsavel: string; participantes: ParticipanteTreinamentoPg[] }
 export interface UsuarioDaEmpresaPg { id: number; nome: string; idEmpresa: number; status: "ATIVO" }
