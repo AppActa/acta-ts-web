@@ -5,6 +5,8 @@ type PropriedadesCampoLogin = {
   name: string;
   type: "email" | "password";
   bloquearColagem?: boolean;
+  erro?: string | null;
+  aoAlterar?: () => void;
 };
 
 export function CampoLogin({
@@ -14,6 +16,8 @@ export function CampoLogin({
   name,
   type,
   bloquearColagem = false,
+  erro = null,
+  aoAlterar,
 }: PropriedadesCampoLogin) {
   const [mostrarSenha, definirMostrarSenha] = useState(false);
   return (
@@ -21,7 +25,8 @@ export function CampoLogin({
       <label htmlFor={id}>{label}</label>
       {type === "password" ? (
         <div className="campo-login-senha">
-          <input id={id} name={name} type={mostrarSenha ? "text" : "password"} autoComplete={autoComplete} required
+          <input id={id} name={name} type={mostrarSenha ? "text" : "password"} autoComplete={autoComplete} required={erro === null}
+            aria-invalid={Boolean(erro)} aria-describedby={erro ? `${id}-erro` : undefined} onChange={aoAlterar ? () => aoAlterar() : undefined}
             onPaste={bloquearColagem ? (event) => event.preventDefault() : undefined}/>
           <button
             type="button" className="campo-login-senha_botao"
@@ -34,7 +39,9 @@ export function CampoLogin({
             </svg>
           </button>
         </div>
-      ) : (<input id={id} name={name} type={type} autoComplete={autoComplete}  required/>)}
+      ) : (<input id={id} name={name} type={type} autoComplete={autoComplete} required={erro === null}
+        aria-invalid={Boolean(erro)} aria-describedby={erro ? `${id}-erro` : undefined} onChange={aoAlterar ? () => aoAlterar() : undefined}/>)}
+      {erro && <p className="campo-login-erro" id={`${id}-erro`} role="alert">{erro}</p>}
     </>
   );
 }
