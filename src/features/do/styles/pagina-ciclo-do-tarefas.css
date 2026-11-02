@@ -22,7 +22,7 @@
 .ciclo-do_tarefas_aba-do { background: #fff; color: #068e94; }
 .ciclo-do_tarefas_aba-check { background: #43ae85; color: #338162; }
 .ciclo-do_tarefas_aba-act { background: #00a89d; color: #026b66; }
-.ciclo-do_tarefas_conteudo { display: grid; grid-template-columns: minmax(0, 884px) 310px; grid-template-rows: 402px 209px; gap: 24px 39px; padding: 25px 36px 20px 25px; }
+.ciclo-do_tarefas_conteudo { display: grid; grid-template-columns: minmax(0, 884px) 310px; grid-template-rows: auto; gap: 24px 39px; padding: 25px 36px 20px 25px; }
 .ciclo-do_tarefas_conteudo h2 { margin: 0; color: #141c29; font-size: 20px; font-weight: 700; }
 .ciclo-do_quadro { min-width: 0; }
 .ciclo-do_tarefas_titulo { display: flex; height: 51px; align-items: start; justify-content: space-between; margin-top: 8px; padding-left: 8px; }
@@ -31,18 +31,18 @@
 .ciclo-do_tarefas_titulo button { display: flex; width: 156px; height: 33px; align-items: center; justify-content: center; gap: 5px; border-radius: 100px; font-size: 15px; }
 .ciclo-do_tarefas_titulo button img { display: block; width: 24px; height: 24px; }
 .ciclo-do_tarefas_conteudo button:disabled { cursor: default; }
-.ciclo-do_kanban { position: relative; display: grid; height: 360px; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; border-radius: 16px; padding: 60px 18px 34px; background: #fff; }
-.ciclo-do_kanban_instrucao { position: absolute; top: 32px; left: 18px; margin: 0; color: #66707a; font-size: 12px; }
+.ciclo-do_kanban { position: relative; display: grid; min-height: 360px; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 16px; border-radius: 16px; padding: 22px 18px 24px; background: #fff; }
+.ciclo-do_kanban_instrucao { grid-column: 1 / -1; margin: 0; color: #66707a; font-size: 12px; line-height: 18px; overflow-wrap: anywhere; }
 .ciclo-do_coluna { min-width: 0; border-radius: 12px; padding: 11px 10px; background: #f6f6f6; }
 .ciclo-do_coluna h3 { margin: 0 0 11px; font-size: 10px; font-weight: 600; line-height: 18px; }
 .ciclo-do_coluna-a-fazer h3 { color: #056196; }
 .ciclo-do_coluna-andamento h3 { color: #068e94; }
 .ciclo-do_coluna-concluidas h3 { color: #338162; }
-.ciclo-do_tarefa { display: grid; height: 80px; gap: 0; margin-bottom: 12px; border-radius: 10px; padding: 8px 9px; background: #fff; }
-.ciclo-do_tarefa strong { overflow: hidden; color: #141c29; font-size: 12px; font-weight: 400; line-height: 20px; text-overflow: ellipsis; white-space: nowrap; }
+.ciclo-do_tarefa { display: grid; min-height: 104px; gap: 4px; margin-bottom: 12px; border-radius: 10px; padding: 8px 9px; background: #fff; }
+.ciclo-do_tarefa strong { min-width: 0; color: #141c29; font-size: 12px; font-weight: 400; line-height: 20px; overflow-wrap: anywhere; }
 .ciclo-do_tarefa span { color: #66707a; font-size: 10px; font-weight: 600; line-height: 16px; }
 .ciclo-do_tarefa time { color: #056196; font-size: 10px; font-weight: 600; line-height: 16px; }
-.ciclo-do_resumo_lateral { grid-column: 2; grid-row: 1 / 3; min-width: 0; border-radius: 14px; padding: 18px; background: #fff; }
+.ciclo-do_resumo_lateral { grid-column: 2; grid-row: 1; min-width: 0; border-radius: 14px; padding: 18px; background: #fff; }
 .ciclo-do_resumo_lateral h2 { height: 24px; margin-bottom: 10px; font-size: 16px; font-weight: 600; }
 .ciclo-do_badge_andamento { display: grid; width: 132px; height: 24px; place-items: center; border-radius: 99px; background: #d4f4f7; color: #056196; font-size: 10px; text-align: center; }
 .ciclo-do_progresso_geral { height: 8px; margin-top: 0; overflow: hidden; border-radius: 99px; background: #dbe4e8; }
@@ -73,8 +73,8 @@
 .ciclo-do_prazos article > span { width: 170px; }
 
 @media (max-width: 1050px) {
-  .ciclo-do_tarefas_conteudo { grid-template-columns: minmax(0, 1fr) 245px; grid-template-rows: 402px auto; padding: 28px 18px 18px; gap: 24px 16px; }
-  .ciclo-do_resumo_lateral { grid-column: 2; grid-row: 1 / 3; }
+  .ciclo-do_tarefas_conteudo { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; padding: 28px 18px 18px; gap: 24px 16px; }
+  .ciclo-do_resumo_lateral { grid-column: 1; grid-row: auto; }
   .ciclo-do_treinamentos, .ciclo-do_prazos { grid-column: 1; grid-row: auto; width: auto; margin-left: 0; }
 }
 @media (max-width: 760px) {
@@ -93,8 +93,8 @@
   .ciclo-do_tarefas_cabecalho h1 { display: block; margin: 0 0 4px; font-size: 15px; }
   .ciclo-do_tarefas_cabecalho p { font-size: 11px; }
   .ciclo-do_tarefas_status { padding: 3px 12px; font-size: 9px; }
-  .ciclo-do_tarefas_abas { height: 52px; gap: 1px; padding-left: 4px; }
-  .ciclo-do_tarefas_aba { width: auto; min-width: 63px; height: 35px; flex: 1 1 auto; gap: 3px; font-size: 10px; }
+  .pagina-ciclo-do-tarefas .ciclo-do_tarefas_abas { height: 80px; align-items: flex-start; gap: 1px; padding: 8px 0 8px 4px; overflow-x: auto; }
+  .pagina-ciclo-do-tarefas .ciclo-do_tarefas_aba { width: auto; min-width: 88px; height: auto; min-height: 44px; flex: 1 0 auto; gap: 3px; padding: 6px 8px; font-size: 10px; white-space: nowrap; }
   .ciclo-do_tarefas_conteudo { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; padding: 25px 14px; gap: 20px; }
   .ciclo-do_kanban { height: auto; grid-template-columns: minmax(0, 1fr); padding-top: 54px; }
   .ciclo-do_coluna { min-height: 140px; }
@@ -102,3 +102,111 @@
   .ciclo-do_treinamentos, .ciclo-do_prazos { grid-column: 1; }
   .ciclo-do_barra_treinamento { width: calc(100% - 52px); }
 }
+
+.pagina-ciclo-do-tarefas .ciclo-do_tarefas_titulo {
+  height: auto;
+  min-height: 51px;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.pagina-ciclo-do-tarefas .ciclo-do_tarefas_criar {
+  box-sizing: border-box;
+  display: inline-flex;
+  width: 156px;
+  max-width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border-radius: 100px;
+  padding: 8px 12px;
+  background: #0ac2ca;
+  color: #172033;
+  font: inherit;
+  font-size: 15px;
+  line-height: 20px;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-do-tarefas .ciclo-do_tarefas_criar img { display: block; flex: 0 0 auto; }
+.pagina-ciclo-do-tarefas .ciclo-do_coluna { min-height: 140px; }
+.pagina-ciclo-do-tarefas .ciclo-do_coluna h3 { color: #253132; overflow-wrap: anywhere; }
+.pagina-ciclo-do-tarefas .ciclo-do_tarefa_link { min-width: 0; color: #141c29; text-decoration: none; overflow-wrap: anywhere; }
+
+.pagina-ciclo-do-tarefas .ciclo-do_tarefa_status {
+  justify-self: start;
+  max-width: 100%;
+  border-radius: 12px;
+  padding: 4px 7px;
+  background: #eef1f4;
+  color: #465361;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.pagina-ciclo-do-tarefas .ciclo-do_tarefa_status[data-estado="PENDENTE"] { background: #eaf5fb; color: #025a8a; }
+.pagina-ciclo-do-tarefas .ciclo-do_tarefa_status[data-estado="EM_ANDAMENTO"] { background: #e1f5f5; color: #036b73; }
+.pagina-ciclo-do-tarefas .ciclo-do_tarefa_status[data-estado="CONCLUIDA"] { background: #e8f5ed; color: #216b49; }
+.pagina-ciclo-do-tarefas .ciclo-do_tarefa_status[data-estado="BLOQUEADA"] { background: #f2ecf8; color: #654184; }
+.pagina-ciclo-do-tarefas .ciclo-do_tarefa_status[data-estado="ATRASADA"] { background: #fff0f1; color: #9b2736; }
+.pagina-ciclo-do-tarefas .ciclo-do_tarefa_status[data-estado="CANCELADA"] { background: #eef1f4; color: #465361; }
+
+.pagina-ciclo-do-tarefas .ciclo-do_contadores article { min-width: 0; overflow-wrap: anywhere; }
+.pagina-ciclo-do-tarefas .ciclo-do_contadores article:first-child { grid-column: 1 / -1; }
+.pagina-ciclo-do-tarefas .ciclo-do_contadores article strong { color: #025a8a; }
+.pagina-ciclo-do-tarefas .ciclo-do_abrir_cronograma { height: auto; min-height: 44px; margin-top: 18px; padding: 8px; color: #172033; overflow-wrap: anywhere; }
+
+.pagina-ciclo-do-tarefas .ciclo-do_tarefas_estado {
+  grid-column: 1 / -1;
+  min-width: 0;
+  margin: 0;
+  border: 1px solid #c7dce6;
+  border-radius: 12px;
+  padding: 16px;
+  background: #edf5f8;
+  color: #26485b;
+  font-size: 13px;
+  line-height: 20px;
+  overflow-wrap: anywhere;
+}
+
+.pagina-ciclo-do-tarefas .ciclo-do_tarefas_estado h1 { margin: 0; font-size: 24px; line-height: 32px; }
+.pagina-ciclo-do-tarefas .ciclo-do_tarefas_estado p { margin: 12px 0 0; }
+.pagina-ciclo-do-tarefas .ciclo-do_tarefas_estado[role="alert"] { border-color: #d4a7ae; background: #fff4f5; color: #922337; }
+
+.pagina-ciclo-do-tarefas .ciclo-do_tarefas_criar:focus-visible,
+.pagina-ciclo-do-tarefas .ciclo-do_tarefa_link:focus-visible,
+.pagina-ciclo-do-tarefas .ciclo-do_abrir_cronograma:focus-visible {
+  outline: 3px solid #025a8a;
+  outline-offset: 3px;
+}
+
+.pagina-ciclo-do-tarefas .ciclo-do_tarefas_aba:focus-visible {
+  outline: 3px solid #172033;
+  outline-offset: -4px;
+}
+
+.pagina-ciclo-do-tarefas .ciclo-do_tarefas_aba-visao,
+.pagina-ciclo-do-tarefas .ciclo-do_tarefas_aba-check,
+.pagina-ciclo-do-tarefas .ciclo-do_tarefas_aba-act {
+  color: #172033;
+}
+
+.pagina-ciclo-do-tarefas .ciclo-do_tarefas_aba-plan { color: #fff; }
+.pagina-ciclo-do-tarefas .ciclo-do_tarefas_aba-do { color: #026b66; }
+
+@media (max-width: 1180px) {
+  .pagina-ciclo-do-tarefas .ciclo-do_kanban { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pagina-ciclo-do-tarefas .ciclo-do_tarefas_abas { overflow-x: auto; }
+}
+
+@media (max-width: 760px) {
+  .pagina-ciclo-do-tarefas .ciclo-do_kanban { grid-template-columns: minmax(0, 1fr); padding-top: 22px; }
+}
+.pagina-ciclo-do-tarefas .ciclo-do_filtros { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.pagina-ciclo-do-tarefas .ciclo-do_filtros button { border: 0; border-radius: 20px; padding: 8px 14px; background: #f4f6f6; color: #52626b; font: inherit; font-size: 12px; cursor: pointer; }
+.pagina-ciclo-do-tarefas .ciclo-do_filtros button[aria-pressed="true"] { background: #e1f4f5; color: #007b87; }
+.pagina-ciclo-do-tarefas .ciclo-do_filtros button:focus-visible { outline: 3px solid #025a8a; outline-offset: 2px; }

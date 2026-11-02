@@ -524,6 +524,82 @@
   background:#f3a640
 }
 
+.pagina-ciclo-do .ciclo-do_resumo-tarefas {
+  min-width:0;
+  max-width:100%
+}
+
+.pagina-ciclo-do .ciclo-do_card_tarefas {
+  box-sizing:border-box;
+  min-width:0;
+  height:auto;
+  min-height:184px;
+  padding:16px 14px;
+  overflow-wrap:anywhere
+}
+
+.pagina-ciclo-do .ciclo-do_card_tarefas > p {
+  margin:0 0 12px;
+  color:#465361;
+  font-size:12px;
+  line-height:18px
+}
+
+.pagina-ciclo-do .ciclo-do_tarefas_contagens {
+  display:grid;
+  min-width:0;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:6px 8px;
+  margin:0;
+  padding:0
+}
+
+.pagina-ciclo-do .ciclo-do_tarefas_contagens > div {
+  display:grid;
+  min-width:0;
+  grid-column:1 / -1;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:8px
+}
+
+.pagina-ciclo-do .ciclo-do_tarefas_contagens dt,
+.pagina-ciclo-do .ciclo-do_tarefas_contagens dd {
+  min-width:0;
+  margin:0;
+  line-height:18px;
+  overflow-wrap:anywhere
+}
+
+.pagina-ciclo-do .ciclo-do_tarefas_contagens dt {
+  color:#465361;
+  font-size:12px;
+  font-weight:400
+}
+
+.pagina-ciclo-do .ciclo-do_tarefas_contagens dd {
+  color:#025a8a;
+  font-size:13px;
+  font-weight:600;
+  text-align:right
+}
+
+@media(min-width:1359px) {
+  .pagina-ciclo-do .ciclo-do_conteudo {
+    box-sizing:border-box;
+    height:auto;
+    min-height:691px;
+    padding-top:419px;
+    padding-bottom:43px
+  }
+
+  .pagina-ciclo-do .ciclo-do_resumo-tarefas {
+    position:relative;
+    top:auto;
+    left:auto;
+    margin-left:66px
+  }
+}
+
 @media(max-width:1358px) {
   .ciclo-do_conteudo {
     display:grid;

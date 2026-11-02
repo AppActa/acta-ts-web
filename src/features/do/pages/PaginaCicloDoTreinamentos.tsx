@@ -3,19 +3,13 @@ import { Link, useParams } from "react-router-dom";
 import { Sidebar } from "../../layout/components/Sidebar";
 import { useCicloDaConta, rotuloStatusCiclo } from "../../ciclo/hooks/useCicloDaConta";
 import { AvisoDadosDemonstrativos } from "../../layout/components/AvisoDadosDemonstrativos";
-import "../../perfil/styles/pagina-perfil.css";
 import "../styles/pagina-ciclo-do-treinamentos.css";
 
 type StatusFiltro = "todos" | "andamento" | "concluidos";
 type Treinamento = { id: string; titulo: string; responsavel: string; data: string; material: string; status: Exclude<StatusFiltro, "todos"> };
 
-export const treinamentosDoCiclo: Treinamento[] = [
-  { id: "conferencia-dupla", titulo: "Conferência dupla de pedidos", responsavel: "Camila Souza", data: "15 out", material: "procedimento.pdf", status: "andamento" },
-  { id: "separacao-sku", titulo: "Separação por código e SKU", responsavel: "Diego Martins", data: "18 out", material: "guia-codigos-sku.pdf", status: "andamento" },
-  { id: "pedidos-frageis", titulo: "Identificação de pedidos frágeis", responsavel: "Camila Souza", data: "20 out", material: "embalagem-segura.pdf", status: "andamento" },
-  { id: "divergencias", titulo: "Registro imediato de divergências", responsavel: "Rafael Costa", data: "22 out", material: "registro-divergencias.pdf", status: "andamento" },
-  { id: "conferencia-final", titulo: "Conferência final por pedido", responsavel: "Ana Martins", data: "24 out", material: "procedimento-conferencia-final.pdf", status: "concluidos" },
-];
+// A API de treinamentos ainda não está integrada; não apresentar dados de exemplo como dados do ciclo.
+export const treinamentosDoCiclo: Treinamento[] = [];
 
 function AbasTreinamentos({ cicloId }: { cicloId: string | undefined }) {
   return (
@@ -23,8 +17,8 @@ function AbasTreinamentos({ cicloId }: { cicloId: string | undefined }) {
       <Link to={`/do/ciclo/${cicloId}/visao-geral`} className="treinamentos_aba treinamentos_aba-visao"><span aria-hidden="true">{/* # colocar imagem */}</span>Visão geral</Link>
       <Link to={`/do/ciclo/${cicloId}/plan`} className="treinamentos_aba treinamentos_aba-plan"><span aria-hidden="true">{/* # colocar imagem */}</span>Plan</Link>
       <Link to={`/do/ciclo/${cicloId}/tarefas`} aria-current="page" className="treinamentos_aba treinamentos_aba-do"><span aria-hidden="true">{/* # colocar imagem */}</span>Do</Link>
-      <button type="button" className="treinamentos_aba treinamentos_aba-check" disabled><span aria-hidden="true">{/* # colocar imagem */}</span>Checar</button>
-      <button type="button" className="treinamentos_aba treinamentos_aba-act" disabled><span aria-hidden="true">{/* # colocar imagem */}</span>Agir</button>
+      <Link to={`/do/ciclo/${cicloId}/check`} className="treinamentos_aba treinamentos_aba-check">Checar</Link>
+      <Link to={`/do/ciclo/${cicloId}/act`} className="treinamentos_aba treinamentos_aba-act">Agir</Link>
     </nav>
   );
 }
@@ -33,7 +27,7 @@ export function PaginaCicloDoTreinamentos() {
   const { cicloId } = useParams();
   const resultadoCiclo = useCicloDaConta(cicloId);
   const [busca, setBusca] = useState("");
-  const [filtro, setFiltro] = useState<StatusFiltro>("todos");
+  const [filtro] = useState<StatusFiltro>("todos");
   const listaVisivel = useMemo(() => treinamentosDoCiclo.filter((item) => {
     const correspondeTexto = `${item.titulo} ${item.responsavel} ${item.material}`.toLocaleLowerCase("pt-BR").includes(busca.toLocaleLowerCase("pt-BR"));
     return correspondeTexto && (filtro === "todos" || item.status === filtro);
@@ -65,19 +59,19 @@ export function PaginaCicloDoTreinamentos() {
           <div><h1>{ciclo.titulo}</h1><span className="treinamentos_status">Status: {rotuloStatusCiclo(ciclo.status)}</span><p><span>Responsável pelo ciclo:</span> Não informado</p><p><span>Iniciado em:</span> {ciclo.dataInicio ?? "Não informado"}</p><p><span>Prazo final:</span> {ciclo.dataEstimadaFim ?? "Não informado"}</p></div>
         </header>
         <AbasTreinamentos cicloId={cicloId} />
-        <AvisoDadosDemonstrativos />
+        <AvisoDadosDemonstrativos mensagem="A consulta de treinamentos ainda não está disponível." />
         <div className="treinamentos_conteudo">
           <div className="treinamentos_titulo_linha">
-            <Link to={`/do/ciclo/${cicloId}/tarefas`} className="treinamentos_voltar" aria-label="Voltar às tarefas">{/* # colocar imagem */}</Link>
+            <Link to={`/do/ciclo/${cicloId}/tarefas`} className="treinamentos_voltar" aria-label="Voltar às tarefas">‹</Link>
             <h2>Treinamentos</h2>
-            <Link to={`/do/ciclo/${cicloId}/treinamentos/criar`} className="treinamentos_criar"><span aria-hidden="true">{/* # colocar imagem */}</span>Criar novo</Link>
+            <Link to={`/do/ciclo/${cicloId}/treinamentos/criar`} className="treinamentos_criar"><span aria-hidden="true">+</span>Criar novo</Link>
           </div>
           <div className="treinamentos_filtros">
             <label className="treinamentos_busca"><span className="visually-hidden">Buscar treinamento</span><input value={busca} onChange={(event) => setBusca(event.target.value)} placeholder="Buscar treinamento" /></label>
             <div className="treinamentos_tabs" aria-label="Filtrar treinamentos">
-              <button type="button" aria-pressed={filtro === "todos"} onClick={() => setFiltro("todos")}>Todos (5)</button>
-              <button type="button" aria-pressed={filtro === "andamento"} onClick={() => setFiltro("andamento")}>Em andamento (4)</button>
-              <button type="button" aria-pressed={filtro === "concluidos"} onClick={() => setFiltro("concluidos")}>Concluídos (1)</button>
+              <button type="button" disabled>Todos</button>
+              <button type="button" disabled>Em andamento</button>
+              <button type="button" disabled>Concluídos</button>
             </div>
           </div>
           {listaVisivel.length > 0 ? (
@@ -89,7 +83,7 @@ export function PaginaCicloDoTreinamentos() {
                 </Link>
               ))}
             </div>
-          ) : <p className="treinamentos_vazio">Nenhum treinamento encontrado.</p>}
+          ) : <p className="treinamentos_vazio" role="status">Não é possível consultar os treinamentos deste ciclo no momento.</p>}
         </div>
       </div>
     </main>

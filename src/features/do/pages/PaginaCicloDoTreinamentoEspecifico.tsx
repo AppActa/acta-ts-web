@@ -3,7 +3,6 @@ import { Sidebar } from "../../layout/components/Sidebar";
 import { useCicloDaConta, rotuloStatusCiclo } from "../../ciclo/hooks/useCicloDaConta";
 import { AvisoDadosDemonstrativos } from "../../layout/components/AvisoDadosDemonstrativos";
 import { treinamentosDoCiclo } from "./PaginaCicloDoTreinamentos";
-import "../../perfil/styles/pagina-perfil.css";
 import "../styles/pagina-ciclo-do-treinamento-especifico.css";
 
 function AbasTreinamento({ cicloId }: { cicloId: string | undefined }) {
@@ -51,8 +50,9 @@ export function PaginaCicloDoTreinamentoEspecifico() {
         <AbasTreinamento cicloId={cicloId} />
         {!treinamento ? (
           <section className="treinamento-especifico_conteudo" role="status" aria-live="polite">
-            <h2>Treinamento não encontrado</h2>
-            <p>Este treinamento não está disponível neste ciclo.</p>
+            <h2>Treinamento indisponível</h2>
+            <p>Não é possível consultar os dados deste treinamento no momento.</p>
+            <Link to={`/do/ciclo/${cicloId}/treinamentos`}>Voltar aos treinamentos</Link>
           </section>
         ) : <>
         <AvisoDadosDemonstrativos />

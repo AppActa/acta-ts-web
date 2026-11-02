@@ -8,7 +8,6 @@ import iconeCheckAba from "../assets/ciclo-visao-geral/fe2f6.svg";
 import iconeActAba from "../assets/ciclo-visao-geral/a51ff.svg";
 import voltarMoldura from "../../ciclos/assets/voltar-moldura.svg";
 import voltarSeta from "../../ciclos/assets/voltar-seta.svg";
-import "../../perfil/styles/pagina-perfil.css";
 import "../styles/pagina-ciclo-do.css";
 import "../styles/pagina-ciclo-do-equipe.css";
 
