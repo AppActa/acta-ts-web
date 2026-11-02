@@ -7,7 +7,7 @@ export function PaginaLogin() {
   return (
     <main className="pagina-login">
       <section className="layout-login" aria-labelledby="titulo-login">
-        <PainelMarca />
+        <PainelMarca mostrarMensagem />
         <FormularioLogin solicitarRedefinicao={solicitarRedefinicaoDeSenha} />
       </section>
     </main>
