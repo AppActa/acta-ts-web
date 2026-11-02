@@ -223,6 +223,15 @@ export async function listarCiclosPg(idEmpresa: number, signal?: AbortSignal): P
   return parseArray(await get("/ciclo", signal), (item) => parseCiclo(item, idEmpresaValidada));
 }
 
+export async function obterAvancoCicloPg(idCiclo: number, signal?: AbortSignal): Promise<number> {
+  const id = readId(idCiclo);
+  const valor: unknown = await get("/ciclo/avanco/" + id, signal);
+
+  if (!finiteNumber(valor) || valor < 0 || valor > 100) throw new PgReadError("INVALID_RESPONSE");
+
+  return valor;
+}
+
 export async function listarMinhasTarefasPg(signal?: AbortSignal): Promise<TarefaPg[]> {
   return parseArray(await get("/tarefa/minhas", signal), parseTarefa);
 }

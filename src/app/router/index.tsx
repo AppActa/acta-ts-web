@@ -48,7 +48,6 @@ const PaginaCicloAct = lazy(() => import("../../pages/act/PaginaCicloAct").then(
 const PaginaAprendizadosAct = lazy(() => import("../../pages/act/PaginaAprendizadosAct").then((mod) => ({ default: mod.PaginaAprendizadosAct })));
 const PaginaActTodosCiclos = lazy(() => import("../../pages/act/PaginaActTodosCiclos").then((mod) => ({ default: mod.PaginaActTodosCiclos })));
 const PaginaTodosCiclos = lazy(() => import("../../pages/ciclos/PaginaTodosCiclos").then((mod) => ({ default: mod.PaginaTodosCiclos })));
-const PaginaRelatorios = lazy(() => import("../../pages/relatorios/PaginaRelatorios").then((mod) => ({ default: mod.PaginaRelatorios })));
 const PaginaNaoEncontrada = lazy(() => import("../../pages/layout/PaginaNaoEncontrada").then((mod) => ({ default: mod.PaginaNaoEncontrada })));
 const PaginaCato = lazy(() => import("../../pages/cato/PaginaCato").then((mod) => ({ default: mod.PaginaCato })));
 export const router = createBrowserRouter([
@@ -75,9 +74,7 @@ export const router = createBrowserRouter([
           { path: "do/ciclo/:cicloId/act", element: <Suspense fallback={<CarregandoPagina />} ><PaginaCicloAct /></Suspense> },
           { path: "do/ciclo/:cicloId/act/aprendizados", element: <Suspense fallback={<CarregandoPagina />} ><PaginaAprendizadosAct /></Suspense> },
           { path: "ciclos", element: <Suspense fallback={<CarregandoPagina />} ><PaginaTodosCiclos /></Suspense> },
-          { path: "relatorios", element: <Suspense fallback={<CarregandoPagina />} ><PaginaRelatorios /></Suspense> },
-          { path: "relatorios/criar", element: <Suspense fallback={<CarregandoPagina />} ><PaginaRelatorios /></Suspense> },
-          { path: "relatorios/:relatorioId", element: <Suspense fallback={<CarregandoPagina />} ><PaginaRelatorios /></Suspense> },
+          { path: "ciclos/criar", element: <Suspense fallback={<CarregandoPagina />} ><PaginaTodosCiclos /></Suspense> },
           { path: "plan/ciclos", element: <Suspense fallback={<CarregandoPagina />} ><PaginaPlanTodosCiclos /></Suspense> },
           { path: "do/ciclo/:cicloId/plan", element: <Suspense fallback={<CarregandoPagina />} ><PaginaCicloPlan /></Suspense> },
           { path: "do/ciclo/:cicloId/plan/coleta", element: <Suspense fallback={<CarregandoPagina />} ><PaginaPlanColeta /></Suspense> },

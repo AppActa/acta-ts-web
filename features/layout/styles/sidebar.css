@@ -46,6 +46,13 @@
   max-width: 57px;
 }
 
+.sidebar__arte--perfil-foto {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  object-fit: cover;
+}
+
 .sidebar {
   z-index: 21;
   color: #5d5d5d;
@@ -66,44 +73,52 @@
 }
 
 .sidebar_atalhos {
+  box-sizing: border-box;
   position: fixed;
   z-index: 20;
   top: 0;
-  right: 0;
+  right: 26px;
   display: grid;
-  width: min(486px, calc(100vw - 119px));
-  height: 125px;
-  grid-template-columns: repeat(4, 1fr);
-  align-items: start;
-  padding: 43px 42px 0 31px;
-  border-radius: 0 0 0 20px;
+  width: min(321px, calc(100vw - 118px));
+  height: 88px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  justify-items: center;
+  padding: 8px 0;
+  border-radius: 0 0 18px 18px;
   background: #1f1f1f;
 }
 
 .sidebar_atalhos a,
 .sidebar_atalhos button {
-  display: flex;
+  display: grid;
+  width: max-content;
   min-width: 0;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
+  grid-template-rows: 26px 16px;
+  align-content: center;
+  justify-items: center;
+  gap: 3px;
   border: 0;
   padding: 0;
   background: transparent;
   color: #5d5d5d;
   font: inherit;
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
   text-decoration: none;
 }
+
+.sidebar_atalhos span { white-space: nowrap; }
 
 .sidebar_atalhos button:disabled {
   cursor: default;
 }
 
 .sidebar_atalhos img {
-  width: 32px;
-  height: 32px;
+  display: block;
+  width: 26px;
+  height: 26px;
   object-fit: contain;
   filter: brightness(0) saturate(100%) invert(36%);
 }
@@ -135,6 +150,8 @@
     max-width: 40px;
     max-height: 54px;
   }
+
+  .sidebar__arte--perfil-foto { width: 40px; height: 40px; border-radius: 12px; }
 
   .sidebar_atalhos { display: none; }
 }

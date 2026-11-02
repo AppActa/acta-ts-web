@@ -29,22 +29,25 @@
 }
 
 .pagina-todos-ciclos .web-listas_titulo {
+  box-sizing: border-box;
+  width: 100%;
   gap: 40px;
   padding-left: 25px;
+  padding-right: 36px;
 }
 
-.pagina-todos-ciclos .web-listas_titulo > a {
+.pagina-todos-ciclos .web-listas_titulo > a:first-child {
   position: relative;
   flex: none;
   background: #fff;
 }
 
-.pagina-todos-ciclos .web-listas_titulo > a img:first-child {
+.pagina-todos-ciclos .web-listas_titulo > a:first-child img:first-child {
   width: 61px;
   height: 61px;
 }
 
-.pagina-todos-ciclos .web-listas_titulo > a img:last-child {
+.pagina-todos-ciclos .web-listas_titulo > a:first-child img:last-child {
   position: absolute;
   top: 4px;
   left: 1px;
@@ -82,6 +85,44 @@
 .pagina-todos-ciclos .web-listas_titulo > button img {
   width: 24px;
   height: 24px;
+}
+
+.pagina-todos-ciclos .web-listas_titulo > a.lista-ciclos_criar-link {
+  display: inline-flex;
+  position: absolute;
+  top: 29px;
+  right: clamp(300px, 33vw, 600px);
+  width: 166px;
+  height: 38px;
+  min-height: 38px;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  gap: 8px;
+  border-radius: 20px;
+  padding: 0 16px;
+  background: #48b3c6;
+  color: #fff;
+  font: 600 13px "Plus Jakarta Sans", Arial, sans-serif;
+  transition: background-color 140ms ease, transform 140ms ease;
+}
+
+.pagina-todos-ciclos .web-listas_titulo > a.lista-ciclos_criar-link:hover {
+  background: #369daf;
+  transform: translateY(-1px);
+}
+
+.pagina-todos-ciclos .web-listas_titulo > a.lista-ciclos_criar-link:focus-visible {
+  outline: 3px solid #71cbd4;
+  outline-offset: 3px;
+}
+
+.pagina-todos-ciclos .web-listas_titulo > a.lista-ciclos_criar-link img {
+  position: static;
+  width: 20px;
+  height: 20px;
+  flex: none;
+  filter: none;
 }
 
 .lista-ciclos_conteudo {
@@ -126,7 +167,7 @@
   line-height: 1.45;
 }
 
-.lista-ciclos_primeiro-ciclo button {
+.lista-ciclos_primeiro-ciclo .lista-ciclos_criar-link {
   width: 300px;
   min-height: 44px;
   border: 0;
@@ -137,7 +178,6 @@
   font: 600 14px "Plus Jakarta Sans", Arial, sans-serif;
 }
 
-.lista-ciclos_primeiro-ciclo button:disabled { cursor: default; }
 
 .lista-ciclos_filtros {
   display: flex;
@@ -340,6 +380,64 @@
   text-align: center;
 }
 
+.lista-ciclos_criar-link {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 10px;
+  padding: 0 18px;
+  background: #48b3c6;
+  color: #fff;
+  font: 600 13px "Plus Jakarta Sans", Arial, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.lista-ciclos_criar-link img { width: 20px; height: 20px; }
+.lista-ciclos_criar-vazio { min-width: 220px; }
+.ciclo-criar_overlay { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; overflow: auto; padding: 20px; background: rgb(28 59 61 / 65%); backdrop-filter: blur(4px); }
+.ciclo-criar_modal { box-sizing: border-box; width: min(620px, 100%); max-height: 90vh; overflow: auto; padding: 30px; border-radius: 20px; background: #fff; color: #253132; }
+.ciclo-criar_cabecalho { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+.ciclo-criar_cabecalho p { margin: 0 0 6px; color: #66707a; font-size: 13px; }
+.ciclo-criar_cabecalho h2 { margin: 0; font-size: 26px; }
+.ciclo-criar_fechar { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 8px; background: #f5f7f8; color: #66707a; font-size: 24px; text-decoration: none; }
+.ciclo-criar_modal form { display: grid; gap: 18px; }
+.ciclo-criar_modal label { display: grid; gap: 7px; font-size: 13px; font-weight: 600; }
+.ciclo-criar_modal input,.ciclo-criar_modal textarea { box-sizing: border-box; width: 100%; min-height: 42px; border: 1px solid #dce4e7; border-radius: 8px; padding: 10px 12px; background: #f7f9fa; color: #253132; font: inherit; }
+.ciclo-criar_modal textarea { resize: vertical; }
+.ciclo-criar_datas { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ciclo-criar_acoes { display: flex; justify-content: flex-end; gap: 12px; margin-top: 6px; }
+.ciclo-criar_acoes a,.ciclo-criar_acoes button { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; border: 0; border-radius: 9px; padding: 0 22px; font: 600 13px "Plus Jakarta Sans", Arial, sans-serif; text-decoration: none; cursor: pointer; }
+.ciclo-criar_cancelar { background: #e5f4f5; color: #253132; }
+.ciclo-criar_acoes button { background: #48b3c6; color: #fff; }
+.ciclo-criar_acoes button:disabled { opacity: .6; cursor: wait; }
+.ciclo-criar_erro { margin: 0 0 16px; color: #c43939; font-size: 13px; }
+.ciclo-criar_aviso { margin: 0 0 16px; color: #66707a; font-size: 13px; }
+.ciclo-criar_colaboradores { display: grid; gap: 10px; border-top: 1px solid #e5ecee; padding-top: 18px; }
+.ciclo-criar_colaboradores-cabecalho { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ciclo-criar_colaboradores-cabecalho h3 { margin: 0; font-size: 15px; }
+.ciclo-criar_colaboradores-cabecalho p { margin: 4px 0 0; color: #66707a; font-size: 12px; font-weight: 400; }
+.ciclo-criar_colaboradores-cabecalho > span { flex: none; color: #66707a; font-size: 11px; }
+.ciclo-criar_painel-seletor { display: grid; gap: 9px; border: 1px solid #e2eaec; border-radius: 10px; padding: 12px; background: #fff; }
+.ciclo-criar_painel-seletor > label { font-size: 12px; }
+.ciclo-criar_lista-colaboradores { display: grid; max-height: 190px; gap: 5px; overflow-y: auto; margin: 0; border: 1px solid #e2eaec; border-radius: 10px; padding: 6px; list-style: none; }
+.ciclo-criar_lista-colaboradores li { margin: 0; }
+.ciclo-criar_opcao-colaborador { display: flex; width: 100%; min-height: 48px; align-items: center; gap: 10px; border: 1px solid transparent; border-radius: 8px; padding: 6px 9px; background: #fff; color: #253132; text-align: left; cursor: pointer; }
+.ciclo-criar_opcao-colaborador:hover { background: #f3f8f8; }
+.ciclo-criar_opcao-colaborador[aria-pressed="true"] { border-color: #48b3c6; background: #eaf8fa; }
+.ciclo-criar_avatar { display: grid; width: 32px; height: 32px; flex: none; place-items: center; border-radius: 50%; background: #dff3f4; color: #187d87; font-size: 14px; font-weight: 700; }
+.ciclo-criar_nome-colaborador { overflow: hidden; flex: 1; text-overflow: ellipsis; white-space: nowrap; }
+.ciclo-criar_estado-selecao { flex: none; color: #078391; font-size: 11px; font-weight: 600; }
+.ciclo-criar_opcao-colaborador[aria-pressed="true"] .ciclo-criar_estado-selecao { color: #247986; }
+.ciclo-criar_selecionados { display: flex; flex-wrap: wrap; gap: 7px; }
+.ciclo-criar_selecionados button { min-height: 30px; border: 1px solid #48b3c6; border-radius: 18px; padding: 4px 10px; background: #e5f7f9; color: #247986; font: 500 11px "Plus Jakarta Sans", Arial, sans-serif; cursor: pointer; }
+.ciclo-criar_selecionados button:hover { background: #d5f0f3; }
+.ciclo-criar_usuarios-estado { margin: 0; border-radius: 8px; padding: 12px; background: #f6f8f9; color: #66707a; font-size: 12px; }
+.ciclo-criar_resultado { margin: 0 0 18px; border-radius: 10px; padding: 12px 16px; background: #eaf8f3; color: #246b5c; font-size: 13px; }
+
 @media (max-width: 1250px) {
   .lista-ciclos_conteudo { padding-right: 26px; padding-left: 26px; }
   .lista-ciclos_item { grid-template-columns: 44px minmax(0, 1fr) 128px 150px 104px 36px; gap: 12px; padding: 18px; }
@@ -352,19 +450,24 @@
 @media (max-width: 850px) {
   .pagina-todos-ciclos .web-listas_cabecalho { height: 70px; }
   .pagina-todos-ciclos .web-listas_titulo { gap: 12px; padding-left: 12px; }
-  .pagina-todos-ciclos .web-listas_titulo > a,
-  .pagina-todos-ciclos .web-listas_titulo > a img:first-child { width: 42px; height: 42px; }
-  .pagina-todos-ciclos .web-listas_titulo > a img:last-child { top: 3px; left: 1px; width: 36px; height: 36px; }
+  .pagina-todos-ciclos .web-listas_titulo > a:first-child,
+  .pagina-todos-ciclos .web-listas_titulo > a:first-child img:first-child { width: 42px; height: 42px; }
+  .pagina-todos-ciclos .web-listas_titulo > a:first-child img:last-child { top: 3px; left: 1px; width: 36px; height: 36px; }
   .pagina-todos-ciclos .web-listas_titulo h1 { font-size: 20px; }
-  .pagina-todos-ciclos .web-listas_titulo > button { position: static; width: auto; height: 32px; margin-left: auto; padding: 0 10px; font-size: 11px; }
-  .pagina-todos-ciclos .web-listas_titulo > button img { width: 18px; height: 18px; }
+  .pagina-todos-ciclos .web-listas_titulo > a.lista-ciclos_criar-link { position: static; width: auto; height: 32px; min-height: 32px; margin-left: auto; padding: 0 10px; font-size: 11px; }
+  .pagina-todos-ciclos .web-listas_titulo > a.lista-ciclos_criar-link img { width: 18px; height: 18px; }
   .lista-ciclos_conteudo { padding: 18px 14px 24px; }
   .lista-ciclos_conteudo--vazio { min-height: calc(100vh - 190px); padding: 24px 18px; }
   .lista-ciclos_primeiro-ciclo > img { width: 120px; height: 120px; }
   .lista-ciclos_primeiro-ciclo h2 { margin: 14px 0 12px; font-size: 20px; }
   .lista-ciclos_primeiro-ciclo p { font-size: 14px; }
   .lista-ciclos_quebra-descricao { display: none; }
-  .lista-ciclos_primeiro-ciclo button { width: min(300px, 100%); }
+  .lista-ciclos_primeiro-ciclo .lista-ciclos_criar-link { width: min(300px, 100%); }
+  .lista-ciclos_criar-link { min-height: 36px; padding: 0 10px; font-size: 11px; }
+  .lista-ciclos_criar-link img { width: 18px; height: 18px; }
+  .ciclo-criar_modal { padding: 22px; }
+  .ciclo-criar_datas { grid-template-columns: 1fr; }
+  .ciclo-criar_acoes > * { flex: 1; }
   .lista-ciclos_filtros { height: auto; align-items: stretch; flex-direction: column; margin: 0 0 18px; }
   .lista-ciclos_busca { width: 100%; }
   .lista-ciclos_tabs { overflow-x: auto; }

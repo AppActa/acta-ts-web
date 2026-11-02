@@ -73,6 +73,8 @@
 }
 
 .recorte-foto_grande img { top: -68px; left: -154px; }
+.recorte-foto_grande img.recorte-foto_dinamica { position: static; display: block; width: 100%; height: 100%; max-width: 100%; object-fit: cover; object-position: center; }
+.recorte-foto_iniciais { display: grid; width: 100%; height: 100%; place-items: center; background: linear-gradient(145deg, #529da1, #276a70); color: #fff; font-size: 72px; font-weight: 700; letter-spacing: .04em; }
 
 .cabecalho-perfil_identidade {
   position: absolute;

@@ -24,6 +24,7 @@ export interface DadosPerfil {
   email: string;
   nomeEmpresa: string;
   permissaoGestor: boolean;
+  fotoPerfilUrl?: string | null;
 }
 export type CurrentUser = DadosPerfil & (
   | { estadoPerfil: "CADASTRO_NAO_INICIADO"; idUsuario?: null; idEmpresa?: null; tipo?: null; status?: null }
