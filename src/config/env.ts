@@ -7,6 +7,7 @@ export const env = {
     import.meta.env.DEV ? "/api/cato" : "https://acta-ai.34-232-250-240.sslip.io"
   ),
   cloudinaryCloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME ?? "",
+  cloudinaryUploadPreset: import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET ?? "",
   firebase: {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY ?? "",
     authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN ?? "",

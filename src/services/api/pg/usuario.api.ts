@@ -31,3 +31,13 @@ export async function atualizarFotoUsuarioPg(idUsuario: number, fotoUrl: string)
     signal: AbortSignal.timeout(20_000),
   });
 }
+
+export async function atualizarNomeUsuarioPg(idUsuario: number, nome: string): Promise<void> {
+  const nomeNormalizado = nome.trim();
+  if (!nomeNormalizado || nomeNormalizado.length > 160) throw new Error("Informe um nome com até 160 caracteres.");
+  await httpClient(urlUsuario(idUsuario), {
+    method: "PATCH",
+    body: JSON.stringify({ nome: nomeNormalizado }),
+    signal: AbortSignal.timeout(20_000),
+  });
+}

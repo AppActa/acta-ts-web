@@ -6,7 +6,6 @@ export function Icone({ nome, tamanho = 28 }: IconeProps) {
     perfil: <><circle cx="12" cy="8" r="4" /><path d="M4.5 21a7.5 7.5 0 0 1 15 0" /></>,
     equipe: <><circle cx="9" cy="8" r="4" /><path d="M2 21a7 7 0 0 1 14 0" /><circle cx="17" cy="9" r="3" /><path d="M17 15a6 6 0 0 1 5 3" /></>,
     sol: <><circle cx="12" cy="12" r="5" /><path d="M12 1v3M12 20v3M1 12h3M20 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M19.8 4.2l-2.1 2.1M6.3 17.7l-2.1 2.1" /></>,
-    notificacao: <><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" /><path d="M10 21h4" /></>,
     "tamanho-fonte": <><path d="M4 19 10 5h4l6 14M7 14h10" /></>,
     "alto-contraste": <><circle cx="12" cy="12" r="9" /><path d="M12 3v18" /></>,
     acessibilidade: <><circle cx="12" cy="4" r="2" /><path d="M5 8h14M12 6v15M8 21l4-8 4 8" /></>,
