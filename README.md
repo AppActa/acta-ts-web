@@ -61,7 +61,7 @@ O domínio abre a tela de login. A publicação existente ainda retorna 404 ao r
 | `VITE_API_AUTH_URL` | URL base da API de autenticação. |
 | `VITE_API_PG_URL` | URL base da API PostgreSQL do ACTA. |
 | `VITE_API_MONGO_URL` | URL base da API MongoDB do ACTA. |
-| `VITE_API_CATO_URL` | URL base da API do Cato; o exemplo inclui o endpoint usado pelo projeto. |
+| `VITE_API_CATO_URL` | URL base da API do Cato, configurada no ambiente local. |
 | `VITE_FIREBASE_*` | Configuração do Firebase Authentication, conforme as seis chaves do `.env.example`. |
 | `VITE_API_IMPORT_URL` | Está no exemplo de ambiente, mas nenhum fluxo atual do frontend chama a API de importação. |
 
