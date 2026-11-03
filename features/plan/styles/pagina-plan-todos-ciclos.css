@@ -29,6 +29,33 @@
   padding: 35px 42px 34px 40px;
 }
 
+.plan-ciclos_resumo-detalhado {
+  margin-top: 18px;
+}
+
+.plan-ciclos_resumo-detalhado > summary {
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid #91a5a8;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: #fff;
+  color: #253132;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.plan-ciclos_resumo-detalhado > summary:focus-visible {
+  outline: 3px solid #087f87;
+  outline-offset: 3px;
+}
+
+.plan-ciclos_resumo-detalhado[open] > summary {
+  margin-bottom: 14px;
+}
+
 .plan-ciclos_cabecalho {
   min-height: 100px;
   padding-left: 62px;
@@ -107,7 +134,7 @@
   display: grid;
   grid-template-columns: minmax(0, 734fr) minmax(0, 458fr);
   gap: 20px;
-  margin-top: 18px;
+  margin-top: 0;
 }
 
 .plan-ciclos_grafico {

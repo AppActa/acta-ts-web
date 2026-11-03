@@ -5,15 +5,45 @@ body[data-contraste-aplicativo="alto"] {
   color: #fff !important;
 }
 
-body[data-contraste-aplicativo="alto"] :not(img, svg, path, circle, rect, line, polyline, polygon, video, canvas),
-body[data-contraste-aplicativo="alto"] :not(img, svg, path, circle, rect, line, polyline, polygon, video, canvas)::before,
-body[data-contraste-aplicativo="alto"] :not(img, svg, path, circle, rect, line, polyline, polygon, video, canvas)::after {
+body[data-contraste-aplicativo="alto"] :not(img, svg, path, circle, rect, line, polyline, polygon, video, canvas, .visualizacao-dados, .visualizacao-dados *),
+body[data-contraste-aplicativo="alto"] :not(img, svg, path, circle, rect, line, polyline, polygon, video, canvas, .visualizacao-dados, .visualizacao-dados *)::before,
+body[data-contraste-aplicativo="alto"] :not(img, svg, path, circle, rect, line, polyline, polygon, video, canvas, .visualizacao-dados, .visualizacao-dados *)::after {
   background-color: #000 !important;
   background-image: none !important;
   color: #fff !important;
   border-color: #fff !important;
   box-shadow: none !important;
   text-shadow: none !important;
+}
+
+/* Keep data marks intact; give their labels and surfaces a high contrast canvas. */
+body[data-contraste-aplicativo="alto"] .visualizacao-dados {
+  color: #000;
+  background-color: #fff;
+  border: 2px solid #fff;
+}
+
+body[data-contraste-aplicativo="alto"] .visualizacao-dados :is(h2, h3, p, li, span, strong, small, figcaption) {
+  color: #000;
+}
+
+body[data-contraste-aplicativo="alto"] .visualizacao-dados :is(.check-todos-ciclos_barra-segmento, .plan-ciclos_barra-segmento) {
+  outline: 2px solid #000;
+  outline-offset: -2px;
+}
+
+body[data-contraste-aplicativo="alto"] .visualizacao-dados :is(.check-todos-ciclos_barra-segmento-aprovadas, .plan-ciclos_barra-segmento-aceitas) { background-image: repeating-linear-gradient(135deg, rgb(0 0 0 / 48%) 0 2px, transparent 2px 5px); }
+body[data-contraste-aplicativo="alto"] .visualizacao-dados :is(.check-todos-ciclos_barra-segmento-parciais, .plan-ciclos_barra-segmento-validacao) { background-image: repeating-linear-gradient(0deg, rgb(0 0 0 / 48%) 0 2px, transparent 2px 5px); }
+body[data-contraste-aplicativo="alto"] .visualizacao-dados .check-todos-ciclos_barra-segmento-reprovadas { background-image: repeating-linear-gradient(90deg, rgb(0 0 0 / 48%) 0 2px, transparent 2px 5px); }
+
+body[data-contraste-aplicativo="alto"] .visualizacao-dados :is(.cronograma-barra, .ciclo-check_barra) { outline: 2px solid #000; outline-offset: 1px; }
+body[data-contraste-aplicativo="alto"] .visualizacao-dados .cronograma-barra-em-andamento { background-image: repeating-linear-gradient(135deg, rgb(0 0 0 / 50%) 0 2px, transparent 2px 5px); }
+body[data-contraste-aplicativo="alto"] .visualizacao-dados .cronograma-barra-concluida { background-image: repeating-linear-gradient(0deg, rgb(0 0 0 / 50%) 0 2px, transparent 2px 5px); }
+body[data-contraste-aplicativo="alto"] .visualizacao-dados :is(.cronograma-barra-atrasada, .cronograma-barra-bloqueada) { background-image: repeating-linear-gradient(90deg, rgb(0 0 0 / 50%) 0 2px, transparent 2px 5px); }
+body[data-contraste-aplicativo="alto"] .visualizacao-dados .act-todos-ciclos_barras li i { outline: 2px solid #000; outline-offset: -2px; background-image: repeating-linear-gradient(135deg, rgb(0 0 0 / 48%) 0 2px, transparent 2px 5px); }
+
+body[data-contraste-aplicativo="alto"] .visualizacao-dados :is(.check-todos-ciclos_rosca-grafico, .plan-ciclos_donut-asset-slot) {
+  outline: 3px solid #000;
 }
 
 body[data-contraste-aplicativo="alto"] a,
@@ -40,4 +70,34 @@ body[data-contraste-aplicativo="alto"] :is(button, input, select, textarea):disa
   color: #aaa !important;
   border-color: #aaa !important;
   opacity: 1;
+}
+
+body[data-contraste-aplicativo="alto"] :is(.criar-treinamento_colaboradores, .criar-treinamento_material) :is(button, input):disabled {
+  background: #222 !important;
+  color: #fff !important;
+  border: 2px dashed #fff !important;
+  cursor: not-allowed;
+}
+
+body[data-contraste-aplicativo="alto"] .criar-treinamento_indisponivel {
+  background: #000 !important;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+}
+
+/* Keep a mild, uniform scrim behind dialogs without obscuring the page. */
+body[data-contraste-aplicativo="alto"] :is(
+  .fundo-modal-edicao,
+  .modal-recuperar_overlay,
+  .ciclo-criar_overlay,
+  .treinamento_aviso_fundo,
+  .do-tarefa-sucesso-fundo
+) {
+  background: rgb(24 39 41 / 24%) !important;
+  backdrop-filter: none !important;
+}
+
+body[data-contraste-aplicativo="alto"] dialog[open]::backdrop {
+  background: rgb(24 39 41 / 24%) !important;
+  backdrop-filter: none !important;
 }

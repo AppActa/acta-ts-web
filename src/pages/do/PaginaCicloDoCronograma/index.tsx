@@ -77,7 +77,8 @@ export function PaginaCicloDoCronograma() {
   const [filtro, setFiltro] = useState<StatusTarefaPg | "TODAS">("TODAS");
   const tarefas = resultado.estado === "sucesso" || resultado.estado === "vazio" ? resultado.dados.tarefas : [];
   const tarefasFiltradas = filtro === "TODAS" ? tarefas : tarefas.filter((tarefa) => tarefa.status === filtro);
-  const dataHoje = Math.floor(Date.now() / DIA) * DIA;
+  const agora = new Date();
+  const dataHoje = Date.UTC(agora.getFullYear(), agora.getMonth(), agora.getDate());
   const cronograma = useMemo(() => {
     const valores = [
       ciclo.estado === "sucesso" ? instanteData(ciclo.ciclo.dataInicio) : null,
@@ -104,7 +105,7 @@ export function PaginaCicloDoCronograma() {
       <PainelCicloPlanDo cicloId={cicloId} etapaAtiva="do" exibirAvisoDemonstrativo={false}>
         <div className="cronograma-conteudo">
           <div className="cronograma-titulo"><Link to={`/do/ciclo/${cicloId}/tarefas`} aria-label="Voltar às tarefas">←</Link><div><h2>Cronograma</h2><p>Acompanhe prazos e andamento das tarefas do ciclo.</p></div></div>
-          <section className="cronograma-gantt" aria-labelledby="cronograma-gantt_titulo">
+          <section className="visualizacao-dados cronograma-gantt" aria-labelledby="cronograma-gantt_titulo">
             <div className="cronograma-cabecalho"><div><h3 id="cronograma-gantt_titulo">Cronograma Gantt</h3><p>{tarefasFiltradas.length} {tarefasFiltradas.length === 1 ? "tarefa" : "tarefas"} no período</p></div>
               <label>Exibir <select value={filtro} onChange={(evento) => setFiltro(evento.target.value as StatusTarefaPg | "TODAS")}><option value="TODAS">Todas as tarefas</option>{Object.entries(rotulosStatus).map(([status, rotulo]) => <option key={status} value={status}>{rotulo}</option>)}</select></label>
             </div>

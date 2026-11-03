@@ -219,17 +219,19 @@ export function PaginaPlanTodosCiclos() {
             </section>
           ) : (
             <>
-              <section className="plan-ciclos_metricas" aria-label="Resumo global do Plan">
-                {dados.metricas.map((metrica) => (
-                  <article className={`plan-ciclos_metrica plan-ciclos_metrica-${metrica.variante}`} key={metrica.id}>
-                    <h2>{metrica.titulo}</h2>
-                    <p><strong>{String(metrica.valor).padStart(2, "0")}</strong><span>{metrica.contexto}</span></p>
-                  </article>
-                ))}
-              </section>
+              <details className="plan-ciclos_resumo-detalhado">
+                <summary>Ver indicadores e gráficos · 4 indicadores e 2 gráficos</summary>
+                <section className="plan-ciclos_metricas" aria-label="Resumo global do Plan">
+                  {dados.metricas.map((metrica) => (
+                    <article className={`plan-ciclos_metrica plan-ciclos_metrica-${metrica.variante}`} key={metrica.id}>
+                      <h2>{metrica.titulo}</h2>
+                      <p><strong>{String(metrica.valor).padStart(2, "0")}</strong><span>{metrica.contexto}</span></p>
+                    </article>
+                  ))}
+                </section>
 
-              <div className="plan-ciclos_graficos">
-                <figure className="plan-ciclos_grafico plan-ciclos_grafico-causas" aria-labelledby="plan-ciclos-causas-titulo">
+                <div className="plan-ciclos_graficos">
+                <figure className="visualizacao-dados plan-ciclos_grafico plan-ciclos_grafico-causas" aria-labelledby="plan-ciclos-causas-titulo">
                   <figcaption>
                     <h2 id="plan-ciclos-causas-titulo">Causas por ciclo</h2>
                     <p>Causas aceitas e aguardando validação · {dados.causasPorCiclo.length} ciclos</p>
@@ -268,7 +270,7 @@ export function PaginaPlanTodosCiclos() {
                   <p className="plan-ciclos_nota-grafico">Quantidade de registros · escala iniciada em zero</p>
                 </figure>
 
-                <figure className="plan-ciclos_grafico plan-ciclos_grafico-planos" aria-labelledby="plan-ciclos-planos-titulo">
+                <figure className="visualizacao-dados plan-ciclos_grafico plan-ciclos_grafico-planos" aria-labelledby="plan-ciclos-planos-titulo">
                   <figcaption>
                     <h2 id="plan-ciclos-planos-titulo">Planos de ação</h2>
                     <p>Distribuição dos planos em planejamento</p>
@@ -307,7 +309,8 @@ export function PaginaPlanTodosCiclos() {
                   )}
                   <p className="plan-ciclos_base-grafico">Base: {totalPlanos} registros · valores absolutos na legenda</p>
                 </figure>
-              </div>
+                </div>
+              </details>
 
               <section className="plan-ciclos_tabela-secao" aria-labelledby="plan-ciclos-tabela-titulo">
                 <h2 id="plan-ciclos-tabela-titulo">Ciclos que precisam de acompanhamento</h2>

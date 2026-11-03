@@ -138,7 +138,7 @@ export function PaginaActTodosCiclos() {
               </section>
 
               <div className="act-todos-ciclos_graficos">
-                <section className="act-todos-ciclos_grafico" aria-labelledby="act-aprendizados-titulo">
+                <section className="visualizacao-dados act-todos-ciclos_grafico" aria-labelledby="act-aprendizados-titulo">
                   <header><h2 id="act-aprendizados-titulo">Aprendizados por área</h2><p>Distribuição pelas tags registradas nas lições</p></header>
                   {!licoesDisponiveis ? <p className="act-todos-ciclos_mensagem">Dados de aprendizados indisponíveis.</p> : barrasAprendizados.length === 0 ? <p className="act-todos-ciclos_mensagem">Nenhum aprendizado registrado.</p> : <>
                     <ul className="act-todos-ciclos_barras" aria-label="Aprendizados agrupados por tag">

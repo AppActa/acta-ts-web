@@ -9,7 +9,7 @@
   justify-items: center;
   overflow-y: auto;
   padding: clamp(12px, 3vh, 24px);
-  background: #292929;
+  background: #f6f6f6;
   color: #1f2933;
   font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif;
   overflow-wrap: anywhere;

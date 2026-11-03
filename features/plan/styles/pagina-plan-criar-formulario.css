@@ -1,4 +1,4 @@
-.plan-criar-formulario { display: grid; min-height: 100vh; place-items: center; overflow: auto; padding: 40px; background: rgba(31, 31, 31, .96); }
+.plan-criar-formulario { display: grid; min-height: 100vh; place-items: center; overflow: auto; padding: 40px; background: #f6f6f6; }
 .plan-criar-formulario_modal { position: relative; display: grid; width: min(1209px, 100%); min-height: min(784px, calc(100dvh - 48px)); grid-template-columns: 479px minmax(0, 1fr); gap: 34px; border-radius: 22px; background: #fff; padding: 22px; }
 .plan-criar-formulario_banner { position: relative; display: flex; min-height: 0; align-items: end; overflow: hidden; border-radius: 30px; background: radial-gradient(ellipse at 8% 95%, #e4fdff 0%, #b6f2f4 34%, transparent 72%), linear-gradient(138deg, #91e3e7 8%, #50c6d0 54%, #a8eef0 100%); padding: 29px; box-shadow: 0 0 10px #0000000d; }
 .plan-criar-formulario_mensagem { position: relative; z-index: 1; color: #050505; }

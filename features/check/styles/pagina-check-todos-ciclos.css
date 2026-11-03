@@ -13,6 +13,10 @@
 
 .check-todos-ciclos { color: #253132; font-family: "Segoe UI", Arial, sans-serif; }
 .check-todos-ciclos .check-todos-ciclos_painel { position: relative; }
+.check-todos-ciclos .check-todos-ciclos_resumo-detalhado { margin-top: 18px; }
+.check-todos-ciclos .check-todos-ciclos_resumo-detalhado > summary { width: fit-content; max-width: 100%; border: 1px solid #91a5a8; border-radius: 10px; padding: 10px 14px; background: #fff; color: #253132; cursor: pointer; font-size: 14px; font-weight: 600; line-height: 1.5; }
+.check-todos-ciclos .check-todos-ciclos_resumo-detalhado > summary:focus-visible { outline: 3px solid #087f87; outline-offset: 3px; }
+.check-todos-ciclos .check-todos-ciclos_resumo-detalhado[open] > summary { margin-bottom: 14px; }
 .check-todos-ciclos .sr-only,
 .check-todos-ciclos .check-todos-ciclos_metrica h2 {
   position: absolute;
@@ -148,7 +152,6 @@
   .check-todos-ciclos .check-todos-ciclos_nota-rodape { margin-left: 0; }
 }
 @media (max-width: 850px) {
-  .check-todos-ciclos { height: 100dvh; min-height: 0; overflow-y: auto; }
   .check-todos-ciclos .check-todos-ciclos_conteudo { padding: 140px 18px 28px; }
   .check-todos-ciclos .check-todos-ciclos_cabecalho { min-height: 0; padding: 0; }
   .check-todos-ciclos .check-todos-ciclos_metricas { grid-template-columns: repeat(2, minmax(0, 1fr)); }

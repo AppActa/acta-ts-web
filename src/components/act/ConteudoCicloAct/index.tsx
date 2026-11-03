@@ -5,18 +5,9 @@ import type { DadosCicloAct, DetalheCicloActProps, EstadoConteudoCicloAct, Progr
 export type { DadosCicloAct, DetalheCicloAct, EstadoConteudoCicloAct, ProgressoCicloAct, ConteudoCicloActProps } from "../../../types/act";
 
 const formatadorNumero = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 });
-const formatadorData = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" });
-
 function formatarContagem(valor: number | null | undefined): string {
   return typeof valor === "number" && Number.isSafeInteger(valor) && valor >= 0
     ? formatadorNumero.format(valor) : "Indisponível";
-}
-
-function formatarData(valor: string | null | undefined): string {
-  if (!valor || !/^\d{4}-\d{2}-\d{2}$/.test(valor)) return "Indisponível";
-  const data = new Date(`${valor}T00:00:00Z`);
-  return Number.isFinite(data.getTime()) && data.toISOString().slice(0, 10) === valor
-    ? formatadorData.format(data) : "Indisponível";
 }
 
 function Detalhe({ dados, mensagem }: DetalheCicloActProps) {
@@ -48,10 +39,6 @@ export function ConteudoCicloAct({ resultado = { estado: "indisponivel" }, ciclo
             <dt className="ciclo-act_metrica-titulo">Itens de padrão</dt>
             <dd className="ciclo-act_metrica-valor">{formatarContagem(dados?.metricas.itensPadrao)}</dd>
           </div>
-          <div className="ciclo-act_metrica" data-metrica="auditoria">
-            <dt className="ciclo-act_metrica-titulo">Próxima auditoria</dt>
-            <dd className="ciclo-act_metrica-valor">{formatarData(dados?.metricas.proximaAuditoria)}</dd>
-          </div>
           <div className="ciclo-act_metrica" data-metrica="licoes">
             <dt className="ciclo-act_metrica-titulo">Lições registradas</dt>
             <dd className="ciclo-act_metrica-valor">{formatarContagem(dados?.metricas.licoes)}</dd>
@@ -64,11 +51,6 @@ export function ConteudoCicloAct({ resultado = { estado: "indisponivel" }, ciclo
           <h2 className="ciclo-act_titulo" id={`${id}-documento`}>Documento padrão</h2>
           <Detalhe dados={dados?.documentoPadrao} mensagem={mensagemCard} />
           <button className="ciclo-act_acao" type="button" disabled aria-describedby={`${id}-acoes`}>Abrir padronização</button>
-        </section>
-        <section className="ciclo-act_card ciclo-act_auditoria" aria-labelledby={`${id}-auditoria`}>
-          <h2 className="ciclo-act_titulo" id={`${id}-auditoria`}>Comunicação e auditoria</h2>
-          <Detalhe dados={dados?.comunicacaoAuditoria} mensagem={mensagemCard} />
-          <button className="ciclo-act_acao" type="button" disabled aria-describedby={`${id}-acoes`}>Ver plano de auditoria</button>
         </section>
         <section className="ciclo-act_card ciclo-act_licoes" aria-labelledby={`${id}-licoes`}>
           <h2 className="ciclo-act_titulo" id={`${id}-licoes`}>Lições aprendidas</h2>
@@ -85,7 +67,7 @@ export function ConteudoCicloAct({ resultado = { estado: "indisponivel" }, ciclo
           </> : <p className="ciclo-act_estado">{mensagemCard}</p>}
         </section>
       </div>
-      <p className="ciclo-act_aviso" id={`${id}-acoes`}>Ações de padronização e auditoria indisponíveis nesta etapa.</p>
+      <p className="ciclo-act_aviso" id={`${id}-acoes`}>Ações de padronização indisponíveis nesta etapa.</p>
     </div>
   );
 }
