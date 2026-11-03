@@ -25,7 +25,7 @@ function DadosAct({ cicloId, empresaId, idUsuario, podeGerenciar }: { cicloId: n
       const checklists = lista.filter((item) => item.tipo === "CHECKLIST");
       setFormularios(lista);
       setResultado({ estado: "sucesso", dados: {
-        metricas: { itensPadrao: padroes.length, proximaAuditoria: null, licoes: licoes.length },
+        metricas: { itensPadrao: padroes.length, licoes: licoes.length },
         documentoPadrao: padroes.length ? { destaque: `${padroes.length} padrão(ões) registrado(s)`, descricao: padroes.map((item) => item.titulo).join(", ") } : { destaque: "Nenhum padrão registrado.", descricao: null },
         comunicacaoAuditoria: checklists.length ? { destaque: `${checklists.length} checklist(s) de auditoria`, descricao: `${checklists.filter(({ status }) => status === "ATIVO").length} publicado(s)` } : { destaque: "Nenhum checklist de auditoria.", descricao: null },
         licoesAprendidas: licoes.length ? { destaque: `${licoes.length} lição(ões) registrada(s)`, descricao: null } : { destaque: "Nenhuma lição registrada.", descricao: null },

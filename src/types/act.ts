@@ -4,7 +4,7 @@ import type { FormularioMongo, LicaoAprendidaMongo } from "./mongo";
 export interface DetalheCicloAct { destaque: string; descricao: string | null }
 export interface ProgressoCicloAct { concluidos: number; total: number }
 export interface DadosCicloAct {
-  metricas: { itensPadrao: number | null; proximaAuditoria: string | null; licoes: number | null };
+  metricas: { itensPadrao: number | null; licoes: number | null };
   documentoPadrao: DetalheCicloAct | null;
   comunicacaoAuditoria: DetalheCicloAct | null;
   licoesAprendidas: DetalheCicloAct | null;

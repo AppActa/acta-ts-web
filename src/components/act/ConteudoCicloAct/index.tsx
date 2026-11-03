@@ -5,17 +5,9 @@ import type { DadosCicloAct, DetalheCicloActProps, EstadoConteudoCicloAct, Progr
 export type { DadosCicloAct, DetalheCicloAct, EstadoConteudoCicloAct, ProgressoCicloAct, ConteudoCicloActProps } from "../../../types/act";
 
 const formatadorNumero = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 });
-const formatadorData = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" });
 function formatarContagem(valor: number | null | undefined): string {
   return typeof valor === "number" && Number.isSafeInteger(valor) && valor >= 0
     ? formatadorNumero.format(valor) : "Indisponível";
-}
-
-function formatarData(valor: string | null | undefined): string {
-  if (!valor || !/^\d{4}-\d{2}-\d{2}$/.test(valor)) return "Indisponível";
-  const data = new Date(`${valor}T00:00:00Z`);
-  return Number.isFinite(data.getTime()) && data.toISOString().slice(0, 10) === valor
-    ? formatadorData.format(data) : "Indisponível";
 }
 
 function Detalhe({ dados, mensagem }: DetalheCicloActProps) {
@@ -46,10 +38,6 @@ export function ConteudoCicloAct({ resultado = { estado: "indisponivel" }, ciclo
           <div className="ciclo-act_metrica" data-metrica="itens-padrao">
             <dt className="ciclo-act_metrica-titulo">Padrões registrados</dt>
             <dd className="ciclo-act_metrica-valor">{formatarContagem(dados?.metricas.itensPadrao)}</dd>
-          </div>
-          <div className="ciclo-act_metrica" data-metrica="auditoria">
-            <dt className="ciclo-act_metrica-titulo">Próxima auditoria</dt>
-            <dd className="ciclo-act_metrica-valor">{dados && !dados.metricas.proximaAuditoria ? "Não configurada" : formatarData(dados?.metricas.proximaAuditoria)}</dd>
           </div>
           <div className="ciclo-act_metrica" data-metrica="licoes">
             <dt className="ciclo-act_metrica-titulo">Lições registradas</dt>
