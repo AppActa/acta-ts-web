@@ -45,12 +45,12 @@ export function ConteudoCicloAct({ resultado = { estado: "indisponivel" }, ciclo
       <section className="ciclo-act_metricas" aria-label="Resumo de Act">
         <dl className="ciclo-act_metricas-lista">
           <div className="ciclo-act_metrica" data-metrica="itens-padrao">
-            <dt className="ciclo-act_metrica-titulo">Itens de padrão</dt>
+            <dt className="ciclo-act_metrica-titulo">Padrões registrados</dt>
             <dd className="ciclo-act_metrica-valor">{formatarContagem(dados?.metricas.itensPadrao)}</dd>
           </div>
           <div className="ciclo-act_metrica" data-metrica="auditoria">
             <dt className="ciclo-act_metrica-titulo">Próxima auditoria</dt>
-            <dd className="ciclo-act_metrica-valor">{formatarData(dados?.metricas.proximaAuditoria)}</dd>
+            <dd className="ciclo-act_metrica-valor">{dados && !dados.metricas.proximaAuditoria ? "Não configurada" : formatarData(dados?.metricas.proximaAuditoria)}</dd>
           </div>
           <div className="ciclo-act_metrica" data-metrica="licoes">
             <dt className="ciclo-act_metrica-titulo">Lições registradas</dt>
@@ -63,12 +63,12 @@ export function ConteudoCicloAct({ resultado = { estado: "indisponivel" }, ciclo
         <section className="ciclo-act_card ciclo-act_documento" aria-labelledby={`${id}-documento`}>
           <h2 className="ciclo-act_titulo" id={`${id}-documento`}>Documento padrão</h2>
           <Detalhe dados={dados?.documentoPadrao} mensagem={mensagemCard} />
-          <button className="ciclo-act_acao" type="button" disabled aria-describedby={`${id}-acoes`}>Abrir padronização</button>
+          {cicloId ? <a className="ciclo-act_acao" href="#act-workflow-titulo">Ver padrões</a> : <span className="ciclo-act_estado">Ciclo indisponível.</span>}
         </section>
         <section className="ciclo-act_card ciclo-act_auditoria" aria-labelledby={`${id}-auditoria`}>
-          <h2 className="ciclo-act_titulo" id={`${id}-auditoria`}>Comunicação e auditoria</h2>
+          <h2 className="ciclo-act_titulo" id={`${id}-auditoria`}>Checklists de auditoria</h2>
           <Detalhe dados={dados?.comunicacaoAuditoria} mensagem={mensagemCard} />
-          <button className="ciclo-act_acao" type="button" disabled aria-describedby={`${id}-acoes`}>Ver plano de auditoria</button>
+          {cicloId ? <a className="ciclo-act_acao" href="#act-workflow-titulo">Abrir checklists</a> : <span className="ciclo-act_estado">Ciclo indisponível.</span>}
         </section>
         <section className="ciclo-act_card ciclo-act_licoes" aria-labelledby={`${id}-licoes`}>
           <h2 className="ciclo-act_titulo" id={`${id}-licoes`}>Lições aprendidas</h2>
@@ -76,16 +76,16 @@ export function ConteudoCicloAct({ resultado = { estado: "indisponivel" }, ciclo
           {cicloId ? <Link className="ciclo-act_acao" to={`/do/ciclo/${cicloId}/act/aprendizados`}>Abrir aprendizados</Link> : <button className="ciclo-act_acao" type="button" disabled aria-describedby={`${id}-acoes`}>Abrir aprendizados</button>}
         </section>
         <section className="ciclo-act_card ciclo-act_progresso" aria-labelledby={`${id}-progresso`}>
-          <h2 className="ciclo-act_titulo" id={`${id}-progresso`}>Padronização do ciclo</h2>
+          <h2 className="ciclo-act_titulo" id={`${id}-progresso`}>Conformidade das auditorias</h2>
           {progressoValido ? <>
             <p className="ciclo-act_destaque">{formatarContagem(progresso.concluidos)} de {formatarContagem(progresso.total)} itens concluídos</p>
             <progress className="ciclo-act_progresso-barra" value={progresso.concluidos} max={progresso.total} aria-labelledby={`${id}-progresso`} />
             <p className="ciclo-act_progresso-percentual">{formatadorNumero.format((progresso.concluidos / progresso.total) * 100)}% concluído</p>
             <p className="ciclo-act_descricao">{formatarContagem(progresso.total - progresso.concluidos)} itens pendentes.</p>
-          </> : <p className="ciclo-act_estado">{mensagemCard}</p>}
+          </> : <p className="ciclo-act_estado">{dados ? "A API ainda não calcula um resultado consolidado." : mensagemCard}</p>}
         </section>
       </div>
-      <p className="ciclo-act_aviso" id={`${id}-acoes`}>Ações de padronização e auditoria indisponíveis nesta etapa.</p>
+      <p className="ciclo-act_aviso" id={`${id}-acoes`}>A API registra respostas dos checklists; agendamento, conformidade consolidada e tratamento de não conformidades ainda não estão disponíveis.</p>
     </div>
   );
 }

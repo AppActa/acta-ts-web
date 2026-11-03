@@ -83,14 +83,8 @@ export function PaginaCriarTreinamentoDo() {
             <label className="criar-treinamento_campo">Data do treinamento<input type="date" name="dataInicio" value={data} onChange={e => setData(e.target.value)} disabled={enviando || incerto} /></label>
           </div>
           <label><input type="checkbox" checked={obrigatorio} onChange={e => setObrigatorio(e.target.checked)} disabled={enviando || incerto} /> Treinamento obrigatório</label>
-          <div className="criar-treinamento_colaboradores">
-            <label className="criar-treinamento_campo">Colaboradores<input type="number" value={0} readOnly /></label>
-            <button type="button" disabled>{/* # colocar imagem */} Ver todos</button><button type="button" disabled>{/* # colocar imagem */} Adicionar novo</button>
-          </div>
-          <p>Participantes e material ainda não podem ser adicionados por este formulário.</p>
-          <div className="criar-treinamento_material">
-            <label>Material PDF</label><div><button type="button" disabled>{/* # colocar imagem */} Anexar</button><input aria-label="Arquivo PDF anexado" type="text" readOnly /></div>
-          </div>
+          <p>Após criar o treinamento, adicione os participantes na página de detalhes.</p>
+          <p>O envio de material ainda não está disponível.</p>
           {opcoes.estado === "erro" && <p role="alert">Não foi possível carregar os responsáveis.</p>}
           {!elegivel && <p role="status">Cadastro disponível para administradores e gestores em ciclos abertos.</p>}
           {mensagem && <p role="alert">{mensagem}</p>}

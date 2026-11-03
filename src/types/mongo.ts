@@ -3,7 +3,9 @@ export type StatusFormularioMongo = "RASCUNHO" | "ATIVO" | "INATIVO";
 export type TipoRespostaMongo = "TEXTO" | "RADIO" | "CHECKBOX" | "DATA" | "EMAIL" | "NUMERO_INTEIRO" | "NUMERO_DECIMAL" | "RANGE" | "TELEFONE" | "SIM_NAO" | "CPF" | "ARQUIVO" | "CEP";
 export type CategoriaIshikawaMongo = "METODO" | "MAO_DE_OBRA" | "MAQUINA" | "MATERIAL" | "MEDICAO" | "MEIO_AMBIENTE";
 export interface PerguntaFormularioMongo { id: string; titulo: string; tipo: TipoRespostaMongo; obrigatoria: boolean; opcoes: string[] | null }
-export interface FormularioMongo { id: string; idEmpresa: number; idCiclo: number; titulo: string; tipo: TipoFormularioMongo; status: StatusFormularioMongo; perguntas: PerguntaFormularioMongo[] }
+export interface FormularioMongo { id: string; idEmpresa: number; idCiclo: number; titulo: string; descricao: string | null; tipo: TipoFormularioMongo; status: StatusFormularioMongo; perguntas: PerguntaFormularioMongo[]; idsUsuariosDestinatarios: number[] }
+export interface RespostaPerguntaMongo { idPergunta: string; resposta: unknown }
+export interface RespostaFormularioMongo { id: string; idEmpresa: number; idCiclo: number; idFormulario: string; idUsuario: number; respostas: RespostaPerguntaMongo[]; respondidoEm: string }
 export interface CausaIshikawaMongo { id: string; categoria: CategoriaIshikawaMongo; descricao: string }
 export interface IshikawaMongo { id: string; idEmpresa: number; idCiclo: number; problema: string; causas: CausaIshikawaMongo[] }
 export interface PorqueMongo { ordem: number; pergunta: string; resposta: string }

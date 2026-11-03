@@ -1,7 +1,7 @@
 import { env } from "../../../config/env";
 import { httpClient } from "../../http/client";
-import type { CategoriaIshikawaMongo, CausaIshikawaMongo, CincoPorquesMongo, FormularioMongo, IshikawaMongo, LicaoAprendidaMongo, PerguntaFormularioMongo, PorqueMongo, StatusFormularioMongo, TipoFormularioMongo, TipoRespostaMongo } from "../../../types/mongo";
-export type { CategoriaIshikawaMongo, CausaIshikawaMongo, CincoPorquesMongo, FormularioMongo, IshikawaMongo, LicaoAprendidaMongo, PerguntaFormularioMongo, PorqueMongo, StatusFormularioMongo, TipoFormularioMongo, TipoRespostaMongo } from "../../../types/mongo";
+import type { CategoriaIshikawaMongo, CausaIshikawaMongo, CincoPorquesMongo, FormularioMongo, IshikawaMongo, LicaoAprendidaMongo, PerguntaFormularioMongo, PorqueMongo, RespostaFormularioMongo, RespostaPerguntaMongo, StatusFormularioMongo, TipoFormularioMongo, TipoRespostaMongo } from "../../../types/mongo";
+export type { CategoriaIshikawaMongo, CausaIshikawaMongo, CincoPorquesMongo, FormularioMongo, IshikawaMongo, LicaoAprendidaMongo, PerguntaFormularioMongo, PorqueMongo, RespostaFormularioMongo, RespostaPerguntaMongo, StatusFormularioMongo, TipoFormularioMongo, TipoRespostaMongo } from "../../../types/mongo";
 
 
 export class MongoReadError extends Error {
@@ -98,7 +98,20 @@ function parsePergunta(value: unknown): PerguntaFormularioMongo {
 
 function parseFormulario(value: unknown): FormularioMongo {
   if (!isRecord(value) || !validUuid(value.id) || !positiveId(value.idEmpresa) || !positiveId(value.idCiclo) || !requiredText(value.titulo) || !FORM_TYPES.includes(value.tipo as TipoFormularioMongo) || !FORM_STATUSES.includes(value.status as StatusFormularioMongo)) throw new MongoReadError("INVALID_RESPONSE");
-  return { id: value.id, idEmpresa: value.idEmpresa, idCiclo: value.idCiclo, titulo: value.titulo, tipo: value.tipo as TipoFormularioMongo, status: value.status as StatusFormularioMongo, perguntas: parseArray(value.perguntas, parsePergunta) };
+  const destinatarios = value.idsUsuariosDestinatarios == null ? [] : value.idsUsuariosDestinatarios;
+  if (!Array.isArray(destinatarios) || !destinatarios.every(positiveId)) throw new MongoReadError("INVALID_RESPONSE");
+  if (!(value.descricao === undefined || value.descricao === null || typeof value.descricao === "string")) throw new MongoReadError("INVALID_RESPONSE");
+  return { id: value.id, idEmpresa: value.idEmpresa, idCiclo: value.idCiclo, titulo: value.titulo, descricao: typeof value.descricao === "string" ? value.descricao : null, tipo: value.tipo as TipoFormularioMongo, status: value.status as StatusFormularioMongo, perguntas: parseArray(value.perguntas, parsePergunta), idsUsuariosDestinatarios: destinatarios };
+}
+
+function parseRespostaFormulario(value: unknown): RespostaFormularioMongo {
+  if (!isRecord(value) || !validUuid(value.id) || !positiveId(value.idEmpresa) || !positiveId(value.idCiclo)
+    || !validUuid(value.idFormulario) || !positiveId(value.idUsuario) || !requiredText(value.respondidoEm)) throw new MongoReadError("INVALID_RESPONSE");
+  const respostas = parseArray(value.respostas, (resposta): RespostaPerguntaMongo => {
+    if (!isRecord(resposta) || !validUuid(resposta.idPergunta) || !("resposta" in resposta)) throw new MongoReadError("INVALID_RESPONSE");
+    return { idPergunta: resposta.idPergunta, resposta: resposta.resposta };
+  });
+  return { id: value.id, idEmpresa: value.idEmpresa, idCiclo: value.idCiclo, idFormulario: value.idFormulario, idUsuario: value.idUsuario, respostas, respondidoEm: value.respondidoEm };
 }
 
 function parseCausa(value: unknown): CausaIshikawaMongo {
@@ -133,6 +146,46 @@ function parseLicao(value: unknown): LicaoAprendidaMongo {
 export async function listarFormulariosMongo(idCiclo: number, signal?: AbortSignal): Promise<FormularioMongo[]> {
   const id = readNumericId(idCiclo);
   return parseArray(await get(`/ciclos/${id}/formularios`, signal), parseFormulario);
+}
+
+export async function criarFormularioActMongo(dados: { idCiclo: number; idEmpresa: number; titulo: string; descricao: string; tipo: "PADRONIZACAO" | "CHECKLIST"; perguntas: Array<Omit<PerguntaFormularioMongo, "id">>; idsUsuariosDestinatarios: number[] }, signal: AbortSignal): Promise<FormularioMongo> {
+  const { idCiclo, idEmpresa, titulo, descricao, tipo, perguntas, idsUsuariosDestinatarios } = dados;
+  const id = readNumericId(idCiclo); readNumericId(idEmpresa);
+  if (!requiredText(titulo) || titulo !== titulo.trim() || titulo.length > 160 || !requiredText(descricao) || descricao !== descricao.trim() || descricao.length > 1000) throw new MongoReadError("INVALID_INPUT");
+  if (perguntas.some((item) => !requiredText(item.titulo) || item.titulo !== item.titulo.trim() || !ANSWER_TYPES.includes(item.tipo) || typeof item.obrigatoria !== "boolean" || !Array.isArray(item.opcoes))
+    || new Set(idsUsuariosDestinatarios).size !== idsUsuariosDestinatarios.length || idsUsuariosDestinatarios.some((idUsuario) => !positiveId(idUsuario))) throw new MongoReadError("INVALID_INPUT");
+  const resposta = await httpClient<unknown>(endpointUrl(`/ciclos/${id}/formularios`), {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ titulo, descricao, tipo, perguntas, idIshikawa: null, idsUsuariosDestinatarios }),
+    signal, retryOnUnauthorized: false, expectedStatus: 201,
+  });
+  const formulario = parseFormulario(resposta);
+  if (formulario.idCiclo !== id || formulario.idEmpresa !== idEmpresa || formulario.titulo !== titulo || formulario.tipo !== tipo || formulario.status !== "RASCUNHO" || formulario.perguntas.length !== perguntas.length) throw new MongoReadError("INVALID_RESPONSE");
+  return formulario;
+}
+
+export async function atualizarFormularioActMongo(idFormulario: string, alteracoes: { titulo?: string; descricao?: string | null; perguntas?: Array<Omit<PerguntaFormularioMongo, "id">>; idsUsuariosDestinatarios?: number[]; status?: StatusFormularioMongo }, signal: AbortSignal): Promise<FormularioMongo> {
+  const id = readUuid(idFormulario);
+  if (!Object.keys(alteracoes).length) throw new MongoReadError("INVALID_INPUT");
+  const corpo = { ...alteracoes };
+  const resposta = await httpClient<unknown>(endpointUrl(`/formularios/${id}`), { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(corpo), signal, retryOnUnauthorized: false });
+  const formulario = parseFormulario(resposta);
+  if (formulario.id !== id || (corpo.titulo !== undefined && formulario.titulo !== corpo.titulo) || (corpo.status !== undefined && formulario.status !== corpo.status)) throw new MongoReadError("INVALID_RESPONSE");
+  return formulario;
+}
+
+export async function listarRespostasFormularioMongo(idFormulario: string, signal?: AbortSignal): Promise<RespostaFormularioMongo[]> {
+  const id = readUuid(idFormulario);
+  return parseArray(await get(`/formularios/${id}/respostas`, signal), parseRespostaFormulario);
+}
+
+export async function enviarRespostaFormularioMongo(idFormulario: string, respostas: RespostaPerguntaMongo[], signal: AbortSignal): Promise<RespostaFormularioMongo> {
+  const id = readUuid(idFormulario);
+  if (!respostas.length || respostas.some((item) => !validUuid(item.idPergunta) || item.resposta === undefined || item.resposta === null)) throw new MongoReadError("INVALID_INPUT");
+  const resposta = await httpClient<unknown>(endpointUrl(`/formularios/${id}/respostas`), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ respostas }), signal, retryOnUnauthorized: false, expectedStatus: 201 });
+  const registrada = parseRespostaFormulario(resposta);
+  if (registrada.idFormulario !== id || registrada.respostas.length !== respostas.length) throw new MongoReadError("INVALID_RESPONSE");
+  return registrada;
 }
 
 export async function obterFormularioMongo(idFormulario: string, signal?: AbortSignal): Promise<FormularioMongo> {
