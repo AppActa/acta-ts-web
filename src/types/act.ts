@@ -6,6 +6,7 @@ export interface ProgressoCicloAct { concluidos: number; total: number }
 export interface DadosCicloAct {
   metricas: { itensPadrao: number | null; licoes: number | null };
   documentoPadrao: DetalheCicloAct | null;
+  comunicacaoAuditoria: DetalheCicloAct | null;
   licoesAprendidas: DetalheCicloAct | null;
   progresso: ProgressoCicloAct | null;
 };
