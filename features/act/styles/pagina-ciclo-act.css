@@ -69,7 +69,7 @@
 
 .pagina-ciclo-act .ciclo-act_metricas-lista {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
   margin: 0;
 }
@@ -104,15 +104,6 @@
   font-size: 25px;
   font-weight: 600;
   line-height: 34px;
-}
-
-.pagina-ciclo-act .ciclo-act_metrica[data-metrica="auditoria"] {
-  grid-template-columns: minmax(0, 140px) minmax(0, 1fr);
-}
-
-.pagina-ciclo-act .ciclo-act_metrica[data-metrica="auditoria"] .ciclo-act_metrica-valor {
-  font-size: 20px;
-  line-height: 28px;
 }
 
 .pagina-ciclo-act .ciclo-act_conteudo:not([data-estado="sucesso"]) .ciclo-act_metrica {
@@ -363,10 +354,6 @@
   .pagina-ciclo-act .ciclo-act_metrica-valor {
     grid-column: 1;
     grid-row: 1;
-  }
-
-  .pagina-ciclo-act .ciclo-act_metrica[data-metrica="auditoria"] {
-    grid-template-columns: minmax(0, 1fr);
   }
 
   .pagina-ciclo-act .ciclo-act_cards {

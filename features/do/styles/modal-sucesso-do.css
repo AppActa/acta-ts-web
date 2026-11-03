@@ -1,4 +1,4 @@
-.pagina-sucesso-do { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; background: #292929; font-family: "SF Pro Display", "Inter", Arial, sans-serif; }
+.pagina-sucesso-do { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; background: #f6f6f6; font-family: "SF Pro Display", "Inter", Arial, sans-serif; }
 .sucesso-do_modal { position: relative; width: 446px; height: 348px; }
 .sucesso-do_cartao { position: absolute; top: 71px; left: 6.5px; width: 433px; height: 277px; border-radius: 20px; background: #fff; }
 .sucesso-do_estrela { position: absolute; top: 0; left: 144px; width: 160px; height: 160px; }

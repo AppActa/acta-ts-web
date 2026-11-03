@@ -2,37 +2,31 @@
   display: grid;
   box-sizing: border-box;
   width: 100%;
-  height: 100vh;
-  height: 100dvh;
-  min-height: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
   grid-template-columns: 119px minmax(0, 1fr);
-  overflow: hidden;
+  overflow: visible;
   background: #202020;
   color: #283234;
   font-family: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
 }
 
-.pagina-perfil > .sidebar { z-index: 21; height: 100%; min-height: 0; }
+.pagina-perfil > .sidebar { position: sticky; z-index: 21; top: 0; align-self: start; height: 100vh; height: 100dvh; min-height: 0; }
 
 .conteudo-perfil {
   box-sizing: border-box;
-  align-self: center;
+  align-self: start;
   min-width: 0;
-  height: calc(100% - 58px);
-  min-height: 0;
-  max-height: calc(100% - 58px);
-  margin: 0 26px 0 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-gutter: stable;
+  min-height: calc(100dvh - 58px);
+  margin: 29px 26px 29px 0;
+  overflow: visible;
   border-radius: 20px;
   background: #f5f5f5;
 }
 
 .cabecalho-perfil {
   position: relative;
-  height: 280px;
+  height: 200px;
   overflow: hidden;
   border-bottom-right-radius: 64px;
   border-bottom-left-radius: 64px;
@@ -42,7 +36,7 @@
 .cabecalho-perfil::before {
   position: absolute;
   inset: 0 0 auto;
-  height: 140px;
+  height: 100px;
   background: #5acbd2;
   content: "";
 }
@@ -65,10 +59,10 @@
 .recorte-foto_grande {
   position: absolute;
   z-index: 1;
-  top: 30px;
-  left: 30px;
-  width: 190px;
-  height: 190px;
+  top: 20px;
+  left: 24px;
+  width: 136px;
+  height: 136px;
   background: #e7f7f7;
 }
 
@@ -78,8 +72,8 @@
 
 .cabecalho-perfil_identidade {
   position: absolute;
-  top: 158px;
-  left: 245px;
+  top: 108px;
+  left: 184px;
   min-width: 0;
 }
 
@@ -107,7 +101,7 @@
   width: min(960px, calc(100% - 48px));
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 30px;
-  margin: 32px auto 36px;
+  margin: 24px auto 28px;
 }
 
 .coluna-configuracao { min-width: 0; }
@@ -319,14 +313,14 @@
 
 @media (max-width: 900px) {
   .conteudo-perfil { margin-right: 14px; }
-  .cabecalho-perfil { height: 250px; }
-  .cabecalho-perfil_identidade { top: 145px; left: 215px; }
-  .recorte-foto_grande { width: 165px; height: 165px; }
+  .cabecalho-perfil { height: 200px; }
+  .cabecalho-perfil_identidade { top: 108px; left: 178px; }
+  .recorte-foto_grande { width: 136px; height: 136px; }
   .configuracoes-perfil { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 850px) {
-  .pagina-perfil { display: block; height: 100dvh; overflow-y: auto; padding-bottom: 72px; }
+  .pagina-perfil { display: block; min-height: 100dvh; padding-bottom: 72px; }
   .pagina-perfil > .sidebar { position: fixed; z-index: 21; right: 0; bottom: 0; left: 0; width: 100%; height: 72px; flex-direction: row; padding: 7px 10px; background: #202020; }
   .pagina-perfil .sidebar.barra-lateral { align-items: center; }
   .pagina-perfil .barra-lateral_navegacao { display: flex; width: auto; flex: 0 0 auto; justify-content: flex-start; gap: 2px; }
@@ -340,11 +334,11 @@
 }
 
 @media (max-width: 620px) {
-  .cabecalho-perfil { height: 235px; border-bottom-right-radius: 34px; border-bottom-left-radius: 34px; }
-  .cabecalho-perfil::before { height: 118px; }
-  .recorte-foto_grande { top: 24px; left: calc(50% - 76px); width: 152px; height: 152px; transform: none; }
+  .cabecalho-perfil { height: 212px; border-bottom-right-radius: 34px; border-bottom-left-radius: 34px; }
+  .cabecalho-perfil::before { height: 92px; }
+  .recorte-foto_grande { top: 14px; left: calc(50% - 60px); width: 120px; height: 120px; transform: none; }
   .recorte-foto_grande img { top: -74px; left: -192px; transform: scale(.75); transform-origin: top left; }
-  .cabecalho-perfil_identidade { top: 178px; right: 12px; left: 12px; text-align: center; }
+  .cabecalho-perfil_identidade { top: 143px; right: 12px; left: 12px; text-align: center; }
   .cabecalho-perfil_identidade h1 { font-size: 1.35rem; }
   .cabecalho-perfil_identidade a,
   .cabecalho-perfil_identidade > span { font-size: .9rem; }

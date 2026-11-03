@@ -34,12 +34,12 @@ export function PaginaAprendizadosAct() {
   return <main className="pagina-ciclo-plan-do pagina-ciclo-act">
     <PainelCicloPlanDo cicloId={cicloId} etapaAtiva="act" exibirAvisoDemonstrativo={false}>
       <section className="act-aprendizados" aria-labelledby="aprendizados-titulo">
-        <header><Link to={`/do/ciclo/${cicloId}/act`} aria-label="Voltar ao Act">‹</Link><h2 id="aprendizados-titulo">Todos os aprendizados</h2></header>
+        <header><Link to={`/do/ciclo/${cicloId}/act`} aria-label="Voltar ao Act">‹</Link><h2 id="aprendizados-titulo">Todos os aprendizados</h2><Link to={`/do/ciclo/${cicloId}/act/aprendizados/criar`}>Criar lição</Link></header>
         <label><span className="sr-only">Buscar aprendizado</span><input value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Buscar aprendizado" /></label>
         {!atual && <CarregandoConteudo compacto mensagem="Carregando aprendizados" />}
         {atual?.estado === "erro" && <p role="alert">Não foi possível carregar os aprendizados deste ciclo.</p>}
         {atual?.estado === "sucesso" && !filtrados.length && <p role="status">{dados.length ? "Nenhum aprendizado corresponde à busca." : "Nenhum aprendizado registrado neste ciclo."}</p>}
-        {filtrados.map((item) => <article key={item.id}><h3>{item.titulo}</h3><p>O que aprendemos: {item.licao}</p>{item.resultado && <p>Resultado: {item.resultado}</p>}{(item.area || item.tags?.length) ? <p className="act-aprendizados_tags">{item.area ? `Área: ${item.area}` : ""}{item.area && item.tags?.length ? " · " : ""}{item.tags?.length ? `Tags: ${item.tags.join(" · ")}` : ""}</p> : null}</article>)}
+        {filtrados.map((item) => <article key={item.id}><h3>{item.titulo}</h3><p>O que aprendemos: {item.licao}</p>{item.resultado && <p>Resultado: {item.resultado}</p>}{(item.area || item.tags?.length) ? <p className="act-aprendizados_tags">{item.area ? `Área: ${item.area}` : ""}{item.area && item.tags?.length ? " · " : ""}{item.tags?.length ? `Tags: ${item.tags.join(" · ")}` : ""}</p> : null}<Link to={`/do/ciclo/${cicloId}/act/aprendizados/${item.id}/editar`}>Editar lição</Link></article>)}
       </section>
     </PainelCicloPlanDo>
   </main>;

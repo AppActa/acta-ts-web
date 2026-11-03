@@ -1,7 +1,7 @@
 import { env } from "../../../config/env";
 import { httpClient } from "../../http/client";
-import type { CategoriaIshikawaMongo, CausaIshikawaMongo, CincoPorquesMongo, FormularioMongo, IshikawaMongo, LicaoAprendidaMongo, PerguntaFormularioMongo, PorqueMongo, RespostaFormularioMongo, RespostaPerguntaMongo, StatusFormularioMongo, TipoFormularioMongo, TipoRespostaMongo } from "../../../types/mongo";
-export type { CategoriaIshikawaMongo, CausaIshikawaMongo, CincoPorquesMongo, FormularioMongo, IshikawaMongo, LicaoAprendidaMongo, PerguntaFormularioMongo, PorqueMongo, RespostaFormularioMongo, RespostaPerguntaMongo, StatusFormularioMongo, TipoFormularioMongo, TipoRespostaMongo } from "../../../types/mongo";
+import type { CategoriaIshikawaMongo, CausaIshikawaMongo, CincoPorquesMongo, FormularioMongo, IshikawaMongo, LicaoAprendidaMongo, PerguntaFormularioMongo, PorqueMongo, RespostaFormularioMongo, RespostaPerguntaFormularioMongo, RespostaPerguntaMongo, StatusFormularioMongo, TipoFormularioMongo, TipoRespostaMongo } from "../../../types/mongo";
+export type { CategoriaIshikawaMongo, CausaIshikawaMongo, CincoPorquesMongo, FormularioMongo, IshikawaMongo, LicaoAprendidaMongo, PerguntaFormularioMongo, PorqueMongo, RespostaFormularioMongo, RespostaPerguntaFormularioMongo, RespostaPerguntaMongo, StatusFormularioMongo, TipoFormularioMongo, TipoRespostaMongo } from "../../../types/mongo";
 
 
 export class MongoReadError extends Error {
@@ -93,25 +93,15 @@ function parseNullableStringArray(value: unknown): string[] | null {
 
 function parsePergunta(value: unknown): PerguntaFormularioMongo {
   if (!isRecord(value) || !validUuid(value.id) || !requiredText(value.titulo) || !ANSWER_TYPES.includes(value.tipo as TipoRespostaMongo) || typeof value.obrigatoria !== "boolean") throw new MongoReadError("INVALID_RESPONSE");
-  return { id: value.id, titulo: value.titulo, tipo: value.tipo as TipoRespostaMongo, obrigatoria: value.obrigatoria, opcoes: parseNullableStringArray(value.opcoes) };
+  return { id: value.id, titulo: value.titulo, tipo: value.tipo as TipoRespostaMongo, obrigatoria: value.obrigatoria, opcoes: parseNullableStringArray(value.opcoes) ?? [] };
 }
 
 function parseFormulario(value: unknown): FormularioMongo {
   if (!isRecord(value) || !validUuid(value.id) || !positiveId(value.idEmpresa) || !positiveId(value.idCiclo) || !requiredText(value.titulo) || !FORM_TYPES.includes(value.tipo as TipoFormularioMongo) || !FORM_STATUSES.includes(value.status as StatusFormularioMongo)) throw new MongoReadError("INVALID_RESPONSE");
-  const destinatarios = value.idsUsuariosDestinatarios == null ? [] : value.idsUsuariosDestinatarios;
+  if (!(value.descricao === undefined || nullableText(value.descricao)) || !(value.idIshikawa === undefined || value.idIshikawa === null || validUuid(value.idIshikawa))) throw new MongoReadError("INVALID_RESPONSE");
+  const destinatarios = value.idsUsuariosDestinatarios ?? [];
   if (!Array.isArray(destinatarios) || !destinatarios.every(positiveId)) throw new MongoReadError("INVALID_RESPONSE");
-  if (!(value.descricao === undefined || value.descricao === null || typeof value.descricao === "string")) throw new MongoReadError("INVALID_RESPONSE");
-  return { id: value.id, idEmpresa: value.idEmpresa, idCiclo: value.idCiclo, titulo: value.titulo, descricao: typeof value.descricao === "string" ? value.descricao : null, tipo: value.tipo as TipoFormularioMongo, status: value.status as StatusFormularioMongo, perguntas: parseArray(value.perguntas, parsePergunta), idsUsuariosDestinatarios: destinatarios };
-}
-
-function parseRespostaFormulario(value: unknown): RespostaFormularioMongo {
-  if (!isRecord(value) || !validUuid(value.id) || !positiveId(value.idEmpresa) || !positiveId(value.idCiclo)
-    || !validUuid(value.idFormulario) || !positiveId(value.idUsuario) || !requiredText(value.respondidoEm)) throw new MongoReadError("INVALID_RESPONSE");
-  const respostas = parseArray(value.respostas, (resposta): RespostaPerguntaMongo => {
-    if (!isRecord(resposta) || !validUuid(resposta.idPergunta) || !("resposta" in resposta)) throw new MongoReadError("INVALID_RESPONSE");
-    return { idPergunta: resposta.idPergunta, resposta: resposta.resposta };
-  });
-  return { id: value.id, idEmpresa: value.idEmpresa, idCiclo: value.idCiclo, idFormulario: value.idFormulario, idUsuario: value.idUsuario, respostas, respondidoEm: value.respondidoEm };
+  return { id: value.id, idEmpresa: value.idEmpresa, idCiclo: value.idCiclo, titulo: value.titulo, descricao: typeof value.descricao === "string" ? value.descricao : null, tipo: value.tipo as TipoFormularioMongo, status: value.status as StatusFormularioMongo, perguntas: parseArray(value.perguntas, parsePergunta), idIshikawa: typeof value.idIshikawa === "string" ? value.idIshikawa : null, idsUsuariosDestinatarios: destinatarios };
 }
 
 function parseCausa(value: unknown): CausaIshikawaMongo {
@@ -137,10 +127,18 @@ function parseCincoPorques(value: unknown): CincoPorquesMongo {
 function parseLicao(value: unknown): LicaoAprendidaMongo {
   if (!isRecord(value) || !validUuid(value.id) || !positiveId(value.idEmpresa) || !positiveId(value.idCiclo)
     || !requiredText(value.titulo) || !requiredText(value.licao)
-    || !(value.resultado === undefined || nullableText(value.resultado))
-    || !(value.area === undefined || nullableText(value.area))) throw new MongoReadError("INVALID_RESPONSE");
+    || !requiredText(value.faseOrigem) || !requiredText(value.resultado) || !requiredText(value.severidade) || !requiredText(value.area)) throw new MongoReadError("INVALID_RESPONSE");
   return { id: value.id, idEmpresa: value.idEmpresa, idCiclo: value.idCiclo, titulo: value.titulo, licao: value.licao,
-    tags: parseNullableStringArray(value.tags), resultado: value.resultado ?? null, area: value.area ?? null };
+    tags: parseNullableStringArray(value.tags), faseOrigem: value.faseOrigem, resultado: value.resultado, severidade: value.severidade, area: value.area };
+}
+
+function parseRespostaFormulario(value: unknown): RespostaFormularioMongo {
+  if (!isRecord(value) || !validUuid(value.id) || !positiveId(value.idEmpresa) || !positiveId(value.idCiclo) || !validUuid(value.idFormulario) || !positiveId(value.idUsuario) || typeof value.respondidoEm !== "string") throw new MongoReadError("INVALID_RESPONSE");
+  const respostas = parseArray(value.respostas, (item): RespostaPerguntaFormularioMongo => {
+    if (!isRecord(item) || !validUuid(item.idPergunta) || !("resposta" in item)) throw new MongoReadError("INVALID_RESPONSE");
+    return { idPergunta: item.idPergunta, resposta: item.resposta };
+  });
+  return { id: value.id, idEmpresa: value.idEmpresa, idCiclo: value.idCiclo, idFormulario: value.idFormulario, idUsuario: value.idUsuario, respostas, respondidoEm: value.respondidoEm };
 }
 
 export async function listarFormulariosMongo(idCiclo: number, signal?: AbortSignal): Promise<FormularioMongo[]> {
@@ -193,6 +191,11 @@ export async function obterFormularioMongo(idFormulario: string, signal?: AbortS
   return parseFormulario(await get(`/formularios/${id}`, signal));
 }
 
+export async function obterRespostaFormularioMongo(idResposta: string, signal?: AbortSignal): Promise<RespostaFormularioMongo> {
+  const resposta = parseRespostaFormulario(await get(`/respostas-formulario/${readUuid(idResposta)}`, signal));
+  return resposta;
+}
+
 export async function listarIshikawasMongo(idCiclo: number, signal?: AbortSignal): Promise<IshikawaMongo[]> {
   const id = readNumericId(idCiclo);
   return parseArray(await get(`/ciclos/${id}/ishikawas`, signal), parseIshikawa);
@@ -221,4 +224,8 @@ export async function salvarCincoPorquesMongo(dados: { idIshikawa: string; idCau
 export async function listarLicoesAprendidasMongo(idCiclo: number, signal?: AbortSignal): Promise<LicaoAprendidaMongo[]> {
   const id = readNumericId(idCiclo);
   return parseArray(await get(`/ciclos/${id}/licoes-aprendidas`, signal), parseLicao);
+}
+
+export async function obterLicaoAprendidaMongo(id: string, signal?: AbortSignal): Promise<LicaoAprendidaMongo> {
+  return parseLicao(await get(`/licoes-aprendidas/${readUuid(id)}`, signal));
 }

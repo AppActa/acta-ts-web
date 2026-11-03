@@ -33,7 +33,8 @@ const PaginaPlanInvestigacao = lazy(() => import("../../pages/plan/PaginaPlanInv
 const PaginaPlanEditarInvestigacao = lazy(() => import("../../pages/plan/PaginaPlanEditarInvestigacao").then((mod) => ({ default: mod.PaginaPlanEditarInvestigacao })));
 const PaginaPlanMetasEPlanos = lazy(() => import("../../pages/plan/PaginaPlanMetasEPlanos").then((mod) => ({ default: mod.PaginaPlanMetasEPlanos })));
 const PaginaPlanNovaColeta = lazy(() => import("../../pages/plan/PaginaPlanNovaColeta").then((mod) => ({ default: mod.PaginaPlanNovaColeta })));
-const PaginaPlanCriarFormulario = lazy(() => import("../../pages/plan/PaginaPlanCriarFormulario").then((mod) => ({ default: mod.PaginaPlanCriarFormulario })));
+const PaginaFormularioMongo = lazy(() => import("../../pages/plan/PaginaFormularioMongo").then((mod) => ({ default: mod.PaginaFormularioMongo })));
+const PaginaResponderFormulario = lazy(() => import("../../pages/plan/PaginaResponderFormulario").then((mod) => ({ default: mod.PaginaResponderFormulario })));
 const PaginaPlanProblemasRegistrados = lazy(() => import("../../pages/plan/PaginaPlanProblemasRegistrados").then((mod) => ({ default: mod.PaginaPlanProblemasRegistrados })));
 const PaginaPlanCriarProblema = lazy(() => import("../../pages/plan/PaginaPlanCriarProblema").then((mod) => ({ default: mod.PaginaPlanCriarProblema })));
 const PaginaPlanDetalheProblema = lazy(() => import("../../pages/plan/PaginaPlanDetalheProblema").then((mod) => ({ default: mod.PaginaPlanDetalheProblema })));
@@ -47,6 +48,7 @@ const PaginaDetalheIndicador = lazy(() => import("../../pages/check/PaginaDetalh
 const PaginaDetalheVerificacao = lazy(() => import("../../pages/check/PaginaDetalheVerificacao").then((mod) => ({ default: mod.PaginaDetalheVerificacao })));
 const PaginaCicloAct = lazy(() => import("../../pages/act/PaginaCicloAct").then((mod) => ({ default: mod.PaginaCicloAct })));
 const PaginaAprendizadosAct = lazy(() => import("../../pages/act/PaginaAprendizadosAct").then((mod) => ({ default: mod.PaginaAprendizadosAct })));
+const PaginaEditarLicaoAprendida = lazy(() => import("../../pages/act/PaginaEditarLicaoAprendida").then((mod) => ({ default: mod.PaginaEditarLicaoAprendida })));
 const PaginaActTodosCiclos = lazy(() => import("../../pages/act/PaginaActTodosCiclos").then((mod) => ({ default: mod.PaginaActTodosCiclos })));
 const PaginaTodosCiclos = lazy(() => import("../../pages/ciclos/PaginaTodosCiclos").then((mod) => ({ default: mod.PaginaTodosCiclos })));
 const PaginaNaoEncontrada = lazy(() => import("../../pages/layout/PaginaNaoEncontrada").then((mod) => ({ default: mod.PaginaNaoEncontrada })));
@@ -75,6 +77,8 @@ export const router = createBrowserRouter([
           { path: "do/ciclo/:cicloId/check/indicadores/:indicadorId", element: <Suspense fallback={<CarregandoPagina />} ><PaginaDetalheIndicador /></Suspense> },
           { path: "do/ciclo/:cicloId/act", element: <Suspense fallback={<CarregandoPagina />} ><PaginaCicloAct /></Suspense> },
           { path: "do/ciclo/:cicloId/act/aprendizados", element: <Suspense fallback={<CarregandoPagina />} ><PaginaAprendizadosAct /></Suspense> },
+          { path: "do/ciclo/:cicloId/act/aprendizados/criar", element: <Suspense fallback={<CarregandoPagina />} ><PaginaEditarLicaoAprendida /></Suspense> },
+          { path: "do/ciclo/:cicloId/act/aprendizados/:licaoId/editar", element: <Suspense fallback={<CarregandoPagina />} ><PaginaEditarLicaoAprendida /></Suspense> },
           { path: "ciclos", element: <Suspense fallback={<CarregandoPagina />} ><PaginaTodosCiclos /></Suspense> },
           { path: "ciclos/criar", element: <Suspense fallback={<CarregandoPagina />} ><PaginaTodosCiclos /></Suspense> },
           { path: "plan/ciclos", element: <Suspense fallback={<CarregandoPagina />} ><PaginaPlanTodosCiclos /></Suspense> },
@@ -94,7 +98,9 @@ export const router = createBrowserRouter([
           { path: "do/ciclo/:cicloId/plan/planos/criar", element: <Suspense fallback={<CarregandoPagina />} ><PaginaPlanCriarPlano /></Suspense> },
           { path: "do/ciclo/:cicloId/plan/planos/:registroId/editar", element: <Suspense fallback={<CarregandoPagina />} ><PaginaPlanEditarRegistro tipo="plano" /></Suspense> },
           { path: "do/ciclo/:cicloId/plan/coleta/nova", element: <Suspense fallback={<CarregandoPagina />} ><PaginaPlanNovaColeta /></Suspense> },
-          { path: "do/ciclo/:cicloId/plan/coleta/criar", element: <Suspense fallback={<CarregandoPagina />} ><PaginaPlanCriarFormulario /></Suspense> },
+          { path: "do/ciclo/:cicloId/plan/coleta/criar", element: <Suspense fallback={<CarregandoPagina />} ><PaginaFormularioMongo /></Suspense> },
+          { path: "do/ciclo/:cicloId/plan/coleta/formularios/:formularioId/editar", element: <Suspense fallback={<CarregandoPagina />} ><PaginaFormularioMongo /></Suspense> },
+          { path: "do/ciclo/:cicloId/plan/coleta/formularios/:formularioId/responder", element: <Suspense fallback={<CarregandoPagina />} ><PaginaResponderFormulario /></Suspense> },
           { path: "do/ciclo/:cicloId/plan/coleta/aviso", element: <Suspense fallback={<CarregandoPagina />} ><PaginaPlanAvisoColeta /></Suspense> },
           { path: "do/ciclo/:cicloId/plan/identificacao-problema", element: <Suspense fallback={<CarregandoPagina />} ><PaginaPlanProblemasRegistrados /></Suspense> },
           { path: "do/ciclo/:cicloId/plan/identificacao-problema/lista", element: <Suspense fallback={<CarregandoPagina />} ><PaginaPlanProblemasRegistrados /></Suspense> },

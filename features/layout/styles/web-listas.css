@@ -27,7 +27,7 @@
   .pagina-web-listas .barra-lateral_item { width: 58px; gap: 3px; font-size: 11px; }
   .pagina-web-listas .barra-lateral_icone { width: 30px; height: 30px; }
   .pagina-web-listas .barra-lateral_perfil { display: none; }
-  .web-listas_painel { min-height: calc(100vh - 72px); margin: 0; }
+  .web-listas_painel { min-height: calc(100vh - 72px); margin: 0; overflow: visible; }
   .web-listas_cabecalho { height: 120px; flex-direction: column; }
   .web-listas_cabecalho::before { width: 100%; height: 70px; border-radius: 0; }
   .web-listas_titulo { width: 100%; height: 70px; gap: 10px; padding: 0 12px; }

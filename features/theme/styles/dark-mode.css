@@ -1353,39 +1353,6 @@ body[data-tema-aplicativo="escuro"] .plan-ciclos_grafico-vazio,
 body[data-tema-aplicativo="escuro"] .plan-ciclos_tabela-vazia {
   color: var(--acta-color-text-secondary);
 }
-body[data-tema-aplicativo="escuro"] .pagina-relatorios {
-  color: var(--acta-color-text-primary);
-}
-body[data-tema-aplicativo="escuro"] .relatorios_painel {
-  background: var(--acta-color-background-page);
-}
-body[data-tema-aplicativo="escuro"] .relatorios_subtitulo,
-body[data-tema-aplicativo="escuro"] .relatorios_estado p {
-  color: var(--acta-color-text-secondary);
-}
-body[data-tema-aplicativo="escuro"] .relatorios_busca input,
-body[data-tema-aplicativo="escuro"] .relatorios_formulario input,
-body[data-tema-aplicativo="escuro"] .relatorios_formulario select,
-body[data-tema-aplicativo="escuro"] .relatorios_formulario textarea {
-  background: var(--acta-color-background-field);
-  color: var(--acta-color-text-primary);
-}
-body[data-tema-aplicativo="escuro"] .relatorios_secundario {
-  color: var(--acta-color-text-primary);
-}
-body[data-tema-aplicativo="escuro"] .relatorios_formulario {
-  background: var(--acta-color-background-surface);
-}
-body[data-tema-aplicativo="escuro"] .relatorios_fechar {
-  background: var(--acta-color-background-surface);
-  color: var(--acta-color-text-secondary);
-}
-body[data-tema-aplicativo="escuro"] .relatorios_aviso {
-  color: var(--acta-color-text-secondary);
-}
-body[data-tema-aplicativo="escuro"] .relatorios_aviso_modal p {
-  color: var(--acta-color-text-secondary);
-}
 body[data-tema-aplicativo="escuro"] {
   --acta-color-background-canvas: #16191a;
   --acta-color-background-page: #202426;

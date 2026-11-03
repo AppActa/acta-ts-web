@@ -84,7 +84,10 @@ export function PaginaCriarTreinamentoDo() {
           </div>
           <label><input type="checkbox" checked={obrigatorio} onChange={e => setObrigatorio(e.target.checked)} disabled={enviando || incerto} /> Treinamento obrigatório</label>
           <p>Após criar o treinamento, adicione os participantes na página de detalhes.</p>
-          <p>O envio de material ainda não está disponível.</p>
+          <div className="criar-treinamento_material">
+            <label htmlFor="treinamento-arquivo-pdf">Material PDF</label><div><button type="button" disabled aria-describedby="treinamento-recursos-indisponiveis">Anexar</button><input id="treinamento-arquivo-pdf" aria-label="Arquivo PDF indisponível" type="text" readOnly disabled placeholder="Indisponível" /></div>
+          </div>
+          <p id="treinamento-recursos-indisponiveis" className="criar-treinamento_indisponivel">O envio de material PDF ainda não está disponível.</p>
           {opcoes.estado === "erro" && <p role="alert">Não foi possível carregar os responsáveis.</p>}
           {!elegivel && <p role="status">Cadastro disponível para administradores e gestores em ciclos abertos.</p>}
           {mensagem && <p role="alert">{mensagem}</p>}

@@ -193,17 +193,19 @@ export function PaginaCheckTodosCiclos() {
             </section>
           ) : (
             <>
-              <section className="check-todos-ciclos_metricas" aria-label="Resumo de Check">
-                {dados.metricas.map((metrica) => (
-                  <article className={`check-todos-ciclos_metrica check-todos-ciclos_metrica-${metrica.variante}`} key={metrica.id}>
-                    <h2>{metrica.titulo}</h2>
-                    <p><strong>{String(metrica.valor).padStart(2, "0")}</strong><span>{metrica.contexto}</span></p>
-                  </article>
-                ))}
-              </section>
+              <details className="check-todos-ciclos_resumo-detalhado">
+                <summary>Ver indicadores e gráficos · 4 indicadores e 2 gráficos</summary>
+                <section className="check-todos-ciclos_metricas" aria-label="Resumo de Check">
+                  {dados.metricas.map((metrica) => (
+                    <article className={`check-todos-ciclos_metrica check-todos-ciclos_metrica-${metrica.variante}`} key={metrica.id}>
+                      <h2>{metrica.titulo}</h2>
+                      <p><strong>{String(metrica.valor).padStart(2, "0")}</strong><span>{metrica.contexto}</span></p>
+                    </article>
+                  ))}
+                </section>
 
-              <div className="check-todos-ciclos_graficos">
-                <figure className="check-todos-ciclos_grafico check-todos-ciclos_grafico-resultados" aria-labelledby="check-todos-ciclos-resultados-titulo">
+                <div className="check-todos-ciclos_graficos">
+                <figure className="visualizacao-dados check-todos-ciclos_grafico check-todos-ciclos_grafico-resultados" aria-labelledby="check-todos-ciclos-resultados-titulo">
                   <figcaption>
                     <h2 id="check-todos-ciclos-resultados-titulo">Resultado das verificações</h2>
                     <p>Resultados registrados · comparação por ciclo</p>
@@ -244,7 +246,7 @@ export function PaginaCheckTodosCiclos() {
                   <p className="check-todos-ciclos_nota-grafico">Quantidade de registros · escala iniciada em zero</p>
                 </figure>
 
-                <figure className="check-todos-ciclos_grafico check-todos-ciclos_grafico-metas" aria-labelledby="check-todos-ciclos-metas-titulo">
+                <figure className="visualizacao-dados check-todos-ciclos_grafico check-todos-ciclos_grafico-metas" aria-labelledby="check-todos-ciclos-metas-titulo">
                   <figcaption>
                     <h2 id="check-todos-ciclos-metas-titulo">Situação das metas</h2>
                     <p>Metas dos ciclos em verificação</p>
@@ -272,7 +274,8 @@ export function PaginaCheckTodosCiclos() {
                   )}
                   <p className="check-todos-ciclos_base-grafico">Base: {dados.situacaoMetas.total} registros · valores absolutos na legenda</p>
                 </figure>
-              </div>
+                </div>
+              </details>
 
               <section className="check-todos-ciclos_tabela-secao" aria-labelledby="check-todos-ciclos-tabela-titulo">
                 <h2 id="check-todos-ciclos-tabela-titulo">Ciclos que precisam de acompanhamento</h2>
