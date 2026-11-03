@@ -6,6 +6,7 @@ export interface PerguntaFormularioMongo { id: string; titulo: string; tipo: Tip
 export interface FormularioMongo { id: string; idEmpresa: number; idCiclo: number; titulo: string; descricao: string | null; tipo: TipoFormularioMongo; status: StatusFormularioMongo; perguntas: PerguntaFormularioMongo[]; idIshikawa: string | null; idsUsuariosDestinatarios: number[] }
 export interface RespostaPerguntaFormularioMongo { idPergunta: string; resposta: unknown }
 export interface RespostaFormularioMongo { id: string; idEmpresa: number; idCiclo: number; idFormulario: string; idUsuario: number; respostas: RespostaPerguntaFormularioMongo[]; respondidoEm: string }
+export type RespostaPerguntaMongo = RespostaPerguntaFormularioMongo;
 export interface CausaIshikawaMongo { id: string; categoria: CategoriaIshikawaMongo; descricao: string }
 export interface IshikawaMongo { id: string; idEmpresa: number; idCiclo: number; problema: string; causas: CausaIshikawaMongo[] }
 export interface PorqueMongo { ordem: number; pergunta: string; resposta: string }

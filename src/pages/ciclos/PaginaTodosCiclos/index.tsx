@@ -1,4 +1,4 @@
-import { useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../components/auth/AuthProvider";
 import type { StatusCicloPg } from "../../../services/api/pg/dashboard.read.api";
@@ -7,6 +7,9 @@ import { useCriarCiclo } from "../../../features/ciclo/hooks/useCriarCiclo";
 import { useUsuariosDaEmpresa } from "../../../features/ciclo/hooks/useUsuariosDaEmpresa";
 import { Sidebar } from "../../../components/layout/Sidebar";
 import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
+import { atualizarTituloCicloPg, excluirCicloPg } from "../../../services/api/pg/ciclo.api";
+import { listarCiclosPg, type CicloPg } from "../../../services/api/pg/dashboard.read.api";
+import { ApiError } from "../../../services/http/client";
 import voltarMoldura from "../../../../features/ciclos/assets/voltar-moldura.svg";
 import voltarSeta from "../../../../features/ciclos/assets/voltar-seta.svg";
 import iconeCriar from "../../../../features/ciclos/assets/icone-criar.svg";
@@ -39,6 +42,41 @@ function hojeIsoLocal(): string {
   return [hoje.getFullYear(), hoje.getMonth() + 1, hoje.getDate()]
     .map((parte, indice) => String(parte).padStart(indice === 0 ? 4 : 2, "0"))
     .join("-");
+}
+
+function AcoesCiclo({ ciclo, permitido, recarregar }: { ciclo: CicloPg; permitido: boolean; recarregar: () => void }) {
+  const [editando, setEditando] = useState(false);
+  const [titulo, setTitulo] = useState(ciclo.titulo);
+  const [ocupado, setOcupado] = useState(false);
+  const [incerto, setIncerto] = useState(false);
+  const [mensagem, setMensagem] = useState("");
+  const trava = useRef(false);
+  const controller = useRef<AbortController | null>(null);
+  useEffect(() => { const c = new AbortController(); controller.current = c; return () => { c.abort(); controller.current = null; }; }, [ciclo.id, ciclo.idEmpresa]);
+  async function executar(tipo: "editar" | "excluir") {
+    const nome = titulo.trim();
+    if (!permitido || ocupado || incerto || trava.current || !controller.current || (tipo === "editar" && !nome)) return;
+    if (tipo === "excluir" && !window.confirm("Cancelar este ciclo? Ele continuará na lista como cancelado e seus participantes poderão ser notificados.")) return;
+    const signal = controller.current.signal;
+    trava.current = true; setOcupado(true); setMensagem("");
+    let enviado = false;
+    try {
+      if (tipo === "editar") await atualizarTituloCicloPg(ciclo.id, ciclo.idEmpresa, nome, signal);
+      else await excluirCicloPg(ciclo.id, signal);
+      enviado = true;
+      const lista = await listarCiclosPg(ciclo.idEmpresa, signal);
+      if (!lista.some((item) => item.id === ciclo.id && (tipo === "editar" ? item.titulo === nome : item.status === "CANCELADO"))) throw new Error();
+      if (!signal.aborted) recarregar();
+    } catch (erro) {
+      if (signal.aborted) return;
+      if (enviado || !(erro instanceof ApiError) || erro.status === 0 || erro.status >= 500 || (erro.status >= 200 && erro.status < 300)) {
+        setIncerto(true); setMensagem("Não foi possível confirmar a operação. Atualize a lista antes de tentar novamente.");
+      } else setMensagem(erro.status === 403 ? "Sua conta não tem permissão para esta operação." : "Não foi possível alterar o ciclo. Confira o estado do ciclo e tente novamente.");
+    } finally { if (!signal.aborted) { trava.current = false; setOcupado(false); } }
+  }
+  if (!permitido || ciclo.status === "CONCLUIDO" || ciclo.status === "CANCELADO") return null;
+  return <div>{editando ? <form onSubmit={(event) => { event.preventDefault(); void executar("editar"); }}><label>Nome do ciclo <input value={titulo} onChange={(event) => setTitulo(event.target.value)} required maxLength={160} disabled={ocupado || incerto} /></label><button disabled={ocupado || incerto}>Salvar</button><button type="button" disabled={ocupado} onClick={() => setEditando(false)}>Fechar</button></form> : <button type="button" disabled={ocupado || incerto} onClick={() => setEditando(true)}>Editar nome</button>}
+    <button type="button" disabled={ocupado || incerto} onClick={() => void executar("excluir")}>Excluir ciclo</button>{ocupado && <span role="status">Salvando...</span>}{mensagem && <p role="alert">{mensagem}</p>}</div>;
 }
 
 export function PaginaTodosCiclos() {
@@ -155,7 +193,7 @@ export function PaginaTodosCiclos() {
                     </span>
                   </div>
                   <Link className="lista-ciclos_abrir ciano" to={`/do/ciclo/${ciclo.id}`}>Abrir ciclo</Link>
-                  <button className="lista-ciclos_mais" type="button" aria-label={`Mais ações para ${ciclo.titulo}`} disabled title="Mais ações ainda não estão disponíveis">⋮</button>
+                  <AcoesCiclo ciclo={ciclo} permitido={Boolean(accountKey && actaUser?.permissaoGestor && (actaUser.tipo === "ADMIN" || actaUser.tipo === "GESTOR"))} recarregar={resultadoCiclos.recarregar} />
                 </article>
               );
             })}

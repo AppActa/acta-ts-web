@@ -5,10 +5,13 @@ import { CabecalhoNavegacaoCiclo } from "../../../components/ciclo/CabecalhoNave
 import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
 import { useTreinamentosDoCiclo } from "../../../features/do/hooks/useTreinamentosDoCiclo";
 import { lerIdRotaPositivo } from "../../../utils/route-params";
+import { ParticipantesTreinamento } from "../../../components/do/ParticipantesTreinamento";
+import { useAuth } from "../../../components/auth/AuthProvider";
 import "../../../../features/do/styles/pagina-ciclo-do-treinamento-especifico.css";
 
 export function PaginaCicloDoTreinamentoEspecifico() {
   const { cicloId, treinamentoId } = useParams();
+  const { firebaseUser } = useAuth();
   const idTreinamento = lerIdRotaPositivo(treinamentoId);
   const resultadoCiclo = useCicloDaConta(cicloId);
   const resultado = useTreinamentosDoCiclo(resultadoCiclo.estado === "sucesso" ? resultadoCiclo.ciclo.id : null);
@@ -33,10 +36,7 @@ export function PaginaCicloDoTreinamentoEspecifico() {
               <p><strong>Ciclo:</strong> {ciclo.titulo}</p>
               <p>{treinamento.obrigatorio ? "Obrigatório" : "Opcional"}</p>
             </section>
-            <section className="treinamento-equipe">
-              <h3>Participantes</h3>
-              {treinamento.participantes.length ? <ul>{treinamento.participantes.map(p => <li key={p.idUsuario}>{p.nomeUsuario} · {p.status.toLocaleLowerCase("pt-BR")}</li>)}</ul> : <p>Nenhum participante cadastrado.</p>}
-            </section>
+            <ParticipantesTreinamento key={`${firebaseUser?.uid}:${ciclo.idEmpresa}:${treinamento.id}`} treinamento={treinamento} idEmpresa={ciclo.idEmpresa} cicloAberto={ciclo.status !== "CONCLUIDO" && ciclo.status !== "CANCELADO"} />
           </>}
       </div>
     </div>

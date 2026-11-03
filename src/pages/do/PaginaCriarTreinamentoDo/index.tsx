@@ -83,14 +83,11 @@ export function PaginaCriarTreinamentoDo() {
             <label className="criar-treinamento_campo">Data do treinamento<input type="date" name="dataInicio" value={data} onChange={e => setData(e.target.value)} disabled={enviando || incerto} /></label>
           </div>
           <label><input type="checkbox" checked={obrigatorio} onChange={e => setObrigatorio(e.target.checked)} disabled={enviando || incerto} /> Treinamento obrigatório</label>
-          <p id="treinamento-recursos-indisponiveis" className="criar-treinamento_indisponivel">Participantes e material PDF ainda não podem ser adicionados. Esses campos estão desativados e não serão salvos.</p>
-          <div className="criar-treinamento_colaboradores" aria-describedby="treinamento-recursos-indisponiveis">
-            <label className="criar-treinamento_campo">Colaboradores<input type="number" value={0} readOnly disabled aria-label="Colaboradores indisponível" /></label>
-            <button type="button" disabled aria-describedby="treinamento-recursos-indisponiveis">Ver todos</button><button type="button" disabled aria-describedby="treinamento-recursos-indisponiveis">Adicionar novo</button>
-          </div>
+          <p>Após criar o treinamento, adicione os participantes na página de detalhes.</p>
           <div className="criar-treinamento_material">
             <label htmlFor="treinamento-arquivo-pdf">Material PDF</label><div><button type="button" disabled aria-describedby="treinamento-recursos-indisponiveis">Anexar</button><input id="treinamento-arquivo-pdf" aria-label="Arquivo PDF indisponível" type="text" readOnly disabled placeholder="Indisponível" /></div>
           </div>
+          <p id="treinamento-recursos-indisponiveis" className="criar-treinamento_indisponivel">O envio de material PDF ainda não está disponível.</p>
           {opcoes.estado === "erro" && <p role="alert">Não foi possível carregar os responsáveis.</p>}
           {!elegivel && <p role="status">Cadastro disponível para administradores e gestores em ciclos abertos.</p>}
           {mensagem && <p role="alert">{mensagem}</p>}

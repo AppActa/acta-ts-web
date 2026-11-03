@@ -295,6 +295,27 @@ export async function atualizarStatusPlanoPg(idPlano: number, idCiclo: number, s
   if (!isRecord(value) || value.id !== idPlano || value.idCiclo !== idCiclo || value.status !== status) throw new PdcaWriteError("INVALID_RESPONSE");
 }
 
+export async function adicionarParticipanteTreinamentoPg(idTreinamento: number, idUsuario: number, obrigatorio: boolean, signal: AbortSignal): Promise<void> {
+  const id = readId(idTreinamento); readId(idUsuario);
+  if (typeof obrigatorio !== "boolean") throw new PdcaWriteError("INVALID_INPUT");
+  const value = await post(`/treinamento/${id}/usuario`, { idUsuario, obrigatorio }, signal);
+  if (!isRecord(value) || value.idUsuario !== idUsuario || value.obrigatorio !== obrigatorio || value.status !== "PENDENTE") throw new PdcaWriteError("INVALID_RESPONSE");
+}
+
+export async function alterarParticipanteTreinamentoPg(idTreinamento: number, idUsuario: number, status: "CONFIRMADO" | "CONCLUIDO" | "DISPENSADO" | "CANCELADO", signal: AbortSignal): Promise<void> {
+  const id = readId(idTreinamento); readId(idUsuario);
+  if (!["CONFIRMADO", "CONCLUIDO", "DISPENSADO", "CANCELADO"].includes(status)) throw new PdcaWriteError("INVALID_INPUT");
+  const url = endpointUrl(`/treinamento/${id}/usuario/${idUsuario}`);
+  url.searchParams.set("status", status);
+  const value: unknown = await httpClient(url, { method: "PATCH", signal, retryOnUnauthorized: false });
+  if (!isRecord(value) || value.idUsuario !== idUsuario || value.status !== status) throw new PdcaWriteError("INVALID_RESPONSE");
+}
+
+export async function removerParticipanteTreinamentoPg(idTreinamento: number, idUsuario: number, signal: AbortSignal): Promise<void> {
+  const id = readId(idTreinamento); readId(idUsuario);
+  await httpClient<void>(endpointUrl(`/treinamento/${id}/usuario/${idUsuario}`), { method: "DELETE", signal, retryOnUnauthorized: false });
+}
+
 function validarPlano5W2H(dados: NovoPlano5W2HPg, exigirDatasFuturas: boolean): void {
   const dataValida = (valor: string) => exigirDatasFuturas ? dataIsoFuturaValida(valor) : /^\d{4}-\d{2}-\d{2}$/.test(valor);
   const textos = [dados.whatAcao, dados.whyJustificativa, dados.whereLocal, dados.howModoExecucao];

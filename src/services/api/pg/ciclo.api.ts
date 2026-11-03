@@ -102,6 +102,19 @@ export async function adicionarUsuarioAoCicloPg(
   }
 }
 
+export async function atualizarTituloCicloPg(idCiclo: number, idEmpresa: number, titulo: string, signal: AbortSignal): Promise<void> {
+  if (!positiveId(idCiclo) || !positiveId(idEmpresa) || !titulo.trim() || titulo !== titulo.trim() || titulo.length > 160) throw new CicloWriteError("INVALID_INPUT");
+  const resposta: unknown = await httpClient(new URL("/api/v1/ciclo/" + idCiclo, validBaseUrl().origin), {
+    method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ titulo }), signal, retryOnUnauthorized: false,
+  });
+  if (!isRecord(resposta) || resposta.id !== idCiclo || resposta.idEmpresa !== idEmpresa || resposta.titulo !== titulo) throw new CicloWriteError("INVALID_RESPONSE");
+}
+
+export async function excluirCicloPg(idCiclo: number, signal: AbortSignal): Promise<void> {
+  if (!positiveId(idCiclo)) throw new CicloWriteError("INVALID_INPUT");
+  await httpClient<void>(new URL("/api/v1/ciclo/" + idCiclo, validBaseUrl().origin), { method: "DELETE", signal, retryOnUnauthorized: false });
+}
+
 export async function criarCicloPg(dados: NovoCicloPg, idEmpresaEsperada: number, signal: AbortSignal): Promise<CicloPg> {
   const titulo = dados.titulo.trim();
   const descricao = dados.descricao.trim();

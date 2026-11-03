@@ -12,8 +12,10 @@ export function PaginaCicloDoTreinamentos() {
   const resultadoCiclo = useCicloDaConta(cicloId);
   const resultadoTreinamentos = useTreinamentosDoCiclo(resultadoCiclo.estado === "sucesso" ? resultadoCiclo.ciclo.id : null);
   const [busca, setBusca] = useState("");
+  const [statusParticipante, setStatusParticipante] = useState("");
   const listaVisivel = useMemo(() => (resultadoTreinamentos.dados ?? []).filter((item) =>
-    `${item.titulo} ${item.nomeResponsavel} ${item.descricao}`.toLocaleLowerCase("pt-BR").includes(busca.toLocaleLowerCase("pt-BR"))), [busca, resultadoTreinamentos.dados]);
+    `${item.titulo} ${item.nomeResponsavel} ${item.descricao}`.toLocaleLowerCase("pt-BR").includes(busca.toLocaleLowerCase("pt-BR"))
+    && (!statusParticipante || item.participantes.some((participante) => participante.status === statusParticipante))), [busca, statusParticipante, resultadoTreinamentos.dados]);
 
   if (resultadoCiclo.estado !== "sucesso") {
     const carregando = resultadoCiclo.estado === "carregando";
@@ -45,11 +47,9 @@ export function PaginaCicloDoTreinamentos() {
           </div>
           <div className="treinamentos_filtros">
             <label className="treinamentos_busca"><span className="visually-hidden">Buscar treinamento</span><input value={busca} onChange={(event) => setBusca(event.target.value)} placeholder="Buscar treinamento" /></label>
-            <div className="treinamentos_tabs" aria-label="Filtrar treinamentos">
-              <button type="button" aria-pressed="true">Todos</button>
-              <button type="button" disabled title="A API não fornece status geral">Em andamento</button>
-              <button type="button" disabled title="A API não fornece status geral">Concluídos</button>
-            </div>
+            <label>Filtrar por status de participante <select value={statusParticipante} onChange={(event) => setStatusParticipante(event.target.value)}>
+              <option value="">Todos os treinamentos</option><option value="PENDENTE">Com participante pendente</option><option value="CONFIRMADO">Com participante confirmado</option><option value="CONCLUIDO">Com participante concluído</option><option value="DISPENSADO">Com participante dispensado</option><option value="CANCELADO">Com participante cancelado</option>
+            </select></label>
           </div>
           {listaVisivel.length > 0 ? (
             <div className="treinamentos_lista">
@@ -61,7 +61,7 @@ export function PaginaCicloDoTreinamentos() {
               ))}
             </div>
           ) : <p className="treinamentos_vazio" role={resultadoTreinamentos.estado === "erro" || resultadoTreinamentos.estado === "indisponivel" ? "alert" : "status"}>
-            {resultadoTreinamentos.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando treinamentos..." /> : resultadoTreinamentos.estado !== "sucesso" ? "Não foi possível consultar os treinamentos deste ciclo." : busca ? "Nenhum treinamento encontrado para esta busca." : "Nenhum treinamento cadastrado neste ciclo."}
+            {resultadoTreinamentos.estado === "carregando" ? <CarregandoConteudo compacto mensagem="Carregando treinamentos..." /> : resultadoTreinamentos.estado !== "sucesso" ? "Não foi possível consultar os treinamentos deste ciclo." : busca || statusParticipante ? "Nenhum treinamento encontrado para estes filtros." : "Nenhum treinamento cadastrado neste ciclo."}
           </p>}
         </div>
       </div>
