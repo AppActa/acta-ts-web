@@ -67,20 +67,27 @@ function AuditoriaAtiva({ formulario, idUsuario, empresaId, cicloId, usuarios, s
   formulario: FormularioMongo; idUsuario: number; empresaId: number; cicloId: number; usuarios: UsuarioDoCicloPg[]; signal: AbortSignal; aoAtualizar: () => void;
 }) {
   const [respostas, setRespostas] = useState<RespostaFormularioMongo[] | null>(null);
+  const [respostaEnviada, setRespostaEnviada] = useState<RespostaFormularioMongo | null>(null);
+  const [carregandoRespostas, setCarregandoRespostas] = useState(true);
   const [erro, setErro] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const [incerto, setIncerto] = useState(false);
   const trava = useRef(false);
-  const minhaResposta = respostas?.find((resposta) => resposta.idUsuario === idUsuario);
+  const minhaResposta = respostaEnviada ?? respostas?.find((resposta) => resposta.idUsuario === idUsuario);
   const podeResponder = formulario.status === "ATIVO" && (!formulario.idsUsuariosDestinatarios.length || formulario.idsUsuariosDestinatarios.includes(idUsuario));
 
   const carregarRespostas = useCallback(async () => {
+    if (signal.aborted) return;
+    setCarregandoRespostas(true);
+    setErro("");
     try {
       const lista = await listarRespostasFormularioMongo(formulario.id, signal);
       if (lista.some((item) => item.idFormulario !== formulario.id || item.idEmpresa !== empresaId || item.idCiclo !== cicloId)) throw new Error("invalid response scope");
       if (!signal.aborted) { setRespostas(lista); setErro(""); }
-    } catch {
-      if (!signal.aborted) setErro("Não foi possível carregar as respostas desta auditoria.");
+    } catch (cause) {
+      if (!signal.aborted) setErro(mensagemApi(cause, "as respostas desta auditoria"));
+    } finally {
+      if (!signal.aborted) setCarregandoRespostas(false);
     }
   }, [cicloId, empresaId, formulario.id, signal]);
   useEffect(() => { void carregarRespostas(); }, [carregarRespostas]);
@@ -99,6 +106,7 @@ function AuditoriaAtiva({ formulario, idUsuario, empresaId, cicloId, usuarios, s
     try {
       const criada = await enviarRespostaFormularioMongo(formulario.id, envio, signal);
       if (criada.idEmpresa !== empresaId || criada.idCiclo !== cicloId || criada.idFormulario !== formulario.id || criada.idUsuario !== idUsuario) throw new Error("invalid response scope");
+      setRespostaEnviada(criada);
       await carregarRespostas();
       aoAtualizar();
     } catch (cause) {
@@ -108,16 +116,18 @@ function AuditoriaAtiva({ formulario, idUsuario, empresaId, cicloId, usuarios, s
     } finally { if (!signal.aborted) { trava.current = false; setOcupado(false); } }
   }
 
-  return <details className="act-workflow_auditoria">
-    <summary>{formulario.titulo} · {respostas === null ? "carregando respostas" : `${respostas.length} resposta(s)`}</summary>
+  return <details className="act-workflow_auditoria" aria-busy={carregandoRespostas || ocupado}>
+    <summary>{formulario.titulo} · {carregandoRespostas ? "carregando respostas" : erro && respostas === null ? "respostas indisponíveis" : `${respostas?.length ?? 0} resposta(s)`}</summary>
     <p>{formulario.descricao}</p>
+    {carregandoRespostas && <p role="status">Carregando respostas desta auditoria…</p>}
     {erro && <p className="act-workflow_erro" role="alert">{erro}</p>}
+    {erro && <button type="button" className="act-workflow_secundario" disabled={carregandoRespostas || ocupado} onClick={() => void carregarRespostas()}>Tentar carregar as respostas novamente</button>}
     {podeResponder && respostas !== null && !minhaResposta && <form className="act-workflow_form" onSubmit={(evento) => void responder(evento)}>
       <h4>Registrar verificação</h4>
       {formulario.perguntas.map((pergunta) => <label key={pergunta.id}>{pergunta.titulo}{pergunta.obrigatoria ? " *" : " (opcional)"}
         {pergunta.tipo === "SIM_NAO" ? <select name={pergunta.id} required={pergunta.obrigatoria} defaultValue=""><option value="">Selecione</option><option value="SIM">Sim</option><option value="NAO">Não</option></select> : <textarea name={pergunta.id} required={pergunta.obrigatoria} maxLength={1000} />}
       </label>)}
-      <button type="submit" disabled={ocupado || incerto || respostas === null}>{ocupado ? "Enviando…" : "Enviar verificação"}</button>
+      <button type="submit" disabled={ocupado || incerto || carregandoRespostas || respostas === null}>{ocupado ? "Enviando…" : "Enviar verificação"}</button>
     </form>}
     {minhaResposta && <p className="act-workflow_sucesso" role="status">Sua verificação foi registrada em {new Date(minhaResposta.respondidoEm).toLocaleString("pt-BR")}.</p>}
     {formulario.status !== "ATIVO" && <p>Esta auditoria foi encerrada e não aceita novas respostas.</p>}
@@ -196,10 +206,17 @@ export function GestaoFormulariosAct({ cicloId, empresaId, idUsuario, podeGerenc
   const padroes = formularios.filter((item) => item.tipo === "PADRONIZACAO");
   const checklists = formularios.filter((item) => item.tipo === "CHECKLIST");
   const aoAtualizar = () => setVersao((atual) => atual + 1);
+  const tentarCarregarNovamente = () => {
+    setErro("");
+    setMensagem("");
+    setIncerto(false);
+    setVersao((atual) => atual + 1);
+  };
   return <section className="act-workflow" aria-labelledby="act-workflow-titulo" aria-busy={carregando || ocupado}>
     <header><h2 id="act-workflow-titulo">Padrões e auditorias</h2><p>Crie padrões, publique checklists e registre verificações reais no ciclo.</p></header>
     {carregando && <p role="status">Carregando registros do ciclo…</p>}
     {erro && <p className="act-workflow_erro" role="alert">{erro}</p>}
+    {erro && <button type="button" className="act-workflow_secundario" disabled={carregando || ocupado} onClick={tentarCarregarNovamente}>Tentar carregar os registros novamente</button>}
     {mensagem && <p className="act-workflow_sucesso" role="status">{mensagem}</p>}
     {!carregando && !erro && formularios.length === 0 && <p>Nenhum padrão ou checklist registrado neste ciclo.</p>}
     <div className="act-workflow_secao"><h3>Padrões de trabalho</h3>

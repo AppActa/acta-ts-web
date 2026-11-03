@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../components/auth/AuthProvider";
 import { listarFormulariosMongo, listarLicoesAprendidasMongo } from "../../../services/api/mongo/dashboard.read.api";
-import type { FormularioMongo } from "../../../types/mongo";
 import type { EstadoConteudoCicloAct } from "../../../types/act";
 import { useCicloDaConta } from "../../../features/ciclo/hooks/useCicloDaConta";
 import { PainelCicloPlanDo } from "../../../components/ciclo/PainelCicloPlanDo";
@@ -12,7 +11,6 @@ import "../../../../features/act/styles/pagina-ciclo-act.css";
 
 function DadosAct({ cicloId, empresaId, idUsuario, podeGerenciar }: { cicloId: number; empresaId: number; idUsuario: number; podeGerenciar: boolean }) {
   const [resultado, setResultado] = useState<EstadoConteudoCicloAct>({ estado: "carregando" });
-  const [formularios, setFormularios] = useState<FormularioMongo[]>([]);
   const [versao, setVersao] = useState(0);
 
   useEffect(() => {
@@ -23,7 +21,6 @@ function DadosAct({ cicloId, empresaId, idUsuario, podeGerenciar }: { cicloId: n
       if ([...lista, ...licoes].some((item) => item.idCiclo !== cicloId || item.idEmpresa !== empresaId)) throw new Error("invalid cycle scope");
       const padroes = lista.filter((item) => item.tipo === "PADRONIZACAO");
       const checklists = lista.filter((item) => item.tipo === "CHECKLIST");
-      setFormularios(lista);
       setResultado({ estado: "sucesso", dados: {
         metricas: { itensPadrao: padroes.length, licoes: licoes.length },
         documentoPadrao: padroes.length ? { destaque: `${padroes.length} padrão(ões) registrado(s)`, descricao: padroes.map((item) => item.titulo).join(", ") } : { destaque: "Nenhum padrão registrado.", descricao: null },
@@ -36,7 +33,7 @@ function DadosAct({ cicloId, empresaId, idUsuario, podeGerenciar }: { cicloId: n
   }, [cicloId, empresaId, versao]);
 
   return <>
-    <ConteudoCicloAct cicloId={cicloId} resultado={resultado} />
+    <ConteudoCicloAct cicloId={cicloId} resultado={resultado} aoTentarNovamente={() => setVersao((atual) => atual + 1)} />
     <GestaoFormulariosAct cicloId={cicloId} empresaId={empresaId} idUsuario={idUsuario} podeGerenciar={podeGerenciar} aoSalvar={() => setVersao((atual) => atual + 1)} />
   </>;
 }

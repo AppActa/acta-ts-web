@@ -16,7 +16,7 @@ export type EstadoConteudoCicloAct =
   | { estado: "vazio" }
   | { estado: "indisponivel" }
   | { estado: "sucesso"; dados: DadosCicloAct };
-export interface ConteudoCicloActProps { resultado?: EstadoConteudoCicloAct; cicloId?: number }
+export interface ConteudoCicloActProps { resultado?: EstadoConteudoCicloAct; cicloId?: number; aoTentarNovamente?: () => void }
 export interface DetalheCicloActProps { dados: DetalheCicloAct | null | undefined; mensagem: string }
 export interface PlanoActGlobal { plano: PlanoAcaoPg; tarefas: readonly TarefaDoPlanoPg[] | null }
 export interface DadosCicloActGlobal {
