@@ -1,5 +1,5 @@
 import { env } from "../../../config/env";
-import { httpClient } from "../../http/client";
+import { ApiError, httpClient } from "../../http/client";
 import type { CategoriaIshikawaMongo, CausaIshikawaMongo, CincoPorquesMongo, FormularioMongo, IshikawaMongo, LicaoAprendidaMongo, PerguntaFormularioMongo, PorqueMongo, RespostaFormularioMongo, RespostaPerguntaFormularioMongo, RespostaPerguntaMongo, StatusFormularioMongo, TipoFormularioMongo, TipoRespostaMongo } from "../../../types/mongo";
 export type { CategoriaIshikawaMongo, CausaIshikawaMongo, CincoPorquesMongo, FormularioMongo, IshikawaMongo, LicaoAprendidaMongo, PerguntaFormularioMongo, PorqueMongo, RespostaFormularioMongo, RespostaPerguntaFormularioMongo, RespostaPerguntaMongo, StatusFormularioMongo, TipoFormularioMongo, TipoRespostaMongo } from "../../../types/mongo";
 
@@ -174,7 +174,12 @@ export async function atualizarFormularioActMongo(idFormulario: string, alteraco
 
 export async function listarRespostasFormularioMongo(idFormulario: string, signal?: AbortSignal): Promise<RespostaFormularioMongo[]> {
   const id = readUuid(idFormulario);
-  return parseArray(await get(`/formularios/${id}/respostas`, signal), parseRespostaFormulario);
+  try {
+    return parseArray(await httpClient<unknown>(endpointUrl(`/formularios/${id}/respostas`), { method: "GET", ...(signal ? { signal } : {}) }), parseRespostaFormulario);
+  } catch (error) {
+    if (error instanceof ApiError || error instanceof MongoReadError || (error instanceof DOMException && error.name === "AbortError")) throw error;
+    throw new MongoReadError("UNAVAILABLE");
+  }
 }
 
 export async function enviarRespostaFormularioMongo(idFormulario: string, respostas: RespostaPerguntaMongo[], signal: AbortSignal): Promise<RespostaFormularioMongo> {

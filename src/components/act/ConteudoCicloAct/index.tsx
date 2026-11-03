@@ -17,7 +17,7 @@ function Detalhe({ dados, mensagem }: DetalheCicloActProps) {
   </> : <p className="ciclo-act_estado">{mensagem}</p>;
 }
 
-export function ConteudoCicloAct({ resultado = { estado: "indisponivel" }, cicloId }: ConteudoCicloActProps) {
+export function ConteudoCicloAct({ resultado = { estado: "indisponivel" }, cicloId, aoTentarNovamente }: ConteudoCicloActProps) {
   const id = useId();
   const dados = resultado.estado === "sucesso" ? resultado.dados : null;
   const mensagem = resultado.estado === "carregando" ? "Carregando dados de Act."
@@ -33,6 +33,7 @@ export function ConteudoCicloAct({ resultado = { estado: "indisponivel" }, ciclo
   return (
     <div className="ciclo-act_conteudo" data-estado={resultado.estado} aria-busy={resultado.estado === "carregando"}>
       {!dados && (resultado.estado === "carregando" ? <CarregandoConteudo compacto mensagem={mensagem} /> : <p className="ciclo-act_estado ciclo-act_estado-geral" role={resultado.estado === "erro" ? "alert" : "status"}>{mensagem}</p>)}
+      {resultado.estado === "erro" && aoTentarNovamente && <button className="ciclo-act_acao" type="button" onClick={aoTentarNovamente}>Tentar carregar o resumo novamente</button>}
       <section className="ciclo-act_metricas" aria-label="Resumo de Act">
         <dl className="ciclo-act_metricas-lista">
           <div className="ciclo-act_metrica" data-metrica="itens-padrao">
