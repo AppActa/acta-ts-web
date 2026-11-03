@@ -6,7 +6,6 @@ export type { DadosCicloAct, DetalheCicloAct, EstadoConteudoCicloAct, ProgressoC
 
 const formatadorNumero = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 });
 const formatadorData = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" });
-
 function formatarContagem(valor: number | null | undefined): string {
   return typeof valor === "number" && Number.isSafeInteger(valor) && valor >= 0
     ? formatadorNumero.format(valor) : "Indisponível";

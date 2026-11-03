@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { ApiError } from "../../../services/http/client";
 import { useAuth } from "../../../components/auth/AuthProvider";
+import { validarUrlFotoPerfil } from "../../../utils/foto-perfil";
 import { lerIdRotaPositivo } from "../../../utils/route-params";
 import { Sidebar } from "../../../components/layout/Sidebar";
 import mascoteCato from "../../../../features/cato/assets/cato-mascote.png";
@@ -58,8 +59,9 @@ export function PaginaCato() {
   const nomeCompleto = actaUser?.nome || firebaseUser?.displayName || firebaseUser?.email?.split("@")[0] || "Usuário ACTA";
   const iniciais = nomeCompleto.split(/\s+/).filter(Boolean).slice(0, 2).map((parte) => parte[0]).join("").toLocaleUpperCase("pt-BR");
   const saudacao = nome ? `Olá, ${nome}.` : "Olá.";
-  const fotoPerfilUrl = actaUser?.fotoPerfilUrl || firebaseUser?.photoURL || "";
+  const fotoPerfilUrl = validarUrlFotoPerfil(actaUser?.fotoPerfilUrl || firebaseUser?.photoURL);
   const fotoPerfil = fotoPerfilUrl && !fotoPerfilFalhou ? fotoPerfilUrl : "";
+  useEffect(() => setFotoPerfilFalhou(false), [fotoPerfilUrl]);
   const cargo = actaUser?.permissaoGestor ? "Gestor(a)" : "Colaborador(a)";
 
   const cicloSelecionadoIndex = cicloAtivo ? ciclos.findIndex((ciclo) => String(ciclo.id) === cicloAtivo) + 1 : 0;

@@ -3,6 +3,7 @@ import { useBlocker, useLocation, useNavigate } from "react-router-dom";
 import { CarregandoConteudo } from "../../../components/layout/CarregandoConteudo";
 import { useAuth } from "../../../components/auth/AuthProvider";
 import { enviarFotoPerfilCloudinary } from "../../../services/api/cloudinary/fotoPerfil.api";
+import { validarUrlFotoPerfil } from "../../../utils/foto-perfil";
 import { atualizarFotoUsuarioPg, atualizarNomeUsuarioPg } from "../../../services/api/pg/usuario.api";
 import { LayoutSimples } from "../../../components/layout/LayoutSimples";
 import { FormularioEditarPerfil } from "../../../components/perfil/FormularioEditarPerfil";
@@ -133,8 +134,8 @@ export function PaginaEditarPerfil() {
         <section className="cartao-editar-perfil" aria-labelledby="titulo-editar-perfil">
           <div className="foto-editar-perfil">
             <div className="foto-editar-perfil_recorte">
-              {fotoSelecionada || ((actaUser?.fotoPerfilUrl || firebaseUser?.photoURL) && !fotoFalhou)
-                ? <img className="foto-editar-perfil_dinamica" src={fotoSelecionada || actaUser?.fotoPerfilUrl || firebaseUser?.photoURL || ""} alt={fotoSelecionada ? "Prévia da nova foto de perfil" : "Foto de perfil"} onError={() => setFotoFalhou(true)} />
+              {fotoSelecionada || (validarUrlFotoPerfil(actaUser?.fotoPerfilUrl || firebaseUser?.photoURL) && !fotoFalhou)
+                ? <img className="foto-editar-perfil_dinamica" src={fotoSelecionada || validarUrlFotoPerfil(actaUser?.fotoPerfilUrl || firebaseUser?.photoURL) || ""} alt={fotoSelecionada ? "Prévia da nova foto de perfil" : "Foto de perfil"} onError={() => setFotoFalhou(true)} />
                 : <span className="foto-editar-perfil_fallback" aria-label="Foto de perfil indisponível">{(actaUser?.nome || firebaseUser?.displayName || firebaseUser?.email || "U").split(/\s+/).filter(Boolean).slice(0, 2).map((parte) => parte[0]).join("").toLocaleUpperCase("pt-BR")}</span>}
             </div>
 

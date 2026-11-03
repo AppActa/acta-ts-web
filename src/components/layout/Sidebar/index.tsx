@@ -1,6 +1,7 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useAuth } from "../../auth/AuthProvider";
+import { validarUrlFotoPerfil } from "../../../utils/foto-perfil";
 import "../../../../features/layout/styles/sidebar.css";
 
 type NomeIconeSidebar = "inicio" | "plano" | "fazer" | "checar" | "agir" | "ciclos" | "cato" | "perfil";
@@ -50,7 +51,10 @@ export function Sidebar() {
   const { cicloId } = useParams<{ cicloId: string }>();
   const { actaUser, firebaseUser } = useAuth();
   const [fotoPerfilFalhou, setFotoPerfilFalhou] = useState(false);
-  const fotoPerfil = actaUser?.fotoPerfilUrl || firebaseUser?.photoURL || "";
+  const nomePerfil = actaUser?.nome || firebaseUser?.displayName || "";
+  const iniciaisPerfil = nomePerfil.split(/\s+/).filter(Boolean).slice(0, 2).map((parte) => parte[0]).join("").toLocaleUpperCase("pt-BR") || "?";
+  const fotoPerfil = validarUrlFotoPerfil(actaUser?.fotoPerfilUrl || firebaseUser?.photoURL);
+  useEffect(() => setFotoPerfilFalhou(false), [fotoPerfil]);
   const estaEmPlano = pathname.includes("/plan");
   const estaEmChecar = pathname === "/check" || /^\/do\/ciclo\/\d+\/check(?:\/|$)/.test(pathname);
   const estaEmAgir = pathname === "/act" || /^\/do\/ciclo\/\d+\/act(?:\/|$)/.test(pathname);
@@ -77,10 +81,10 @@ export function Sidebar() {
         <Link to="/cato" aria-current={estaEmCato ? "page" : undefined}><IconeSidebar nome="cato" /><span>Cato</span></Link>
       </nav>
 
-      <Link className="barra-lateral_item barra-lateral_perfil" to="/perfil" aria-label="Perfil" aria-current={estaEmPerfil ? "page" : undefined}>
+      <Link className="barra-lateral_item barra-lateral_perfil" to="/perfil" aria-label={`Perfil${nomePerfil ? ` de ${nomePerfil}` : ""}`} aria-current={estaEmPerfil ? "page" : undefined}>
         {fotoPerfil && !fotoPerfilFalhou
           ? <img className="sidebar__arte--perfil-foto" src={fotoPerfil} alt="" onError={() => setFotoPerfilFalhou(true)} />
-          : <span className="barra-lateral_perfil-fallback"><IconeSidebar nome="perfil" /></span>}
+          : <span className="barra-lateral_perfil-fallback" aria-hidden="true">{iniciaisPerfil}</span>}
       </Link>
 
     </aside>

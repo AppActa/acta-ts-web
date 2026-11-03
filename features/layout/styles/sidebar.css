@@ -123,17 +123,17 @@
 }
 
 .sidebar__arte--perfil-foto { display: block; object-fit: cover; }
-.barra-lateral_perfil-fallback .sidebar__icone { width: 23px; height: 23px; }
+.barra-lateral_perfil-fallback { font-size: 11px; font-weight: 700; letter-spacing: .02em; }
 
 @media (min-width: 851px) {
-  main:has(> .sidebar) {
+  main:not(.pagina-perfil):has(> .sidebar) {
     height: 100vh;
     height: 100dvh;
     min-height: 0;
     overflow: hidden;
   }
 
-  main:has(> .sidebar) > :not(.sidebar) {
+  main:not(.pagina-perfil):has(> .sidebar) > :not(.sidebar) {
     height: calc(100vh - 58px);
     height: calc(100dvh - 58px);
     min-height: 0;
