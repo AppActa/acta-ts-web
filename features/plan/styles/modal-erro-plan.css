@@ -1,5 +1,5 @@
 .modal-erro-plan { box-sizing: border-box; width: min(433px, calc(100vw - 40px)); max-width: none; margin: auto; overflow: visible; border: 0; border-radius: 20px; padding: 80px 32px 28px; background: #fff; color: #253132; text-align: center; font-family: "Plus Jakarta Sans", "Segoe UI", sans-serif; }
-.modal-erro-plan::backdrop { background: rgb(20 38 40 / 35%); backdrop-filter: blur(6px); }
+.modal-erro-plan::backdrop { background: rgb(24 39 41 / 24%); }
 .modal-erro-plan_icone { position: absolute; top: -53px; left: 50%; width: 112.099px; height: 100px; transform: translateX(-50%); }
 .modal-erro-plan_icone img:first-child { display: block; }
 .modal-erro-plan_icone img:last-child { position: absolute; top: 35px; left: 50%; transform: translateX(-50%); }

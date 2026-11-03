@@ -1,5 +1,6 @@
 import { env } from "../../../config/env";
 import { httpClient } from "../../http/client";
+import { validarUrlFotoPerfil } from "../../../utils/foto-perfil";
 
 const PG_ORIGIN = "https://acta-pg-api.34-232-250-240.sslip.io";
 
@@ -21,7 +22,7 @@ export async function buscarFotoUsuarioPg(idUsuario: number): Promise<string | n
     cache: "no-store",
     signal: AbortSignal.timeout(15_000),
   });
-  return typeof usuario.fotoUrl === "string" && usuario.fotoUrl.trim() ? usuario.fotoUrl.trim() : null;
+  return typeof usuario.fotoUrl === "string" ? validarUrlFotoPerfil(usuario.fotoUrl) : null;
 }
 
 export async function atualizarFotoUsuarioPg(idUsuario: number, fotoUrl: string): Promise<void> {

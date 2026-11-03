@@ -45,7 +45,7 @@ function Comparacao({ item }: ComparacaoCicloCheckProps) {
     <li className="ciclo-check_comparacao-item">
       <h3 className="ciclo-check_item-titulo">{item.titulo}</h3>
       {valida ? <>
-        <div className="ciclo-check_barras" aria-hidden="true">
+        <div className="visualizacao-dados ciclo-check_barras" aria-hidden="true">
           <div className="ciclo-check_barra ciclo-check_barra-antes" style={estiloBarra(item.antes, item.escalaMaxima)} />
           <div className="ciclo-check_barra ciclo-check_barra-atual" style={estiloBarra(item.atual, item.escalaMaxima)} />
         </div>
