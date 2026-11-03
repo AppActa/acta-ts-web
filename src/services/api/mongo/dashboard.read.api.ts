@@ -99,9 +99,9 @@ function parsePergunta(value: unknown): PerguntaFormularioMongo {
 function parseFormulario(value: unknown): FormularioMongo {
   if (!isRecord(value) || !validUuid(value.id) || !positiveId(value.idEmpresa) || !positiveId(value.idCiclo) || !requiredText(value.titulo) || !FORM_TYPES.includes(value.tipo as TipoFormularioMongo) || !FORM_STATUSES.includes(value.status as StatusFormularioMongo)) throw new MongoReadError("INVALID_RESPONSE");
   if (!(value.descricao === undefined || nullableText(value.descricao)) || !(value.idIshikawa === undefined || value.idIshikawa === null || validUuid(value.idIshikawa))) throw new MongoReadError("INVALID_RESPONSE");
-  const ids = value.idsUsuariosDestinatarios ?? [];
-  if (!Array.isArray(ids) || ids.some((item) => !positiveId(item))) throw new MongoReadError("INVALID_RESPONSE");
-  return { id: value.id, idEmpresa: value.idEmpresa, idCiclo: value.idCiclo, titulo: value.titulo, descricao: typeof value.descricao === "string" ? value.descricao : null, tipo: value.tipo as TipoFormularioMongo, status: value.status as StatusFormularioMongo, perguntas: parseArray(value.perguntas, parsePergunta), idIshikawa: typeof value.idIshikawa === "string" ? value.idIshikawa : null, idsUsuariosDestinatarios: ids as number[] };
+  const destinatarios = value.idsUsuariosDestinatarios ?? [];
+  if (!Array.isArray(destinatarios) || !destinatarios.every(positiveId)) throw new MongoReadError("INVALID_RESPONSE");
+  return { id: value.id, idEmpresa: value.idEmpresa, idCiclo: value.idCiclo, titulo: value.titulo, descricao: typeof value.descricao === "string" ? value.descricao : null, tipo: value.tipo as TipoFormularioMongo, status: value.status as StatusFormularioMongo, perguntas: parseArray(value.perguntas, parsePergunta), idIshikawa: typeof value.idIshikawa === "string" ? value.idIshikawa : null, idsUsuariosDestinatarios: destinatarios };
 }
 
 function parseCausa(value: unknown): CausaIshikawaMongo {
@@ -181,14 +181,14 @@ export async function enviarRespostaFormularioMongo(idFormulario: string, respos
   return registrada;
 }
 
-export async function obterFormularioMongo(idFormulario: string, signal?: AbortSignal): Promise<FormularioMongo> {
-  const id = readUuid(idFormulario);
-  return parseFormulario(await get(`/formularios/${id}`, signal));
-}
-
 export async function listarRespostasFormularioMongo(idFormulario: string, signal?: AbortSignal): Promise<RespostaFormularioMongo[]> {
   const id = readUuid(idFormulario);
   return parseArray(await get(`/formularios/${id}/respostas`, signal), parseRespostaFormulario);
+}
+
+export async function obterFormularioMongo(idFormulario: string, signal?: AbortSignal): Promise<FormularioMongo> {
+  const id = readUuid(idFormulario);
+  return parseFormulario(await get(`/formularios/${id}`, signal));
 }
 
 export async function obterRespostaFormularioMongo(idResposta: string, signal?: AbortSignal): Promise<RespostaFormularioMongo> {
