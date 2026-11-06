@@ -21,7 +21,7 @@ import "../../../../features/perfil/styles/pagina-perfil.css";
 const CHAVE_PREFERENCIAS = "acta:preferencias-perfil";
 const PREFERENCIAS_PADRAO: PreferenciasPerfil = {
   tema: "claro",
-  altoContraste: true,
+  altoContraste: false,
   fonteGrande: false,
 };
 

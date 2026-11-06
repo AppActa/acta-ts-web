@@ -25,7 +25,7 @@ function sincronizarTemaGlobal() {
   const paginaPerfil = raiz?.querySelector<HTMLElement>(".pagina-perfil, .pagina-editar-perfil");
   const temaPerfil = paginaPerfil?.dataset.tema;
   const tema = temaPerfil === "claro" || temaPerfil === "escuro" ? temaPerfil : lerTemaSalvo();
-  let altoContraste = true;
+  let altoContraste = false;
   try {
     const preferencias: unknown = JSON.parse(localStorage.getItem(CHAVE_PREFERENCIAS) ?? "null");
     if (typeof preferencias === "object" && preferencias !== null && "altoContraste" in preferencias
